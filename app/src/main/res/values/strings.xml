@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">TheIrisProject</string>
 
+    <!--Terminology strings-->
+    <string name="patient">Patient</string>
+    <string name="care_provider">Care Provider</string>
+
     <!--Main screen strings-->
     <string name="main_title">The Iris Project</string>
     <string name="login_button">Login</string>
@@ -12,10 +16,9 @@
     <string name="phone_title">Phone Number</string>
     <string name="email_title">Email Address</string>
 
-
     <string name="username_hint">Enter a username</string>
     <string name="password_hint">Enter a password</string>
-    <string name="phone_hint">Enter a phone number</string>
-    <string name="email_hint">Enter an email address</string>
+    <string name="phone_hint">Enter phone number</string>
+    <string name="email_hint">Enter email address</string>
 
 </resources>
