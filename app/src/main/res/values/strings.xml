@@ -4,7 +4,7 @@
     <!--Main screen strings-->
     <string name="main_title">The Iris Project</string>
     <string name="login_button">Login</string>
-    <string name="create_profile_button">Create Profile</string>
+    <string name="register_button">Register</string>
 
     <!-- Register screen strings -->
     <string name="username_title">Username</string>
