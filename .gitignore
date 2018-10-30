@@ -13,6 +13,8 @@ bin/
 gen/
 out/
 
+# in dia state
+*.dia~
 
 # MacOS .DS_STORE
 .DS_Store
