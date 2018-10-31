@@ -20,5 +20,11 @@
     <string name="password_hint">Enter a password</string>
     <string name="phone_hint">Enter phone number</string>
     <string name="email_hint">Enter email address</string>
+    <string name="create_a_problem">Create a Problem</string>
+    <string name="enter_a_title_max_30_characters">Enter a title (Max 30 characters)</string>
+    <string name="select_start_date">Select start date</string>
+    <string name="enter_a_description_max_300_characters">Enter a description (Max 300 characters)</string>
+    <string name="geo_location">Geo Location</string>
+    <string name="record_problem">Record Problem</string>
 
 </resources>
