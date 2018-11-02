@@ -1,9 +1,12 @@
 package com.team7.cmput301.android.theirisproject;
 
+import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.model.PatientList;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-public class PatientList {
+public class PatientListTest {
     @Test
     public void testAddPatient() {
         PatientList patientList = new PatientList();

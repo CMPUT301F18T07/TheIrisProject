@@ -1,5 +1,10 @@
 package com.team7.cmput301.android.theirisproject;
 
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.model.ProblemList;
+import com.team7.cmput301.android.theirisproject.model.RecordList;
+
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -18,6 +18,8 @@ import java.util.Date;
 
 
 public class RecordListTest {
+    private Record record;
+
     @Test
     public void testAdd() {
         RecordList recordList = new RecordList();
