@@ -5,7 +5,7 @@
 package com.team7.cmput301.android.theirisproject;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.;
 
 import java.util.ArrayList;
 import java.util.Date;
