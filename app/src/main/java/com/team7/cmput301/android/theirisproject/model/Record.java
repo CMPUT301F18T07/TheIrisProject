@@ -1,8 +1,8 @@
 /*
- * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,11 +35,11 @@ public class Record {
         return this.bodyLocation;
     }
 
-    public ArrayList<RecordPhoto> getPhotos() {
+    public ArrayList<RecordPhoto> getRecordPhoto() {
         return this.recordPhotos;
     }
 
-    public void Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> photos) {
+    public Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
 
     }
 
