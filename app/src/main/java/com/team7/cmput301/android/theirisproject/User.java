@@ -8,8 +8,9 @@ public abstract class User {
     private Profile profile;
     private String role;
 
-    public void User(String role, String name, String email, String phoneNumber) {
-
+    public User(String role, String name, String email, String phoneNumber) {
+        this.role = role;
+        this.profile = new Profile(name, email, phoneNumber);
     }
 
     public Profile getContact() {

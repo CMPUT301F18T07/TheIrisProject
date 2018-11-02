@@ -39,7 +39,7 @@ public class Record {
         return this.recordPhotos;
     }
 
-    public void Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> photos) {
+    public Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> photos) {
 
     }
 
