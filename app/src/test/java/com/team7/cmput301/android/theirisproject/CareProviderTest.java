@@ -1,5 +1,7 @@
 package com.team7.cmput301.android.theirisproject;
 
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
+
 import org.junit.Assert;
 import org.junit.Test;
 

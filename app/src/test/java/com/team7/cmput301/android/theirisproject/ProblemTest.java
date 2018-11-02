@@ -1,4 +1,6 @@
 package com.team7.cmput301.android.theirisproject;
+import com.team7.cmput301.android.theirisproject.model.Problem;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
