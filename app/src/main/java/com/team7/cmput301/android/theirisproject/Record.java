@@ -4,8 +4,6 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 import java.util.Date;
 

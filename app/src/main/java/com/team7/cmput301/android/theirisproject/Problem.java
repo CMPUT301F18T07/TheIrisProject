@@ -4,10 +4,6 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import android.graphics.Bitmap;
-
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
 
 public class Problem {
