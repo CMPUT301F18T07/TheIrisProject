@@ -35,7 +35,7 @@ public class ProblemTest {
         List<RecordPhoto> test_photos = problem.getSlideShowInfo();
 
         for (Record record: records){
-            List<RecordPhoto> photos = record.getRecordPhoto();
+            List<RecordPhoto> photos = record.getRecordPhotos();
             for (RecordPhoto photo: photos){
                 Assert.assertTrue(test_photos.contains(photo));
             }

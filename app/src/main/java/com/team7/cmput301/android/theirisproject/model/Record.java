@@ -35,7 +35,7 @@ public class Record {
         return this.bodyLocation;
     }
 
-    public ArrayList<RecordPhoto> getRecordPhoto() {
+    public ArrayList<RecordPhoto> getRecordPhotos() {
         return this.recordPhotos;
     }
 
