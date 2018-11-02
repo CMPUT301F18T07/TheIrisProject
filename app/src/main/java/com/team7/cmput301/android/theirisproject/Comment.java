@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject;
@@ -7,13 +7,13 @@ package com.team7.cmput301.android.theirisproject;
 import java.util.Date;
 
 public class Comment {
-    private CareProvider careProvider;
+    private CareProvider author;
     private String title;
     private Date date;
     private String body;
 
     public CareProvider getCareProvider() {
-        return careProvider;
+        return author;
     }
 
     public String getTitle() {
