@@ -4,14 +4,19 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-public class RegisterActivity extends AppCompatActivity {
+public class BodyLocation implements Location {
+    @Override
+    public double[] asDouble() {
+        return new double[2];
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    public double getX() {
+        return 0;
+    }
+
+    @Override
+    public double getY() {
+        return 0;
     }
 }
