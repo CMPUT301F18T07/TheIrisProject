@@ -31,4 +31,8 @@ public class Comment {
     public void Comment(CareProvider careProvider, String title, Date date, String body) {
 
     }
+
+    public void Comment(CareProvider careProvider, String title, String body) {
+
+    }
 }
