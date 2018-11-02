@@ -9,6 +9,12 @@ public class Profile {
     private String email;
     private String phoneNumber;
 
+    public Profile(String username, String email, String phoneNumber) {
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -19,10 +25,6 @@ public class Profile {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void Profile(String name, String email, String phoneNumber) {
-
     }
 
     public void updateProfile(String name, String email, String phoneNumber) {

@@ -5,12 +5,13 @@
 package com.team7.cmput301.android.theirisproject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Patient extends User {
-    private ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
+    private List<CareProvider> careProviders = new ArrayList<>();
     private ProblemList problems;
 
-    public ArrayList<CareProvider> getCareProviders() {
+    public List<CareProvider> getCareProviders() {
         return this.careProviders;
     }
 
@@ -18,7 +19,7 @@ public class Patient extends User {
         return this.problems;
     }
 
-    public void Patient(String name, String email, String phoneNumber) {
-
+    public Patient(String name, String email, String phoneNumber) {
+        super("Patient", name, email, phoneNumber);
     }
 }
