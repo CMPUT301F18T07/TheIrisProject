@@ -25,7 +25,7 @@ public abstract class IrisController {
 
     /**
      * The constructor of an IrisController subclass can take in a specific Model class
-     * (e.g. Problem) and use it make a class to super(), as long as that Model implements Parcelable.
+     * (e.g. Problem) and use it make a call to super(), as long as that Model implements Parcelable.
      * @param model Any Parcelable object
      */
     IrisController(Parcelable model){
