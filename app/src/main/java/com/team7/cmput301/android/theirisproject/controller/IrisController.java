@@ -23,10 +23,20 @@ public abstract class IrisController {
 
     protected Parcelable model;
 
+    /**
+     * The constructor of an IrisController subclass can take in a specific Model class
+     * (e.g. Problem) and use it make a class to super(), as long as that Model implements Parcelable.
+     * @param model Any Parcelable object
+     */
     IrisController(Parcelable model){
         this.model = model;
     }
 
+    /**
+     * Put the associated model object into the passed Intent, and return it.
+     * @param intent Calling Activity's Intent
+     * @return Modified Intent
+     */
     public Intent bindModelToIntent(Intent intent){
         intent.putExtra("model", model);
         return intent;

@@ -30,7 +30,7 @@ public class LoginActivity extends IrisActivity {
 
         // First activity must create fake Intent
         Intent intent = new Intent();
-        intent.putExtra("model", new Profile(null, null, null));
+        intent.putExtra("new_profile", new Profile(null, null, null));
         this.controller = createController(intent);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +46,6 @@ public class LoginActivity extends IrisActivity {
 
     @Override
     protected IrisController createController(Intent intent) {
-        return new LoginController(intent);
+        return new LoginController((Profile) intent.getParcelableExtra("new_profile"));
     }
 }

@@ -6,10 +6,7 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
@@ -24,8 +21,11 @@ import com.team7.cmput301.android.theirisproject.controller.IrisController;
 public abstract class IrisActivity extends AppCompatActivity {
 
     /**
-     * Initialize IrisController with the Model object
-     * @param model The Model object (e.g. Problem)
+     * Initialize IrisController with the Model object.
+     * Typically involves calling constructor with Intent's Parcelable extra (as the Intent holds
+     * the Model object); if this is done, the extra will have to be cast to whatever type the
+     * controller's constructor accepts (e.g. Problem).
+     * @param intent The Intent given by the IrisActivity that started this IrisActivity
      * @return The IrisController (e.g. ProblemController)
      */
     protected abstract IrisController createController(Intent intent);

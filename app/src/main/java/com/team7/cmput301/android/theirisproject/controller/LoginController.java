@@ -6,12 +6,18 @@
 
 package com.team7.cmput301.android.theirisproject.controller;
 
-import android.os.Parcelable;
+import com.team7.cmput301.android.theirisproject.model.Profile;
 
+
+/**
+ * Controller for handling user actions and interacting with Profile in LoginActivity
+ *
+ * @author anticobalt
+ */
 public class LoginController extends IrisController {
 
-    public LoginController(Parcelable model){
-        super(model);
+    public LoginController(Profile profile){
+        super(profile);
     }
 
 }
