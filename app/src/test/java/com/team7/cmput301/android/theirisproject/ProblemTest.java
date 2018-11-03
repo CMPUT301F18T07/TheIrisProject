@@ -1,8 +1,12 @@
 package com.team7.cmput301.android.theirisproject;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordList;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 
-import junit.framework.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,7 +35,7 @@ public class ProblemTest {
         List<RecordPhoto> test_photos = problem.getSlideShowInfo();
 
         for (Record record: records){
-            List<RecordPhoto> photos = record.getPhotos();
+            List<RecordPhoto> photos = record.getRecordPhotos();
             for (RecordPhoto photo: photos){
                 Assert.assertTrue(test_photos.contains(photo));
             }
