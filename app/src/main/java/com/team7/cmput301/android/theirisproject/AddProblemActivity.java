@@ -3,6 +3,8 @@ package com.team7.cmput301.android.theirisproject;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.R;
+
 public class AddProblemActivity extends AppCompatActivity {
 
     @Override

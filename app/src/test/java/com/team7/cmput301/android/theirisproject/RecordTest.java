@@ -32,7 +32,7 @@ public class RecordTest {
         Assert.assertEquals(date, record.getDate());
         Assert.assertEquals(geoLocation, record.getGeoLocation());
         Assert.assertEquals(bodyLocation, record.getBodyLocation());
-        Assert.assertEquals(recordPhoto, record.getRecordPhoto());
+        Assert.assertEquals(recordPhoto, record.getRecordPhotos());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class RecordTest {
         Record record = getTestRecord();
 
         record.addPhoto(null);
-        Assert.assertEquals(record.getRecordPhoto().size(), 1);
+        Assert.assertEquals(record.getRecordPhotos().size(), 1);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class RecordTest {
         Record record = getTestRecord();
 
         record.deletePhoto(null);
-        Assert.assertEquals(record.getRecordPhoto().size(), 0);
+        Assert.assertEquals(record.getRecordPhotos().size(), 0);
     }
 
     @Test
