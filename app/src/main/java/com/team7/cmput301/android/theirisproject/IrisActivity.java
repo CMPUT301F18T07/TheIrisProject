@@ -18,7 +18,7 @@ import com.team7.cmput301.android.theirisproject.controller.IrisController;
  * @author anticobalt
  * @see IrisController
  */
-public abstract class IrisActivity extends AppCompatActivity {
+public abstract class IrisActivity<M> extends AppCompatActivity {
 
     /**
      * Initialize IrisController with the Model object.
@@ -39,5 +39,7 @@ public abstract class IrisActivity extends AppCompatActivity {
     protected Intent fillExtras(Intent intent, IrisController controller){
         return controller.bindModelToIntent(intent);
     }
+
+    public abstract void update(M model);
 
 }

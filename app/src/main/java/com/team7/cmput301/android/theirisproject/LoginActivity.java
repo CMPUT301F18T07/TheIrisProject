@@ -11,9 +11,10 @@ import android.widget.Button;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
+import com.team7.cmput301.android.theirisproject.model.IrisModel;
 import com.team7.cmput301.android.theirisproject.model.Profile;
 
-public class LoginActivity extends IrisActivity {
+public class LoginActivity extends IrisActivity<IrisModel> {
 
     private Button loginButton;
     private Button registerButton;
@@ -47,5 +48,10 @@ public class LoginActivity extends IrisActivity {
     @Override
     protected IrisController createController(Intent intent) {
         return new LoginController((Profile) intent.getParcelableExtra("new_profile"));
+    }
+
+    @Override
+    public void update(IrisModel model) {
+
     }
 }

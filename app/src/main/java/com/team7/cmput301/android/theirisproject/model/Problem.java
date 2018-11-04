@@ -4,14 +4,17 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Problem {
+public class Problem extends IrisModel {
     private RecordList records;
     private List<Comment> comments = new ArrayList<>();
     private String title;
-    private String description;
+    private String desc;
+    private String user;
     private List<BodyPhoto> bodyPhotos;
 
     public RecordList getRecords() {
@@ -27,7 +30,15 @@ public class Problem {
     }
 
     public String getDescription() {
-        return this.description;
+        return this.desc;
+    }
+
+    public String getUser() {return this.user;}
+
+    public void setProblem(String title, String desc, String user) {
+        this.title = title;
+        this.desc = desc;
+        this.user = user;
     }
 
     public List<BodyPhoto> getBodyPhotos() {
@@ -40,5 +51,15 @@ public class Problem {
 
     public Problem(String title, String description, RecordList records, List<BodyPhoto> body_photos) {
 
+    }
+    public Problem() {
+
+    }
+
+    @Override
+    public void updateViews() {
+        Log.d("Problem Title", getTitle());
+        Log.d("Problem Description", getDescription());
+        Log.d("Problem User", getUser());
     }
 }
