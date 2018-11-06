@@ -9,12 +9,17 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Problem extends IrisModel {
-    private RecordList records;
-    private List<Comment> comments = new ArrayList<>();
+import io.searchbox.annotations.JestId;
+
+public class Problem {
+    @JestId
+    private String _id;
+
     private String title;
     private String desc;
     private String user;
+    private RecordList records;
+    private List<Comment> comments = new ArrayList<>();
     private List<BodyPhoto> bodyPhotos;
 
     public RecordList getRecords() {
@@ -23,6 +28,10 @@ public class Problem extends IrisModel {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    public String getId() {
+        return this._id;
     }
 
     public String getTitle() {
@@ -34,12 +43,6 @@ public class Problem extends IrisModel {
     }
 
     public String getUser() {return this.user;}
-
-    public void setProblem(String title, String desc, String user) {
-        this.title = title;
-        this.desc = desc;
-        this.user = user;
-    }
 
     public List<BodyPhoto> getBodyPhotos() {
         return this.bodyPhotos;
@@ -54,12 +57,5 @@ public class Problem extends IrisModel {
     }
     public Problem() {
 
-    }
-
-    @Override
-    public void updateViews() {
-        Log.d("Problem Title", getTitle());
-        Log.d("Problem Description", getDescription());
-        Log.d("Problem User", getUser());
     }
 }

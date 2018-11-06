@@ -12,8 +12,8 @@ import android.util.Log;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
-
-import io.searchbox.core.Get;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 
 /**
  * GetProblemTask is a function that asynchronously retrieves data from
@@ -21,21 +21,23 @@ import io.searchbox.core.Get;
  * will send a GET request to database in which we will populate the Problem model
  * with the response
  * */
-public class GetProblemTask extends AsyncTask<String, Void, Problem> {
+public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
     /**
      * doInBackground will request a problem based on given index
      * @params String params: [0] is the _id to be given
      * @return String to onPostExecute(String res)
      * */
     @Override
-    protected Problem doInBackground(String... params) {
-        Problem res = null;
+    protected SearchResult doInBackground(String... params) {
+        SearchResult res = null;
         try {
-            // send GET request to our database endpoint ".../problem/params[0]"
-            Get get = new Get.Builder(IrisProjectApplication.INDEX, params[0]).type("problem").build();
+            // send GET request to our database endpoint ".../_search?q=_type:problem&q=user:`params[0]`"
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"user\": \"" + params[0] + "\"}}}")
+                    .addIndex(IrisProjectApplication.INDEX)
+                    .addType("problem")
+                    .build();
             // populate our Problem model with database values corresponding to _id
-            res = IrisProjectApplication.getDB().execute(get).getSourceAsObject(Problem.class);
-            IrisProjectApplication.getProblem().setProblem(res.getTitle(), res.getDescription(), res.getUser());
+            res = IrisProjectApplication.getDB().execute(get);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,13 +47,14 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
     /**
      * onPostExecute will invoke updateViews for our Problem model once
      * doInBackground has a response from database and populates Problem
-     * @param Problem res: our response problem
+     * @params Problem res: our response problem
      * @return void
      * */
     @Override
-    protected void onPostExecute(Problem res) {
+    protected void onPostExecute(SearchResult res) {
         super.onPostExecute(res);
-        // once our request task is done, invoke updateViews for Problem model
-        IrisProjectApplication.getProblem().updateViews();
+        for(SearchResult.Hit<Problem, Void> p: res.getHits(Problem.class)) {
+            Log.d("IrisProblemResponse", p.source.getId() + ": " + p.source.getTitle());
+        }
     }
 }

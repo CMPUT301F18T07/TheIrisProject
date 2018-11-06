@@ -6,7 +6,7 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
 
-public class ProblemList {
+public class ProblemList extends IrisModel {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
 
     public ArrayList<Problem> getProblems() {
@@ -25,11 +25,28 @@ public class ProblemList {
 
     }
 
+    public void bulkAdd(ArrayList<Problem> problems) {
+        this.problems = problems;
+    }
+
+
+    public Problem getProblem(String id) {
+        for(Problem problem: this.problems) {
+            if(problem.getId() == id) return problem;
+        }
+        return null;
+    }
+
     public boolean contains(Problem problem) {
         return false;
     }
 
     public int length() {
         return 0;
+    }
+
+    @Override
+    public void updateViews() {
+
     }
 }

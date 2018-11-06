@@ -10,12 +10,10 @@ import android.app.Application;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
-import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
-import com.team7.cmput301.android.theirisproject.model.Record;
-import com.team7.cmput301.android.theirisproject.model.RecordList;
 
 import io.searchbox.client.JestClient;
+
 /**
  * IrisProjectApplication is the main class to start our app.
  * This class will initialize all the global states of models
@@ -29,12 +27,9 @@ public class IrisProjectApplication extends Application {
 
     // global state of models
     transient private static ProblemList problemList = new ProblemList();
-    transient private static Problem problem = new Problem();
-    transient private static RecordList recordList = new RecordList();
-    transient private static Record record = new Record();
 
     // our database connection
-    transient private static JestClient db = null;
+    transient private static  JestClient db = null;
 
     /**
      * getDB is a function to retrieve the online database
@@ -59,21 +54,9 @@ public class IrisProjectApplication extends Application {
         return problemList;
     }
 
-    public static Problem getProblem() {
-        return problem;
-    }
-
-    public static RecordList getRecordList() {
-        return recordList;
-    }
-
-    public static Record getRecord() {
-        return record;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        new GetProblemTask().execute("AWbg-3VzzmnYLEQIgwWh");
+        new GetProblemListTask().execute("0");
     }
 }
