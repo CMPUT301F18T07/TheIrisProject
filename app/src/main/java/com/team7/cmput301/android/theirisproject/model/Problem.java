@@ -1,23 +1,24 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Problem {
     private RecordList records;
-    private ArrayList<Comment> comments = new ArrayList<Comment>();
+    private List<Comment> comments = new ArrayList<>();
     private String title;
     private String description;
-    private BodyPhoto bodyPhoto;
+    private List<BodyPhoto> bodyPhotos;
 
     public RecordList getRecords() {
         return records;
     }
 
-    public ArrayList<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
@@ -29,15 +30,15 @@ public class Problem {
         return this.description;
     }
 
-    public BodyPhoto getBodyPhoto() {
-        return this.bodyPhoto;
+    public List<BodyPhoto> getBodyPhotos() {
+        return this.bodyPhotos;
     }
 
-    public ArrayList<RecordPhoto> getSlideShowInfo() {
+    public List<RecordPhoto> getSlideShowInfo() {
         return null;
     }
 
-    public void Problem(String title, String description, ArrayList<Record> records, BodyPhoto body) {
+    public Problem(String title, String description, RecordList records, List<BodyPhoto> body_photos) {
 
     }
 }

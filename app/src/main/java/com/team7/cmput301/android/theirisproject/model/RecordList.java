@@ -1,12 +1,15 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.model;
 
-import java.util.ArrayList;
+import android.support.annotation.NonNull;
 
-public class RecordList {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class RecordList implements Iterable<Record> {
     private ArrayList<Record> records = new ArrayList<Record>();
 
     public ArrayList<Record> getRecords() {
@@ -31,5 +34,11 @@ public class RecordList {
 
     public int length() {
         return 0;
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Record> iterator() {
+        return records.iterator();
     }
 }

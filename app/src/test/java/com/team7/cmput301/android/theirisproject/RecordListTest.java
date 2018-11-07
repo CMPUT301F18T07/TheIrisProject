@@ -18,17 +18,11 @@ import java.util.Date;
 
 
 public class RecordListTest {
+
     @Test
     public void testAdd() {
         RecordList recordList = new RecordList();
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
-
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
+        Record record = getTestRecord();
 
         Assert.assertEquals(recordList.getRecords().size(), 0);
 
@@ -36,18 +30,12 @@ public class RecordListTest {
 
         Assert.assertEquals(recordList.getRecords().size(), 1);
     }
-    
+
     @Test
     public void testContains() {
         RecordList recordList = new RecordList();
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
+        Record record = getTestRecord();
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
         recordList.add(record);
 
         Assert.assertEquals(recordList.contains(record), true);
@@ -56,15 +44,7 @@ public class RecordListTest {
     @Test
     public void testRemove() {
         RecordList recordList = new RecordList();
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
-
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-        recordList.add(record);
+        Record record = getTestRecord();
 
         Assert.assertEquals(recordList.getRecords().size(), 1);
 
@@ -76,6 +56,14 @@ public class RecordListTest {
     @Test
     public void testLength() {
         RecordList recordList = new RecordList();
+        Record record = getTestRecord();
+
+        recordList.add(record);
+
+        Assert.assertEquals(recordList.length(), 1);
+    }
+
+    private Record getTestRecord() {
         String title = "Title";
         String text = "Text";
         Date date = new Date();
@@ -84,8 +72,7 @@ public class RecordListTest {
         ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
 
         Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-        recordList.add(record);
-
-        Assert.assertEquals(recordList.length(), 1);
+        return record;
     }
+
 }

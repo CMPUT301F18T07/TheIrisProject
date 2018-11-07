@@ -18,63 +18,42 @@ import java.util.Date;
 public class RecordTest {
     @Test
     public void testRecord(){
-    String title = "Title";
-    String text = "Text";
-    Date date = new Date();
-    GeoLocation geoLocation = null;
-    BodyLocation bodyLocation = null;
-    ArrayList<RecordPhoto> recordPhoto = new ArrayList<>(null);
+        String title = "Title";
+        String text = "Text";
+        Date date = new Date();
+        GeoLocation geoLocation = null;
+        BodyLocation bodyLocation = null;
+        ArrayList<RecordPhoto> recordPhoto = new ArrayList<>(null);
 
-    Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhoto);
+        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhoto);
 
-    Assert.assertEquals(title, record.getTitle());
-    Assert.assertEquals(text, record.getText());
-    Assert.assertEquals(date, record.getDate());
-    Assert.assertEquals(geoLocation, record.getGeoLocation());
-    Assert.assertEquals(bodyLocation, record.getBodyLocation());
-    Assert.assertEquals(recordPhoto, record.getRecordPhoto());
+        Assert.assertEquals(title, record.getTitle());
+        Assert.assertEquals(text, record.getText());
+        Assert.assertEquals(date, record.getDate());
+        Assert.assertEquals(geoLocation, record.getGeoLocation());
+        Assert.assertEquals(bodyLocation, record.getBodyLocation());
+        Assert.assertEquals(recordPhoto, record.getRecordPhotos());
     }
 
     @Test
     public void testAddPhoto() {
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
-
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
+        Record record = getTestRecord();
 
         record.addPhoto(null);
-        Assert.assertEquals(record.getRecordPhoto().size(), 1);
+        Assert.assertEquals(record.getRecordPhotos().size(), 1);
     }
 
     @Test
     public void testDeletePhoto() {
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
-
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
+        Record record = getTestRecord();
 
         record.deletePhoto(null);
-        Assert.assertEquals(record.getRecordPhoto().size(), 0);
+        Assert.assertEquals(record.getRecordPhotos().size(), 0);
     }
 
     @Test
     public void testEditGeoLocation() {
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
-
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
+        Record record = getTestRecord();
 
         GeoLocation updatedGeoLocation = null;
 
@@ -83,6 +62,14 @@ public class RecordTest {
 
     @Test
     public void testEditBodyLocation() {
+        Record record = getTestRecord();
+
+        BodyLocation updatedBodyLocation = null;
+
+        Assert.assertEquals(updatedBodyLocation, record.getBodyLocation());
+    }
+
+    private Record getTestRecord() {
         String title = "Title";
         String text = "Text";
         Date date = new Date();
@@ -91,9 +78,7 @@ public class RecordTest {
         ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
 
         Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-
-        BodyLocation updatedBodyLocation = null;
-
-        Assert.assertEquals(updatedBodyLocation, record.getBodyLocation());
+        return record;
     }
+
 }
