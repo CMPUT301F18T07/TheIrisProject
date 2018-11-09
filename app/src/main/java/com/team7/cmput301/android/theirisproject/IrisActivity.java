@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 
 /**
- * An type of Activity that uses a IrisController to interact with and update with a Model object,
+ * A type of Activity that uses a IrisController to interact with and update with a Model object,
  *
  * @author anticobalt
  * @see IrisController
@@ -20,7 +20,8 @@ import com.team7.cmput301.android.theirisproject.controller.IrisController;
 public abstract class IrisActivity extends AppCompatActivity {
 
     /**
-     * Initialize IrisController with the Model object.
+     * Initialize IrisController with an Intent (same Intent used to get this IrisActivity
+     * up and running).
      * @param intent The Intent given by the IrisActivity that started this IrisActivity
      * @return The IrisController (e.g. ProblemController)
      */

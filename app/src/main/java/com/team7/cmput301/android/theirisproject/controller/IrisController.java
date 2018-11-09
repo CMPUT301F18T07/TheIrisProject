@@ -14,7 +14,8 @@ import com.team7.cmput301.android.theirisproject.IrisActivity;
 
 /**
  * A type of controller that is used by an IrisActivity to manage a Model object. The IrisController
- * is responsible for updating and interpreting the Model object, as well as saving it to databases.
+ * is responsible for updating and interpreting the Model object.
+ * It connects the model and IrisActivity.
  *
  * @author anticobalt
  * @see IrisActivity
