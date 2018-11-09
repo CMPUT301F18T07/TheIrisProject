@@ -8,11 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
-import com.team7.cmput301.android.theirisproject.model.IrisModel;
+import com.team7.cmput301.android.theirisproject.controller.RegisterController;
 
-public class RegisterActivity extends IrisActivity<IrisModel> {
+public class RegisterActivity extends IrisActivity {
 
-    IrisController controller;
+    private IrisController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +23,12 @@ public class RegisterActivity extends IrisActivity<IrisModel> {
 
     @Override
     protected IrisController createController(Intent intent) {
-        return null;
+        return new RegisterController(intent);
     }
 
     @Override
-    protected Intent fillExtras(Intent intent, IrisController controller) {
-        return null;
-    }
-
-    @Override
-    public void update(IrisModel model) {
+    public void render() {
 
     }
+
 }

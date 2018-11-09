@@ -20,6 +20,8 @@ import io.searchbox.core.SearchResult;
  * our Elasticsearch database. By giving a problem _id, our JestClient
  * will send a GET request to database in which we will populate the Problem model
  * with the response
+ *
+ * @author itstc
  * */
 public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
     /**

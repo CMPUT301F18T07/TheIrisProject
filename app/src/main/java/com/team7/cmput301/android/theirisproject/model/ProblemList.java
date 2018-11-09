@@ -6,7 +6,7 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
 
-public class ProblemList extends IrisModel {
+public class ProblemList {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
 
     public ArrayList<Problem> getProblems() {
@@ -45,8 +45,4 @@ public class ProblemList extends IrisModel {
         return 0;
     }
 
-    @Override
-    public void updateViews() {
-
-    }
 }

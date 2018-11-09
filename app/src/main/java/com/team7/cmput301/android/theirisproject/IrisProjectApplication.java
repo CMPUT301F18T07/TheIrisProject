@@ -10,7 +10,6 @@ import android.app.Application;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
-import com.team7.cmput301.android.theirisproject.model.ProblemList;
 
 import io.searchbox.client.JestClient;
 
@@ -19,14 +18,11 @@ import io.searchbox.client.JestClient;
  * This class will initialize all the global states of models
  * which can then allow our activity controllers to populate it.
  *
- *
+ * @author itstc
  * */
 public class IrisProjectApplication extends Application {
     // use this index for any request to database
     public static final String INDEX = "cmput301f18t07test";
-
-    // global state of models
-    transient private static ProblemList problemList = new ProblemList();
 
     // our database connection
     transient private static  JestClient db = null;
@@ -50,13 +46,4 @@ public class IrisProjectApplication extends Application {
         return db;
     }
 
-    public static ProblemList getProblemList() {
-        return problemList;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        new GetProblemListTask().execute("0");
-    }
 }
