@@ -13,7 +13,7 @@ import com.team7.cmput301.android.theirisproject.model.Profile;
 
 
 /**
- * Controller for handling user actions and interacting with Profile in LoginActivity
+ * Controller for making a new Profile
  *
  * @author anticobalt
  */
