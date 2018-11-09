@@ -7,6 +7,7 @@
 package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 
 import com.team7.cmput301.android.theirisproject.IrisActivity;
@@ -22,8 +23,14 @@ public abstract class IrisController {
 
     protected Object model;
 
-    abstract void makeModelFromDB();
-    abstract void saveModelToLocalDB();
-    abstract void saveModelToOnlineDB();
+    public IrisController(Intent intent){
+        // Isolate extras, then get model using extras
+        Bundle data = intent.getExtras();
+        this.model = getModel(data);
+    }
+
+    // returns a model instance (obtained from singleton or constructed from DB),
+    // using data from a Bundle
+    abstract Object getModel(Bundle data);
 
 }
