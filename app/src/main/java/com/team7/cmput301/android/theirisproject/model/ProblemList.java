@@ -25,6 +25,18 @@ public class ProblemList {
 
     }
 
+    public void bulkAdd(ArrayList<Problem> problems) {
+        this.problems = problems;
+    }
+
+
+    public Problem getProblem(String id) {
+        for(Problem problem: this.problems) {
+            if(problem.getId() == id) return problem;
+        }
+        return null;
+    }
+
     public boolean contains(Problem problem) {
         return false;
     }
@@ -32,4 +44,5 @@ public class ProblemList {
     public int length() {
         return 0;
     }
+
 }

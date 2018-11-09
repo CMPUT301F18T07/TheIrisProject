@@ -10,15 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
-import com.team7.cmput301.android.theirisproject.controller.LoginController;
-import com.team7.cmput301.android.theirisproject.model.Profile;
 
 public class LoginActivity extends IrisActivity {
 
     private Button loginButton;
     private Button registerButton;
-
-    private IrisController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +24,19 @@ public class LoginActivity extends IrisActivity {
         loginButton = findViewById(R.id.login_button);
         registerButton = findViewById(R.id.register_button);
 
-        // First activity must create fake Intent
-        Intent intent = new Intent();
-        intent.putExtra("new_profile", new Profile(null, null, null));
-        this.controller = createController(intent);
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                intent = fillExtras(intent, LoginActivity.this.controller);
+                // don't need extra data
                 startActivity(intent);
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
             }
         });
 
@@ -46,6 +44,11 @@ public class LoginActivity extends IrisActivity {
 
     @Override
     protected IrisController createController(Intent intent) {
-        return new LoginController((Profile) intent.getParcelableExtra("new_profile"));
+        return null; // no reason for controller in this activity
+    }
+
+    @Override
+    public void render() {
+
     }
 }
