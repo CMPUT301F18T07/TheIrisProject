@@ -9,27 +9,58 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.model.Profile;
+import com.team7.cmput301.android.theirisproject.tasks.RegisterUserTask;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 
 /**
- * Controller for making a new Profile
+ * Controller for making a new User
  *
  * @author anticobalt
+ * @author Jmmxp
  */
 public class RegisterController extends IrisController {
 
-    Profile new_profile;
-
     public RegisterController(Intent intent){
-        super(intent); // sets getModel() result to this.model
-        this.new_profile = (Profile) this.model; // alias for simplicity
+        // don't need extra data from intent, so don't do anything
+        super(intent);
     }
 
     @Override
     Object getModel(Bundle data) {
-        // making a new Profile/User, so don't need to fetch model from anywhere
-        return new Profile("", "", "");
+        return null;
+    }
+
+    /**
+     * Make a User with parameters, then save it
+     * @param username inputted username
+     * @param email inputted email
+     * @param phoneNumber inputted phone number
+     * @param type self-described role of user
+     */
+    public void createUser(String username, String email, String phoneNumber, UserType type) {
+        User newUser;
+        switch (type) {
+            case PATIENT:
+                newUser = new Patient(username, email, phoneNumber);
+                break;
+            case CARE_PROVIDER:
+                newUser = new CareProvider(username, email, phoneNumber);
+                break;
+            default:
+                newUser = new Patient(username, email, phoneNumber);
+                break;
+        }
+        addUser(newUser);
+    }
+
+    private void addUser(User user){
+        // Add the given user to the database
+        RegisterUserTask registerUserTask = new RegisterUserTask();
+        registerUserTask.execute(user);
     }
 
 }

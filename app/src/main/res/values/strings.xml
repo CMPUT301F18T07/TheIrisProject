@@ -11,7 +11,7 @@
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your username</string>
+    <string name="login_username_hint">Enter your name</string>
     <string name="login_password_hint">Enter your password</string>
 
     <!-- Register screen strings -->
@@ -21,7 +21,7 @@
     <string name="phone_title">Phone Number</string>
     <string name="email_title">Email Address</string>
 
-    <string name="register_username_hint">Enter a username</string>
+    <string name="register_username_hint">Enter a name</string>
     <string name="register_password_hint">Enter a password</string>
     <string name="register_phone_hint">Enter phone number</string>
     <string name="register_email_hint">Enter email address</string>
