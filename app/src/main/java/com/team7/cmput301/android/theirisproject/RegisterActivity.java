@@ -13,10 +13,6 @@ import android.widget.RadioGroup;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.RegisterController;
-import com.team7.cmput301.android.theirisproject.model.CareProvider;
-import com.team7.cmput301.android.theirisproject.model.Patient;
-import com.team7.cmput301.android.theirisproject.model.Profile;
-import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 /**
@@ -38,14 +34,12 @@ public class RegisterActivity extends IrisActivity {
     private RadioGroup userRadioGroup;
     private Button registerButton;
 
-    private final String PATIENT = "patient";
-    private final String CAREPROVIDER = "careprovider";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        this.controller = (RegisterController) createController(getIntent());
+        controller = (RegisterController) createController(getIntent());
 
         usernameEditText = findViewById(R.id.username_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
@@ -72,20 +66,20 @@ public class RegisterActivity extends IrisActivity {
         String phoneNumber = phoneEditText.getText().toString();
 
         int radioButtonId = userRadioGroup.getCheckedRadioButtonId();
-        String type;
+        UserType type;
         switch (radioButtonId) {
             case R.id.patient_radio_button:
-                type = PATIENT;
+                type = UserType.PATIENT;
                 break;
             case R.id.care_provider_radio_button:
-                type = CAREPROVIDER;
+                type = UserType.CARE_PROVIDER;
                 break;
             default:
-                type = PATIENT;
+                type = UserType.PATIENT;
                 break;
         }
 
-        this.controller.createUser(username, email, phoneNumber, type);
+        controller.createUser(username, email, phoneNumber, type);
 
     }
 

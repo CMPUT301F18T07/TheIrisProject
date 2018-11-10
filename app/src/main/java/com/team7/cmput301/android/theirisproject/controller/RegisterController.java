@@ -12,6 +12,7 @@ import android.os.Bundle;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 
 /**
@@ -20,9 +21,6 @@ import com.team7.cmput301.android.theirisproject.model.User;
  * @author anticobalt
  */
 public class RegisterController extends IrisController {
-
-    private final String PATIENT = "patient";
-    private final String CAREPROVIDER = "careprovider";
 
     public RegisterController(Intent intent){
         // don't need extra data from intent, so don't do anything
@@ -41,20 +39,20 @@ public class RegisterController extends IrisController {
      * @param phoneNumber inputted phone number
      * @param type self-described role of user
      */
-    public void createUser(String username, String email, String phoneNumber, String type){
-        User new_user;
+    public void createUser(String username, String email, String phoneNumber, UserType type){
+        User newUser;
         switch (type) {
             case PATIENT:
-                new_user = new Patient(username, email, phoneNumber);
+                newUser = new Patient(username, email, phoneNumber);
                 break;
-            case CAREPROVIDER:
-                new_user = new CareProvider(username, email, phoneNumber);
+            case CARE_PROVIDER:
+                newUser = new CareProvider(username, email, phoneNumber);
                 break;
             default:
-                new_user = new Patient(username, email, phoneNumber);
+                newUser = new Patient(username, email, phoneNumber);
                 break;
         }
-        add(new_user);
+        add(newUser);
     }
 
     private void add(User user){
