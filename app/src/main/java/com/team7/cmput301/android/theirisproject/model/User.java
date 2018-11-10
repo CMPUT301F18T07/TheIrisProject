@@ -5,10 +5,14 @@
 package com.team7.cmput301.android.theirisproject.model;
 
 public abstract class User {
-    private Profile profile;
-    private String role;
+    public enum UserType {
+        PATIENT, CARE_PROVIDER
+    }
 
-    public User(String role, String name, String email, String phoneNumber) {
+    private Profile profile;
+    private UserType role;
+
+    public User(UserType role, String name, String email, String phoneNumber) {
         this.role = role;
         this.profile = new Profile(name, email, phoneNumber);
     }
@@ -17,7 +21,7 @@ public abstract class User {
         return this.profile;
     }
 
-    public String getRole() {
+    public UserType getRole() {
         return this.role;
     }
 
