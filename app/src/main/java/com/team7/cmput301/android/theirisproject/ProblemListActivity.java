@@ -7,17 +7,11 @@
 package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
-import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
-import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
-
-import io.searchbox.core.SearchResult;
 
 public class ProblemListActivity extends IrisActivity<ProblemList> {
 
@@ -34,7 +28,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     @Override
     protected void onStart() {
         super.onStart();
-        problemsView = findViewById(R.id.problemList);
+        problemsView = findViewById(R.id.problem_item_list);
         // fetch user problems from database
         this.controller.getUserProblems(new Callback<ProblemList>() {
             @Override

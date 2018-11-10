@@ -45,11 +45,11 @@ public class ProblemListController extends IrisController<ProblemList> {
                 model = res;
                 cb.onComplete(res);
             }
-        }).execute(this.userID);
+        }).execute(userID);
     }
 
     public ProblemList getProblems() {
-        return this.model;
+        return model;
     }
 
     @Override

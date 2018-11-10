@@ -39,18 +39,18 @@ public class ProblemListAdapter extends ArrayAdapter<Problem> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = this.context.getLayoutInflater();
-        View problem = inflater.inflate(this.resource, parent, false);
+        LayoutInflater inflater = context.getLayoutInflater();
+        View problem = inflater.inflate(resource, parent, false);
 
         // views to populate
-        TextView title = problem.findViewById(R.id.problemTitle);
-        TextView id = problem.findViewById(R.id.problemId);
-        TextView desc = problem.findViewById(R.id.problemDesc);
+        TextView title = problem.findViewById(R.id.problem_item_title);
+        TextView id = problem.findViewById(R.id.problem_item_id);
+        TextView desc = problem.findViewById(R.id.problem_item_desc);
 
         // populate with data given from problems
-        title.setText(this.problems.get(position).getTitle());
-        id.setText(this.problems.get(position).getId());
-        desc.setText(this.problems.get(position).getDescription());
+        title.setText(problems.get(position).getTitle());
+        id.setText(problems.get(position).getId());
+        desc.setText(problems.get(position).getDescription());
         return problem;
     }
 }

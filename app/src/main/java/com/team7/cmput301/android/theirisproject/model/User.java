@@ -14,11 +14,11 @@ public abstract class User {
     }
 
     public Profile getContact() {
-        return this.profile;
+        return profile;
     }
 
     public String getRole() {
-        return this.role;
+        return role;
     }
 
     public void editContact(String username, String email, String phoneNumber) {

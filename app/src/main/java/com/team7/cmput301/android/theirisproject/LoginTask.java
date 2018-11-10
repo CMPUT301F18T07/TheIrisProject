@@ -17,8 +17,7 @@ import io.searchbox.core.Search;
 public class LoginTask extends AsyncTask<String, Void, String> {
 
     Callback<String> cb;
-    public LoginTask(Callback<String> cb) {
-        this.cb = cb;
+    public LoginTask(Callback<String> cb) { this.cb = cb;
     }
 
     /**
@@ -47,6 +46,6 @@ public class LoginTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        this.cb.onComplete(s);
+        cb.onComplete(s);
     }
 }

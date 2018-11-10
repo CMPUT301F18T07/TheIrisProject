@@ -10,15 +10,16 @@ import java.util.List;
 public class ProblemList {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
 
-    public ArrayList<Problem> getProblems() {
-        return this.problems;
+    public ProblemList(List<Problem> problems) {
+        this.problems = (ArrayList<Problem>) problems;
     }
 
     public ProblemList() {
 
     }
-    public ProblemList(List<Problem> problems) {
-        this.problems = (ArrayList<Problem>) problems;
+
+    public ArrayList<Problem> getProblems() {
+        return problems;
     }
 
     public void add(Problem problem) {
@@ -29,10 +30,10 @@ public class ProblemList {
 
     }
 
-    public List<Problem> asList() { return this.problems; }
+    public List<Problem> asList() { return problems; }
 
     public Problem getProblem(String id) {
-        for(Problem problem: this.problems) {
+        for(Problem problem: problems) {
             if(problem.getId() == id) return problem;
         }
         return null;
