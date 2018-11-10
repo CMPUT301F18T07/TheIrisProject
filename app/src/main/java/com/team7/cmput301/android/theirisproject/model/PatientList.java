@@ -10,7 +10,7 @@ public class PatientList {
     private ArrayList<Patient> patients = new ArrayList<Patient>();
 
     public ArrayList<Patient> getPatients() {
-        return this.patients;
+        return patients;
     }
 
     public void addPatient(Patient patient) {

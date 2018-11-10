@@ -11,7 +11,7 @@ public class CareProvider extends User {
     private List<Patient> patients = new ArrayList<>();
 
     public List<Patient> getPatients() {
-        return this.patients;
+        return patients;
     }
 
     public ProblemList getPatientProblems(Patient patient) {
