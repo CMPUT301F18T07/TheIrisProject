@@ -33,10 +33,21 @@ public class LoginActivity extends IrisActivity {
             }
         });
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
     }
 
     @Override
     protected IrisController createController(Intent intent) {
         return null; // no reason for controller in this activity
+    }
+
+    @Override
+    public void render() {
     }
 }

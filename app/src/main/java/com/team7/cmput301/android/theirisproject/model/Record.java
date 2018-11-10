@@ -43,6 +43,10 @@ public class Record {
 
     }
 
+    public Record() {
+
+    }
+
     public void addPhoto(RecordPhoto img) {
 
     }
