@@ -15,7 +15,7 @@ public class UserTest {
         String email = "UserOne@hotmail.com";
         String phoneNumber = "123-456-789";
 
-        Assert.assertEquals(name, user.getUsername());
+        Assert.assertEquals(name, user.getName());
         Assert.assertEquals(email, user.getEmail());
         Assert.assertEquals(phoneNumber, user.getPhoneNumber());
     }
@@ -27,7 +27,7 @@ public class UserTest {
         String updatedPhoneNumber = "234-567-890";
         user.editContact(updatedName, updatedEmail, updatedPhoneNumber);
 
-        Assert.assertEquals(updatedName, user.getUsername());
+        Assert.assertEquals(updatedName, user.getName());
         Assert.assertEquals(updatedEmail, user.getEmail());
         Assert.assertEquals(updatedPhoneNumber, user.getPhoneNumber());
     }

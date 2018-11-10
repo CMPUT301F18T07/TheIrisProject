@@ -16,7 +16,7 @@ import com.team7.cmput301.android.theirisproject.controller.RegisterController;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 /**
- * Activity that is used to help register new users into the database
+ * Activity that is used to help registerUser new users into the database
  * Uses its designated controller, RegisterController to handle the updating of the database
  *
  * @author Jmmxp
@@ -51,7 +51,8 @@ public class RegisterActivity extends IrisActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                register();
+                registerUser();
+                finish();
             }
         });
 
@@ -60,7 +61,7 @@ public class RegisterActivity extends IrisActivity {
     /***
      * Get form data, then send to controller to register user
      */
-    private void register() {
+    private void registerUser() {
         String username = usernameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String phoneNumber = phoneEditText.getText().toString();
@@ -80,7 +81,6 @@ public class RegisterActivity extends IrisActivity {
         }
 
         controller.createUser(username, email, phoneNumber, type);
-
     }
 
     @Override
@@ -90,7 +90,7 @@ public class RegisterActivity extends IrisActivity {
 
     @Override
     public void render() {
-
+        // No need to render for RegisterActivity
     }
 
 }

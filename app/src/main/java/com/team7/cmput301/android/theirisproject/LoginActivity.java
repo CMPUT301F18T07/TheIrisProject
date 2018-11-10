@@ -37,6 +37,7 @@ public class LoginActivity extends IrisActivity {
 
             @Override
             public void onClick(View view) {
+
             }
         });
 

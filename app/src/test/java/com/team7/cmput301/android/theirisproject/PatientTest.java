@@ -1,7 +1,6 @@
 package com.team7.cmput301.android.theirisproject;
 
 import com.team7.cmput301.android.theirisproject.model.Patient;
-import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 import org.junit.Assert;
@@ -17,7 +16,7 @@ public class PatientTest {
 
         Patient patient = new Patient(name, email, phoneNumber);
 
-        Assert.assertEquals(name, patient.getUsername());
+        Assert.assertEquals(name, patient.getName());
         Assert.assertEquals(email, patient.getEmail());
         Assert.assertEquals(phoneNumber, patient.getPhoneNumber());
         Assert.assertEquals(type, patient.getType());

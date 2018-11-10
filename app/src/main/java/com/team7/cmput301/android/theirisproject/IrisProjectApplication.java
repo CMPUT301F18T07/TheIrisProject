@@ -10,6 +10,7 @@ import android.app.Application;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
+import com.searchly.jestdroid.JestDroidClient;
 
 import io.searchbox.client.JestClient;
 
@@ -25,7 +26,7 @@ public class IrisProjectApplication extends Application {
     public static final String INDEX = "cmput301f18t07test";
 
     // our database connection
-    transient private static  JestClient db = null;
+    transient private static JestDroidClient db = null;
 
     /**
      * getDB is a function to retrieve the online database
@@ -34,14 +35,14 @@ public class IrisProjectApplication extends Application {
      * @params {}
      * @return JestClient: our database
      * */
-    public static JestClient getDB() {
+    public static JestDroidClient getDB() {
         // create new JestClient instance if none
-        if(db == null) {
+        if (db == null) {
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(new DroidClientConfig
                     .Builder("http://cmput301.softwareprocess.es:8080")
                     .build());
-            db = factory.getObject();
+            db = (JestDroidClient) factory.getObject();
         }
         return db;
     }

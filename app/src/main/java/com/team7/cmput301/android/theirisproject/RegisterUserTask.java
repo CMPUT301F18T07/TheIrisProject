@@ -2,8 +2,12 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.os.AsyncTask;
 
+import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.model.User;
 
+import java.io.IOException;
+
+import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.SearchResult;
 
@@ -24,7 +28,19 @@ public class RegisterUserTask extends AsyncTask<User, Void, Void> {
             return null;
         }
 
-        Index index = new Index.Builder(user).index("");
+        JestDroidClient client = IrisProjectApplication.getDB();
+        Index index = new Index.Builder(user).index(IrisProjectApplication.INDEX).type("user").build();
+
+        try {
+            DocumentResult result = client.execute(index);
+            if (result.isSucceeded()) {
+                user.setId(result.getId());
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }
