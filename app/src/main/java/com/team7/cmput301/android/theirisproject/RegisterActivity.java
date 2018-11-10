@@ -29,7 +29,7 @@ import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 public class RegisterActivity extends IrisActivity {
 
-    private IrisController controller;
+    private RegisterController controller;
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -38,11 +38,14 @@ public class RegisterActivity extends IrisActivity {
     private RadioGroup userRadioGroup;
     private Button registerButton;
 
+    private final String PATIENT = "patient";
+    private final String CAREPROVIDER = "careprovider";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        this.controller = createController(getIntent());
+        this.controller = (RegisterController) createController(getIntent());
 
         usernameEditText = findViewById(R.id.username_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
@@ -54,41 +57,36 @@ public class RegisterActivity extends IrisActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = createUserFromViews();
-
-                
+                register();
             }
         });
 
     }
 
-    private User createUserFromViews() {
+    /***
+     * Get form data, then send to controller to register user
+     */
+    private void register() {
         String username = usernameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String phoneNumber = phoneEditText.getText().toString();
 
         int radioButtonId = userRadioGroup.getCheckedRadioButtonId();
-        UserType role;
+        String type;
         switch (radioButtonId) {
             case R.id.patient_radio_button:
-                role = UserType.PATIENT;
+                type = PATIENT;
                 break;
             case R.id.care_provider_radio_button:
-                role = UserType.CARE_PROVIDER;
+                type = CAREPROVIDER;
                 break;
             default:
-                role = UserType.PATIENT;
+                type = PATIENT;
                 break;
         }
 
-        User user;
-        if (role == UserType.PATIENT) {
-            user = new Patient(username, email, phoneNumber);
-        } else {
-            user = new CareProvider(username, email, phoneNumber);
-        }
+        this.controller.createUser(username, email, phoneNumber, type);
 
-        return user;
     }
 
     @Override
