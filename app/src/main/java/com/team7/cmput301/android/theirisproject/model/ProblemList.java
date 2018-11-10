@@ -5,6 +5,7 @@
 package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProblemList {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
@@ -13,8 +14,11 @@ public class ProblemList {
         return this.problems;
     }
 
-    public void ProblemList() {
+    public ProblemList() {
 
+    }
+    public ProblemList(List<Problem> problems) {
+        this.problems = (ArrayList<Problem>) problems;
     }
 
     public void add(Problem problem) {
@@ -25,10 +29,7 @@ public class ProblemList {
 
     }
 
-    public void bulkAdd(ArrayList<Problem> problems) {
-        this.problems = problems;
-    }
-
+    public List<Problem> asList() { return this.problems; }
 
     public Problem getProblem(String id) {
         for(Problem problem: this.problems) {

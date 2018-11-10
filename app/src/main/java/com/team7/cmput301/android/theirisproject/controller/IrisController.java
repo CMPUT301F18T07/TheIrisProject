@@ -20,9 +20,9 @@ import com.team7.cmput301.android.theirisproject.IrisActivity;
  * @author anticobalt
  * @see IrisActivity
  */
-public abstract class IrisController {
+public abstract class IrisController<M> {
 
-    protected Object model;
+    protected M model;
 
     public IrisController(Intent intent){
         // Isolate extras, then get model using extras
@@ -32,6 +32,6 @@ public abstract class IrisController {
 
     // returns a model instance (obtained from singleton or constructed from DB),
     // using data from a Bundle
-    abstract Object getModel(Bundle data);
+    abstract M getModel(Bundle data);
 
 }
