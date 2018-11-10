@@ -4,11 +4,12 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;

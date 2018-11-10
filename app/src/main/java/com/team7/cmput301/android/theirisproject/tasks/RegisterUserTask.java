@@ -1,8 +1,10 @@
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.tasks;
 
 import android.os.AsyncTask;
 
 import com.searchly.jestdroid.JestDroidClient;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.RegisterActivity;
 import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
