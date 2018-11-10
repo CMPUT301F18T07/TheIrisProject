@@ -18,7 +18,7 @@ public class RegisterActivity extends IrisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        this.controller = createController(getIntent());
+        controller = createController(getIntent());
     }
 
     @Override

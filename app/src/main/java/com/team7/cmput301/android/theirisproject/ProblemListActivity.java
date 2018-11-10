@@ -22,7 +22,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
-        this.controller = createController(getIntent());
+        controller = createController(getIntent());
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         super.onStart();
         problemsView = findViewById(R.id.problem_item_list);
         // fetch user problems from database
-        this.controller.getUserProblems(new Callback<ProblemList>() {
+        controller.getUserProblems(new Callback<ProblemList>() {
             @Override
             public void onComplete(ProblemList res) {
                 render(res);
