@@ -4,17 +4,25 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import io.searchbox.annotations.JestId;
+
 public abstract class User {
     public enum UserType {
         PATIENT, CARE_PROVIDER
     }
 
+    @JestId
+    private String _id;
     private Profile profile;
     private UserType role;
 
     public User(UserType role, String name, String email, String phoneNumber) {
         this.role = role;
         this.profile = new Profile(name, email, phoneNumber);
+    }
+
+    public String get_id() {
+        return _id;
     }
 
     public Profile getContact() {
