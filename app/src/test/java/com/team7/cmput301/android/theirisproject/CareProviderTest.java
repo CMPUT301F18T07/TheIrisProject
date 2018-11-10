@@ -5,6 +5,8 @@ import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static com.team7.cmput301.android.theirisproject.model.User.*;
+
 public class CareProviderTest {
     @Test
     public void testCareProvider() {
@@ -12,14 +14,14 @@ public class CareProviderTest {
         String name = "CareProviderOne";
         String email = "CareProviderOne@hotmail.com";
         String phoneNumber = "123-456-789";
-        String role = "CareProvider";
+        UserType type = UserType.CARE_PROVIDER;
 
         CareProvider careProvider = new CareProvider(name, email, phoneNumber);
 
-        Assert.assertEquals(name, careProvider.getContact().getUsername());
-        Assert.assertEquals(email, careProvider.getContact().getEmail());
-        Assert.assertEquals(phoneNumber, careProvider.getContact().getPhoneNumber());
-        Assert.assertEquals(role, careProvider.getRole());
+        Assert.assertEquals(name, careProvider.getUsername());
+        Assert.assertEquals(email, careProvider.getEmail());
+        Assert.assertEquals(phoneNumber, careProvider.getPhoneNumber());
+        Assert.assertEquals(type, careProvider.getType());
     }
 
 }
