@@ -37,5 +37,8 @@
 
     <!-- Create Record screen strings-->
     <string name="create_a_record">Create a Record</string>
+    <string name="enter_body_location">Enter Body Location</string>
+    <string name="label_photos">Label Photos</string>
+    <string name="add_record">Add Record</string>
 
 </resources>
