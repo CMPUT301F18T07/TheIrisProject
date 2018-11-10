@@ -19,6 +19,6 @@ public class CareProvider extends User {
     }
 
     public CareProvider(String name, String email, String phoneNumber) {
-        super("CareProvider", name, email, phoneNumber);
+        super(UserType.CARE_PROVIDER, name, email, phoneNumber);
     }
 }
