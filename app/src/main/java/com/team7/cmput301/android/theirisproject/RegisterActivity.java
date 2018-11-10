@@ -26,5 +26,4 @@ public class RegisterActivity extends IrisActivity {
         return new RegisterController(intent);
     }
 
-
 }

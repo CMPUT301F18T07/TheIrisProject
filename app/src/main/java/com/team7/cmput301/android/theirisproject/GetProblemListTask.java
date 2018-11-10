@@ -11,8 +11,9 @@ import android.os.AsyncTask;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
 
-import java.io.IOException;
+import android.util.Log;
 
+import java.io.IOException;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
@@ -25,13 +26,12 @@ import io.searchbox.core.SearchResult;
  * @author itstc
  * */
 public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
-
     Callback cb;
 
     public GetProblemListTask(Callback callback) {
         this.cb = callback;
     }
-
+  
     /**
      * doInBackground will request a problem based on given index
      * @params String params: [0] is the _id to be given
@@ -58,6 +58,9 @@ public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
      * onPostExecute will invoke callback once
      * doInBackground has a response from database and populates Problem
      * @params SearchResult res: our response of problems
+     * onPostExecute will invoke updateViews for our Problem model once
+     * doInBackground has a response from database and populates Problem
+     * @params Problem res: our response problem
      * @return void
      * */
     @Override
