@@ -13,27 +13,41 @@ public abstract class User {
 
     @JestId
     private String _id;
-    private Profile profile;
-    private UserType role;
+    private String username;
+    private String email;
+    private String phoneNumber;
+    private UserType type;
 
-    public User(UserType role, String name, String email, String phoneNumber) {
-        this.role = role;
-        this.profile = new Profile(name, email, phoneNumber);
+    public User(String username, String email, String phoneNumber, UserType type) {
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.type = type;
     }
 
-    public String get_id() {
+    public String getId() {
         return _id;
     }
 
-    public Profile getContact() {
-        return this.profile;
+    public String getUsername() {
+        return username;
     }
 
-    public UserType getRole() {
-        return this.role;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public UserType getType() {
+        return this.type;
     }
 
     public void editContact(String username, String email, String phoneNumber) {
-
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 }
