@@ -4,21 +4,42 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import io.searchbox.annotations.JestId;
+
 public abstract class User {
-    private Profile profile;
+    @JestId
+    private String id;
+
+    private String name;
+    private String email;
+    private String phone;
     private String role;
 
     public User(String role, String name, String email, String phoneNumber) {
         this.role = role;
-        this.profile = new Profile(name, email, phoneNumber);
-    }
-
-    public Profile getContact() {
-        return profile;
+        this.name = name;
+        this.email = email;
+        this.phone = phoneNumber;
     }
 
     public String getRole() {
         return role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getID() {
+        return id;
     }
 
     public void editContact(String username, String email, String phoneNumber) {

@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProblemListActivity"></activity>
+        <activity android:name=".AddProblemActivity"></activity>
     </application>
 
 </manifest>

@@ -30,6 +30,11 @@ public class Problem {
         this.bodyPhotos = bodyPhotos;
     }
 
+    public Problem(String title, String description, String user) {
+        this.title = title;
+        this.desc = description;
+        this.user = user;
+    }
     public Problem() {
 
     }

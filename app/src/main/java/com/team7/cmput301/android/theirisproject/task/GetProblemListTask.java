@@ -4,29 +4,31 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
 
+import com.team7.cmput301.android.theirisproject.Callback;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
-
-import android.util.Log;
 
 import java.io.IOException;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 /**
- * GetProblemTask is a function that asynchronously retrieves data from
+ * GetProblemListTask is a function that asynchronously retrieves data from
  * our Elasticsearch database. By giving a problem _id, our JestClient
  * will send a GET request to database in which we will populate the Problem model
  * with the response
  *
  * @author itstc
  * */
-public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
-    Callback cb;
+public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
+
+    private Callback cb;
+
 
     public GetProblemListTask(Callback callback) {
         this.cb = callback;
@@ -38,8 +40,7 @@ public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
      * @return String to onPostExecute(String res)
      * */
     @Override
-    protected SearchResult doInBackground(String... params) {
-        SearchResult res = null;
+    protected ProblemList doInBackground(String... params) {
         try {
             // send GET request to our database endpoint ".../_search?q=_type:problem&q=user:`params[0]`"
             Search get = new Search.Builder("{\"query\": {\"term\": {\"user\": \"" + params[0] + "\"}}}")
@@ -47,11 +48,12 @@ public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
                     .addType("problem")
                     .build();
             // populate our Problem model with database values corresponding to _id
-            res = IrisProjectApplication.getDB().execute(get);
+            SearchResult res = IrisProjectApplication.getDB().execute(get);
+            return new ProblemList(res.getSourceAsObjectList(Problem.class, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return res;
+        return new ProblemList();
     }
 
     /**
@@ -64,8 +66,8 @@ public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
      * @return void
      * */
     @Override
-    protected void onPostExecute(SearchResult res) {
+    protected void onPostExecute(ProblemList res) {
         super.onPostExecute(res);
-        this.cb.onComplete(new ProblemList(res.getSourceAsObjectList(Problem.class, true)));
+        this.cb.onComplete(res);
     }
 }

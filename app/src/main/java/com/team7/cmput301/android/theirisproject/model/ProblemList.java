@@ -4,10 +4,13 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class ProblemList {
+public class ProblemList implements Iterable<Problem> {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
 
     public ProblemList(List<Problem> problems) {
@@ -15,24 +18,17 @@ public class ProblemList {
     }
 
     public ProblemList() {
-
     }
 
     public ArrayList<Problem> getProblems() {
         return problems;
     }
 
-    public void add(Problem problem) {
-
-    }
-
     public void delete(Problem problem) {
 
     }
 
-    public List<Problem> asList() { return problems; }
-
-    public Problem getProblem(String id) {
+    public Problem getProblemByID(String id) {
         for(Problem problem: problems) {
             if(problem.getId() == id) return problem;
         }
@@ -47,4 +43,9 @@ public class ProblemList {
         return 0;
     }
 
+    @NonNull
+    @Override
+    public Iterator<Problem> iterator() {
+        return problems.iterator();
+    }
 }

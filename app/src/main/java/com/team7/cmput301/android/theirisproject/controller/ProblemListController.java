@@ -10,7 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Callback;
-import com.team7.cmput301.android.theirisproject.GetProblemListTask;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.task.GetProblemListTask;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
 
 /**
@@ -21,12 +22,13 @@ import com.team7.cmput301.android.theirisproject.model.ProblemList;
  * @author itstc
  * */
 public class ProblemListController extends IrisController<ProblemList> {
-    String userID;
+
+    private String userID;
 
     public ProblemListController(Intent intent) {
         super(intent);
-        this.userID = intent.getExtras().getString("user");
         this.model = getModel(intent.getExtras());
+        this.userID = intent.getExtras().getString("user");
     }
 
     /**

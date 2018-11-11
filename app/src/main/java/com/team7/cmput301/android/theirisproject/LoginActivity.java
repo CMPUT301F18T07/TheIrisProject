@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
+import com.team7.cmput301.android.theirisproject.task.LoginTask;
 
 public class LoginActivity extends IrisActivity {
     private TextView username;
@@ -44,13 +47,19 @@ public class LoginActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // Create login request, and start new activity if id is found
-                new LoginTask(new Callback<String>() {
+                new LoginTask(new Callback<Boolean>() {
                     @Override
-                    public void onComplete(String res) {
-                        // start new activity with given id from login request
-                        Intent intent = new Intent(LoginActivity.this, ProblemListActivity.class);
-                        intent.putExtra("user", res);
-                        startActivity(intent);
+                    public void onComplete(Boolean res) {
+                        // act accordingly based on result "" if error, else success
+                        if(res) {
+                            // TODO: send user to correct page based on PATIENT or CARE PROVIDER
+                            // start new activity with given id from login request
+                            Intent intent = new Intent(LoginActivity.this, ProblemListActivity.class);
+                            intent.putExtra("user", IrisProjectApplication.getCurrentUser().getID());
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }).execute(username.getText().toString());
             }
