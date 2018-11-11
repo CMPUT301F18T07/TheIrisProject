@@ -12,8 +12,8 @@ import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 
 public class AddProblemActivity extends AppCompatActivity {
 
-    TextView name;
-    TextView desc;
+    private TextView name;
+    private TextView desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

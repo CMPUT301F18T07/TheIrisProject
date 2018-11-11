@@ -19,8 +19,8 @@ import io.searchbox.core.SearchResult;
 
 public class LoginTask extends AsyncTask<String, Void, String> {
 
-    Callback<String> cb;
-    public LoginTask(Callback<String> cb) { this.cb = cb;
+    private Callback cb;
+    public LoginTask(Callback cb) { this.cb = cb;
     }
 
     /**

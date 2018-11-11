@@ -21,7 +21,7 @@ import com.team7.cmput301.android.theirisproject.model.ProblemList;
  * @author itstc
  * */
 public class ProblemListController extends IrisController<ProblemList> {
-    String userID;
+    private String userID;
 
     public ProblemListController(Intent intent) {
         super(intent);

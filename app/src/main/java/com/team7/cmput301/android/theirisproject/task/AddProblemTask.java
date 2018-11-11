@@ -16,9 +16,16 @@ import java.io.IOException;
 
 import io.searchbox.core.Index;
 
+/**
+ * AddProblemTask is an AsyncTask that sends a POST request to our
+ * database with the new problem data. At the end, onPostExecute will
+ * either return true/false to the callback
+ *
+ * @author itstc
+ * */
 public class AddProblemTask extends AsyncTask<Problem, Void, Boolean> {
 
-    Callback cb;
+    private Callback cb;
     public AddProblemTask(Callback cb) {
         this.cb = cb;
     }

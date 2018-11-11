@@ -26,9 +26,9 @@ import java.util.List;
  * */
 public class ProblemListAdapter extends ArrayAdapter<Problem> {
 
-    int resource;
-    Activity context;
-    List<Problem> problems;
+    private int resource;
+    private Activity context;
+    private List<Problem> problems;
 
     public ProblemListAdapter(Activity context, int resource, List<Problem> objects) {
         super(context, resource, objects);
