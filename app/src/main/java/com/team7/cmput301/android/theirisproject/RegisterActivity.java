@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.RegisterController;
@@ -52,7 +53,6 @@ public class RegisterActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 registerUser();
-                finish();
             }
         });
 
@@ -80,7 +80,17 @@ public class RegisterActivity extends IrisActivity {
                 break;
         }
 
-        controller.createUser(username, email, phoneNumber, type);
+        controller.createUser(username, email, phoneNumber, type, new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean registerSuccess) {
+                if (registerSuccess) {
+                    Toast.makeText(RegisterActivity.this, "User successfully registered!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Could not register, e-mail already in use!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
