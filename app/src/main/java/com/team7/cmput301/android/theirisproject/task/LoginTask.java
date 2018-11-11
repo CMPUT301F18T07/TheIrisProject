@@ -4,15 +4,18 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
 
-import com.team7.cmput301.android.theirisproject.model.Profile;
+import com.team7.cmput301.android.theirisproject.Callback;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 
 import java.io.IOException;
 
 import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 
 public class LoginTask extends AsyncTask<String, Void, String> {
 
@@ -36,7 +39,10 @@ public class LoginTask extends AsyncTask<String, Void, String> {
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
-            res = IrisProjectApplication.getDB().execute(get).getFirstHit(Profile.class).id;
+            // TODO: We make it a patient for now because User.class can't be instantiated...
+            SearchResult.Hit<Patient, Void> response = IrisProjectApplication.getDB().execute(get).getFirstHit(Patient.class);
+            // check if the hit is equal to email entered then return a result
+            if(response.source.getEmail().equals(params[0])) return response.id;
         } catch (IOException e) {
             e.printStackTrace();
         }

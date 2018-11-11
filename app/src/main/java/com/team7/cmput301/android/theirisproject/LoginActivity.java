@@ -6,11 +6,14 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
+import com.team7.cmput301.android.theirisproject.task.LoginTask;
 
 public class LoginActivity extends IrisActivity {
     private TextView username;
@@ -47,10 +50,15 @@ public class LoginActivity extends IrisActivity {
                 new LoginTask(new Callback<String>() {
                     @Override
                     public void onComplete(String res) {
-                        // start new activity with given id from login request
-                        Intent intent = new Intent(LoginActivity.this, ProblemListActivity.class);
-                        intent.putExtra("user", res);
-                        startActivity(intent);
+                        // act accordingly based on result "" if error, else success
+                        if(res != "") {
+                            // start new activity with given id from login request
+                            Intent intent = new Intent(LoginActivity.this, ProblemListActivity.class);
+                            intent.putExtra("user", res);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }).execute(username.getText().toString());
             }

@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Callback;
-import com.team7.cmput301.android.theirisproject.GetProblemListTask;
+import com.team7.cmput301.android.theirisproject.task.GetProblemListTask;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
 
 /**
@@ -51,6 +51,8 @@ public class ProblemListController extends IrisController<ProblemList> {
     public ProblemList getProblems() {
         return model;
     }
+
+    public String getUserID() { return userID; }
 
     @Override
     ProblemList getModel(Bundle data) {
