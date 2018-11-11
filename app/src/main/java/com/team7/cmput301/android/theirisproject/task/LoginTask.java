@@ -42,7 +42,10 @@ public class LoginTask extends AsyncTask<String, Void, String> {
             // TODO: We make it a patient for now because User.class can't be instantiated...
             SearchResult.Hit<Patient, Void> response = IrisProjectApplication.getDB().execute(get).getFirstHit(Patient.class);
             // check if the hit is equal to email entered then return a result
-            if(response.source.getEmail().equals(params[0])) return response.id;
+            if(response.source.getEmail().equals(params[0])) {
+                IrisProjectApplication.setCurrentUser(response.source);
+                return response.id;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

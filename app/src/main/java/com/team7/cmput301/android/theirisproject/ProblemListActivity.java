@@ -33,7 +33,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             public void onClick(View view) {
                 // start a AddProblemActivity with a requestCode of ADD_PROBLEM_RESPONSE
                 Intent intent = new Intent(ProblemListActivity.this, AddProblemActivity.class);
-                intent.putExtra("user", controller.getUserID());
                 startActivityForResult(intent, ADD_PROBLEM_RESPONSE);
             }
         });

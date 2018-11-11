@@ -53,7 +53,6 @@ public class LoginActivity extends IrisActivity {
                         if(res != "") {
                             // start new activity with given id from login request
                             Intent intent = new Intent(LoginActivity.this, ProblemListActivity.class);
-                            intent.putExtra("user", res);
                             startActivity(intent);
                         }else {
                             Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();

@@ -33,7 +33,7 @@ public class AddProblemActivity extends AppCompatActivity {
                 Problem submitProblem = new Problem(
                         name.getText().toString(),
                         desc.getText().toString(),
-                        getIntent().getExtras().getString("user"));
+                        IrisProjectApplication.getCurrentUser().getID());
 
                 new AddProblemTask(new Callback<Boolean>() {
                     @Override

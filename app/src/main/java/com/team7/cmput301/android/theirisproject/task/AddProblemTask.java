@@ -14,7 +14,9 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
 
+import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
+import io.searchbox.core.SearchResult;
 
 /**
  * AddProblemTask is an AsyncTask that sends a POST request to our
@@ -40,12 +42,12 @@ public class AddProblemTask extends AsyncTask<Problem, Void, Boolean> {
     protected Boolean doInBackground(Problem... params) {
         try {
             Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("problem").build();
-            IrisProjectApplication.getDB().execute(post);
+            DocumentResult res = IrisProjectApplication.getDB().execute(post);
+            return res.isSucceeded();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return false;
     }
 
     @Override
