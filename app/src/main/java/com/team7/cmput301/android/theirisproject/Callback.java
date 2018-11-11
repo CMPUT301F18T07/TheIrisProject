@@ -25,4 +25,5 @@ public interface Callback<M> {
      * @return void
      * */
     void onComplete(M res);
+  
 }
