@@ -47,13 +47,15 @@ public class LoginActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // Create login request, and start new activity if id is found
-                new LoginTask(new Callback<String>() {
+                new LoginTask(new Callback<Boolean>() {
                     @Override
-                    public void onComplete(String res) {
+                    public void onComplete(Boolean res) {
                         // act accordingly based on result "" if error, else success
-                        if(res != "") {
+                        if(res) {
+                            // TODO: send user to correct page based on PATIENT or CARE PROVIDER
                             // start new activity with given id from login request
                             Intent intent = new Intent(LoginActivity.this, ProblemListActivity.class);
+                            intent.putExtra("user", IrisProjectApplication.getCurrentUser().getID());
                             startActivity(intent);
                         }else {
                             Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();

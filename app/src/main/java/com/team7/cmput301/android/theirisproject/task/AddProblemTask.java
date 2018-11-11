@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
-import io.searchbox.core.SearchResult;
 
 /**
  * AddProblemTask is an AsyncTask that sends a POST request to our

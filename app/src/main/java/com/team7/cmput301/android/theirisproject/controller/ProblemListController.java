@@ -23,9 +23,12 @@ import com.team7.cmput301.android.theirisproject.model.ProblemList;
  * */
 public class ProblemListController extends IrisController<ProblemList> {
 
+    private String userID;
+
     public ProblemListController(Intent intent) {
         super(intent);
         this.model = getModel(intent.getExtras());
+        this.userID = intent.getExtras().getString("user");
     }
 
     /**
@@ -44,7 +47,7 @@ public class ProblemListController extends IrisController<ProblemList> {
                 model = res;
                 cb.onComplete(res);
             }
-        }).execute(IrisProjectApplication.getCurrentUser().getID());
+        }).execute(userID);
     }
 
     public ProblemList getProblems() {

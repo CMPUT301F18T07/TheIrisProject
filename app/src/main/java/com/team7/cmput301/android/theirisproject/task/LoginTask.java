@@ -17,7 +17,7 @@ import java.io.IOException;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
-public class LoginTask extends AsyncTask<String, Void, String> {
+public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
     private Callback cb;
     public LoginTask(Callback cb) { this.cb = cb;
@@ -30,8 +30,7 @@ public class LoginTask extends AsyncTask<String, Void, String> {
      * @return String: user id
      * */
     @Override
-    protected String doInBackground(String... params) {
-        String res = "";
+    protected Boolean doInBackground(String... params) {
 
         try {
             // HTTP POST to database with given query /_search?q=email:params[0]
@@ -44,17 +43,17 @@ public class LoginTask extends AsyncTask<String, Void, String> {
             // check if the hit is equal to email entered then return a result
             if(response.source.getEmail().equals(params[0])) {
                 IrisProjectApplication.setCurrentUser(response.source);
-                return response.id;
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return res;
+        return false;
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        cb.onComplete(s);
+    protected void onPostExecute(Boolean res) {
+        super.onPostExecute(res);
+        cb.onComplete(res);
     }
 }

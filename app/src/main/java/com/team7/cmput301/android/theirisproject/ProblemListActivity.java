@@ -26,8 +26,11 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
+
+        problemsView = findViewById(R.id.problem_item_list);
         controller = createController(getIntent());
 
+        // set click listener to AddProblemFloatingButton
         findViewById(R.id.problem_list_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,31 +44,12 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     @Override
     protected void onStart() {
         super.onStart();
-        problemsView = findViewById(R.id.problem_item_list);
-        // fetch user problems from database
         controller.getUserProblems(new Callback<ProblemList>() {
             @Override
             public void onComplete(ProblemList res) {
                 render(res);
             }
         });
-    }
-
-    /**
-     * onActivityResult updates our problem list once we return
-     * from an activity that we started by intent with a requestCode
-     * */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ADD_PROBLEM_RESPONSE) {
-            controller.getUserProblems(new Callback<ProblemList>() {
-                @Override
-                public void onComplete(ProblemList res) {
-                    render(res);
-                }
-            });
-        }
     }
 
     @Override
@@ -75,6 +59,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     public void render(ProblemList state) {
         ProblemList newState = state;
-        problemsView.setAdapter(new ProblemListAdapter(this, R.layout.list_problem_item, newState.asList()));
+        problemsView.setAdapter(new ProblemListAdapter(this, R.layout.list_problem_item, newState.getProblems()));
     }
 }
