@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.tasks.RegisterUserTask;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
@@ -24,7 +25,7 @@ import com.team7.cmput301.android.theirisproject.model.User.UserType;
  */
 public class RegisterController extends IrisController {
 
-    public RegisterController(Intent intent){
+    public RegisterController(Intent intent) {
         // don't need extra data from intent, so don't do anything
         super(intent);
     }
@@ -41,7 +42,7 @@ public class RegisterController extends IrisController {
      * @param phoneNumber inputted phone number
      * @param type self-described role of user
      */
-    public void createUser(String username, String email, String phoneNumber, UserType type) {
+    public void createUser(String username, String email, String phoneNumber, UserType type, Callback<Boolean> callback) {
         User newUser;
         switch (type) {
             case PATIENT:
@@ -54,12 +55,12 @@ public class RegisterController extends IrisController {
                 newUser = new Patient(username, email, phoneNumber);
                 break;
         }
-        addUser(newUser);
+        addUser(newUser, callback);
     }
 
-    private void addUser(User user){
+    private void addUser(User user, Callback<Boolean> callback) {
         // Add the given user to the database
-        RegisterUserTask registerUserTask = new RegisterUserTask();
+        RegisterUserTask registerUserTask = new RegisterUserTask(callback);
         registerUserTask.execute(user);
     }
 
