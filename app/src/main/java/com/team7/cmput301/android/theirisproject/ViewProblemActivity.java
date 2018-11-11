@@ -55,7 +55,6 @@ public class ViewProblemActivity extends IrisActivity {
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());
-        problemDate.setText(newState.getDate());
         problemDescription.setText(newState.getDescription());
     }
 }
