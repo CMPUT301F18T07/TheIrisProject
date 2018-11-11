@@ -8,7 +8,7 @@ import io.searchbox.annotations.JestId;
 
 public abstract class User {
     @JestId
-    private String id;
+    private String _id;
 
     private String name;
     private String email;
@@ -38,8 +38,8 @@ public abstract class User {
         return phone;
     }
 
-    public String getID() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
     public void editContact(String username, String email, String phoneNumber) {

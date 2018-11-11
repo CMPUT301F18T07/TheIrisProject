@@ -8,13 +8,17 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
-
+/**
+ * ProblemListActivity shows the problems of a given user through the intent
+ * extra "user"
+ *
+ * @author itstc
+ * */
 public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     private static final int ADD_PROBLEM_RESPONSE = 1;
@@ -57,6 +61,13 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         return new ProblemListController(intent);
     }
 
+    /**
+     * render will update the Activity with the new state provided
+     * in the arguments of invoking this method
+     *
+     * @param state: new state of model
+     * @return void
+     * */
     public void render(ProblemList state) {
         ProblemList newState = state;
         problemsView.setAdapter(new ProblemListAdapter(this, R.layout.list_problem_item, newState.getProblems()));
