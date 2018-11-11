@@ -6,13 +6,11 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
@@ -32,12 +30,14 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        String title = "Records";
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
         this.controller = createController(getIntent());
 
-        //loadCustomActionBar();
-        loadCustomToolbar();
+        setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
 
     }
 
@@ -78,38 +78,21 @@ public class RecordListActivity extends IrisActivity<RecordList> {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Called when back button clicked
+     * @return True if back-up successful
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     @Override
     protected RecordListController createController(Intent intent) {
         return new RecordListController(intent);
     }
 
-    /**
-     * https://stackoverflow.com/a/12388200
-     */
-    private void loadCustomActionBar() {
-
-        String title = "Records";
-
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.centered_action_bar);
-        getSupportActionBar().setTitle(title);
-
-
-    }
-
-    /**
-     * https://medium.com/@101/android-toolbar-for-appcompatactivity-671b1d10f354
-     * https://stackoverflow.com/a/30211080
-     */
-    private void loadCustomToolbar(){
-
-        String title = "Records";
-
-        toolbar = findViewById(R.id.centered_toolbar);
-        setSupportActionBar(toolbar);
-        ((TextView) findViewById(R.id.main_toolbar_title)).setText(title);
-
-    }
 
     public void render(RecordList records) {
 
