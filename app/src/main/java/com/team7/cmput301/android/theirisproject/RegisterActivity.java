@@ -88,9 +88,4 @@ public class RegisterActivity extends IrisActivity {
         return new RegisterController(intent);
     }
 
-    @Override
-    public void render() {
-        // No need to render for RegisterActivity
-    }
-
 }

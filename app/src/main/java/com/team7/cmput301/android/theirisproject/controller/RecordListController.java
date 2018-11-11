@@ -9,14 +9,39 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class RecordListController extends IrisController {
+import com.team7.cmput301.android.theirisproject.model.RecordList;
+import com.team7.cmput301.android.theirisproject.tasks.Callback;
+import com.team7.cmput301.android.theirisproject.tasks.GetRecordListTask;
+
+/**
+ * Controller for RecordListActivity
+ * @author anticobalt
+ * @see com.team7.cmput301.android.theirisproject.RecordListActivity
+ * @see GetRecordListTask
+ */
+public class RecordListController extends IrisController<RecordList> {
+
+    private String problemId;
+    private RecordList records;
 
     public RecordListController(Intent intent){
         super(intent);
+        problemId = intent.getStringExtra("problemId");
+        records = model; // aliasing for clarity
+    }
+
+    public void getRecords(Callback<RecordList> cb){
+        new GetRecordListTask(new Callback<RecordList>() {
+            @Override
+            public void onComplete(RecordList records) {
+                RecordListController.this.records = records;
+                cb.onComplete(records);
+            }
+        }).execute(problemId);
     }
 
     @Override
-    Object getModel(Bundle data) {
-        return null;
+    RecordList getModel(Bundle data) {
+        return new RecordList();
     }
 }

@@ -47,8 +47,4 @@ public class LoginActivity extends IrisActivity {
     protected IrisController createController(Intent intent) {
         return null; // no reason for controller in this activity
     }
-
-    @Override
-    public void render() {
-    }
 }
