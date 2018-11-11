@@ -20,6 +20,6 @@ public class Patient extends User {
     }
 
     public Patient(String name, String email, String phoneNumber) {
-        super("Patient", name, email, phoneNumber);
+        super(name, email, phoneNumber, UserType.PATIENT);
     }
 }

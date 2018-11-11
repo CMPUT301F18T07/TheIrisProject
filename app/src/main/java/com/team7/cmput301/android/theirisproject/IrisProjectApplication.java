@@ -11,6 +11,7 @@ import android.app.Application;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.team7.cmput301.android.theirisproject.model.User;
+import com.searchly.jestdroid.JestDroidClient;
 
 import io.searchbox.client.JestClient;
 
@@ -36,14 +37,14 @@ public class IrisProjectApplication extends Application {
      * @params {}
      * @return JestClient: our database
      * */
-    public static JestClient getDB() {
+    public static JestDroidClient getDB() {
         // create new JestClient instance if none
-        if(db == null) {
+        if (db == null) {
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(new DroidClientConfig
                     .Builder("http://cmput301.softwareprocess.es:8080")
                     .build());
-            db = factory.getObject();
+            db = (JestDroidClient) factory.getObject();
         }
         return db;
     }
