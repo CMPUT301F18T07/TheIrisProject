@@ -1,16 +1,28 @@
 package com.team7.cmput301.android.theirisproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.controller.AddProblemController;
+import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 
-public class AddProblemActivity extends AppCompatActivity {
+/**
+ * AddProblemActivity is a form to add an activity,
+ * by click on submit we are sending a Problem object
+ * to our database to be stored (handle offline by storing it in local json).
+ *
+ * @author itstc
+ * */
+public class AddProblemActivity extends IrisActivity {
+    private AddProblemController controller;
+    private TextView name;
+    private TextView desc;
 
     private TextView name;
     private TextView desc;
@@ -20,22 +32,16 @@ public class AddProblemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitvity_addproblem);
 
+        controller = createController(getIntent());
         name = findViewById(R.id.problem_title_edit_text);
         desc = findViewById(R.id.problem_description_edit_text);
 
         // set click listener to submit button
-        findViewById(R.id.problem_record_problem_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.problem_submit_button).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
-                // send new problem to database, returning true if successful, else false
-                Problem submitProblem = new Problem(
-                        name.getText().toString(),
-                        desc.getText().toString(),
-                        IrisProjectApplication.getCurrentUser().getID());
-
-                new AddProblemTask(new Callback<Boolean>() {
+                controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<Boolean>() {
                     @Override
                     public void onComplete(Boolean success) {
                         if(success) {
@@ -46,8 +52,14 @@ public class AddProblemActivity extends AppCompatActivity {
                             Toast.makeText(AddProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();
                         }
                     }
-                }).execute(submitProblem);
+                });
             }
         });
+    }
+
+
+    @Override
+    protected AddProblemController createController(Intent intent) {
+        return new AddProblemController(intent);
     }
 }

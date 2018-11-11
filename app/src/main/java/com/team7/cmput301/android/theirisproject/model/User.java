@@ -41,9 +41,15 @@ public abstract class User {
         return email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
+
+    public String getId() {
+        return _id;
+    }
+
+    public void editContact(String username, String email, String phoneNumber) {
 
     public UserType getType() {
         return this.type;
