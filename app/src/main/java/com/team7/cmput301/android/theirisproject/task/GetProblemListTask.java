@@ -13,7 +13,6 @@ import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
 
-
 import java.io.IOException;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
@@ -29,6 +28,7 @@ import io.searchbox.core.SearchResult;
 public class GetProblemListTask extends AsyncTask<String, Void, SearchResult> {
 
     private Callback cb;
+
 
     public GetProblemListTask(Callback callback) {
         this.cb = callback;
