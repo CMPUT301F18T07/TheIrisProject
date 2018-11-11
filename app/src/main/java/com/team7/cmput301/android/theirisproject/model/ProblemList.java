@@ -18,7 +18,6 @@ public class ProblemList implements Iterable<Problem> {
     }
 
     public ProblemList() {
-
     }
 
     public ArrayList<Problem> getProblems() {
@@ -31,7 +30,7 @@ public class ProblemList implements Iterable<Problem> {
 
     public List<Problem> asList() { return problems; }
 
-    public Problem getByID(String id) {
+    public Problem getProblemByID(String id) {
         for(Problem problem: problems) {
             if(problem.getId() == id) return problem;
         }

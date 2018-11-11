@@ -35,7 +35,6 @@ public class Problem {
         this.desc = description;
         this.user = user;
     }
-
     public Problem() {
 
     }

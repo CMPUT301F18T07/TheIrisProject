@@ -22,6 +22,7 @@
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <ListView
         android:id="@+id/problem_item_list"
         android:layout_width="match_parent"
