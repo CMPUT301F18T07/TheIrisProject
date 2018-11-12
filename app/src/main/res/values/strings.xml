@@ -48,7 +48,7 @@
 
     <!-- View Record List screen strings -->
     <string name="edit_records">Edit</string>
-  
+
     <!-- View Problem screen stings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
