@@ -1,4 +1,4 @@
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddProblemController;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * AddProblemActivity is a form to add an activity,
