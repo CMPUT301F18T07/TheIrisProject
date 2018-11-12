@@ -37,12 +37,15 @@ public class AddProblemActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // send new problem to database, callback has result true if successful, else false
-                controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<Boolean>() {
+                controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<String>() {
                     @Override
-                    public void onComplete(Boolean success) {
-                        if(success) {
+                    public void onComplete(String id) {
+                        if(id != null) {
                             // end Activity returning to ProblemListActivity
+                            Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
+                            intent.putExtra("problem_id", id);
                             Toast.makeText(AddProblemActivity.this, "New Problem Created!", Toast.LENGTH_LONG).show();
+                            startActivity(intent);
                             finish();
                         }else {
                             Toast.makeText(AddProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();

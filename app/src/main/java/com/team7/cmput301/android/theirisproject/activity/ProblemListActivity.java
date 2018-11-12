@@ -9,11 +9,13 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
+import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -37,6 +39,16 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
         problemsView = findViewById(R.id.problem_item_list);
         controller = createController(getIntent());
+
+        problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Problem problem = (Problem) problemsView.getItemAtPosition(i);
+                Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
+                intent.putExtra("problem_id", problem.getId());
+                startActivity(intent);
+            }
+        });
 
         // set click listener to AddProblemFloatingButton
         findViewById(R.id.problem_list_add).setOnClickListener(new View.OnClickListener() {

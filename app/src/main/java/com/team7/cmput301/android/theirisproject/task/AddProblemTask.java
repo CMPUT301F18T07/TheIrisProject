@@ -23,7 +23,7 @@ import io.searchbox.core.Index;
  *
  * @author itstc
  * */
-public class AddProblemTask extends AsyncTask<Problem, Void, Boolean> {
+public class AddProblemTask extends AsyncTask<Problem, Void, String> {
 
     private Callback cb;
     public AddProblemTask(Callback cb) {
@@ -37,19 +37,19 @@ public class AddProblemTask extends AsyncTask<Problem, Void, Boolean> {
      * @return Boolean: true if successful, else false
      * */
     @Override
-    protected Boolean doInBackground(Problem... params) {
+    protected String doInBackground(Problem... params) {
         try {
             Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("problem").build();
             DocumentResult res = IrisProjectApplication.getDB().execute(post);
-            return res.isSucceeded();
+            return res.getId();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean res) {
+    protected void onPostExecute(String res) {
         super.onPostExecute(res);
         cb.onComplete(res);
     }
