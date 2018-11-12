@@ -126,23 +126,24 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/user_radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:checkedButton="@id/patient_radio_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/patient_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/patient" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/care_provider_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/care_provider"

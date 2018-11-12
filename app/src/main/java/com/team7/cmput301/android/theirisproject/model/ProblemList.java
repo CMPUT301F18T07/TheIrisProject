@@ -1,28 +1,38 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.model;
 
-import java.util.ArrayList;
+import android.support.annotation.NonNull;
 
-public class ProblemList {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class ProblemList implements Iterable<Problem> {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
 
+    public ProblemList(List<Problem> problems) {
+        this.problems = (ArrayList<Problem>) problems;
+    }
+
+    public ProblemList() {
+    }
+
     public ArrayList<Problem> getProblems() {
-        return this.problems;
-    }
-
-    public void ProblemList() {
-
-    }
-
-    public void add(Problem problem) {
-
+        return problems;
     }
 
     public void delete(Problem problem) {
 
+    }
+
+    public Problem getProblemByID(String id) {
+        for(Problem problem: problems) {
+            if(problem.getId() == id) return problem;
+        }
+        return null;
     }
 
     public boolean contains(Problem problem) {
@@ -32,4 +42,12 @@ public class ProblemList {
     public int length() {
         return 0;
     }
+
+
+    @NonNull
+    @Override
+    public Iterator<Problem> iterator() {
+        return problems.iterator();
+    }
 }
+

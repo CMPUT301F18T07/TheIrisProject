@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.model;
@@ -15,32 +15,35 @@ public class Record {
     private BodyLocation bodyLocation;
     private ArrayList<RecordPhoto> recordPhotos = new ArrayList<RecordPhoto>();
 
+    public Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
+    }
+
+    public Record() {
+
+    }
+
     public String getText() {
-        return this.text;
+        return text;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public Date getDate() {
-        return this.date;
+        return date;
     }
 
     public GeoLocation getGeoLocation() {
-        return this.geoLocation;
+        return geoLocation;
     }
 
     public BodyLocation getBodyLocation() {
-        return this.bodyLocation;
+        return bodyLocation;
     }
 
-    public ArrayList<RecordPhoto> getRecordPhoto() {
-        return this.recordPhotos;
-    }
-
-    public Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
-
+    public ArrayList<RecordPhoto> getRecordPhotos() {
+        return recordPhotos;
     }
 
     public void addPhoto(RecordPhoto img) {
