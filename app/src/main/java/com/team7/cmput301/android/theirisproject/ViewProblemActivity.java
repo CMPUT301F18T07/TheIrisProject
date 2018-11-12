@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ *
+ *
+ */
+
 package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
@@ -16,7 +22,7 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
  * @author VinnyLuu
  * @see ProblemController
  */
-public class ViewProblemActivity extends IrisActivity {
+public class ViewProblemActivity extends IrisActivity<Problem> {
 
     private ProblemController problemController;
 
@@ -55,7 +61,6 @@ public class ViewProblemActivity extends IrisActivity {
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());
-        problemDate.setText(newState.getDate());
         problemDescription.setText(newState.getDescription());
     }
 }

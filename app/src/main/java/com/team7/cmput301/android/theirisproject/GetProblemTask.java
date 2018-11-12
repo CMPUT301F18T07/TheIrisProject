@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ *
+ *
+ */
+
 package com.team7.cmput301.android.theirisproject;
 
 import android.os.AsyncTask;
@@ -6,14 +12,17 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
 
-import io.searchbox.core.Search;
-import io.searchbox.core.SearchResult;
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Get;
+
+import static com.team7.cmput301.android.theirisproject.IrisProjectApplication.INDEX;
 
 /**
  * GetProblemTask asynchronously gets a problem from the database
  *
+ * @author VinnyLuu
  */
-public class GetProblemTask extends AsyncTask<String, Void, SearchResult> {
+public class GetProblemTask extends AsyncTask<String, Void, Problem> {
 
     private Callback callback;
 
@@ -22,22 +31,24 @@ public class GetProblemTask extends AsyncTask<String, Void, SearchResult> {
     }
 
     @Override
-    protected SearchResult doInBackground(String... params) {
-        SearchResult res = null;
+    protected Problem doInBackground(String... params) {
+        JestResult res = null;
+        Problem result = null;
         try {
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"problem_id\": \"" + params[0] + "\"}}}")
-                    .addIndex(IrisProjectApplication.INDEX)
-                    .addType("problem")
+            Get get = new Get.Builder(INDEX,params[0])
+                    .type("problem")
                     .build();
             res = IrisProjectApplication.getDB().execute(get);
+            result = res.getSourceAsObject(Problem.class);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return res;
+        return result;
     }
 
     @Override
-    protected void onPostExecute(SearchResult res) {
+    protected void onPostExecute(Problem res) {
         super.onPostExecute(res);
         callback.onComplete(res);
     }

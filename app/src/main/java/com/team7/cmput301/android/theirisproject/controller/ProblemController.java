@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ *
+ *
+ */
+
 package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
@@ -7,7 +13,13 @@ import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.GetProblemTask;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
-
+/**
+ * Controller that gets the problem from the database
+ * Called from ViewProblemActivity
+ *
+ * @author VinnyLuu
+ * @see com.team7.cmput301.android.theirisproject.ViewProblemActivity
+ */
 public class ProblemController extends IrisController {
     String problemID;
 
