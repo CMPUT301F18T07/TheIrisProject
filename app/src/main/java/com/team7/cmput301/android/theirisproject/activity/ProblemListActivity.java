@@ -4,16 +4,19 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
+import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+
 /**
  * ProblemListActivity shows the problems of a given user through the intent
  * extra "user"
