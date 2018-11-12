@@ -7,18 +7,27 @@
 package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
+    private static final String TAG = LoginTask.class.getSimpleName();
     private Callback cb;
     public LoginTask(Callback cb) { this.cb = cb;
     }
@@ -34,17 +43,35 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
         try {
             // HTTP POST to database with given query /_search?q=email:params[0]
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"email\": \"" + params[0] + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + params[0] + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
-            // TODO: We make it a patient for now because User.class can't be instantiated...
-            SearchResult.Hit<Patient, Void> response = IrisProjectApplication.getDB().execute(get).getFirstHit(Patient.class);
-            // check if the hit is equal to email entered then return a result
-            if(response.source.getEmail().equals(params[0])) {
-                IrisProjectApplication.setCurrentUser(response.source);
-                return true;
+
+            SearchResult searchResult = IrisProjectApplication.getDB().execute(get);
+            if (!searchResult.isSucceeded()) {
+                return false;
             }
+
+            JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
+            if (arrayHits.size() == 0) {
+                return false;
+            }
+
+            String type = arrayHits.get(0).getAsJsonObject().get("_source").getAsJsonObject().get("type").getAsString();
+            Log.i(TAG, "Type of user: " + type);
+
+            // User is only set successfully if there exists a hit (exact email match)
+            User user;
+            if (type.equals(UserType.PATIENT)) {
+                user = searchResult.getSourceAsObject(Patient.class, true);
+            } else {
+                user = searchResult.getSourceAsObject(CareProvider.class, true);
+            }
+
+            IrisProjectApplication.setCurrentUser(user);
+            return true;
+
         } catch (IOException e) {
             e.printStackTrace();
         }

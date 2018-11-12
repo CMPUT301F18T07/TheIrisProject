@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Callback;
-import com.team7.cmput301.android.theirisproject.tasks.RegisterUserTask;
+import com.team7.cmput301.android.theirisproject.task.RegisterTask;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.User;
@@ -60,8 +60,8 @@ public class RegisterController extends IrisController {
 
     private void addUser(User user, Callback<Boolean> callback) {
         // Add the given user to the database
-        RegisterUserTask registerUserTask = new RegisterUserTask(callback);
-        registerUserTask.execute(user);
+        RegisterTask registerTask = new RegisterTask(callback);
+        registerTask.execute(user);
     }
 
 }
