@@ -1,9 +1,8 @@
-package com.team7.cmput301.android.theirisproject.tasks;
+package com.team7.cmput301.android.theirisproject.task;
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
@@ -19,6 +18,8 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+
+import static com.team7.cmput301.android.theirisproject.model.User.*;
 
 /**
  * RegisterUserTask is an AsyncTask that asynchronously registers the given user into the
@@ -56,28 +57,24 @@ public class RegisterUserTask extends AsyncTask<User, Void, Boolean> {
         Index index = new Index.Builder(user).index(IrisProjectApplication.INDEX).type("user").build();
 
         try {
+
+
             // Search for user and get the closest match
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"email\": \"" + users[0].getEmail() + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + users[0].getEmail() + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
             searchResult = IrisProjectApplication.getDB().execute(get);
 
             // Check if closest match is equal to the inputted user email (i.e. if the email already exists in the database)
-            if (searchResult.isSucceeded()) {
-                User foundUser;
+            if (!searchResult.isSucceeded()) {
+                return false;
+            }
 
-                if (user.getType() == User.UserType.PATIENT) {
-                    foundUser = searchResult.getFirstHit(Patient.class).source;
-                } else {
-                    foundUser = searchResult.getFirstHit(CareProvider.class).source;
-                }
-
-                if (foundUser != null && foundUser.getEmail().equals(users[0].getEmail())) {
-                    // Found a user that is already registered with the inputted email
-                    return false;
-                }
-
+            JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
+            // Stop registration if we already have a hit when searching for the email
+            if (arrayHits.size() >= 1) {
+                return false;
             }
 
             // Add the user to the database
