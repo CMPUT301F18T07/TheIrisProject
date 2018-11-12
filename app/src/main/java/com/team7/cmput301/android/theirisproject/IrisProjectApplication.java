@@ -26,7 +26,7 @@ public class IrisProjectApplication extends Application {
     public static final String INDEX = "cmput301f18t07test";
 
     // our database connection
-    transient private static JestClient db = null;
+    transient private static JestDroidClient db = null;
     transient private static User currentUser = null;
 
     /**

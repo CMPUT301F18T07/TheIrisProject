@@ -24,9 +24,6 @@ public class AddProblemActivity extends IrisActivity {
     private TextView name;
     private TextView desc;
 
-    private TextView name;
-    private TextView desc;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
