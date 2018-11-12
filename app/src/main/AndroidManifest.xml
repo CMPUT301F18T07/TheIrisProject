@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".IrisProjectApplication"
         android:allowBackup="true"
@@ -10,18 +10,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+
+        <activity android:name=".LoginActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"></activity>
         <activity
             android:name=".AddRecordActivity"
             android:label="@string/title_activity_add_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".RecordListActivity"></activity>
+        <activity android:name=".ProblemListActivity"></activity>
+        <activity android:name=".AddProblemActivity"></activity>
+
     </application>
 
 </manifest>

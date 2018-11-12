@@ -15,36 +15,35 @@ public class Record {
     private BodyLocation bodyLocation;
     private ArrayList<RecordPhoto> recordPhotos = new ArrayList<RecordPhoto>();
 
-    public String getText() {
-        return this.text;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public Date getDate() {
-        return this.date;
-    }
-
-    public GeoLocation getGeoLocation() {
-        return this.geoLocation;
-    }
-
-    public BodyLocation getBodyLocation() {
-        return this.bodyLocation;
-    }
-
-    public ArrayList<RecordPhoto> getRecordPhotos() {
-        return this.recordPhotos;
-    }
-
     public Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
-
     }
 
     public Record() {
 
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public GeoLocation getGeoLocation() {
+        return geoLocation;
+    }
+
+    public BodyLocation getBodyLocation() {
+        return bodyLocation;
+    }
+
+    public ArrayList<RecordPhoto> getRecordPhotos() {
+        return recordPhotos;
     }
 
     public void addPhoto(RecordPhoto img) {
