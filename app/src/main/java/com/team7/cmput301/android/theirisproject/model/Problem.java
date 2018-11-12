@@ -7,6 +7,7 @@ package com.team7.cmput301.android.theirisproject.model;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.searchbox.annotations.JestId;
@@ -18,6 +19,7 @@ public class Problem {
     private String title;
     private String desc;
     private String user;
+    private Date date;
     private RecordList records;
     private List<Comment> comments = new ArrayList<>();
     private List<BodyPhoto> bodyPhotos;
@@ -53,6 +55,10 @@ public class Problem {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDate() {
+        return String.valueOf(this.date);
     }
 
     public String getDescription() {
