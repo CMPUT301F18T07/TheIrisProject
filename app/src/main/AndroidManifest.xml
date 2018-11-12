@@ -19,10 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-      
         <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".RecordListActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".AddRecordActivity"
+            android:label="@string/title_activity_add_record"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".RecordListActivity"></activity>
         <activity android:name=".ProblemListActivity"></activity>
         <activity android:name=".AddProblemActivity"></activity>
 

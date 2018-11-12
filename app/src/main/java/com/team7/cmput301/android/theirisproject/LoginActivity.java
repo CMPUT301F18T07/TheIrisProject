@@ -80,7 +80,7 @@ public class LoginActivity extends IrisActivity {
         Intent intent = new Intent(LoginActivity.this, targetActivity);
         intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
-    
+    }
   
     @Override
     protected LoginController createController(Intent intent) {

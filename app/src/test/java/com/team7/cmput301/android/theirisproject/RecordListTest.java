@@ -30,7 +30,7 @@ public class RecordListTest {
 
         Assert.assertEquals(recordList.getRecords().size(), 1);
     }
-    
+
     @Test
     public void testContains() {
         RecordList recordList = new RecordList();
