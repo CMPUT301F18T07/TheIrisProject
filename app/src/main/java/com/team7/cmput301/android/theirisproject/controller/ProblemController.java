@@ -25,7 +25,7 @@ public class ProblemController extends IrisController {
 
     public ProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString("user");
+        this.problemID = intent.getExtras().getString("problem_id");
         this.model = getModel(intent.getExtras());
     }
 
