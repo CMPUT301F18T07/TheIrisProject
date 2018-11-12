@@ -4,7 +4,7 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

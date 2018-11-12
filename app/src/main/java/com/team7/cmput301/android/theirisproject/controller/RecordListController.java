@@ -10,13 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.model.RecordList;
-import com.team7.cmput301.android.theirisproject.tasks.Callback;
-import com.team7.cmput301.android.theirisproject.tasks.GetRecordListTask;
+import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
 /**
  * Controller for RecordListActivity
  * @author anticobalt
- * @see com.team7.cmput301.android.theirisproject.RecordListActivity
+ * @see RecordListActivity
  * @see GetRecordListTask
  */
 public class RecordListController extends IrisController<RecordList> {

@@ -9,10 +9,7 @@ package com.team7.cmput301.android.theirisproject.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
@@ -20,7 +17,6 @@ import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 import java.io.IOException;
-import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
