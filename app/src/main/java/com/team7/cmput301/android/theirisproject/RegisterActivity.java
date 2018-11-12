@@ -97,4 +97,5 @@ public class RegisterActivity extends IrisActivity {
     protected IrisController createController(Intent intent) {
         return new RegisterController(intent);
     }
+
 }
