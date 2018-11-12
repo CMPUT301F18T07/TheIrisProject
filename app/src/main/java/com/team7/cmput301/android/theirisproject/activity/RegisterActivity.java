@@ -2,7 +2,7 @@
  * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.RegisterController;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * Activity that is used to help registerUser new users into the database
@@ -97,4 +99,5 @@ public class RegisterActivity extends IrisActivity {
     protected IrisController createController(Intent intent) {
         return new RegisterController(intent);
     }
+
 }

@@ -4,14 +4,13 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
 
-
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
-import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
 
