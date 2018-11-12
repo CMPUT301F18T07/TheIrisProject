@@ -12,9 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.team7.cmput301.android.theirisproject.activity.IrisActivity;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
-import com.team7.cmput301.android.theirisproject.tasks.Callback;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * Activity for viewing and clicking all Records for a Patient
