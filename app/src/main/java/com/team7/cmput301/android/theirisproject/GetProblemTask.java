@@ -8,6 +8,8 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.os.AsyncTask;
 
+import com.team7.cmput301.android.theirisproject.Callback;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
@@ -40,6 +42,7 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
                     .build();
             res = IrisProjectApplication.getDB().execute(get);
             result = res.getSourceAsObject(Problem.class);
+
             return result;
         } catch (IOException e) {
             e.printStackTrace();

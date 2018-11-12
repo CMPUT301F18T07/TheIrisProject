@@ -10,8 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Callback;
-import com.team7.cmput301.android.theirisproject.GetProblemTask;
 import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.GetProblemTask;
 
 /**
  * Controller that gets the problem from the database
@@ -25,7 +25,7 @@ public class ProblemController extends IrisController {
 
     public ProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString("problem_id");
+        this.problemID = intent.getExtras().getString("user");
         this.model = getModel(intent.getExtras());
     }
 
