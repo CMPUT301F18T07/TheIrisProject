@@ -11,7 +11,7 @@
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your name</string>
+    <string name="login_username_hint">Enter your e-mail</string>
     <string name="login_password_hint">Enter your password</string>
 
     <!-- Register screen strings -->
@@ -20,7 +20,10 @@
     <string name="password_title">Password</string>
     <string name="phone_title">Phone Number</string>
     <string name="email_title">Email Address</string>
-
+    <string name="username_hint">Enter a username</string>
+    <string name="password_hint">Enter a password</string>
+    <string name="phone_hint">Enter phone number</string>
+    <string name="email_hint">Enter email address</string>
     <string name="register_username_hint">Enter a name</string>
     <string name="register_password_hint">Enter a password</string>
     <string name="register_phone_hint">Enter phone number</string>
@@ -36,5 +39,9 @@
 
     <!-- View Record List screen strings -->
     <string name="edit_records">Edit</string>
+  
+    <!-- View Problem screen stings-->
+    <string name="view_records">View Records</string>
+    <string name="create_record">Create Record</string>
 
 </resources>

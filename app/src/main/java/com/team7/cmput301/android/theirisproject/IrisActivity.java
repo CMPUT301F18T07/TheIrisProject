@@ -26,5 +26,5 @@ public abstract class IrisActivity<M> extends AppCompatActivity {
      * @return The IrisController (e.g. ProblemController)
      */
     protected abstract IrisController createController(Intent intent);
-
+  
 }

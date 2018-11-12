@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/create_prob_text_view"
+        android:id="@+id/create_prob_text_view "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -23,22 +23,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/problem_title_edit_text"
-            android:layout_width="296dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/enter_a_title_max_30_characters"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            android:maxLength="30"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_prob_text_view " />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="296dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/enter_a_title_max_30_characters"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_prob_text_view " />
 
     <EditText
-        android:id="@+id/problem_date_select_edit_text"
+        android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -51,10 +50,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problem_title_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <EditText
-        android:id="@+id/problem_description_edit_text"
+        android:id="@+id/editText7"
         android:layout_width="294dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -64,14 +63,13 @@
         android:hint="@string/enter_a_description_max_300_characters"
         android:inputType="textMultiLine"
         android:textSize="14sp"
-        android:maxLength="300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problem_date_select_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
     <EditText
-        android:id="@+id/problem_geolocation_edit_text"
+        android:id="@+id/editText10"
         android:layout_width="213dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -83,10 +81,10 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problem_description_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/editText7" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/problem_camera_button"
+        android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
@@ -95,37 +93,37 @@
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problem_geolocation_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/editText10"
         app:srcCompat="@android:drawable/ic_menu_camera"
         android:focusable="true" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/problem_album_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="236dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/problem_camera_button"
-            app:layout_constraintTop_toBottomOf="@+id/problem_geolocation_edit_text"
-            app:srcCompat="@android:drawable/ic_menu_gallery" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="236dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
+        app:layout_constraintTop_toBottomOf="@+id/editText10"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        android:focusable="true" />
 
-        <Button
-            android:id="@+id/problem_submit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="178dp"
-            android:layout_marginBottom="38dp"
-            android:background="@color/colorAccent"
-            android:text="@string/record_problem"
-            android:textColor="?android:attr/colorBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/problem_geolocation_edit_text" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="178dp"
+        android:layout_marginBottom="38dp"
+        android:background="@color/colorAccent"
+        android:text="@string/record_problem"
+        android:textColor="?android:attr/colorBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText10" />
 
     </android.support.constraint.ConstraintLayout>
 
