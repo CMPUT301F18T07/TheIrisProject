@@ -29,6 +29,8 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  */
 public class ViewProblemActivity extends IrisActivity<Problem> {
 
+    public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.problem_id";
+
     private ProblemController problemController;
 
     private TextView problemTitle;

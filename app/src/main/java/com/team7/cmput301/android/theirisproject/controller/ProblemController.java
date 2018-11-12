@@ -21,18 +21,14 @@ import com.team7.cmput301.android.theirisproject.task.GetProblemTask;
  * Called from ViewProblemActivity
  *
  * @author VinnyLuu
-<<<<<<< HEAD
- * @see com.team7.cmput301.android.theirisproject.ViewProblemActivity
-=======
  * @see ViewProblemActivity
->>>>>>> master
  */
 public class ProblemController extends IrisController {
     String problemID;
 
     public ProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString("problem_id");
+        this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
         this.model = getModel(intent.getExtras());
     }
 

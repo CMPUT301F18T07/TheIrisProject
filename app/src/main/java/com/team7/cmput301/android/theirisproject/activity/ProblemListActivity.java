@@ -45,7 +45,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Problem problem = (Problem) problemsView.getItemAtPosition(i);
                 Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
-                intent.putExtra("problem_id", problem.getId());
+                intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
                 startActivity(intent);
             }
         });

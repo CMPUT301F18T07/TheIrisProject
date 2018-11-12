@@ -43,7 +43,7 @@ public class AddProblemActivity extends IrisActivity {
                         if(id != null) {
                             // end Activity returning to ProblemListActivity
                             Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
-                            intent.putExtra("problem_id", id);
+                            intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
                             Toast.makeText(AddProblemActivity.this, "New Problem Created!", Toast.LENGTH_LONG).show();
                             startActivity(intent);
                             finish();
