@@ -8,9 +8,12 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
@@ -25,6 +28,8 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @see ProblemController
  */
 public class ViewProblemActivity extends IrisActivity<Problem> {
+
+    public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.extra_problem_id";
 
     private ProblemController problemController;
 
