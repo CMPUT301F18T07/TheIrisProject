@@ -13,7 +13,7 @@ public class RecordList implements Iterable<Record> {
     private ArrayList<Record> records = new ArrayList<Record>();
 
     public ArrayList<Record> getRecords() {
-        return this.records;
+        return records;
     }
 
     public RecordList() {

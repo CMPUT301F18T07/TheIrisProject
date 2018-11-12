@@ -97,10 +97,4 @@ public class RegisterActivity extends IrisActivity {
     protected IrisController createController(Intent intent) {
         return new RegisterController(intent);
     }
-
-    @Override
-    public void render() {
-        // No need to render for RegisterActivity
-    }
-
 }

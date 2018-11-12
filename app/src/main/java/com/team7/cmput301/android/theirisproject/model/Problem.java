@@ -22,6 +22,23 @@ public class Problem {
     private List<Comment> comments = new ArrayList<>();
     private List<BodyPhoto> bodyPhotos;
 
+    public Problem(String title, String description, String user, RecordList records, List<BodyPhoto> bodyPhotos) {
+        this.title = title;
+        this.desc = description;
+        this.user = user;
+        this.records = records;
+        this.bodyPhotos = bodyPhotos;
+    }
+
+    public Problem(String title, String description, String user) {
+        this.title = title;
+        this.desc = description;
+        this.user = user;
+    }
+    public Problem() {
+
+    }
+
     public RecordList getRecords() {
         return records;
     }
@@ -31,31 +48,25 @@ public class Problem {
     }
 
     public String getId() {
-        return this._id;
+        return _id;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public String getDescription() {
-        return this.desc;
+        return desc;
     }
 
-    public String getUser() {return this.user;}
+    public String getUser() {return user;}
 
     public List<BodyPhoto> getBodyPhotos() {
-        return this.bodyPhotos;
+        return bodyPhotos;
     }
 
     public List<RecordPhoto> getSlideShowInfo() {
         return null;
     }
 
-    public Problem(String title, String description, RecordList records, List<BodyPhoto> body_photos) {
-
-    }
-    public Problem() {
-
-    }
 }
