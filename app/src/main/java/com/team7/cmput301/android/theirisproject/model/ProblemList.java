@@ -4,34 +4,32 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
-import java.util.ArrayList;
+import android.support.annotation.NonNull;
 
-public class ProblemList {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class ProblemList implements Iterable<Problem> {
     private ArrayList<Problem> problems = new ArrayList<Problem>();
 
+    public ProblemList(List<Problem> problems) {
+        this.problems = (ArrayList<Problem>) problems;
+    }
+
+    public ProblemList() {
+    }
+
     public ArrayList<Problem> getProblems() {
-        return this.problems;
-    }
-
-    public void ProblemList() {
-
-    }
-
-    public void add(Problem problem) {
-
+        return problems;
     }
 
     public void delete(Problem problem) {
 
     }
 
-    public void bulkAdd(ArrayList<Problem> problems) {
-        this.problems = problems;
-    }
-
-
-    public Problem getProblem(String id) {
-        for(Problem problem: this.problems) {
+    public Problem getProblemByID(String id) {
+        for(Problem problem: problems) {
             if(problem.getId() == id) return problem;
         }
         return null;
@@ -45,4 +43,9 @@ public class ProblemList {
         return 0;
     }
 
+    @NonNull
+    @Override
+    public Iterator<Problem> iterator() {
+        return problems.iterator();
+    }
 }

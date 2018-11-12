@@ -11,7 +11,7 @@
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your name</string>
+    <string name="login_username_hint">Enter your e-mail</string>
     <string name="login_password_hint">Enter your password</string>
 
     <!-- Register screen strings -->

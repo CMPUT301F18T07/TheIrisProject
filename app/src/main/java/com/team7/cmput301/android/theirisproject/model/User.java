@@ -6,7 +6,7 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import io.searchbox.annotations.JestId;
 
-public abstract class User {
+public abstract class User { 
     public enum UserType {
         PATIENT, CARE_PROVIDER
     }
@@ -25,10 +25,6 @@ public abstract class User {
         this.type = type;
     }
 
-    public String getId() {
-        return _id;
-    }
-
     public void setId(String _id) {
         this._id = _id;
     }
@@ -41,8 +37,12 @@ public abstract class User {
         return email;
     }
 
-    public String getPhoneNumber() {
+    public String getPhone() {
         return phoneNumber;
+    }
+
+    public String getId() {
+        return _id;
     }
 
     public UserType getType() {

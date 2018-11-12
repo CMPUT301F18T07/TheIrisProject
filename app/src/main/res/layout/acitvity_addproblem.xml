@@ -23,18 +23,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/problem_title_edit_text"
-        android:layout_width="296dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/enter_a_title_max_30_characters"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_prob_text_view" />
+        <EditText
+            android:id="@+id/problem_title_edit_text"
+            android:layout_width="296dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/enter_a_title_max_30_characters"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            android:maxLength="30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_prob_text_view " />
 
     <EditText
         android:id="@+id/problem_date_select_edit_text"
@@ -63,6 +64,7 @@
         android:hint="@string/enter_a_description_max_300_characters"
         android:inputType="textMultiLine"
         android:textSize="14sp"
+        android:maxLength="300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +114,7 @@
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <Button
-            android:id="@+id/problem_record_problem_button"
+            android:id="@+id/problem_submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="178dp"

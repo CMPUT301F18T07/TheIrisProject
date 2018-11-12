@@ -12,11 +12,11 @@ public class Patient extends User {
     private ProblemList problems;
 
     public List<CareProvider> getCareProviders() {
-        return this.careProviders;
+        return careProviders;
     }
 
     public ProblemList getProblems() {
-        return this.problems;
+        return problems;
     }
 
     public Patient(String name, String email, String phoneNumber) {
