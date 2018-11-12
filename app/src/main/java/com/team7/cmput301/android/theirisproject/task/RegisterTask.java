@@ -1,15 +1,12 @@
-package com.team7.cmput301.android.theirisproject.tasks;
+package com.team7.cmput301.android.theirisproject.task;
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.RegisterActivity;
-import com.team7.cmput301.android.theirisproject.model.CareProvider;
-import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
@@ -21,7 +18,7 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 /**
- * RegisterUserTask is an AsyncTask that asynchronously registers the given user into the
+ * RegisterTask is an AsyncTask that asynchronously registers the given user into the
  * database. It is started by RegisterActivity when the user fills in all fields and clicks the
  * register button.
  *
@@ -29,12 +26,12 @@ import io.searchbox.core.SearchResult;
  * @see RegisterActivity
  */
 
-public class RegisterUserTask extends AsyncTask<User, Void, Boolean> {
+public class RegisterTask extends AsyncTask<User, Void, Boolean> {
 
-    private static final String TAG = RegisterUserTask.class.getSimpleName();
+    private static final String TAG = RegisterTask.class.getSimpleName();
     private Callback<Boolean> callback;
 
-    public RegisterUserTask(Callback<Boolean> callback) {
+    public RegisterTask(Callback<Boolean> callback) {
         this.callback = callback;
     }
 
@@ -56,28 +53,24 @@ public class RegisterUserTask extends AsyncTask<User, Void, Boolean> {
         Index index = new Index.Builder(user).index(IrisProjectApplication.INDEX).type("user").build();
 
         try {
+
+
             // Search for user and get the closest match
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"email\": \"" + users[0].getEmail() + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + users[0].getEmail() + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
             searchResult = IrisProjectApplication.getDB().execute(get);
 
             // Check if closest match is equal to the inputted user email (i.e. if the email already exists in the database)
-            if (searchResult.isSucceeded()) {
-                User foundUser;
+            if (!searchResult.isSucceeded()) {
+                return false;
+            }
 
-                if (user.getType() == User.UserType.PATIENT) {
-                    foundUser = searchResult.getFirstHit(Patient.class).source;
-                } else {
-                    foundUser = searchResult.getFirstHit(CareProvider.class).source;
-                }
-
-                if (foundUser != null && foundUser.getEmail().equals(users[0].getEmail())) {
-                    // Found a user that is already registered with the inputted email
-                    return false;
-                }
-
+            JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
+            // Stop registration if we already have a hit when searching for the email
+            if (arrayHits.size() >= 1) {
+                return false;
             }
 
             // Add the user to the database
