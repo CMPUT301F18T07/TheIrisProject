@@ -45,6 +45,10 @@ public abstract class User {
         return phoneNumber;
     }
 
+    public String getId() {
+        return _id;
+    }
+
     public UserType getType() {
         return this.type;
     }
