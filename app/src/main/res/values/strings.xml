@@ -36,6 +36,8 @@
     <string name="enter_a_description_max_300_characters">Enter a description (Max 300 characters)</string>
     <string name="geo_location">Geo Location</string>
     <string name="record_problem">Record Problem</string>
+    <string name="login_register_text">Don\'t have an account?</string>
+    <string name="login_register_button_text">" Sign Up"</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
 
     <!-- Create Record screen strings-->

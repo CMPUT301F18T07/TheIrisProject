@@ -27,7 +27,7 @@ public class LoginActivity extends IrisActivity {
     private TextView email;
     private TextView password;
     private Button loginButton;
-    private Button registerButton;
+    private TextView registerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,11 @@ public class LoginActivity extends IrisActivity {
 
         // initialize android views from xml
         loginButton = findViewById(R.id.login_button);
-        registerButton = findViewById(R.id.register_button);
+        registerTextView = findViewById(R.id.login_register_button);
         email = findViewById(R.id.login_email_field);
         password = findViewById(R.id.login_password_field);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
