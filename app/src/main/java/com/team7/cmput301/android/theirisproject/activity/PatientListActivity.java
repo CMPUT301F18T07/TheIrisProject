@@ -9,25 +9,26 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.PatientListAdapter;
-import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
-import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.PatientListController;
 import com.team7.cmput301.android.theirisproject.model.Patient;
-import com.team7.cmput301.android.theirisproject.model.ProblemList;
-import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.List;
 
 /**
  * PatientListActivity is the screen which shows a Care Provider all their registered Patients.
- * It lets them add a new Patient by clicking the add button.
+ * It lets them add a new Patient by clicking the add button, which uses AddPatientFragment to help
+ * add the Patient by their email
+ *
+ * @see AddPatientFragment
+ * @author Jmmxp
  */
-public class PatientListActivity extends IrisActivity<List<Patient>> {
+public class PatientListActivity extends IrisActivity<List<Patient>> implements AddPatientFragment.AddPatientDialogListener {
 
     private PatientListController controller;
     private ListView patientsView;
@@ -51,13 +52,12 @@ public class PatientListActivity extends IrisActivity<List<Patient>> {
         findViewById(R.id.patient_list_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // start a AddProblemActivity with a requestCode of ADD_PROBLEM_RESPONSE
-                Intent intent = new Intent(PatientListActivity.this, AddPatientActivity.class);
-                startActivityForResult(intent, ADD_PATIENT_RESPONSE);
+                DialogFragment addPatientDialog = new AddPatientFragment();
+                addPatientDialog.show(getSupportFragmentManager(), AddPatientFragment.class.getSimpleName());
             }
         });
     }
-    
+
     /**
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
@@ -66,7 +66,16 @@ public class PatientListActivity extends IrisActivity<List<Patient>> {
      * @return void
      * */
     public void render(List<Patient> newState) {
-        patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_problem_item, newState);
+        patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_problem_item, newState));
+    }
+
+    @Override
+    public void onFinishAddPatient(boolean success) {
+        if (success) {
+            // add patient and render
+        } else {
+            // do nothing, show unsuccess Toast
+        }
     }
 
 }

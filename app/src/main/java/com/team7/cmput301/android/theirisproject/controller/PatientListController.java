@@ -14,9 +14,18 @@ import com.team7.cmput301.android.theirisproject.model.Patient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * PatientListController is responsible for getting a Care Provider's list of Patients from the database
+ *
+ * @author Jmmxp
+ */
 public class PatientListController extends IrisController<List<Patient>> {
+    private String userID;
+
     public PatientListController(Intent intent) {
         super(intent);
+        this.model = getModel(intent.getExtras());
+        this.userID = intent.getExtras().getString("user");
     }
 
     @Override

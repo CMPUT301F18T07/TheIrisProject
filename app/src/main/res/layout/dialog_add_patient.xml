@@ -5,11 +5,18 @@
   ~
   -->
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddPatientActivity">
+    tools:context=".activity.AddPatientFragment">
+    
+    <EditText
+        android:id="@+id/add_patient_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="@string/add_patient_dialog_hint" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
