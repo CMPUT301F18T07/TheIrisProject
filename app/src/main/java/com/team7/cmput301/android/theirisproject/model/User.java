@@ -6,24 +6,31 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import io.searchbox.annotations.JestId;
 
-public abstract class User {
-    @JestId
-    private String _id;
-
-    private String name;
-    private String email;
-    private String phone;
-    private String role;
-
-    public User(String role, String name, String email, String phoneNumber) {
-        this.role = role;
-        this.name = name;
-        this.email = email;
-        this.phone = phoneNumber;
+public abstract class User { 
+    public enum UserType {
+        PATIENT, CARE_PROVIDER
     }
 
-    public String getRole() {
-        return role;
+    @JestId
+    private String _id;
+    private String name;
+    private String email;
+    private String phoneNumber;
+    private UserType type;
+
+    public User(String name, String email, String phoneNumber, UserType type) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.type = type;
+    }
+
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -44,5 +51,13 @@ public abstract class User {
 
     public void editContact(String username, String email, String phoneNumber) {
 
+    public UserType getType() {
+        return this.type;
+    }
+
+    public void editContact(String username, String email, String phoneNumber) {
+        this.name = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 }
