@@ -7,8 +7,6 @@ import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.RegisterActivity;
-import com.team7.cmput301.android.theirisproject.model.CareProvider;
-import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
@@ -19,10 +17,8 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
-import static com.team7.cmput301.android.theirisproject.model.User.*;
-
 /**
- * RegisterUserTask is an AsyncTask that asynchronously registers the given user into the
+ * RegisterTask is an AsyncTask that asynchronously registers the given user into the
  * database. It is started by RegisterActivity when the user fills in all fields and clicks the
  * register button.
  *
@@ -30,12 +26,12 @@ import static com.team7.cmput301.android.theirisproject.model.User.*;
  * @see RegisterActivity
  */
 
-public class RegisterUserTask extends AsyncTask<User, Void, Boolean> {
+public class RegisterTask extends AsyncTask<User, Void, Boolean> {
 
-    private static final String TAG = RegisterUserTask.class.getSimpleName();
+    private static final String TAG = RegisterTask.class.getSimpleName();
     private Callback<Boolean> callback;
 
-    public RegisterUserTask(Callback<Boolean> callback) {
+    public RegisterTask(Callback<Boolean> callback) {
         this.callback = callback;
     }
 
