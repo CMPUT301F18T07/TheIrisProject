@@ -4,7 +4,7 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -26,4 +26,5 @@ public abstract class IrisActivity<M> extends AppCompatActivity {
      * @return The IrisController (e.g. ProblemController)
      */
     protected abstract IrisController createController(Intent intent);
+  
 }

@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProblemListActivity">
+    tools:context=".activity.ProblemListActivity">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/problem_list_add"

@@ -4,9 +4,7 @@
  *
  */
 
-package com.team7.cmput301.android.theirisproject;
-
-import io.searchbox.core.SearchResult;
+package com.team7.cmput301.android.theirisproject.task;
 
 /**
  * Callback is an interface that allows AsyncTasks to call functions from the
@@ -25,5 +23,4 @@ public interface Callback<M> {
      * @return void
      * */
     void onComplete(M res);
-  
 }

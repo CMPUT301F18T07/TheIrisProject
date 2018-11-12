@@ -4,9 +4,8 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.searchbox.annotations.JestId;
@@ -16,15 +15,16 @@ public class Problem {
     private String _id;
 
     private String title;
-    private String desc;
     private String user;
+    private Date date;
     private RecordList records;
     private List<Comment> comments = new ArrayList<>();
+    private String description;
     private List<BodyPhoto> bodyPhotos;
 
     public Problem(String title, String description, String user, RecordList records, List<BodyPhoto> bodyPhotos) {
         this.title = title;
-        this.desc = description;
+        this.description = description;
         this.user = user;
         this.records = records;
         this.bodyPhotos = bodyPhotos;
@@ -32,9 +32,10 @@ public class Problem {
 
     public Problem(String title, String description, String user) {
         this.title = title;
-        this.desc = description;
+        this.description = description;
         this.user = user;
     }
+
     public Problem() {
 
     }
@@ -55,9 +56,14 @@ public class Problem {
         return title;
     }
 
-    public String getDescription() {
-        return desc;
+    public String getDate() {
+        return String.valueOf(this.date);
     }
+
+    public String getDescription() {
+        return this.description;
+    }
+
 
     public String getUser() {return user;}
 

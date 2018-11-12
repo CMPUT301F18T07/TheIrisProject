@@ -8,9 +8,8 @@ package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 
-import com.team7.cmput301.android.theirisproject.IrisActivity;
+import com.team7.cmput301.android.theirisproject.activity.IrisActivity;
 
 /**
  * A type of controller that is used by an IrisActivity to manage a Model object. The IrisController
