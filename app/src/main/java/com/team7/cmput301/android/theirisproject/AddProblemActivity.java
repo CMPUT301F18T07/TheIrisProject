@@ -1,16 +1,12 @@
 package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.controller.AddProblemController;
-import com.team7.cmput301.android.theirisproject.controller.IrisController;
-import com.team7.cmput301.android.theirisproject.model.Problem;
-import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 
 /**
  * AddProblemActivity is a form to add an activity,
@@ -27,7 +23,7 @@ public class AddProblemActivity extends IrisActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitvity_addproblem);
+        setContentView(R.layout.activity_add_problem);
 
         controller = createController(getIntent());
         name = findViewById(R.id.problem_title_edit_text);

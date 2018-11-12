@@ -21,19 +21,19 @@ public class RecordList implements Iterable<Record> {
     }
 
     public boolean contains(Record record) {
-        return false;
+        return records.contains(record);
     }
 
     public void add(Record record) {
-
+        records.add(record);
     }
 
     public void remove(Record record) {
-
+        records.remove(record);
     }
 
     public int length() {
-        return 0;
+        return records.size();
     }
 
     @NonNull
