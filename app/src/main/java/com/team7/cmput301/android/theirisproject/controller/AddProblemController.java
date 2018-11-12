@@ -36,8 +36,6 @@ public class AddProblemController extends IrisController<Problem> {
      * @return void
      * */
     public void submitProblem(String title, String desc, Callback cb) {
-
-        // send new problem to database, returning true if successful, else false
         Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
         new AddProblemTask(cb).execute(submitProblem);
     }

@@ -24,9 +24,6 @@ public class AddProblemActivity extends IrisActivity {
     private TextView name;
     private TextView desc;
 
-    private TextView name;
-    private TextView desc;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +38,7 @@ public class AddProblemActivity extends IrisActivity {
 
             @Override
             public void onClick(View view) {
+                // send new problem to database, callback has result true if successful, else false
                 controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<Boolean>() {
                     @Override
                     public void onComplete(Boolean success) {

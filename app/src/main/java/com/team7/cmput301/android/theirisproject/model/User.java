@@ -25,10 +25,6 @@ public abstract class User {
         this.type = type;
     }
 
-    public String getId() {
-        return _id;
-    }
-
     public void setId(String _id) {
         this._id = _id;
     }
@@ -42,14 +38,12 @@ public abstract class User {
     }
 
     public String getPhone() {
-        return phone;
+        return phoneNumber;
     }
 
     public String getId() {
         return _id;
     }
-
-    public void editContact(String username, String email, String phoneNumber) {
 
     public UserType getType() {
         return this.type;
