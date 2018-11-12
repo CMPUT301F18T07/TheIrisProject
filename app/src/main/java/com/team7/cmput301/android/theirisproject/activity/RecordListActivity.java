@@ -16,7 +16,6 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.task.Callback;
-import com.team7.cmput301.android.theirisproject.tasks.Callback;
 
 /**
  * Activity for viewing and clicking all Records for a Patient
