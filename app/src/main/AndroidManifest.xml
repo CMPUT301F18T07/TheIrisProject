@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" />
     <application
         android:name=".IrisProjectApplication"
         android:allowBackup="true"
@@ -27,7 +29,10 @@
 
         <activity android:name=".activity.RecordListActivity"></activity>
         <activity android:name=".activity.ProblemListActivity"></activity>
-        <activity android:name=".activity.AddProblemActivity"></activity>
+        <activity
+            android:name=".activity.AddProblemActivity"
+            android:label="@string/create_a_problem"
+            android:parentActivityName=".activity.ProblemListActivity"></activity>
         <activity android:name=".activity.ViewProblemActivity"></activity>
 
     </application>

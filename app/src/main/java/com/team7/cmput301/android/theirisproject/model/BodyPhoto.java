@@ -6,10 +6,44 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import android.graphics.Bitmap;
 
+import com.team7.cmput301.android.theirisproject.ImageConverter;
+
+import io.searchbox.annotations.JestId;
+
+/**
+ * BodyPhoto is a model to parse bodyphoto type object to from
+ * our database
+ *
+ * @author itstc
+ * */
 public class BodyPhoto {
-    private Bitmap img;
 
-    public void BodyPhoto(Bitmap img) {
+    @JestId
+    private String _id;
 
+    private String problemID;
+    private String image;
+    private Bitmap photo;
+
+    public BodyPhoto(String problemID, Bitmap image) {
+        this.problemID = problemID;
+        this.image = ImageConverter.base64EncodeBitmap(image);
+        this.photo = image;
+    }
+
+    public String getProblemId() {
+        return problemID;
+    }
+
+    public String getId() {
+        return _id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
     }
 }
