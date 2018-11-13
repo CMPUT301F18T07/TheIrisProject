@@ -45,12 +45,10 @@ public class RecordListAdapter extends ArrayAdapter<Record> {
         // views to populate
         TextView title = problem.findViewById(R.id.record_item_title);
         TextView id = problem.findViewById(R.id.record_item_id);
-        TextView text = problem.findViewById(R.id.record_item_text);
 
         // populate with data given from problems
         title.setText(records.get(position).getTitle());
         id.setText(records.get(position).getId());
-        text.setText(records.get(position).getText());
         return problem;
     }
 
