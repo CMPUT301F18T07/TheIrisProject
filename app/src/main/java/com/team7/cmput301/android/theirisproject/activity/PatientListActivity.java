@@ -17,6 +17,7 @@ import com.team7.cmput301.android.theirisproject.PatientListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.PatientListController;
 import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     private PatientListController controller;
     private ListView patientsView;
 
-    private static final int ADD_PATIENT_RESPONSE = 0;
+    private static final int REQUEST_ADD_PATIENT = 0;
 
     @Override
     protected PatientListController createController(Intent intent) {
@@ -58,6 +59,17 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        controller.getPatients(new Callback<List<Patient>>() {
+            @Override
+            public void onComplete(List<Patient> res) {
+                render(res);
+            }
+        });
+    }
+
     /**
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
@@ -67,6 +79,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
      * */
     public void render(List<Patient> newState) {
         patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_problem_item, newState));
+        patientsView.getAdapter().notify();
     }
 
     @Override

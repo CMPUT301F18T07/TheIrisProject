@@ -9,7 +9,10 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.GetPatientListTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,11 @@ public class PatientListController extends IrisController<List<Patient>> {
         super(intent);
         this.model = getModel(intent.getExtras());
         this.userID = intent.getExtras().getString("user");
+    }
+
+    public void getPatients(Callback callback) {
+        GetPatientListTask task = new GetPatientListTask(callback);
+        task.execute(IrisProjectApplication.getCurrentUser().getId());
     }
 
     @Override
