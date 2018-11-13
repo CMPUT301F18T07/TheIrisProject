@@ -48,9 +48,16 @@
 
     <!-- View Record List screen strings -->
     <string name="edit_records">Edit</string>
-  
-    <!-- View Problem screen stings-->
+
+    <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
+
+    <!-- Problem list Toolbar strings-->
+    <string name="edit_problems">Edit</string>
+    <string name="view_profile">View Profile</string>
+
+    <!-- Edit Problem strings-->
+    <string name="submit_problem">Submit</string>
 
 </resources>
