@@ -7,7 +7,19 @@ package com.team7.cmput301.android.theirisproject.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.searchbox.annotations.JestId;
+
+/**
+ * A single record of a particular Problem
+ *
+ * @author Jmmxp
+ */
 public class Record {
+
+    @JestId
+    private String _id;
+    private String problemID;
+
     private String text;
     private String title;
     private Date date;
@@ -15,11 +27,18 @@ public class Record {
     private BodyLocation bodyLocation;
     private ArrayList<RecordPhoto> recordPhotos = new ArrayList<RecordPhoto>();
 
-    public Record(String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
+    public Record(String problemID, String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
+        this.problemID = problemID;
+        this.title = title;
+        this.text = text;
+        this.date = date;
+        this.geoLocation = geoPt;
+        this.bodyLocation = bodyPt;
+        this.recordPhotos = recordPhotos;
     }
 
-    public Record() {
-
+    public String getProblemID() {
+        return problemID;
     }
 
     public String getText() {
@@ -60,5 +79,9 @@ public class Record {
 
     public void editBodyLocation(int x, int y) {
 
+    }
+
+    public String getId() {
+        return _id;
     }
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.activity.IrisActivity;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
@@ -27,6 +28,8 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
     private RecordListController controller;
     private Toolbar toolbar;
+    private ListView recordListView;
+    private RecordListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +38,29 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
-        this.controller = createController(getIntent());
 
+        recordListView = findViewById(R.id.record_list_view);
+        controller = createController(getIntent());
+
+        // set UI elements
         setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
+
+        // set adapter
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        controller.getRecords(new Callback<RecordList>(){
+        Callback<RecordList> contCallback = new Callback<RecordList>() {
             @Override
             public void onComplete(RecordList result) {
                 render(result);
             }
-        });
+        };
+        controller.getRecords(contCallback);
     }
 
     /**
