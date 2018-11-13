@@ -7,19 +7,16 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.ImageFormAdapter;
-import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddProblemController;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 /**
  * AddProblemActivity is a form to add an activity,
@@ -70,7 +67,7 @@ public class AddProblemActivity extends IrisActivity {
                 controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<String>() {
                     @Override
                     public void onComplete(String id) {
-                        if(id != null) {
+                        if (id != null) {
                             // end Activity returning to ProblemListActivity
                             Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
                             intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
@@ -121,4 +118,5 @@ public class AddProblemActivity extends IrisActivity {
     protected AddProblemController createController(Intent intent) {
         return new AddProblemController(intent);
     }
+
 }

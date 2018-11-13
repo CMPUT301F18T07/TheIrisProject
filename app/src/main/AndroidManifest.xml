@@ -29,7 +29,10 @@
 
         <activity android:name=".activity.RecordListActivity"></activity>
         <activity android:name=".activity.ProblemListActivity"></activity>
-        <activity android:name=".activity.AddProblemActivity"></activity>
+        <activity
+            android:name=".activity.AddProblemActivity"
+            android:label="@string/create_a_problem"
+            android:parentActivityName=".activity.ProblemListActivity"></activity>
         <activity android:name=".activity.ViewProblemActivity"></activity>
 
     </application>

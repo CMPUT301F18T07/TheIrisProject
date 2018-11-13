@@ -17,6 +17,11 @@ import java.util.ArrayList;
 
 import io.searchbox.core.Index;
 
+/**
+ * AddBodyPhotoTask asynchronously adds bodyphotos to the database
+ *
+ * @author itstc
+ * */
 public class AddBodyPhotoTask extends AsyncTask<ArrayList<BodyPhoto>, Void, Boolean> {
     private Callback cb;
     public AddBodyPhotoTask(Callback cb) {

@@ -10,6 +10,12 @@ import com.team7.cmput301.android.theirisproject.ImageConverter;
 
 import io.searchbox.annotations.JestId;
 
+/**
+ * BodyPhoto is a model to parse bodyphoto type object to from
+ * our database
+ *
+ * @author itstc
+ * */
 public class BodyPhoto {
 
     @JestId
