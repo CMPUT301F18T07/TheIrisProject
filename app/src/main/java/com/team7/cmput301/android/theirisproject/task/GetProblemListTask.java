@@ -51,7 +51,7 @@ public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
                     .build();
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);
-            
+
             return new ProblemList(res.getSourceAsObjectList(Problem.class, true));
         } catch (IOException e) {
             e.printStackTrace();

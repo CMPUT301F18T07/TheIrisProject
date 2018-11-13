@@ -11,6 +11,10 @@ public class Patient extends User {
     private List<CareProvider> careProviders = new ArrayList<>();
     private ProblemList problems;
 
+    public void addCareProvider(CareProvider careProvider) {
+
+    }
+
     public List<CareProvider> getCareProviders() {
         return careProviders;
     }
