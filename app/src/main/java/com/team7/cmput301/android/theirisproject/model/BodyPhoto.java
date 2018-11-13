@@ -6,10 +6,30 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import android.graphics.Bitmap;
 
+import io.searchbox.annotations.JestId;
+
 public class BodyPhoto {
-    private Bitmap img;
 
-    public void BodyPhoto(Bitmap img) {
+    @JestId
+    private String _id;
 
+    private String problemID;
+    private Bitmap image;
+
+    public void BodyPhoto(String problemID, Bitmap image) {
+        this.problemID = problemID;
+        this.image = image;
+    }
+
+    public String getProblemId() {
+        return problemID;
+    }
+
+    public String getId() {
+        return _id;
+    }
+
+    public Bitmap getImage() {
+        return image;
     }
 }
