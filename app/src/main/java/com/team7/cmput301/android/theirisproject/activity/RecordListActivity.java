@@ -35,16 +35,12 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        String title = "Records";
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
 
         recordListView = findViewById(R.id.record_list_view);
         controller = createController(getIntent());
 
-        // set UI elements
-        setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
 
     }

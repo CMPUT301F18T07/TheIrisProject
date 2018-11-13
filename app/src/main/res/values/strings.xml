@@ -47,6 +47,7 @@
     <string name="add_record">Add Record</string>
 
     <!-- View Record List screen strings -->
+    <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
   
     <!-- View Problem screen stings-->
