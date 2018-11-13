@@ -11,7 +11,7 @@
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your username</string>
+    <string name="login_username_hint">Enter your e-mail</string>
     <string name="login_password_hint">Enter your password</string>
 
     <!-- Register screen strings-->
@@ -20,8 +20,11 @@
     <string name="password_title">Password</string>
     <string name="phone_title">Phone Number</string>
     <string name="email_title">Email Address</string>
-
-    <string name="register_username_hint">Enter a username</string>
+    <string name="username_hint">Enter a username</string>
+    <string name="password_hint">Enter a password</string>
+    <string name="phone_hint">Enter phone number</string>
+    <string name="email_hint">Enter email address</string>
+    <string name="register_username_hint">Enter a name</string>
     <string name="register_password_hint">Enter a password</string>
     <string name="register_phone_hint">Enter phone number</string>
     <string name="register_email_hint">Enter email address</string>
@@ -33,6 +36,8 @@
     <string name="enter_a_description_max_300_characters">Enter a description (Max 300 characters)</string>
     <string name="geo_location">Geo Location</string>
     <string name="record_problem">Record Problem</string>
+    <string name="login_register_text">Don\'t have an account?</string>
+    <string name="login_register_button_text">" Sign Up"</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
 
     <!-- Create Record screen strings-->
@@ -40,5 +45,12 @@
     <string name="enter_body_location">Enter Body Location</string>
     <string name="label_photos">Label Photos</string>
     <string name="add_record">Add Record</string>
+
+    <!-- View Record List screen strings -->
+    <string name="edit_records">Edit</string>
+
+    <!-- View Problem screen stings-->
+    <string name="view_records">View Records</string>
+    <string name="create_record">Create Record</string>
 
 </resources>

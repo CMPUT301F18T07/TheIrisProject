@@ -15,8 +15,8 @@ import java.util.List;
 public class ProblemListTest {
 
     private List<Problem> problems = new ArrayList<>();
-    private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", new RecordList(), new ArrayList<BodyPhoto>());
-    private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", new RecordList(), new ArrayList<BodyPhoto>());
+    private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", "0", new RecordList(), new ArrayList<BodyPhoto>());
+    private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", "0", new RecordList(), new ArrayList<BodyPhoto>());
 
     @Test
     public void testAdd() {

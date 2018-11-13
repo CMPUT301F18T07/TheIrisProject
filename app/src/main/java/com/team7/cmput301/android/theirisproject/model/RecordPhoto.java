@@ -10,7 +10,7 @@ public class RecordPhoto {
     private Bitmap img;
 
     public Bitmap getImg() {
-        return this.img;
+        return img;
     }
 
     public RecordPhoto(Bitmap photo) {
