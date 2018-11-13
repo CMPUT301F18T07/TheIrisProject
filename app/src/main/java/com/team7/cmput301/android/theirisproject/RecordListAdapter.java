@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author anticobalt
  */
-class RecordListAdapter extends ArrayAdapter<Record> {
+public class RecordListAdapter extends ArrayAdapter<Record> {
 
     private int resource;
     private Activity context;
@@ -44,7 +44,7 @@ class RecordListAdapter extends ArrayAdapter<Record> {
 
         // views to populate
         TextView title = problem.findViewById(R.id.record_item_title);
-        TextView id = problem.findViewById(R.id.record_item_id;
+        TextView id = problem.findViewById(R.id.record_item_id);
         TextView text = problem.findViewById(R.id.record_item_text);
 
         // populate with data given from problems

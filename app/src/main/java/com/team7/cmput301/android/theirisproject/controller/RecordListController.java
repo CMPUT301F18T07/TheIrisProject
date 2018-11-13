@@ -9,7 +9,6 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.MockPoster;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
