@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * Use this class to encode/decode bitmaps for our app
  * @author itstc
@@ -17,10 +19,17 @@ import android.util.Base64;
 public class ImageConverter {
 
     public static String base64EncodeBitmap(Bitmap img) {
-        return Base64.encodeToString(img.getNinePatchChunk(), Base64.DEFAULT);
+        byte[] byteImg = convertBitmapToBytes(img);
+        return Base64.encodeToString(byteImg, Base64.DEFAULT);
     }
 
     public static Bitmap base64DecodeBitmap(String blob) {
         return BitmapFactory.decodeByteArray(Base64.decode(blob, Base64.DEFAULT),0, 256*256);
+    }
+
+    public static byte[] convertBitmapToBytes(Bitmap img) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        img.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 }

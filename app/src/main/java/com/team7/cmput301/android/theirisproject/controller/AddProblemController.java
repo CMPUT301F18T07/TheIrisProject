@@ -28,6 +28,7 @@ import java.util.ArrayList;
  * */
 public class AddProblemController extends IrisController<Problem> {
 
+    private String userId = IrisProjectApplication.getCurrentUser().getId();
     private ArrayList<BodyPhoto> bodyPhotos = new ArrayList<BodyPhoto>();
 
     public AddProblemController(Intent intent) {
@@ -43,7 +44,7 @@ public class AddProblemController extends IrisController<Problem> {
      * */
     public void addBodyPhoto(Bitmap img) {
         Bitmap res = Bitmap.createScaledBitmap(img, 256, 256, false);
-        bodyPhotos.add(new BodyPhoto(IrisProjectApplication.getCurrentUser().getId(), res));
+        bodyPhotos.add(new BodyPhoto(userId, res));
     }
     public ArrayList<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;
@@ -59,19 +60,19 @@ public class AddProblemController extends IrisController<Problem> {
      * @param cb: callback method
      * @return void
      * */
-    public void submitProblem(String title, String desc, Callback<Boolean> cb) {
+    public void submitProblem(String title, String desc, Callback<String> cb) {
         Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
         // add problem to our database
-        new AddProblemTask(new Callback<Boolean>() {
+        new AddProblemTask(new Callback<String>() {
             @Override
-            public void onComplete(Boolean result) {
+            public void onComplete(String result) {
                 // Once we added the problem, add our body photo documents
                 new AddBodyPhotoTask(new Callback<Boolean>() {
                     @Override
                     public void onComplete(Boolean res) {
                         cb.onComplete(result);
                     }
-                }).execute(imageList);
+                }).execute(bodyPhotos);
             }
         }).execute(submitProblem);
     }

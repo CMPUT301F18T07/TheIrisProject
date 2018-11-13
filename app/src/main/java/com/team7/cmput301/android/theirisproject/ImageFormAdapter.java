@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+
 import java.util.ArrayList;
 
 /**
@@ -23,8 +25,8 @@ import java.util.ArrayList;
  * */
 public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.ImageFormViewHolder> {
     private int itemLayout;
-    private ArrayList<Bitmap> images;
-    public ImageFormAdapter(ArrayList<Bitmap> images, int itemLayout) {
+    private ArrayList<BodyPhoto> images;
+    public ImageFormAdapter(ArrayList<BodyPhoto> images, int itemLayout) {
         this.images = images;
         this.itemLayout = itemLayout;
     }
@@ -39,7 +41,7 @@ public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.Imag
     @Override
     public void onBindViewHolder(ImageFormAdapter.ImageFormViewHolder holder, int position) {
         ImageView image = holder.imageItem.findViewById(R.id.image_item_view);
-        image.setImageBitmap(images.get(position));
+        image.setImageBitmap(images.get(position).getPhoto());
     }
 
     @Override

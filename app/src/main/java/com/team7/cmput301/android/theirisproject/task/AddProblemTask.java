@@ -13,8 +13,12 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
 
+import io.searchbox.client.JestResult;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
+
+import static com.team7.cmput301.android.theirisproject.IrisProjectApplication.INDEX;
 
 /**
  * AddProblemTask is an AsyncTask that sends a POST request to our
@@ -23,7 +27,7 @@ import io.searchbox.core.Index;
  *
  * @author itstc
  * */
-public class AddProblemTask extends AsyncTask<Problem, Void, Boolean> {
+public class AddProblemTask extends AsyncTask<Problem, Void, String> {
 
     private Callback cb;
     public AddProblemTask(Callback cb) {
@@ -37,19 +41,24 @@ public class AddProblemTask extends AsyncTask<Problem, Void, Boolean> {
      * @return Boolean: true if successful, else false
      * */
     @Override
-    protected Boolean doInBackground(Problem... params) {
+    protected String doInBackground(Problem... params) {
         try {
             Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("problem").build();
             DocumentResult res = IrisProjectApplication.getDB().execute(post);
-            return res.isSucceeded();
+            if (res.isSucceeded()) {
+                return res.getId();
+            }
+            else {
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean res) {
+    protected void onPostExecute(String res) {
         super.onPostExecute(res);
         cb.onComplete(res);
     }

@@ -6,6 +6,8 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import android.graphics.Bitmap;
 
+import com.team7.cmput301.android.theirisproject.ImageConverter;
+
 import io.searchbox.annotations.JestId;
 
 public class BodyPhoto {
@@ -14,11 +16,13 @@ public class BodyPhoto {
     private String _id;
 
     private String problemID;
-    private Bitmap image;
+    private String image;
+    private Bitmap photo;
 
-    public void BodyPhoto(String problemID, Bitmap image) {
+    public BodyPhoto(String problemID, Bitmap image) {
         this.problemID = problemID;
-        this.image = image;
+        this.image = ImageConverter.base64EncodeBitmap(image);
+        this.photo = image;
     }
 
     public String getProblemId() {
@@ -29,7 +33,11 @@ public class BodyPhoto {
         return _id;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
     }
 }
