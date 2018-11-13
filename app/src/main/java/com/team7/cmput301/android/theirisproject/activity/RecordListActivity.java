@@ -40,6 +40,10 @@ public class RecordListActivity extends IrisActivity<RecordList> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
 
+        // TODO: remove test case
+        Intent intent = getIntent();
+        getIntent().putExtra("problemId", "AWcA2xC7mS3Zy2E5YM_s");
+
         recordListView = findViewById(R.id.record_list_view);
         controller = createController(getIntent());
 

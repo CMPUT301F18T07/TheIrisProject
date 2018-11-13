@@ -18,7 +18,7 @@ public class Record {
 
     @JestId
     private String _id;
-    private String problemID;
+    private String problemId;
 
     private String text;
     private String title;
@@ -27,8 +27,8 @@ public class Record {
     private BodyLocation bodyLocation;
     private ArrayList<RecordPhoto> recordPhotos = new ArrayList<RecordPhoto>();
 
-    public Record(String problemID, String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
-        this.problemID = problemID;
+    public Record(String problemId, String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
+        this.problemId = problemId;
         this.title = title;
         this.text = text;
         this.date = date;
@@ -37,8 +37,8 @@ public class Record {
         this.recordPhotos = recordPhotos;
     }
 
-    public String getProblemID() {
-        return problemID;
+    public String getProblemId() {
+        return problemId;
     }
 
     public String getText() {

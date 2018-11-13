@@ -32,8 +32,7 @@ public class RecordListController extends IrisController<RecordList> {
 
     public RecordListController(Intent intent){
         super(intent);
-        // TODO: remove test case
-        problemId = "AWcA2xC7mS3Zy2E5YM_s"; //= intent.getStringExtra("problemId");
+        problemId = intent.getStringExtra("problemId");
         records = model; // aliasing for clarity
     }
 
