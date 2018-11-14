@@ -57,4 +57,11 @@
     <!-- View String screen strings-->
     <string name="view_more_photos">View More Photos</string>
 
+    <!-- Problem list Toolbar strings-->
+    <string name="edit_problems">Edit</string>
+    <string name="view_profile">View Profile</string>
+
+    <!-- Edit Problem strings-->
+    <string name="submit_problem">Submit</string>
+
 </resources>
