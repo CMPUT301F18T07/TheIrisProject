@@ -54,8 +54,6 @@
     <string name="create_record">Create Record</string>
     <string name="title_activity_view_record">ViewRecordActivity</string>
 
-    <!-- View String screen strings-->
-    <string name="view_more_photos">View More Photos</string>
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>

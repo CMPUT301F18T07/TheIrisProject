@@ -13,6 +13,11 @@ import android.view.View;
 
 import com.team7.cmput301.android.theirisproject.R;
 
+/**
+ * AddRecordActivity is a form to add an activity
+ *
+ * @author jtfwong
+ * */
 public class AddRecordActivity extends AppCompatActivity {
 
     @Override

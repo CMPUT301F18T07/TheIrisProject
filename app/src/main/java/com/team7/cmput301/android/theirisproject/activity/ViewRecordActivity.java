@@ -2,7 +2,7 @@
  * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
-package com.team7.cmput301.android.theirisproject;
+package com.team7.cmput301.android.theirisproject.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,12 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class AddRecordActivity extends AppCompatActivity {
+import com.team7.cmput301.android.theirisproject.R;
+
+/**
+ * ViewRecordActivity used to view a record
+ *
+ * @author jtfwong
+ * */
+public class ViewRecordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_view_record);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
