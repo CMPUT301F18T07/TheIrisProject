@@ -64,11 +64,4 @@
     <!-- Edit Problem strings-->
     <string name="submit_problem">Submit</string>
 
-    <!-- Problem list Toolbar strings-->
-    <string name="edit_problems">Edit</string>
-    <string name="view_profile">View Profile</string>
-
-    <!-- Edit Problem strings-->
-    <string name="submit_problem">Submit</string>
-
 </resources>
