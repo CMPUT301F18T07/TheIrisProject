@@ -38,11 +38,13 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... strings) {
+
         String patientEmail = strings[0];
         String careProviderId = strings[1];
         if (patientEmail == null || careProviderId == null) {
             return false;
         }
+        Log.i(TAG, patientEmail + " and " + careProviderId);
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
@@ -67,6 +69,8 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
             // Add this patient's ID into the list of Patient IDs for the current Care Provider
             // Referred to Jest documentation https://github.com/searchbox-io/Jest/tree/master/jest
+            Log.i(TAG, patient.getEmail() + " and " + patient.getId());
+
             String patientId = patient.getId();
             String script = "{\n" +
                     "    \"script\" : \"ctx._source.patients += patient\",\n" +
@@ -77,8 +81,10 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             Update update = new Update.Builder(script).index(IrisProjectApplication.INDEX).type("user").id(careProviderId).build();
             JestResult updateResult = client.execute(update);
             if (!updateResult.isSucceeded()) {
+                Log.i(TAG, "updateResult not succeeded");
                 return false;
             }
+            Log.i(TAG, "updateResult succeeded");
 
             // Add the careProvider's ID into the Patient we're currently looking at
 
