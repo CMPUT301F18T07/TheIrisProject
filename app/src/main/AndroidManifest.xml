@@ -34,6 +34,7 @@
             android:name=".ViewRecordActivity"
             android:label="@string/title_activity_view_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.EditProblemActivity"></activity>
     </application>
 
 </manifest>
