@@ -64,14 +64,6 @@
     <string name="pEditprofile_email_hint">Email</string>
     <string name="pEditprofile_new_password_hint">New Password</string>
 
-    <!-- View Patient View Profile screen strings-->
-    <string name="pViewprofile_username">Username</string>
-    <string name="pViewprofile_title">Profile</string>
-    <string name="pViewprofile_email">User Email</string>
-    <string name="pViewprofile__phone_number">User Phone Number</string>
-    <string name="pViewprofile_edit_profile_button_text">Edit Profile</string>
-    <string name="pViewprofile_care_providers_text">Care Providers:</string>
-
     <!-- View Care Provider Edit Profile screen strings-->
     <string name="cEditprofile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
     <string name="cEditprofile_title_text">Edit Profile</string>
@@ -83,11 +75,15 @@
     <string name="cEditprofile_email_hint">Email</string>
     <string name="cEditprofile_new_password_hint">New Password</string>
 
-    <!-- View Care Provider View Profile screen strings-->
-    <string name="cViewprofile_username">Username</string>
-    <string name="cViewprofile_title">Profile</string>
-    <string name="cViewprofile_email">User Email</string>
-    <string name="cViewprofile__phone_number">User Phone Number</string>
-    <string name="cViewprofile_edit_profile_button_text">Edit Profile</string>
+    <!-- View Profile screen strings-->
+    <string name="Viewprofile_username">Username</string>
+    <string name="Viewprofile_title">Profile</string>
+    <string name="Viewprofile_email">User Email</string>
+    <string name="Viewprofile__phone_number">User Phone Number</string>
+    <string name="Viewprofile_edit_profile_button_text">Edit Profile</string>
+    <string name="Viewprofile_care_providers_text">Care Providers:</string>
+
+
+
 
 </resources>
