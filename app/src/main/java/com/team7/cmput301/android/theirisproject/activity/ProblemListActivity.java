@@ -8,9 +8,14 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -31,6 +36,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     private ProblemListController controller;
     private ListView problemsView;
+    private Boolean doEditProblem = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +45,34 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
         problemsView = findViewById(R.id.problem_item_list);
         controller = createController(getIntent());
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Problem problem = (Problem) problemsView.getItemAtPosition(i);
-                Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
-                intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
-                startActivity(intent);
+                if (doEditProblem) {
+                    // Edit the problem
+                    Intent intent = new Intent(ProblemListActivity.this, EditProblemActivity.class);
+                    intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+                    startActivity(intent);
+                }
+                else {
+                    // View the problem
+                    Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
+                    intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        problemsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            // Delete problem being held on
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return false;
             }
         });
 
@@ -59,6 +85,38 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 startActivityForResult(intent, ADD_PROBLEM_RESPONSE);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_problem_list,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.edit_problem:
+                // Set flag so that when user taps on problem, will take user to edit page
+                if (doEditProblem){
+                    Toast.makeText(ProblemListActivity.this, "Click on Problem to view", Toast.LENGTH_LONG);
+                    doEditProblem = false;
+                }
+                else {
+                    Toast.makeText(ProblemListActivity.this, "Click on Problem to edit", Toast.LENGTH_LONG);
+                    doEditProblem = true;
+                }
+                break;
+            case R.id.view_profile:
+                // View a profile
+                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
+                break;
+            default:
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
