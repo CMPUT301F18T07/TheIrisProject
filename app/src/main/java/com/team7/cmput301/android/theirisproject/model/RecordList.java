@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.model;
@@ -13,7 +13,7 @@ public class RecordList implements Iterable<Record> {
     private ArrayList<Record> records = new ArrayList<Record>();
 
     public ArrayList<Record> getRecords() {
-        return this.records;
+        return records;
     }
 
     public RecordList() {
@@ -21,19 +21,19 @@ public class RecordList implements Iterable<Record> {
     }
 
     public boolean contains(Record record) {
-        return false;
+        return records.contains(record);
     }
 
     public void add(Record record) {
-
+        records.add(record);
     }
 
     public void remove(Record record) {
-
+        records.remove(record);
     }
 
     public int length() {
-        return 0;
+        return records.size();
     }
 
     @NonNull
