@@ -79,7 +79,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
      * */
     public void render(List<Patient> newState) {
         patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_problem_item, newState));
-        patientsView.getAdapter().notify();
+        // cp2` patientsView.getAdapter().notify();
     }
 
     @Override

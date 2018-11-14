@@ -14,8 +14,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.view.View;
+import android.widget.EditText;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.controller.AddPatientController;
 
 /**
  * AddPatientFragment is responsible for getting the Care Provider's input of an email, which it
@@ -26,7 +30,10 @@ import com.team7.cmput301.android.theirisproject.R;
  */
 public class AddPatientFragment extends DialogFragment {
 
+    private AddPatientController controller;
     private AddPatientDialogListener listener;
+
+    private EditText addPatientEditText;
 
     public interface AddPatientDialogListener {
         void onFinishAddPatient(boolean success);
@@ -34,16 +41,22 @@ public class AddPatientFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        controller = new AddPatientController(getActivity().getIntent());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         AddPatientDialogListener parent = (AddPatientDialogListener) getActivity();
 
+        View view = View.inflate(getActivity(), R.layout.dialog_add_patient, null);
+        addPatientEditText = view.findViewById(R.id.add_patient_edit_text);
+
         builder.setTitle(R.string.add_patient_dialog_title)
-                .setView(R.layout.dialog_add_patient)
+                .setView(view)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Check if found that email, and use callback method for parent activity accordingly
+                        controller.addPatient(addPatientEditText.getText().toString(), IrisProjectApplication.getCurrentUser().getId());
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
