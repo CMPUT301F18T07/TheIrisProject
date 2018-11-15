@@ -50,4 +50,3 @@ public class ProblemList implements Iterable<Problem> {
         return problems.iterator();
     }
 }
-

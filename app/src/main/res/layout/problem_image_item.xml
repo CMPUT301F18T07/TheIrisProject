@@ -35,6 +35,7 @@
         android:clickable="true"
         app:backgroundTint="@android:color/holo_red_light"
         android:foreground="@drawable/remove_icon"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

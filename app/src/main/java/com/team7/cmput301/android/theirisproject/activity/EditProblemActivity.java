@@ -8,49 +8,62 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.team7.cmput301.android.theirisproject.ImageFormAdapter;
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.controller.EditProblemController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
- * Activity that is used to view the problem selected by the user
+ * Activity that is used to edit the problem selected by the user
  * Uses ProblemController to get problem selected from the database
+ * and EditProblemController to submit the edited problem to the database
  *
  * @author VinnyLuu
  * @see ProblemController
+ * @see EditProblemController
  */
-public class ViewProblemActivity extends IrisActivity<Problem> {
-
-    public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.extra_problem_id";
+public class EditProblemActivity extends IrisActivity<Problem> {
 
     private ProblemController problemController;
+    private EditProblemController editProblemController;
 
     private TextView problemTitle;
     private TextView problemDate;
     private TextView problemDescription;
 
-    private RecyclerView problemImages;
-    private ImageFormAdapter imageFormAdapter;
-    private RecyclerView.LayoutManager imageListLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_problem);
+        setContentView(R.layout.activity_edit_problem);
         problemController = (ProblemController) createController(getIntent());
-
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
+        editProblemController = new EditProblemController(getIntent());
 
-        problemImages = findViewById(R.id.problem_images);
+        findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Submit new fields to the problem
+                editProblemController.submitProblem(
+                        problemTitle.getText().toString(),
+                        problemDescription.getText().toString(),
+                        new Callback<String>() {
+                            @Override
+                            public void onComplete(String id) {
+                                if (id != null) dispatchToProblemActivity(id);
+                                else Toast.makeText(EditProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();
+                            }
+                        });
+            }
+        });
     }
 
     @Override
@@ -59,11 +72,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
-                imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
-                ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
-                problemImages.setLayoutManager(imageListLayout);
-                imageFormAdapter = new ImageFormAdapter(problemController.getBodyPhotos(), R.layout.problem_image_item, false);
-                problemImages.setAdapter(imageFormAdapter);
                 render(res);
             }
         });
@@ -72,6 +80,15 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     @Override
     protected IrisController createController(Intent intent) {
         return new ProblemController(intent);
+    }
+
+    private void dispatchToProblemActivity(String id) {
+        // end Activity returning to ProblemListActivity
+        Intent intent = new Intent(EditProblemActivity.this, ViewProblemActivity.class);
+        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
+        Toast.makeText(EditProblemActivity.this, "Problem Edited!", Toast.LENGTH_LONG).show();
+        startActivity(intent);
+        finish();
     }
 
     public void render(Problem state) {

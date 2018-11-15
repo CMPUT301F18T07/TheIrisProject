@@ -20,27 +20,14 @@ public class BodyPhoto {
 
     @JestId
     private String _id;
-
-    private String problemID;
-    private String image;
     private Bitmap photo;
 
-    public BodyPhoto(String problemID, Bitmap image) {
-        this.problemID = problemID;
-        this.image = ImageConverter.base64EncodeBitmap(image);
+    public BodyPhoto(Bitmap image) {
         this.photo = image;
-    }
-
-    public String getProblemId() {
-        return problemID;
     }
 
     public String getId() {
         return _id;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public Bitmap getPhoto() {

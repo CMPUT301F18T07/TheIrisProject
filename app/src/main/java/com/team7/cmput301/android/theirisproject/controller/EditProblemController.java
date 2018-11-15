@@ -10,26 +10,24 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
-import com.team7.cmput301.android.theirisproject.task.GetProblemTask;
-
-import java.util.List;
+import com.team7.cmput301.android.theirisproject.task.EditProblemTask;
 
 
 /**
- * Controller that gets the problem from the database
- * Called from ViewProblemActivity
+ * Controller that submits the edited problem to the database
+ * Called from EditProblemActivity
  *
  * @author VinnyLuu
- * @see ViewProblemActivity
+ * @see com.team7.cmput301.android.theirisproject.activity.EditProblemActivity
  */
-public class ProblemController extends IrisController {
+public class EditProblemController extends IrisController {
     String problemID;
 
-    public ProblemController(Intent intent) {
+    public EditProblemController(Intent intent) {
         super(intent);
         this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
         this.model = getModel(intent.getExtras());
@@ -37,22 +35,12 @@ public class ProblemController extends IrisController {
 
     @Override
     Object getModel(Bundle data) {
-        return new Problem();
+        return null;
     }
 
-    public void getProblem(Callback cb) {
-        new GetProblemTask(new Callback<Problem>() {
-            @Override
-            public void onComplete(Problem res) {
-                res.convertBlobsToBitmaps();
-                model = res;
-                cb.onComplete(res);
-            }
-        }).execute(problemID);
-    }
-
-    public List<BodyPhoto> getBodyPhotos() {
-        return ((Problem)model).getBodyPhotos();
+    public void submitProblem(String title, String desc, Callback cb) {
+        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
+        new EditProblemTask(cb).execute(submitProblem, problemID);
     }
 
 }

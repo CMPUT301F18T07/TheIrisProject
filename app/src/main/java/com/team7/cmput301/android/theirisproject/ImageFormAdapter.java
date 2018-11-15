@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ImageFormAdapter should be used for Image Lists in forms
@@ -24,9 +25,11 @@ import java.util.ArrayList;
  * @author itstc
  * */
 public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.ImageFormViewHolder> {
+    private boolean isForm;
     private int itemLayout;
-    private ArrayList<BodyPhoto> images;
-    public ImageFormAdapter(ArrayList<BodyPhoto> images, int itemLayout) {
+    private List<BodyPhoto> images;
+    public ImageFormAdapter(List<BodyPhoto> images, int itemLayout, boolean isForm) {
+        this.isForm = isForm;
         this.images = images;
         this.itemLayout = itemLayout;
     }
@@ -63,13 +66,19 @@ public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.Imag
         public ImageFormViewHolder(View itemView) {
             super(itemView);
             this.imageItem = itemView;
-            FloatingActionButton removeButton = imageItem.findViewById(R.id.image_item_remove);
-            removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ImageFormAdapter.this.removeItem(getAdapterPosition());
-                }
-            });
+
+            // add X button functionality if its a form
+            if(isForm) {
+                FloatingActionButton removeButton = imageItem.findViewById(R.id.image_item_remove);
+                removeButton.setVisibility(View.VISIBLE);
+                removeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageFormAdapter.this.removeItem(getAdapterPosition());
+                    }
+                });
+            }
+
         }
     }
 }

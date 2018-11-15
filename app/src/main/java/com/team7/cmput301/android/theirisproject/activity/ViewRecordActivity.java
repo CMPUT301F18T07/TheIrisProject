@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.activity;
@@ -14,16 +14,16 @@ import android.view.View;
 import com.team7.cmput301.android.theirisproject.R;
 
 /**
- * AddRecordActivity is a form to add an activity
+ * ViewRecordActivity used to view a record
  *
  * @author jtfwong
  * */
-public class AddRecordActivity extends AppCompatActivity {
+public class ViewRecordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_view_record);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
