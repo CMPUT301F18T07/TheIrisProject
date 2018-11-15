@@ -11,14 +11,13 @@ import android.util.Log;
 
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.helper.StringHelper;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 
 import java.io.IOException;
-import java.util.List;
 
 import io.searchbox.client.JestResult;
-import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
@@ -38,17 +37,14 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... strings) {
-
         String patientEmail = strings[0];
-        String patientIdsConcat = strings[2];
 
         CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
-        String careProviderId = strings[1];
 
-        if (patientEmail == null || careProviderId == null) {
+        if (patientEmail == null ) {
             return false;
         }
-        Log.i(TAG, patientEmail + " and " + careProviderId);
+        Log.i(TAG, patientEmail + " and " + careProvider.getId());
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
@@ -60,9 +56,9 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
         try {
             SearchResult searchResult = client.execute(get);
-            // TODO: add check for when the result doesn't even contain any hits
+            // TODO: add check for when we can't find any patient with that email
+            // TODO: add check for adding a patient that's already been added
 
-            // If search succeeded, let's
             if (!searchResult.isSucceeded()) {
                 return false;
             }
@@ -70,37 +66,44 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             Log.i(TAG, searchResult.getJsonString());
 
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
+            String patientId = patient.getId();
+            String careProviderId = careProvider.getId();
 
             // Add this patient's ID into the list of Patient IDs for the current Care Provider
             // Referred to Jest documentation https://github.com/searchbox-io/Jest/tree/master/jest
             Log.i(TAG, patient.getEmail() + " and " + patient.getId() + patient.getCareProviderIds());
 
+            // Append the current Patient ID onto the Care Provider's existing Patient IDs
             String patientIds = patient.getId();
+            String patientIdsConcat = StringHelper.join(careProvider.getPatientIds(), ", ");
             if (!patientIdsConcat.equals("")) {
-                patientIds = patientIdsConcat + ", " + patient.getId();
+                patientIds = patientIdsConcat + ", " + patientId;
             }
 
-            String script = "{\n" +
-                    "    \"doc\" : {\n" +
-                    "        \"patientIds\" : [\"" + patientIds + "\"]\n" +
-                    "    }\n" +
-                    "}";
-            Update update = new Update.Builder(script).index(IrisProjectApplication.INDEX).type("user").id(careProviderId).build();
-            JestResult updateResult = client.execute(update);
-            if (!updateResult.isSucceeded()) {
-                Log.i(TAG, "updateResult not succeeded MESSAGE: " + updateResult.getErrorMessage());
+            boolean success = updateUser(client, "patientIds", patientIds, careProviderId);
+            if (!success) {
                 return false;
             }
-            Log.i(TAG, "updateResult succeeded");
-
-
             careProvider.addPatientId(patient.getId());
 
 
-            // Add the careProvider's ID into the Patient we're currently looking at
+            // Add the careProvider's ID into the Patient we're currently adding
+
+            // Append the current Care Provider ID onto the Patient's existing Care Provider IDs
+            String careProviderIds = careProviderId;
+            String careProviderIdsConcat = StringHelper.join(patient.getCareProviderIds(), ", ");
+            if (!careProviderIdsConcat.equals("")) {
+                careProviderIds = careProviderIdsConcat + ", " + careProviderId;
+            }
+
+            success = updateUser(client, "careProviderIds", careProviderIds, patientId);
+            if (!success) {
+                return false;
+            }
             patient.addCareProviderId(careProviderId);
 
 
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,4 +111,42 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
         return false;
 
     }
+
+
+    /**
+     * Update the given userType's list of IDs (representing Patients or Care Providers) into ids
+     * using that user's userId
+     * @param client
+     * @param updateType
+     * @param updateIds
+     * @param userId
+     * @return
+     */
+    private boolean updateUser(JestDroidClient client, String updateType, String updateIds, String userId) {
+        String updateString = "{\n" +
+                "    \"doc\" : {\n" +
+                "        \"" + updateType + "\" : [\"" + updateIds + "\"]\n" +
+                "    }\n" +
+                "}";
+
+        Update update = new Update.Builder(updateString).index(IrisProjectApplication.INDEX).type("user").id(userId).build();
+        JestResult updateResult = null;
+        try {
+            updateResult = client.execute(update);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        boolean success = updateResult.isSucceeded();
+
+        if (success) {
+            Log.i(TAG, "updateResult succeeded");
+        } else {
+            Log.i(TAG, "updateResult not succeeded MESSAGE: " + updateResult.getErrorMessage());
+
+        }
+
+        return success;
+    }
+
 }

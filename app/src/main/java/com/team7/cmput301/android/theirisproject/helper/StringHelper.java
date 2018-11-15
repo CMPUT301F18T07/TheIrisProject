@@ -14,6 +14,10 @@ import java.util.List;
 public class StringHelper {
 
     public static String join(List<String> strings, String separator) {
+        if (strings == null || strings.size() == 0) {
+            return "";
+        }
+
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < strings.size(); i++) {
             String id = strings.get(i);
