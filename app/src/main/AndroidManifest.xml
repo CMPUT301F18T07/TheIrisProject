@@ -26,9 +26,11 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity android:name=".activity.RecordListActivity"></activity>
-        <activity android:name=".activity.ProblemListActivity"></activity>
+        <activity android:name=".activity.ProblemListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.AddProblemActivity"></activity>
-        <activity android:name=".activity.ViewProblemActivity"></activity>
+        <activity android:name=".activity.ViewProblemActivity"
+            android:label="@string/viewprofile_title"></activity>
 
     </application>
 
