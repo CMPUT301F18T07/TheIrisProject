@@ -8,16 +8,20 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class RecordList implements Iterable<Record> {
-    private ArrayList<Record> records = new ArrayList<Record>();
+    private List<Record> records = new ArrayList<Record>();
 
-    public ArrayList<Record> getRecords() {
+    public List<Record> getRecords() {
         return records;
     }
 
     public RecordList() {
+    }
 
+    public RecordList(List<Record> records){
+        this.records = records;
     }
 
     public boolean contains(Record record) {
