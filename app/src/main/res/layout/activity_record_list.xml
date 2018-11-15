@@ -10,4 +10,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ListView
+        android:id="@+id/record_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+  
 </android.support.constraint.ConstraintLayout>
