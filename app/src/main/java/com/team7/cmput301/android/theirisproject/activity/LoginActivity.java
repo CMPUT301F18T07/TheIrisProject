@@ -80,6 +80,7 @@ public class LoginActivity extends IrisActivity {
      * */
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(LoginActivity.this, targetActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
         intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
