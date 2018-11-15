@@ -38,7 +38,8 @@ public class ImageConverter {
      * @return Bitmap: bitmap image
      * */
     public static Bitmap base64DecodeBitmap(String blob) {
-        return BitmapFactory.decodeByteArray(Base64.decode(blob, Base64.DEFAULT),0, 256*256);
+        byte[] res = Base64.decode(blob, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(res,0, res.length);
     }
 
     /**

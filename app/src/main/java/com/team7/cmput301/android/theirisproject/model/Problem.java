@@ -4,6 +4,9 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import com.google.gson.JsonArray;
+import com.team7.cmput301.android.theirisproject.ImageConverter;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,27 +20,42 @@ public class Problem {
     private String title;
     private String user;
     private Date date;
-    private RecordList records;
-    private List<Comment> comments = new ArrayList<>();
     private String description;
-    private List<BodyPhoto> bodyPhotos;
+    transient private RecordList records;
+    transient private List<Comment> comments = new ArrayList<>();
+    transient private List<BodyPhoto> bodyPhotos;
 
-    public Problem(String title, String description, String user, RecordList records, List<BodyPhoto> bodyPhotos) {
-        this.title = title;
-        this.description = description;
-        this.user = user;
-        this.records = records;
+    private List<String> recordsId;
+    private List<String> bodyPhotoBlobs;
+    private List<String> commentIds;
+
+    public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
+        this(title, description, user);
         this.bodyPhotos = bodyPhotos;
+        this.bodyPhotoBlobs = new ArrayList<>();
+        for (BodyPhoto bp: bodyPhotos) {
+            bodyPhotoBlobs.add(ImageConverter.base64EncodeBitmap(bp.getPhoto()));
+        }
+        this.date = new Date();
     }
 
     public Problem(String title, String description, String user) {
         this.title = title;
         this.description = description;
         this.user = user;
+        this.date = new Date();
     }
 
     public Problem() {
 
+    }
+
+    public void convertBlobsToBitmaps() {
+        ArrayList<BodyPhoto> newPhotos = new ArrayList<>();
+        for (String blob: bodyPhotoBlobs) {
+            newPhotos.add(new BodyPhoto(ImageConverter.base64DecodeBitmap(blob)));
+        }
+        bodyPhotos = newPhotos;
     }
 
     public RecordList getRecords() {
@@ -56,16 +74,27 @@ public class Problem {
         return title;
     }
 
-    public String getDate() {
-        return String.valueOf(this.date);
+    public Date getDate() {
+        return this.date;
     }
 
     public String getDescription() {
         return this.description;
     }
 
-
     public String getUser() {return user;}
+
+    public List<String> getRecordsId() {
+        return recordsId;
+    }
+
+    public List<String> bodyPhotoBlobs() {
+        return bodyPhotoBlobs;
+    }
+
+    public List<String> getCommentIds() {
+        return commentIds;
+    }
 
     public List<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;

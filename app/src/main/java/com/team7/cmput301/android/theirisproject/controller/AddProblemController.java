@@ -44,7 +44,7 @@ public class AddProblemController extends IrisController<Problem> {
      * */
     public void addBodyPhoto(Bitmap img) {
         Bitmap res = Bitmap.createScaledBitmap(img, 256, 256, false);
-        bodyPhotos.add(new BodyPhoto(userId, res));
+        bodyPhotos.add(new BodyPhoto(res));
     }
     public ArrayList<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;
@@ -61,18 +61,12 @@ public class AddProblemController extends IrisController<Problem> {
      * @return void
      * */
     public void submitProblem(String title, String desc, Callback<String> cb) {
-        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
+        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId(), bodyPhotos);
         // add problem to our database
         new AddProblemTask(new Callback<String>() {
             @Override
             public void onComplete(String result) {
-                // Once we added the problem, add our body photo documents
-                new AddBodyPhotoTask(new Callback<Boolean>() {
-                    @Override
-                    public void onComplete(Boolean res) {
-                        cb.onComplete(result);
-                    }
-                }).execute(bodyPhotos);
+                cb.onComplete(result);
             }
         }).execute(submitProblem);
     }

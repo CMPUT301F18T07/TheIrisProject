@@ -7,7 +7,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +55,7 @@ public class AddProblemActivity extends IrisActivity {
         imageListLayout = new LinearLayoutManager(this);
         ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
         imageList.setLayoutManager(imageListLayout);
-        imageFormAdapter = new ImageFormAdapter(controller.getBodyPhotos(), R.layout.add_problem_image_item);
+        imageFormAdapter = new ImageFormAdapter(controller.getBodyPhotos(), R.layout.problem_image_item, true);
         imageList.setAdapter(imageFormAdapter);
 
         // set click listener to submit button
