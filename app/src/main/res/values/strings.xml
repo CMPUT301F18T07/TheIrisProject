@@ -49,7 +49,6 @@
     <!-- View Record List screen strings -->
     <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
-
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
@@ -61,5 +60,38 @@
 
     <!-- Edit Problem strings-->
     <string name="submit_problem">Submit</string>
+
+    <!-- View Patient Edit Profile screen strings-->
+    <string name="pEditprofile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
+    <string name="pEditprofile_title_text">Edit Profile</string>
+    <string name="pEditprofile_save_changes_button_text">Save Changes</string>
+    <string name="pEditprofile_cancel_button_text">Cancel</string>
+    <string name="pEditprofile_username_hint">Username</string>
+    <string name="pEditprofile_phone_number_hint">Phone Number</string>
+    <string name="pEditprofile_current_password_hint">Current Password</string>
+    <string name="pEditprofile_email_hint">Email</string>
+    <string name="pEditprofile_new_password_hint">New Password</string>
+
+    <!-- View Care Provider Edit Profile screen strings-->
+    <string name="cEditprofile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
+    <string name="cEditprofile_title_text">Edit Profile</string>
+    <string name="cEditprofile_save_changes_button_text">Save Changes</string>
+    <string name="cEditprofile_cancel_button_text">Cancel</string>
+    <string name="cEditprofile_username_hint">Username</string>
+    <string name="cEditprofile_phone_number_hint">Phone Number</string>
+    <string name="cEditprofile_current_password_hint">Current Password</string>
+    <string name="cEditprofile_email_hint">Email</string>
+    <string name="cEditprofile_new_password_hint">New Password</string>
+
+    <!-- View Profile screen strings-->
+    <string name="Viewprofile_username">Username</string>
+    <string name="Viewprofile_title">Profile</string>
+    <string name="Viewprofile_email">User Email</string>
+    <string name="Viewprofile__phone_number">User Phone Number</string>
+    <string name="Viewprofile_edit_profile_button_text">Edit Profile</string>
+    <string name="Viewprofile_care_providers_text">Care Providers:</string>
+
+
+
 
 </resources>

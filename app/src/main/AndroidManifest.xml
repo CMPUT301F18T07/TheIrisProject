@@ -24,18 +24,23 @@
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/title_activity_add_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.RecordListActivity"
             android:label="@string/record_list_activity_title" />
-        <activity android:name=".activity.ProblemListActivity" />
-        <activity android:name=".activity.AddProblemActivity" />
-        <activity android:name=".activity.ViewProblemActivity" />
         <activity
             android:name=".activity.ViewRecordActivity"
             android:label="@string/title_activity_view_record"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.EditProblemActivity"></activity>
+        <activity android:name=".activity.ProblemListActivity"></activity>
+        <activity android:name=".activity.AddProblemActivity"></activity>
+        <activity android:name=".activity.ViewProblemActivity"></activity>
+        <activity android:name=".activity.ViewCareproviderProfileActivity"></activity>
+        <activity android:name=".activity.ViewPatientProfileActivity"></activity>
+        <activity android:name=".activity.EditCareproviderProfileActivity"></activity>
+        <activity android:name=".activity.EditPatientProfileActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
