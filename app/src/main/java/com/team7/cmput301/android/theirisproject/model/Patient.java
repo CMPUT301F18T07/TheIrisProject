@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Patient extends User {
-    transient private List<CareProvider> careProviders = new ArrayList<>();
-    private List<String> careProviderIds = new ArrayList<>();
+    transient private List<CareProvider> careProviders;
+    private List<String> careProviderIds;
 
     private ProblemList problems;
 
@@ -35,5 +35,7 @@ public class Patient extends User {
 
     public Patient(String name, String email, String phoneNumber) {
         super(name, email, phoneNumber, UserType.PATIENT);
+        careProviders = new ArrayList<>();
+        careProviderIds = new ArrayList<>();
     }
 }

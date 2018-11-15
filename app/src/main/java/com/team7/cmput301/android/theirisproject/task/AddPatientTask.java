@@ -35,6 +35,12 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
     private static final String TAG = AddPatientTask.class.getSimpleName();
 
+    private Callback<Boolean> callback;
+
+    public AddPatientTask(Callback<Boolean> callback) {
+        this.callback = callback;
+    }
+
     @Override
     protected Boolean doInBackground(String... strings) {
         String patientEmail = strings[0];
@@ -58,6 +64,8 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             SearchResult searchResult = client.execute(get);
             // TODO: add check for when we can't find any patient with that email
             // TODO: add check for adding a patient that's already been added
+            // TODO: ensure the user is actually a patient!
+            // TODO: Fix bug of PatientListActivity showing patients out of order (should be in order of being added)
 
             if (!searchResult.isSucceeded()) {
                 return false;
@@ -149,4 +157,9 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
         return success;
     }
 
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
+        callback.onComplete(aBoolean);
+    }
 }

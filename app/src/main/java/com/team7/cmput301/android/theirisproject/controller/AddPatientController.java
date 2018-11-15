@@ -13,6 +13,7 @@ import com.team7.cmput301.android.theirisproject.helper.StringHelper;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.List;
 
@@ -28,10 +29,10 @@ public class AddPatientController extends IrisController<Patient> {
         super(intent);
     }
 
-    public void addPatient(String patientEmail, CareProvider careProvider) {
+    public void addPatient(String patientEmail, CareProvider careProvider, Callback<Boolean> callback) {
         String patientIds = StringHelper.join(careProvider.getPatientIds(), ", ");
 
-        AddPatientTask task = new AddPatientTask();
+        AddPatientTask task = new AddPatientTask(callback);
         task.execute(patientEmail, patientIds);
     }
 

@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.PatientListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -33,8 +34,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
     private PatientListController controller;
     private ListView patientsView;
-
-    private static final int REQUEST_ADD_PATIENT = 0;
+    private PatientListAdapter adapter;
 
     @Override
     protected PatientListController createController(Intent intent) {
@@ -78,15 +78,22 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
      * @return void
      * */
     public void render(List<Patient> newState) {
-        patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_problem_item, newState));
+        patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_patient_item, newState));
     }
 
     @Override
     public void onFinishAddPatient(boolean success) {
         if (success) {
-            // add patient and render
+            // Render the List with the new Patient that was added
+            controller.getPatients(new Callback<List<Patient>>() {
+                @Override
+                public void onComplete(List<Patient> res) {
+                    render(res);
+                }
+            });
         } else {
             // do nothing, show unsuccess Toast
+            Toast.makeText(this, "Couldn't successfully add Patient!", Toast.LENGTH_SHORT).show();
         }
     }
 

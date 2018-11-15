@@ -38,7 +38,7 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
             // Note that this finds all matches containing
 
             // TODO: Ensure that "match" doesn't find any patients that shouldn't be found
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"careProviders\": \"" + careProviderId + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"match\": {\"careProviderIds\": \"" + careProviderId + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
@@ -49,8 +49,13 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
             System.out.println(Arrays.toString(res.getSourceAsStringList().toArray()));
 
             if (res.isSucceeded()) {
+                Log.i(TAG, "Getting Patients List Result is succeeded!");
+                List<Patient> patients = res.getSourceAsObjectList(Patient.class, true);
+                Log.i(TAG, "number of patients: " + patients.size());
+
                 return res.getSourceAsObjectList(Patient.class, true);
             }
+            Log.i(TAG, "Getting Patients List Result is FAILED!");
         } catch (IOException e) {
             e.printStackTrace();
         }

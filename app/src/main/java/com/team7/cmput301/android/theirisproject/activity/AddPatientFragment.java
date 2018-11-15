@@ -21,6 +21,8 @@ import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddPatientController;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * AddPatientFragment is responsible for getting the Care Provider's input of an email, which it
@@ -46,7 +48,7 @@ public class AddPatientFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        AddPatientDialogListener parent = (AddPatientDialogListener) getActivity();
+        listener = (AddPatientDialogListener) getActivity();
 
         View view = View.inflate(getActivity(), R.layout.dialog_add_patient, null);
         addPatientEditText = view.findViewById(R.id.add_patient_edit_text);
@@ -57,7 +59,15 @@ public class AddPatientFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Check if found that email, and use callback method for parent activity accordingly
-                        controller.addPatient(addPatientEditText.getText().toString(), (CareProvider) IrisProjectApplication.getCurrentUser());
+                        Callback<Boolean> callback = new Callback<Boolean>() {
+                            @Override
+                            public void onComplete(Boolean success) {
+                                listener.onFinishAddPatient(success);
+                            }
+                        };
+                        controller.addPatient(addPatientEditText.getText().toString(),
+                                (CareProvider) IrisProjectApplication.getCurrentUser(),
+                                callback);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
