@@ -31,9 +31,19 @@ public class PatientListController extends IrisController<List<Patient>> {
         this.userID = intent.getExtras().getString("user");
     }
 
-    public void getPatients(Callback callback) {
-        GetPatientListTask task = new GetPatientListTask(callback);
+    public void getPatientsFromDB(Callback<List<Patient>> callback) {
+        GetPatientListTask task = new GetPatientListTask(new Callback<List<Patient>>() {
+            @Override
+            public void onComplete(List<Patient> res) {
+                model = res;
+                callback.onComplete(res);
+            }
+        });
         task.execute(IrisProjectApplication.getCurrentUser().getId());
+    }
+
+    public List<Patient> getPatients() {
+        return model;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     @Override
     protected void onStart() {
         super.onStart();
-        controller.getPatients(new Callback<List<Patient>>() {
+        controller.getPatientsFromDB(new Callback<List<Patient>>() {
             @Override
             public void onComplete(List<Patient> res) {
                 render(res);
@@ -84,7 +84,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     public void onFinishAddPatient(boolean success) {
         if (success) {
             // Render the List with the new Patient that was added
-            controller.getPatients(new Callback<List<Patient>>() {
+            controller.getPatientsFromDB(new Callback<List<Patient>>() {
                 @Override
                 public void onComplete(List<Patient> res) {
                     render(res);
