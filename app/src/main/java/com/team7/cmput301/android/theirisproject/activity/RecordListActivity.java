@@ -38,7 +38,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
 
-        recordListView = findViewById(R.id.record_list_view);
+        recordListView = findViewById(R.id.record_item_list);
         controller = createController(getIntent());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
