@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CareProvider extends User {
-    private List<Patient> patients = new ArrayList<>();
+    transient private List<Patient> patients = new ArrayList<>();
+    private List<String> patientIds = new ArrayList<>();
 
     public List<Patient> getPatients() {
         return patients;
@@ -17,6 +18,26 @@ public class CareProvider extends User {
     public ProblemList getPatientProblems(Patient patient) {
         return null;
     }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public void addPatientId(String patientId) {
+        patientIds.add(patientId);
+    }
+
+    public List<String> getPatientIds() {
+        return patientIds;
+    }
+
+    /**
+     * Generates a String representing the concatenation of all the patientIds with a comma in between
+     * separating all of them e.g. id1, id2, id3
+     *
+     * Used to concatenate a new Patient ID into existing ones for a Care Provider
+     */
+
 
     public CareProvider(String name, String email, String phoneNumber) {
         super(name, email, phoneNumber, UserType.CARE_PROVIDER);

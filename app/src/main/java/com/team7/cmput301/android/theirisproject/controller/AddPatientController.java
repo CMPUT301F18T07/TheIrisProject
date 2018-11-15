@@ -9,8 +9,12 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.helper.StringHelper;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
+
+import java.util.List;
 
 /**
  * AddPatientController is responsible for executing AddPatientTask which will update the given
@@ -24,9 +28,11 @@ public class AddPatientController extends IrisController<Patient> {
         super(intent);
     }
 
-    public void addPatient(String patientEmail, String careProviderId) {
+    public void addPatient(String patientEmail, CareProvider careProvider) {
+        String patientIds = StringHelper.join(careProvider.getPatientIds(), ", ");
+
         AddPatientTask task = new AddPatientTask();
-        task.execute(patientEmail, careProviderId);
+        task.execute(patientEmail, patientIds);
     }
 
     @Override

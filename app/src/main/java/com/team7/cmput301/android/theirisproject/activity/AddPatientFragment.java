@@ -20,6 +20,7 @@ import android.widget.EditText;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddPatientController;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 
 /**
  * AddPatientFragment is responsible for getting the Care Provider's input of an email, which it
@@ -56,7 +57,7 @@ public class AddPatientFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Check if found that email, and use callback method for parent activity accordingly
-                        controller.addPatient(addPatientEditText.getText().toString(), IrisProjectApplication.getCurrentUser().getId());
+                        controller.addPatient(addPatientEditText.getText().toString(), (CareProvider) IrisProjectApplication.getCurrentUser());
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

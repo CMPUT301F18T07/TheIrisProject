@@ -40,7 +40,11 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... strings) {
 
         String patientEmail = strings[0];
+        String patientIdsConcat = strings[2];
+
+        CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
         String careProviderId = strings[1];
+
         if (patientEmail == null || careProviderId == null) {
             return false;
         }
@@ -69,24 +73,32 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
             // Add this patient's ID into the list of Patient IDs for the current Care Provider
             // Referred to Jest documentation https://github.com/searchbox-io/Jest/tree/master/jest
-            Log.i(TAG, patient.getEmail() + " and " + patient.getId());
+            Log.i(TAG, patient.getEmail() + " and " + patient.getId() + patient.getCareProviderIds());
 
-            String patientId = patient.getId();
+            String patientIds = patient.getId();
+            if (!patientIdsConcat.equals("")) {
+                patientIds = patientIdsConcat + ", " + patient.getId();
+            }
+
             String script = "{\n" +
-                    "    \"script\" : \"ctx._source.patients += patient\",\n" +
-                    "    \"params\" : {\n" +
-                    "        \"patient\" : \"" + patientId + "\"\n" +
+                    "    \"doc\" : {\n" +
+                    "        \"patientIds\" : [\"" + patientIds + "\"]\n" +
                     "    }\n" +
                     "}";
             Update update = new Update.Builder(script).index(IrisProjectApplication.INDEX).type("user").id(careProviderId).build();
             JestResult updateResult = client.execute(update);
             if (!updateResult.isSucceeded()) {
-                Log.i(TAG, "updateResult not succeeded");
+                Log.i(TAG, "updateResult not succeeded MESSAGE: " + updateResult.getErrorMessage());
                 return false;
             }
             Log.i(TAG, "updateResult succeeded");
 
+
+            careProvider.addPatientId(patient.getId());
+
+
             // Add the careProvider's ID into the Patient we're currently looking at
+            patient.addCareProviderId(careProviderId);
 
 
         } catch (IOException e) {
