@@ -25,13 +25,13 @@ import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
- * AddPatientFragment is responsible for getting the Care Provider's input of an email, which it
+ * AddPatientDialogFragment is responsible for getting the Care Provider's input of an email, which it
  * then tells its controller to go search the database for that Patient and gives its hosting activity
  * the new list of Patients to display if updated.
  *
  * @author Jmmxp
  */
-public class AddPatientFragment extends DialogFragment {
+public class AddPatientDialogFragment extends DialogFragment {
 
     private AddPatientController controller;
     private AddPatientDialogListener listener;

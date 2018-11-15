@@ -10,9 +10,17 @@ import java.util.List;
 
 /**
  * Helper class that has helper methods pertaining to Strings and formatting Strings
+ *
+ * @author Jmmxp
  */
 public class StringHelper {
 
+    /**
+     * Given a List of Strings and a separator delimiter, formats the List of Strings into one String
+     * @param strings The Strings to separate
+     * @param separator The separator to put between each strings
+     * @return Strings conacatenated with one another with separator in between each
+     */
     public static String join(List<String> strings, String separator) {
         if (strings == null || strings.size() == 0) {
             return "";

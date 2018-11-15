@@ -24,17 +24,16 @@ import java.util.List;
 
 /**
  * PatientListActivity is the screen which shows a Care Provider all their registered Patients.
- * It lets them add a new Patient by clicking the add button, which uses AddPatientFragment to help
+ * It lets them add a new Patient by clicking the add button, which uses AddPatientDialogFragment to help
  * add the Patient by their email
  *
- * @see AddPatientFragment
+ * @see AddPatientDialogFragment
  * @author Jmmxp
  */
-public class PatientListActivity extends IrisActivity<List<Patient>> implements AddPatientFragment.AddPatientDialogListener {
+public class PatientListActivity extends IrisActivity<List<Patient>> implements AddPatientDialogFragment.AddPatientDialogListener {
 
     private PatientListController controller;
     private ListView patientsView;
-    private PatientListAdapter adapter;
 
     @Override
     protected PatientListController createController(Intent intent) {
@@ -53,8 +52,8 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
         findViewById(R.id.patient_list_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment addPatientDialog = new AddPatientFragment();
-                addPatientDialog.show(getSupportFragmentManager(), AddPatientFragment.class.getSimpleName());
+                DialogFragment addPatientDialog = new AddPatientDialogFragment();
+                addPatientDialog.show(getSupportFragmentManager(), AddPatientDialogFragment.class.getSimpleName());
             }
         });
     }

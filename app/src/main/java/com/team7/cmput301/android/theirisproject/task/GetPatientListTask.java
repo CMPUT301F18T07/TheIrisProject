@@ -20,6 +20,15 @@ import java.util.List;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+/**
+ * GetPatientListTask is responsible for taking in a careProviderId and returning a List of Patients
+ * representing all Patients that Care Provider has registered.
+ *
+ * It also uses a Callback method to give the List of Patients to the original calling activity
+ * (which calls upon the PatientListController)
+ *
+ * @author Jmmxp
+ */
 public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
 
     private static final String TAG = GetPatientListTask.class.getSimpleName();
