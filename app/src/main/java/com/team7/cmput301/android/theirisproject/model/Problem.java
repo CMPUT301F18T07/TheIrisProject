@@ -4,9 +4,12 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.searchbox.annotations.JestId;
 
@@ -14,6 +17,7 @@ public class Problem {
     @JestId
     private String _id;
 
+    transient private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.CANADA);
     private String title;
     private String user;
     private Date date;
@@ -38,6 +42,13 @@ public class Problem {
         this.date = new Date();
     }
 
+    public Problem(String title, String description, String date, String user) throws ParseException {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+        this.date = dateFormat.parse(date);
+    }
+
     public Problem() {
 
     }
@@ -58,8 +69,8 @@ public class Problem {
         return title;
     }
 
-    public Date getDate() {
-        return this.date;
+    public String getDate() {
+        return this.dateFormat.format(date);
     }
 
     public String getDescription() {

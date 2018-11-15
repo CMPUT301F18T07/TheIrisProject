@@ -19,6 +19,8 @@ import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
+import java.text.ParseException;
+
 /**
  * Activity that is used to edit the problem selected by the user
  * Uses ProblemController to get problem selected from the database
@@ -52,16 +54,21 @@ public class EditProblemActivity extends IrisActivity<Problem> {
             @Override
             public void onClick(View v) {
                 // Submit new fields to the problem
-                editProblemController.submitProblem(
-                        problemTitle.getText().toString(),
-                        problemDescription.getText().toString(),
-                        new Callback<String>() {
-                            @Override
-                            public void onComplete(String id) {
-                                if (id != null) dispatchToProblemActivity(id);
-                                else Toast.makeText(EditProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();
-                            }
-                        });
+                try {
+                    editProblemController.submitProblem(
+                            problemTitle.getText().toString(),
+                            problemDescription.getText().toString(),
+                            String.valueOf(problemDate.getText()),
+                            new Callback<String>() {
+                                @Override
+                                public void onComplete(String id) {
+                                    if (id != null) dispatchToProblemActivity(id);
+                                    else Toast.makeText(EditProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                } catch (ParseException e) {
+                    Toast.makeText(EditProblemActivity.this, "Incorrect date format!", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
