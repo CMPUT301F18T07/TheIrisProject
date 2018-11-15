@@ -8,12 +8,9 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
@@ -42,16 +39,16 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_problem);
+        problemTitle = findViewById(R.id.problem_title);
+        problemDate = findViewById(R.id.problem_date);
+        problemDescription = findViewById(R.id.problem_description);
+        problemImages = findViewById(R.id.problem_pic);
         problemController = (ProblemController) createController(getIntent());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        problemTitle = findViewById(R.id.problem_title);
-        problemDate = findViewById(R.id.problem_date);
-        problemDescription = findViewById(R.id.problem_description);
-        problemImages = findViewById(R.id.problem_pic);
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
@@ -68,6 +65,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());
+        //problemDate.setText(newState.getDate().toString());
         problemDescription.setText(newState.getDescription());
     }
 }
