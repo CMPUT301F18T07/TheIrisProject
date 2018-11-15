@@ -78,7 +78,6 @@ public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.Imag
                     }
                 });
             }
-
         }
     }
 }
