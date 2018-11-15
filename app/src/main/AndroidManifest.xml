@@ -17,7 +17,6 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,7 +25,9 @@
             android:name=".activity.AddRecordActivity"
             android:label="@string/title_activity_add_record"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.RecordListActivity" />
+        <activity
+            android:name=".activity.RecordListActivity"
+            android:label="@string/record_list_activity_title" />
         <activity android:name=".activity.ProblemListActivity" />
         <activity android:name=".activity.AddProblemActivity" />
         <activity android:name=".activity.ViewProblemActivity" />
