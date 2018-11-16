@@ -23,7 +23,6 @@ public class ViewPatientProfileActivity extends IrisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_profile);
-        ViewPatientProfileActivity.this.setTitle("@string/Viewprofile_title");
     }
 
     @Override

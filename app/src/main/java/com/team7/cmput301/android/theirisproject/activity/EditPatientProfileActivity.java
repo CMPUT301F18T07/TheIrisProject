@@ -22,7 +22,7 @@ public class EditPatientProfileActivity extends IrisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_edit_profile);
-        EditPatientProfileActivity.this.setTitle("@string/pEditprofile_title_text");
+
     }
 
     @Override

@@ -29,10 +29,14 @@
         <activity android:name=".activity.ProblemListActivity"></activity>
         <activity android:name=".activity.AddProblemActivity"></activity>
         <activity android:name=".activity.ViewProblemActivity"></activity>
-        <activity android:name=".activity.ViewCareproviderProfileActivity"></activity>
-        <activity android:name=".activity.ViewPatientProfileActivity"></activity>
-        <activity android:name=".activity.EditCareproviderProfileActivity"></activity>
-        <activity android:name=".activity.EditPatientProfileActivity"></activity>
+        <activity android:name=".activity.ViewCareproviderProfileActivity"
+            android:label="@string/Viewprofile_title"></activity>
+        <activity android:name=".activity.ViewPatientProfileActivity"
+            android:label="@string/Viewprofile_title"></activity>
+        <activity android:name=".activity.EditCareproviderProfileActivity"
+            android:label="@string/cEditprofile_text"></activity>
+        <activity android:name=".activity.EditPatientProfileActivity"
+            android:label="@string/pEditprofile_text"></activity>
 
     </application>
 
