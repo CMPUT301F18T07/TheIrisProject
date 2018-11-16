@@ -46,7 +46,8 @@
     <string name="label_photos">Label Photos</string>
     <string name="add_record">Add Record</string>
 
-    <!-- View Record List screen strings-->
+    <!-- View Record List screen strings -->
+    <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
 
     <!-- View Problem screen strings-->
@@ -54,7 +55,11 @@
     <string name="create_record">Create Record</string>
     <string name="title_activity_view_record">ViewRecordActivity</string>
 
-    <!-- View String screen strings-->
-    <string name="view_more_photos">View More Photos</string>
+    <!-- Problem list Toolbar strings-->
+    <string name="edit_problems">Edit</string>
+    <string name="view_profile">View Profile</string>
+
+    <!-- Edit Problem strings-->
+    <string name="submit_problem">Submit</string>
 
 </resources>

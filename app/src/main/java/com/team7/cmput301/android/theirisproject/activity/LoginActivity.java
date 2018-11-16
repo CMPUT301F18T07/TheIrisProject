@@ -51,7 +51,7 @@ public class LoginActivity extends IrisActivity {
             }
         });
 
-        /**
+        /*
          * loginButton's clickListener will take username input field and send intent
          * to ProblemListActivity where it will search all problems under given intent value "user"
          * */
@@ -77,14 +77,14 @@ public class LoginActivity extends IrisActivity {
      * login is successful.
      *
      * @param targetActivity: an activity class for the intent
-     * @return void
      * */
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(LoginActivity.this, targetActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
         intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
-  
+
     @Override
     protected LoginController createController(Intent intent) {
         return new LoginController(intent);
