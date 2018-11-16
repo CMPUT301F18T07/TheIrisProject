@@ -2,17 +2,37 @@
 <!--
   ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
   -->
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/edit_problem"
-        android:title="@string/edit_problems"
-        app:showAsAction="never"/>
+        android:id="@+id/problem_list_action_edit"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
+        android:title="@string/problem_list_edit_problems_text"
+        app:showAsAction="ifRoom">
+    </item>
 
     <item
-        android:id="@+id/view_profile"
-        android:title="@string/view_profile"
-        app:showAsAction="never"/>
+        android:id="@+id/problem_list_action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:title="@string/problem_list_search_text"
+        app:showAsAction="ifRoom">
+
+    </item>
+
+    <item
+        android:id="@+id/problem_list_action_viewProfile"
+        android:icon="@drawable/ic_account_circle_white_24dp"
+        android:title="@string/problem_list_profile_text"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item
+        android:id="@+id/problem_list_action_map_of_all_records"
+        android:icon="@drawable/ic_map_white_24dp"
+        android:title="@string/problem_list_map_of_all_records"
+        app:showAsAction="ifRoom">
+    </item>
+
+
 </menu>
