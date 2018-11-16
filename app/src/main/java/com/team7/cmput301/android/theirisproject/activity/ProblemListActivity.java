@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.problem_list_task_bar);
+        setSupportActionBar(toolbar);
 
         problemsView = findViewById(R.id.problem_item_list);
         controller = createController(getIntent());
@@ -87,8 +90,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_problem_list,menu);
+        getMenuInflater().inflate(R.menu.menu_problem_list, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

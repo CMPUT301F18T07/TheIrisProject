@@ -21,19 +21,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
+      
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/title_activity_add_record"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.RecordListActivity"
-            android:label="@string/record_list_activity_title" />
-        <activity android:name=".activity.ProblemListActivity" />
-        <activity android:name=".activity.AddProblemActivity" />
-        <activity android:name=".activity.ViewProblemActivity" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.ViewRecordActivity"
             android:label="@string/title_activity_view_record"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.RecordListActivity"></activity>
+      
+        <activity android:name=".activity.ProblemListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.AddProblemActivity"></activity>
+        <activity android:name=".activity.ViewProblemActivity"
+            android:label="@string/viewprofile_title"></activity>
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.EditProblemActivity"></activity>
     </application>
