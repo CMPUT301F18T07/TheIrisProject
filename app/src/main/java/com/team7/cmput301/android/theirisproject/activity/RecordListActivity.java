@@ -37,7 +37,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.record_list_task_bar);
+        toolbar = findViewById(R.id.record_list_task_bar);
         setSupportActionBar(toolbar);
         this.controller = createController(getIntent());
 

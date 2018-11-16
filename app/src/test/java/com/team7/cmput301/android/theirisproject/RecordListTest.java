@@ -64,6 +64,8 @@ public class RecordListTest {
     }
 
     private Record getTestRecord() {
+
+        String problemID = "mk543";
         String title = "Title";
         String text = "Text";
         Date date = new Date();
@@ -71,8 +73,8 @@ public class RecordListTest {
         BodyLocation bodyLocation = null;
         ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-        return record;
+        return new Record(problemID, title, text, date, geoLocation, bodyLocation, recordPhotos);
+
     }
 
 }

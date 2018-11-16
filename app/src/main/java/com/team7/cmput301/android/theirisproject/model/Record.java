@@ -12,6 +12,8 @@ import io.searchbox.annotations.JestId;
 /**
  * A single record of a particular Problem
  *
+ * @see RecordList
+ * @see Problem
  * @author Jmmxp
  */
 public class Record {
@@ -25,7 +27,9 @@ public class Record {
     private Date date;
     private GeoLocation geoLocation;
     private BodyLocation bodyLocation;
-    private ArrayList<RecordPhoto> recordPhotos = new ArrayList<RecordPhoto>();
+    private ArrayList<RecordPhoto> recordPhotos;
+
+    /* Constructors */
 
     public Record(String problemId, String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
         this.problemId = problemId;
@@ -35,6 +39,12 @@ public class Record {
         this.geoLocation = geoPt;
         this.bodyLocation = bodyPt;
         this.recordPhotos = recordPhotos;
+    }
+
+    /* Basic getters */
+
+    public String getId() {
+        return _id;
     }
 
     public String getProblemId() {
@@ -65,6 +75,8 @@ public class Record {
         return recordPhotos;
     }
 
+    /* Basic list operations */
+
     public void addPhoto(RecordPhoto img) {
 
     }
@@ -72,6 +84,8 @@ public class Record {
     public void deletePhoto(RecordPhoto img) {
 
     }
+
+    /* Advanced setters */
 
     public void editGeoLocation(int x, int y) {
 
@@ -81,7 +95,4 @@ public class Record {
 
     }
 
-    public String getId() {
-        return _id;
-    }
 }

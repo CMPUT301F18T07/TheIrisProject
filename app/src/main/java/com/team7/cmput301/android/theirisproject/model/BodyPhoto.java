@@ -6,10 +6,20 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import android.graphics.Bitmap;
 
+/**
+ * A photo that is associated with a Problem.
+ *
+ * @see Problem
+ * @author Jmmxp
+ */
 public class BodyPhoto {
+
     private Bitmap img;
+
+    /* Constructors */
 
     public void BodyPhoto(Bitmap img) {
 
     }
+
 }

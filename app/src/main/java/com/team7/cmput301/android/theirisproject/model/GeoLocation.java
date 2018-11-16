@@ -4,20 +4,34 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+/**
+ * A specific location on Earth, belonging to a Record.
+ *
+ * @see Record
+ * @author Jmmxp
+ */
 public class GeoLocation {
+
     private Double latitude;
     private Double longitude;
+
+    /* Constructors */
 
     public GeoLocation(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public double[] asDouble() {
-        return new double[0];
-    }
+    /* Advanced setters */
 
     public void update(double lat, double lng) {
 
     }
+
+    /* Misc */
+
+    public double[] asDouble() {
+        return new double[0];
+    }
+
 }

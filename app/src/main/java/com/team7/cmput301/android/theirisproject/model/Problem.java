@@ -10,7 +10,16 @@ import java.util.List;
 
 import io.searchbox.annotations.JestId;
 
+/**
+ * Represents a particular issue that a Patient has.
+ *
+ * @see ProblemList
+ * @see Patient
+ * @author itstc
+ * @author Jmmxp
+ */
 public class Problem {
+
     @JestId
     private String _id;
 
@@ -21,6 +30,8 @@ public class Problem {
     private List<Comment> comments = new ArrayList<>();
     private String description;
     private List<BodyPhoto> bodyPhotos;
+
+    /* Constructors */
 
     public Problem(String title, String description, String user, RecordList records, List<BodyPhoto> bodyPhotos) {
         this.title = title;
@@ -41,6 +52,8 @@ public class Problem {
     public Problem() {
 
     }
+
+    /* Basic getters */
 
     public RecordList getRecords() {
         return records;
@@ -66,12 +79,13 @@ public class Problem {
         return this.description;
     }
 
-
     public String getUser() {return user;}
 
     public List<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;
     }
+
+    /* Advanced getters */
 
     public List<RecordPhoto> getSlideShowInfo() {
         return null;

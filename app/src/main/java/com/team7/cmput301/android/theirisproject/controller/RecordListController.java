@@ -9,9 +9,12 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
@@ -46,6 +49,7 @@ public class RecordListController extends IrisController<RecordList> {
             @Override
             public void onComplete(SearchResult res) {
                 RecordList results = new RecordList(res.getSourceAsObjectList(Record.class, true));
+                updateUserRecordList(results);
                 RecordListController.this.records = results;
                 contCallback.onComplete(results);
             }
@@ -53,6 +57,33 @@ public class RecordListController extends IrisController<RecordList> {
 
         // execute task to get Records from, using task callback
         new GetRecordListTask(taskCallback).execute(problemId);
+
+    }
+
+    /**
+     * Find the local version of the RecordList and update it with the elasticsearch version.
+     * Elasticsearch version only has IDs of Records, not actual Records, so searching is required
+     *
+     * @param results the elasticsearch version of the RecordList
+     */
+    private void updateUserRecordList(RecordList results) {
+
+        User current_user = IrisProjectApplication.getCurrentUser();
+
+        if (current_user.getType().equals(User.UserType.PATIENT)) {
+
+            // get the local version
+            RecordList localRecords = ( (Patient) IrisProjectApplication.getCurrentUser() )
+                    .getProblemById(problemId).getRecords();
+
+            // if it doesn't exist,
+            if (localRecords == null){
+                // TODO
+            }
+        }
+        else if (current_user.getType().equals(User.UserType.CARE_PROVIDER)) {
+            // TODO
+        }
 
     }
 

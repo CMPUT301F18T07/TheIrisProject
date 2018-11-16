@@ -16,23 +16,27 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class RecordTest {
+
+    String problemID = "mgfdj23";
+    String title = "Title";
+    String text = "Text";
+    Date date = new Date();
+    GeoLocation geoLocation = null;
+    BodyLocation bodyLocation = null;
+    ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
+
     @Test
     public void testRecord(){
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhoto = new ArrayList<>(null);
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhoto);
+        Record record = getTestRecord();
 
+        Assert.assertEquals(problemID, record.getProblemId());
         Assert.assertEquals(title, record.getTitle());
         Assert.assertEquals(text, record.getText());
         Assert.assertEquals(date, record.getDate());
         Assert.assertEquals(geoLocation, record.getGeoLocation());
         Assert.assertEquals(bodyLocation, record.getBodyLocation());
-        Assert.assertEquals(recordPhoto, record.getRecordPhotos());
+        Assert.assertEquals(recordPhotos, record.getRecordPhotos());
     }
 
     @Test
@@ -70,15 +74,9 @@ public class RecordTest {
     }
 
     private Record getTestRecord() {
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-        return record;
+        return new Record(problemID, title, text, date, geoLocation, bodyLocation, recordPhotos);
+
     }
 
 }
