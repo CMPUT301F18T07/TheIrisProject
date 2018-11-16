@@ -8,6 +8,8 @@ package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
@@ -43,7 +45,11 @@ public class AddProblemTask extends AsyncTask<Problem, Void, String> {
     @Override
     protected String doInBackground(Problem... params) {
         try {
-            Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("problem").build();
+            Index post = new Index
+                    .Builder(params[0])
+                    .index(IrisProjectApplication.INDEX)
+                    .type("problem")
+                    .build();
             DocumentResult res = IrisProjectApplication.getDB().execute(post);
             if (res.isSucceeded()) {
                 return res.getId();
