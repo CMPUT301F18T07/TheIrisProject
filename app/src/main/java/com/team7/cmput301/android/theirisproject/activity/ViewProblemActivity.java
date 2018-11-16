@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
@@ -33,7 +34,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private TextView problemTitle;
     private TextView problemDate;
     private TextView problemDescription;
-    private ImageView problemImages;
+    private TextView problemLocation;
+    private ViewFlipper problemImages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +44,19 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
-        problemImages = findViewById(R.id.problem_pic);
+        problemImages = findViewById(R.id.viewProblem_viewflipper);
         problemController = (ProblemController) createController(getIntent());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        problemTitle = findViewById(R.id.viewProblem_title);
+        problemDate = findViewById(R.id.viewProblem_date);
+        problemDescription = findViewById(R.id.viewProblem_description);
+        problemLocation = findViewById(R.id.viewProblem_geolocation);
+        problemImages = findViewById(R.id.viewProblem_viewflipper);
+
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
