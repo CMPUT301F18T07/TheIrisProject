@@ -9,7 +9,7 @@ package com.team7.cmput301.android.theirisproject.task;
 import android.os.AsyncTask;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
-import com.team7.cmput301.android.theirisproject.model.RecordList;
+import com.team7.cmput301.android.theirisproject.controller.RecordListController;
 
 import java.io.IOException;
 
@@ -18,27 +18,28 @@ import io.searchbox.core.SearchResult;
 
 /**
  * Asynchronously searches ElasticSearch DB to ultimately make a RecordList
+ *
  * @author anticobalt
- * @see com.team7.cmput301.android.theirisproject.controller.RecordListController
+ * @see RecordListController
  */
 public class GetRecordListTask extends AsyncTask<String, Void, SearchResult> {
 
     private SearchResult res = null;
-    private Callback<RecordList> callback;
+    private Callback<SearchResult> callback;
 
-    public GetRecordListTask(Callback<RecordList> callback) {
+    public GetRecordListTask(Callback<SearchResult> callback) {
         this.callback = callback;
     }
 
     /**
      * Get Records that belong to Problem from ElasticSearch DB
      * @param strings [0] is problem's JestID
-     * @return
+     * @return the results of the search, to be parsed
      */
     @Override
     protected SearchResult doInBackground(String... strings) {
 
-        String query = "{\"query\": {\"term\": {\"problem\": \"" + strings[0] + "\"}}}";
+        String query = "{\"query\": {\"match\": {\"problemID\": \"" + strings[0] + "\"}}}";
         String type = "record";
 
         try {
@@ -53,5 +54,15 @@ public class GetRecordListTask extends AsyncTask<String, Void, SearchResult> {
 
         return res;
 
+    }
+
+    /**
+     * When doInBackground() is complete, do Callback
+     * @param searchResult the raw results of doInBackground() search
+     */
+    @Override
+    protected void onPostExecute(SearchResult searchResult) {
+        super.onPostExecute(searchResult);
+        this.callback.onComplete(searchResult);
     }
 }

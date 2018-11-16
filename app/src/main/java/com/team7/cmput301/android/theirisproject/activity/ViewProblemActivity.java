@@ -41,6 +41,10 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_problem);
+        problemTitle = findViewById(R.id.problem_title);
+        problemDate = findViewById(R.id.problem_date);
+        problemDescription = findViewById(R.id.problem_description);
+        problemImages = findViewById(R.id.problem_pic);
         problemController = (ProblemController) createController(getIntent());
     }
 
@@ -52,6 +56,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemDescription = findViewById(R.id.viewProblem_description);
         problemLocation = findViewById(R.id.viewProblem_geolocation);
         problemImages = findViewById(R.id.viewProblem_viewflipper);
+
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
@@ -68,6 +73,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());
+        //problemDate.setText(newState.getDate().toString());
         problemDescription.setText(newState.getDescription());
     }
 }

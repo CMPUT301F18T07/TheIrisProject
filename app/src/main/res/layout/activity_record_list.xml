@@ -25,7 +25,5 @@
     <include
         android:id="@+id/record_list_task_bar"
         layout = "@layout/record_list_task_bar">
-
     </include>
-
 </android.support.constraint.ConstraintLayout>

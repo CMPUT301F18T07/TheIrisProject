@@ -11,14 +11,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.RecordListAdapter;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * Activity for viewing and clicking all Records for a Patient
+ *
  * @author anticobalt
  * @see RecordListController
  * @see Callback
@@ -27,11 +30,10 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
     private RecordListController controller;
     private Toolbar toolbar;
+    private ListView recordListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        String title = "Records";
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
@@ -39,7 +41,9 @@ public class RecordListActivity extends IrisActivity<RecordList> {
         setSupportActionBar(toolbar);
         this.controller = createController(getIntent());
 
-        setTitle(title);
+        recordListView = findViewById(R.id.record_item_list);
+        controller = createController(getIntent());
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
 
     }
@@ -47,12 +51,13 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     protected void onStart() {
         super.onStart();
-        controller.getRecords(new Callback<RecordList>(){
+        Callback<RecordList> contCallback = new Callback<RecordList>() {
             @Override
             public void onComplete(RecordList result) {
                 render(result);
             }
-        });
+        };
+        controller.getRecords(contCallback);
     }
 
     /**
@@ -97,7 +102,13 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     }
 
 
+    /**
+     * Display all records by populating adapter and setting adapter to ListView
+     * @param records
+     */
     public void render(RecordList records) {
-
+        Integer recordItemLayout = R.layout.list_record_item;
+        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.getRecords());
+        recordListView.setAdapter(adapter);
     }
 }

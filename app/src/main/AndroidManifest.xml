@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".IrisProjectApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+      
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/title_activity_add_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
+        <activity
+            android:name=".activity.ViewRecordActivity"
+            android:label="@string/title_activity_view_record"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.RecordListActivity"></activity>
+      
         <activity android:name=".activity.ProblemListActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.AddProblemActivity"></activity>
         <activity android:name=".activity.ViewProblemActivity"
             android:label="@string/viewprofile_title"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.EditProblemActivity"></activity>
     </application>
 
 </manifest>

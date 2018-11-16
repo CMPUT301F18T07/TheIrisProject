@@ -28,12 +28,14 @@ public class Problem {
         this.user = user;
         this.records = records;
         this.bodyPhotos = bodyPhotos;
+        this.date = new Date();
     }
 
     public Problem(String title, String description, String user) {
         this.title = title;
         this.description = description;
         this.user = user;
+        this.date = new Date();
     }
 
     public Problem() {
@@ -56,8 +58,8 @@ public class Problem {
         return title;
     }
 
-    public String getDate() {
-        return String.valueOf(this.date);
+    public Date getDate() {
+        return this.date;
     }
 
     public String getDescription() {
