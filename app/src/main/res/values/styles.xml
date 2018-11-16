@@ -12,6 +12,10 @@
         <item name="android:textColorPrimary">@android:color/primary_text_light</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
     <style name="RobotoTextView" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">18dp</item>
