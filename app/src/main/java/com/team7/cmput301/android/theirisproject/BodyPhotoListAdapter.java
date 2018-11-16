@@ -76,7 +76,6 @@ public class BodyPhotoListAdapter extends RecyclerView.Adapter<BodyPhotoListAdap
                     }
                 });
             }
-
         }
     }
 }
