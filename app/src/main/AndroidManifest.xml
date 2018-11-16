@@ -34,23 +34,21 @@
         <activity android:name=".activity.ViewProblemActivity"
             android:label="@string/viewprofile_title"></activity>
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.AddProblemActivity" />
         <activity android:name=".activity.EditProblemActivity"></activity>
       
         <!-- Record Activities -->
-        <activity android:name=".activity.RecordListActivity"></activity>
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.RecordListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/record_list_activity_title" />
         <activity
-        <activity
             android:name=".activity.AddRecordActivity"
-            android:label="@string/title_activity_add_record"
+            android:label="@string/add_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
         <activity
-            android:name=".activity.RecordListActivity"
-            android:label="@string/record_list_activity_title"
+            android:name=".activity.ViewRecordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Profile Activities -->
         <activity android:name=".activity.ViewCareproviderProfileActivity"
             android:label="@string/Viewprofile_title"></activity>
         <activity android:name=".activity.ViewPatientProfileActivity"
@@ -60,13 +58,6 @@
         <activity android:name=".activity.EditPatientProfileActivity"
             android:label="@string/pEditprofile_title_text"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".activity.ViewRecordActivity"
-            android:label="@string/title_activity_view_record"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".activity.RecordListActivity"></activity>
 
 
     </application>

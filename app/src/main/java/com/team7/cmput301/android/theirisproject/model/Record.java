@@ -27,7 +27,6 @@ public class Record {
     transient private ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
     public Record(String title, String desc, Date date, GeoLocation geoPt, ArrayList<BodyLocation> bodyLocations) {
-        this.problemId = problemId;
         this.title = title;
         this.desc = desc;
         this.date = date;
@@ -35,11 +34,22 @@ public class Record {
         this.bodyLocations = bodyLocations;
     }
 
+    public Record(String problemId, String title, String desc) {
+        this.problemId = problemId;
+        this.title = title;
+        this.desc = desc;
+        this.date = new Date();
+    }
+
+    public Record() {
+
+    }
+
     public String getProblemId() {
         return problemId;
     }
 
-    public String getText() {
+    public String getDesc() {
         return desc;
     }
 
