@@ -8,10 +8,12 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
@@ -36,16 +38,26 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private TextView problemDescription;
     private TextView problemLocation;
     private ViewFlipper problemImages;
+  
+    private RecyclerView problemImages;
+    private BodyPhotoListAdapter bodyPhotoListAdapter;
+    private RecyclerView.LayoutManager imageListLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_problem);
+        problemController = (ProblemController) createController(getIntent());
+
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
-        problemImages = findViewById(R.id.problem_pic);
-        problemController = (ProblemController) createController(getIntent());
+
+        //problemImages = findViewById(R.id.viewProblem_viewflipper);
+
+
+        problemImages = findViewById(R.id.problem_images);
+
     }
 
     @Override
@@ -60,6 +72,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
+                imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
+                ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
+                problemImages.setLayoutManager(imageListLayout);
+                bodyPhotoListAdapter = new BodyPhotoListAdapter(problemController.getBodyPhotos(), false);
+                problemImages.setAdapter(bodyPhotoListAdapter);
                 render(res);
             }
         });
@@ -73,7 +90,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());
-        //problemDate.setText(newState.getDate().toString());
+        problemDate.setText(newState.getDate().toString());
         problemDescription.setText(newState.getDescription());
     }
 }

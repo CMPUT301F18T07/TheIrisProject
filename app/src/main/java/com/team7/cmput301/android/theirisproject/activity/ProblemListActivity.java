@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -98,7 +98,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
-            case R.id.edit_problem:
+            case R.id.problem_list_action_edit:
                 // Set flag so that when user taps on problem, will take user to edit page
                 if (doEditProblem){
                     Toast.makeText(ProblemListActivity.this, "Click on Problem to view", Toast.LENGTH_LONG);
@@ -109,7 +109,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                     doEditProblem = true;
                 }
                 break;
-            case R.id.view_profile:
+            case R.id.problem_list_action_viewProfile:
                 // View a profile
                 Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
                 break;

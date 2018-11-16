@@ -42,6 +42,7 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
                     .build();
             res = IrisProjectApplication.getDB().execute(get);
             result = res.getSourceAsObject(Problem.class);
+            result.convertBlobsToBitmaps();
 
             return result;
         } catch (IOException e) {

@@ -11,9 +11,12 @@ import android.os.Bundle;
 
 
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.GetProblemTask;
+
+import java.util.List;
 
 
 /**
@@ -41,10 +44,15 @@ public class ProblemController extends IrisController {
         new GetProblemTask(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
+                res.convertBlobsToBitmaps();
                 model = res;
                 cb.onComplete(res);
             }
         }).execute(problemID);
+    }
+
+    public List<BodyPhoto> getBodyPhotos() {
+        return ((Problem)model).getBodyPhotos();
     }
 
 }
