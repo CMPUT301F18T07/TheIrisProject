@@ -8,9 +8,9 @@
     <application
         android:name=".IrisProjectApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- User Activities -->
@@ -19,15 +19,10 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
-        <activity
-            android:name=".activity.AddRecordActivity"
-            android:label="@string/title_activity_add_record"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <!-- Problem Activities -->
         <activity android:name=".activity.ProblemListActivity"></activity>
@@ -36,9 +31,16 @@
             android:label="@string/create_a_problem"
             android:parentActivityName=".activity.ProblemListActivity"></activity>
         <activity android:name=".activity.ViewProblemActivity"></activity>
-
+        <activity android:name=".activity.AddProblemActivity" />
+  
         <!-- Record Activities -->
         <activity android:name=".activity.RecordListActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/record_list_activity_title" />
+        <activity
+            android:name=".activity.AddRecordActivity"
+            android:label="@string/title_activity_add_record"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.ViewRecordActivity"
             android:label="@string/title_activity_view_record"

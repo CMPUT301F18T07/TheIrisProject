@@ -46,14 +46,14 @@
     <string name="label_photos">Label Photos</string>
     <string name="add_record">Add Record</string>
 
-    <!-- View Record List screen strings-->
+    <!-- View Record List screen strings -->
+    <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
 
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
     <string name="title_activity_view_record">ViewRecordActivity</string>
-
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>
