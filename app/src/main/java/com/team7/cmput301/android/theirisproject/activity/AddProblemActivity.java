@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.team7.cmput301.android.theirisproject.ImageFormAdapter;
+import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddProblemController;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -35,7 +35,7 @@ public class AddProblemActivity extends IrisActivity {
     private FloatingActionButton albumButton;
 
     private RecyclerView imageList;
-    private ImageFormAdapter imageFormAdapter;
+    private BodyPhotoListAdapter bodyPhotoListAdapter;
     private RecyclerView.LayoutManager imageListLayout;
 
     @Override
@@ -55,8 +55,8 @@ public class AddProblemActivity extends IrisActivity {
         imageListLayout = new LinearLayoutManager(this);
         ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
         imageList.setLayoutManager(imageListLayout);
-        imageFormAdapter = new ImageFormAdapter(controller.getBodyPhotos(), R.layout.problem_image_item, true);
-        imageList.setAdapter(imageFormAdapter);
+        bodyPhotoListAdapter = new BodyPhotoListAdapter(controller.getBodyPhotos(), true);
+        imageList.setAdapter(bodyPhotoListAdapter);
 
         // set click listener to submit button
         findViewById(R.id.problem_submit_button).setOnClickListener(new View.OnClickListener() {

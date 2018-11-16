@@ -6,7 +6,6 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,25 +22,25 @@ import java.util.List;
  *
  * @author itstc
  * */
-public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.ImageFormViewHolder> {
+public class BodyPhotoListAdapter extends RecyclerView.Adapter<BodyPhotoListAdapter.ImageFormViewHolder> {
     private boolean isForm;
     private int itemLayout;
     private List<BodyPhoto> images;
-    public ImageFormAdapter(List<BodyPhoto> images, int itemLayout, boolean isForm) {
+    public BodyPhotoListAdapter(List<BodyPhoto> images, boolean isForm) {
         this.isForm = isForm;
         this.images = images;
-        this.itemLayout = itemLayout;
+        this.itemLayout = R.layout.problem_image_item;
     }
 
     @Override
-    public ImageFormAdapter.ImageFormViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BodyPhotoListAdapter.ImageFormViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View imageItem = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
-        ImageFormAdapter.ImageFormViewHolder vh = new ImageFormAdapter.ImageFormViewHolder(imageItem);
+        BodyPhotoListAdapter.ImageFormViewHolder vh = new BodyPhotoListAdapter.ImageFormViewHolder(imageItem);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(ImageFormAdapter.ImageFormViewHolder holder, int position) {
+    public void onBindViewHolder(BodyPhotoListAdapter.ImageFormViewHolder holder, int position) {
         ImageView image = holder.imageItem.findViewById(R.id.image_item_view);
         image.setImageBitmap(images.get(position).getPhoto());
     }
@@ -74,7 +72,7 @@ public class ImageFormAdapter extends RecyclerView.Adapter<ImageFormAdapter.Imag
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ImageFormAdapter.this.removeItem(getAdapterPosition());
+                        BodyPhotoListAdapter.this.removeItem(getAdapterPosition());
                     }
                 });
             }
