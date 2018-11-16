@@ -37,6 +37,9 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.record_list_task_bar);
+        setSupportActionBar(toolbar);
+        this.controller = createController(getIntent());
 
         recordListView = findViewById(R.id.record_item_list);
         controller = createController(getIntent());
@@ -65,7 +68,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_record_list, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     /**
@@ -77,7 +80,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.edit_records:
+            case R.id.record_list_action_edit:
                 break;
         }
         return super.onOptionsItemSelected(item);
