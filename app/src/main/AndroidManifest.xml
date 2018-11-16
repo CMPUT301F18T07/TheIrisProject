@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- User Activities -->
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme">
@@ -29,13 +30,16 @@
             android:label="@string/title_activity_add_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <activity android:name=".activity.RecordListActivity"></activity>
+        <!-- Problem Activities -->
         <activity android:name=".activity.ProblemListActivity"></activity>
         <activity
             android:name=".activity.AddProblemActivity"
             android:label="@string/create_a_problem"
             android:parentActivityName=".activity.ProblemListActivity"></activity>
         <activity android:name=".activity.ViewProblemActivity"></activity>
+
+        <!-- Record Activities -->
+        <activity android:name=".activity.RecordListActivity"></activity>
         <activity
             android:name=".activity.ViewRecordActivity"
             android:label="@string/title_activity_view_record"

@@ -12,7 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.team7.cmput301.android.theirisproject.ImageFormAdapter;
+import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
@@ -37,7 +37,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private TextView problemDescription;
 
     private RecyclerView problemImages;
-    private ImageFormAdapter imageFormAdapter;
+    private BodyPhotoListAdapter bodyPhotoListAdapter;
     private RecyclerView.LayoutManager imageListLayout;
 
     @Override
@@ -62,8 +62,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
                 imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
                 ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
                 problemImages.setLayoutManager(imageListLayout);
-                imageFormAdapter = new ImageFormAdapter(problemController.getBodyPhotos(), R.layout.problem_image_item, false);
-                problemImages.setAdapter(imageFormAdapter);
+                bodyPhotoListAdapter = new BodyPhotoListAdapter(problemController.getBodyPhotos(), false);
+                problemImages.setAdapter(bodyPhotoListAdapter);
                 render(res);
             }
         });
