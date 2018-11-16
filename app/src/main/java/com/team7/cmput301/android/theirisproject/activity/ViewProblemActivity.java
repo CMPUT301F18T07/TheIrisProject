@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -35,7 +36,9 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private TextView problemTitle;
     private TextView problemDate;
     private TextView problemDescription;
-
+    private TextView problemLocation;
+    private ViewFlipper problemImages;
+  
     private RecyclerView problemImages;
     private BodyPhotoListAdapter bodyPhotoListAdapter;
     private RecyclerView.LayoutManager imageListLayout;
@@ -56,6 +59,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     @Override
     protected void onStart() {
         super.onStart();
+        problemTitle = findViewById(R.id.viewProblem_title);
+        problemDate = findViewById(R.id.viewProblem_date);
+        problemDescription = findViewById(R.id.viewProblem_description);
+        problemLocation = findViewById(R.id.viewProblem_geolocation);
+        problemImages = findViewById(R.id.viewProblem_viewflipper);
+
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
