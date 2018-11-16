@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/view_record_button"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -18,6 +19,7 @@
 
     <Button
         android:id="@+id/create_record_button"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
