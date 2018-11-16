@@ -7,9 +7,9 @@
     <application
         android:name=".IrisProjectApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
+      
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/title_activity_add_record"
@@ -32,10 +33,15 @@
             android:name=".activity.ViewRecordActivity"
             android:label="@string/title_activity_view_record"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.EditProblemActivity"></activity>
-        <activity android:name=".activity.ProblemListActivity"></activity>
+        <activity android:name=".activity.RecordListActivity"></activity>
+      
+        <activity android:name=".activity.ProblemListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.AddProblemActivity"></activity>
-        <activity android:name=".activity.ViewProblemActivity"></activity>
+        <activity android:name=".activity.ViewProblemActivity"
+            android:label="@string/viewprofile_title"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.EditProblemActivity"></activity>
         <activity android:name=".activity.ViewCareproviderProfileActivity"></activity>
         <activity android:name=".activity.ViewPatientProfileActivity"></activity>
         <activity android:name=".activity.EditCareproviderProfileActivity"></activity>

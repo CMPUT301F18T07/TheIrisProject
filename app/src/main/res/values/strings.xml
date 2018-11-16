@@ -49,9 +49,26 @@
     <!-- View Record List screen strings -->
     <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
+
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
+    <string name="viewprofile_title_text">Title</string>
+    <string name="viewprofile_date_text">Date</string>
+    <string name="viewprofile_descrption_text">Description</string>
+    <string name="viewprofile_geolocation_text">Geo Location</string>
+    <string name="viewprofile_title">View Problem</string>
+
+    <!-- View Problem list screen strings-->
+    <string name="problem_list_map_of_all_records">Map of all Records</string>
+    <string name="problem_list_edit_problems_text">Edit Problems</string>
+    <string name="problem_list_profile_text">Profile</string>
+    <string name="problem_list_search_text">Search</string>
+
+    <!-- View Record list screen strings-->
+    <string name="record_list_edit_records_text">Edit Records</string>
+
+    <!-- View Problem screen strings-->
     <string name="title_activity_view_record">ViewRecordActivity</string>
 
     <!-- Problem list Toolbar strings-->
