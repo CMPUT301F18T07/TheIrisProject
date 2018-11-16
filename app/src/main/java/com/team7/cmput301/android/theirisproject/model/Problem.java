@@ -4,6 +4,9 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import com.team7.cmput301.android.theirisproject.helper.DateHelper;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ public class Problem {
     @JestId
     private String _id;
 
-    transient private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.CANADA);
+
     private String title;
     private String user;
     private Date date;
@@ -47,7 +50,7 @@ public class Problem {
         this.title = title;
         this.description = description;
         this.user = user;
-        this.date = dateFormat.parse(date);
+        this.date = DateHelper.parse(date);
     }
 
     public Problem() {
@@ -72,7 +75,7 @@ public class Problem {
 
 
     public String getDate() {
-        return this.dateFormat.format(date);
+        return DateHelper.format(this.date);
 
     }
 
