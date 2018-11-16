@@ -53,7 +53,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
 
+        //problemImages = findViewById(R.id.viewProblem_viewflipper);
+
+
         problemImages = findViewById(R.id.problem_images);
+
     }
 
     @Override

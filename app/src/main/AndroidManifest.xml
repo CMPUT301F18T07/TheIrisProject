@@ -46,11 +46,28 @@
             android:name=".activity.AddRecordActivity"
             android:label="@string/title_activity_add_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".activity.RecordListActivity"
+            android:label="@string/record_list_activity_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ViewCareproviderProfileActivity"
+            android:label="@string/Viewprofile_title"></activity>
+        <activity android:name=".activity.ViewPatientProfileActivity"
+            android:label="@string/Viewprofile_title"></activity>
+        <activity android:name=".activity.EditCareproviderProfileActivity"
+            android:label="@string/cEditprofile_title_text"></activity>
+        <activity android:name=".activity.EditPatientProfileActivity"
+            android:label="@string/pEditprofile_title_text"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.ViewRecordActivity"
             android:label="@string/title_activity_view_record"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activity.RecordListActivity"></activity>
+
 
     </application>
 

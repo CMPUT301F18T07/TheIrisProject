@@ -13,6 +13,7 @@
     android:layout_height="match_parent">
 
     <ListView
+        android:id="@+id/record_item_list"
         android:layout_width="377dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
