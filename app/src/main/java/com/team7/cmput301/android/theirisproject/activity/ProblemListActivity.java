@@ -48,6 +48,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
         problemsView = findViewById(R.id.problem_item_list);
         controller = createController(getIntent());
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
