@@ -41,7 +41,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.record_list_task_bar);
+        toolbar = findViewById(R.id.record_list_task_bar);
         setSupportActionBar(toolbar);
         this.controller = createController(getIntent());
 
@@ -123,7 +123,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
      */
     public void render(RecordList records) {
         Integer recordItemLayout = R.layout.list_record_item;
-        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.getRecords());
+        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.asList());
         recordListView.setAdapter(adapter);
     }
 }
