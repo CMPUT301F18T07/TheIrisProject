@@ -27,8 +27,7 @@ public class Record {
     private String title;
     private Date date;
     private GeoLocation geoLocation;
-    transient private List<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
-
+    transient private List<BodyLocation> bodyLocations;
     /* Constructors */
 
     public Record(String title, String desc, Date date, GeoLocation geoPt, List<BodyLocation> bodyLocations) {
@@ -47,7 +46,6 @@ public class Record {
     }
 
     public Record() {
-
     }
 
     /* Basic getters */
@@ -81,7 +79,6 @@ public class Record {
     }
 
     /* Basic list operations */
-
     public void addPhoto(BodyLocation img) {
         bodyLocations.add(img);
     }

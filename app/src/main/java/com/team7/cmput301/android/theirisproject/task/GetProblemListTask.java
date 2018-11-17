@@ -42,10 +42,7 @@ public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
     protected ProblemList doInBackground(String... params) {
         try {
             // send GET request to our database endpoint ".../_search?q=_type:problem&q=user:`params[0]`"
-            Search get = new Search.Builder("{\n" +
-                    "        \"_source\": {\n" +
-                    "        \"excludes\": [ \"bodyPhotoBlobs\" ]\n" +
-                    "    },\n" +
+            Search get = new Search.Builder("{"+
                     "    \"query\" : {\n" +
                     "        \"term\" : { \"user\" : \"" + params[0] +"\" }\n" +
                     "    }\n" +
