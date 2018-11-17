@@ -110,8 +110,6 @@
     <string name="Viewprofile_edit_profile_button_text">Edit Profile</string>
     <string name="Viewprofile_care_providers_text">Care Providers:</string>
 
-
-
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by e-mail</string>
     <string name="add_patient_dialog_hint">Patient\'s e-mail</string>

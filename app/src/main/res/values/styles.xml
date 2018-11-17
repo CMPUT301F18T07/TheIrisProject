@@ -12,6 +12,10 @@
         <item name="android:textColorPrimary">@android:color/primary_text_light</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
     <style name="problem_list_task_bar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/title_color</item>
