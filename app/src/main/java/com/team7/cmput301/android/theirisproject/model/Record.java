@@ -6,6 +6,7 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.searchbox.annotations.JestId;
 
@@ -26,11 +27,11 @@ public class Record {
     private String title;
     private Date date;
     private GeoLocation geoLocation;
-    transient private ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
+    transient private List<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
     /* Constructors */
 
-    public Record(String title, String desc, Date date, GeoLocation geoPt, ArrayList<BodyLocation> bodyLocations) {
+    public Record(String title, String desc, Date date, GeoLocation geoPt, List<BodyLocation> bodyLocations) {
         this.title = title;
         this.desc = desc;
         this.date = date;
@@ -75,7 +76,7 @@ public class Record {
         return geoLocation;
     }
 
-    public ArrayList<BodyLocation> getBodyLocations() {
+    public List<BodyLocation> getBodyLocations() {
         return bodyLocations;
     }
 

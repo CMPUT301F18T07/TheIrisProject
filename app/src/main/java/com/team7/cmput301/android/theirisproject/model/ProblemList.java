@@ -34,7 +34,7 @@ public class ProblemList implements Iterable<Problem> {
 
     /* Basic getters */
 
-    public ArrayList<Problem> getProblems() {
+    public List<Problem> getProblems() {
         return problems;
     }
 

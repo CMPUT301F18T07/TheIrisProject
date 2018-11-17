@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RecordTest {
 
@@ -21,7 +22,7 @@ public class RecordTest {
     private String desc = "Text";
     private Date date = new Date();
     private GeoLocation geoLocation = null;
-    private ArrayList<BodyLocation> bodyLocations = null;
+    private List<BodyLocation> bodyLocations = null;
 
     @Test
     public void testRecord(){
@@ -66,7 +67,7 @@ public class RecordTest {
     public void testEditBodyLocation() {
         Record record = getTestRecord();
 
-        ArrayList<BodyLocation> updatedBodyLocation = new ArrayList<>();
+        List<BodyLocation> updatedBodyLocation = new ArrayList<>();
 
         Assert.assertEquals(updatedBodyLocation, record.getBodyLocations());
     }
