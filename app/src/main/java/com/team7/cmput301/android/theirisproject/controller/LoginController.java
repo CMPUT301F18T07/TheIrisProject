@@ -25,6 +25,7 @@ public class LoginController extends IrisController<User> {
     public LoginController(Intent intent) {
         super(intent);
     }
+
     /**
      * loginUser is a method to asynchronously check the database
      * for existing user and authenticate it will trigger a callback

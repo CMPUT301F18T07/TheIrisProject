@@ -54,6 +54,16 @@ public class IrisProjectApplication extends Application {
 
     public static void setCurrentUser(User user) {
         currentUser = user;
+        fetchAllUserData();
+    }
+
+    /**
+     * Get all aggregate data of the User from elasticsearch
+     * (e.g. all Problems, Records, photos)
+     * and bind it to the current user
+     */
+    private static void fetchAllUserData() {
+
     }
 
 }

@@ -22,6 +22,12 @@ public class CareProvider extends User {
         super(name, email, phoneNumber, UserType.CARE_PROVIDER);
     }
 
+    /* Basic setters */
+
+    public void addPatient(Patient patient) {
+        patients.add(patient);
+    }
+
     /* Basic getters */
 
     public List<Patient> getPatients() {

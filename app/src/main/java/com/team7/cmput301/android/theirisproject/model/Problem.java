@@ -31,7 +31,6 @@ public class Problem {
     @JestId
     private String _id;
 
-
     private String title;
     private String user;
     private Date date;
@@ -39,6 +38,8 @@ public class Problem {
     transient private RecordList records;
     transient private List<Comment> comments = new ArrayList<>();
     transient private List<BodyPhoto> bodyPhotos;
+
+    /* Constructors */
 
     public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
         this(title, description, user);

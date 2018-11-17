@@ -23,6 +23,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @author itstc
  * */
 public class LoginActivity extends IrisActivity {
+
     private LoginController controller;
     private TextView email;
     private TextView password;
