@@ -20,11 +20,17 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
 /**
- * Asynchronously gets all of a user's data
+ * Asynchronously gets all of a User's data
  *
  * @author anticobalt
  */
 public class GetUserDataTask extends AsyncTask<User, Void, User> {
+
+    private Callback cb;
+
+    public GetUserDataTask(Callback cb) {
+        this.cb = cb;
+    }
 
     @Override
     protected User doInBackground(User... users) {

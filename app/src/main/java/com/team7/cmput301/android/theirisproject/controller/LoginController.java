@@ -9,9 +9,17 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.activity.LoginActivity;
+import com.team7.cmput301.android.theirisproject.activity.ProblemListActivity;
+import com.team7.cmput301.android.theirisproject.model.PatientList;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.task.GetUserDataTask;
 import com.team7.cmput301.android.theirisproject.task.LoginTask;
+
+import static com.team7.cmput301.android.theirisproject.model.User.UserType.CARE_PROVIDER;
+import static com.team7.cmput301.android.theirisproject.model.User.UserType.PATIENT;
 
 /**
  * LoginController helps the activity interact with the database
@@ -19,6 +27,7 @@ import com.team7.cmput301.android.theirisproject.task.LoginTask;
  * to authenticate fields
  *
  * @author itstc
+ * @author anticobalt
  * */
 public class LoginController extends IrisController<User> {
 
@@ -44,4 +53,32 @@ public class LoginController extends IrisController<User> {
     User getModel(Bundle data) {
         return null;
     }
+
+    /**
+     * Get all aggregate data of the User from elasticsearch
+     * (e.g. all Problems, Records, photos)
+     * and bind it to the current user
+     */
+    public void fetchAllUserData(Callback callback) {
+        User user = IrisProjectApplication.getCurrentUser();
+        new GetUserDataTask(callback).execute(user);
+    }
+
+    /**
+     * Return the Activity that the user is supposed to land in after logging in
+     *
+     * @return an Activity class
+     */
+    public Class getStartingActivity() {
+        switch (IrisProjectApplication.getCurrentUser().getType()) {
+            case PATIENT:
+                return ProblemListActivity.class;
+            case CARE_PROVIDER:
+                return PatientListActivity.class;
+            default:
+                System.err.println("Unhandled user type: could not start first unique activity.");
+                return LoginActivity.class;
+        }
+    }
+
 }
