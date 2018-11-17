@@ -39,7 +39,7 @@ public class GetRecordListTask extends AsyncTask<String, Void, SearchResult> {
     @Override
     protected SearchResult doInBackground(String... strings) {
 
-        String query = "{\"query\": {\"match\": {\"problemID\": \"" + strings[0] + "\"}}}";
+        String query = "{\"query\": {\"term\": {\"problemId\": \"" + strings[0] + "\"}}}";
         String type = "record";
 
         try {

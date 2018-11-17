@@ -7,6 +7,8 @@
 
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,5 +16,10 @@
         android:id="@+id/record_item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp" />
+    <include
+        android:id="@+id/record_list_task_bar"
+        layout = "@layout/record_list_task_bar">
+    </include>
 </android.support.constraint.ConstraintLayout>

@@ -7,32 +7,40 @@ package com.team7.cmput301.android.theirisproject;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
-import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RecordTest {
+
+    private String problemID = "mgfdj23";
+    private String title = "Title";
+    private String desc = "Text";
+    private Date date = new Date();
+    private GeoLocation geoLocation = null;
+    private List<BodyLocation> bodyLocations = null;
+
     @Test
     public void testRecord(){
         String title = "Title";
         String text = "Text";
         Date date = new Date();
         GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhoto = new ArrayList<>(null);
+        List<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhoto);
+        Record record = getTestRecord();
 
+        Assert.assertEquals(problemID, record.getProblemId());
         Assert.assertEquals(title, record.getTitle());
-        Assert.assertEquals(text, record.getText());
+        Assert.assertEquals(desc, record.getDesc());
         Assert.assertEquals(date, record.getDate());
         Assert.assertEquals(geoLocation, record.getGeoLocation());
-        Assert.assertEquals(bodyLocation, record.getBodyLocation());
-        Assert.assertEquals(recordPhoto, record.getRecordPhotos());
+        Assert.assertEquals(bodyLocations, record.getBodyLocations());
+
     }
 
     @Test
@@ -40,7 +48,7 @@ public class RecordTest {
         Record record = getTestRecord();
 
         record.addPhoto(null);
-        Assert.assertEquals(record.getRecordPhotos().size(), 1);
+        Assert.assertEquals(record.getBodyLocations().size(), 1);
     }
 
     @Test
@@ -48,14 +56,14 @@ public class RecordTest {
         Record record = getTestRecord();
 
         record.deletePhoto(null);
-        Assert.assertEquals(record.getRecordPhotos().size(), 0);
+        Assert.assertEquals(record.getBodyLocations().size(), 0);
     }
 
     @Test
     public void testEditGeoLocation() {
         Record record = getTestRecord();
 
-        GeoLocation updatedGeoLocation = null;
+        GeoLocation updatedGeoLocation = new GeoLocation(1.0, 1.0);
 
         Assert.assertEquals(updatedGeoLocation, record.getGeoLocation());
     }
@@ -64,9 +72,9 @@ public class RecordTest {
     public void testEditBodyLocation() {
         Record record = getTestRecord();
 
-        BodyLocation updatedBodyLocation = null;
+        List<BodyLocation> updatedBodyLocation = new ArrayList<>();
 
-        Assert.assertEquals(updatedBodyLocation, record.getBodyLocation());
+        Assert.assertEquals(updatedBodyLocation, record.getBodyLocations());
     }
 
     private Record getTestRecord() {
@@ -74,11 +82,10 @@ public class RecordTest {
         String text = "Text";
         Date date = new Date();
         GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
+        List<BodyLocation> bodyLocations = new ArrayList<>(null);
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-        return record;
+        Record record = new Record(title, text, date, geoLocation, bodyLocations);
+        return new Record(title, desc, date, geoLocation, bodyLocations);
     }
 
 }

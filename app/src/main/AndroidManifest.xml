@@ -3,7 +3,8 @@
     package="com.team7.cmput301.android.theirisproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" />
     <application
         android:name=".IrisProjectApplication"
         android:allowBackup="true"
@@ -12,6 +13,7 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- User Activities -->
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,21 +26,42 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".activity.RegisterActivity" />
+
+        <!-- Problem Activities -->
+        <activity android:name=".activity.ProblemListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".activity.AddRecordActivity"
-            android:label="@string/title_activity_add_record"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.RecordListActivity"
-            android:label="@string/record_list_activity_title" />
-        <activity android:name=".activity.ProblemListActivity" />
-        <activity android:name=".activity.AddProblemActivity" />
-        <activity android:name=".activity.ViewProblemActivity" />
-        <activity
-            android:name=".activity.ViewRecordActivity"
-            android:label="@string/title_activity_view_record"
+            android:name=".activity.AddProblemActivity"
+            android:label="@string/create_a_problem"
+            android:parentActivityName=".activity.ProblemListActivity"></activity>
+        <activity android:name=".activity.ViewProblemActivity"
+            android:label="@string/viewprofile_title"></activity>
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.EditProblemActivity"></activity>
+      
+        <!-- Record Activities -->
+        <activity android:name=".activity.RecordListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/record_list_activity_title" />
+        <activity
+            android:name=".activity.AddRecordActivity"
+            android:label="@string/add_record"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ViewRecordActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Profile Activities -->
+        <activity android:name=".activity.ViewCareproviderProfileActivity"
+            android:label="@string/Viewprofile_title"></activity>
+        <activity android:name=".activity.ViewPatientProfileActivity"
+            android:label="@string/Viewprofile_title"></activity>
+        <activity android:name=".activity.EditCareproviderProfileActivity"
+            android:label="@string/cEditprofile_title_text"></activity>
+        <activity android:name=".activity.EditPatientProfileActivity"
+            android:label="@string/pEditprofile_title_text"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
