@@ -4,6 +4,7 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.helper.DateHelper;
 
 import java.text.DateFormat;
@@ -39,17 +40,9 @@ public class Problem {
     transient private List<Comment> comments = new ArrayList<>();
     transient private List<BodyPhoto> bodyPhotos;
 
-    private List<String> recordsId;
-    private List<String> bodyPhotoBlobs;
-    private List<String> commentIds;
-
     public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
         this(title, description, user);
         this.bodyPhotos = bodyPhotos;
-        this.bodyPhotoBlobs = new ArrayList<>();
-        for (BodyPhoto bp: bodyPhotos) {
-            bodyPhotoBlobs.add(ImageConverter.base64EncodeBitmap(bp.getPhoto()));
-        }
         this.date = new Date();
     }
 
@@ -108,18 +101,6 @@ public class Problem {
 
     public String getUser() {return user;}
 
-    public List<String> getRecordsId() {
-        return recordsId;
-    }
-
-    public List<String> bodyPhotoBlobs() {
-        return bodyPhotoBlobs;
-    }
-
-    public List<String> getCommentIds() {
-        return commentIds;
-    }
-
     public List<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;
     }
@@ -128,16 +109,6 @@ public class Problem {
 
     public List<RecordPhoto> getSlideShowInfo() {
         return null;
-    }
-
-    /* ElasticSearch handlers */
-
-    public void convertBlobsToBitmaps() {
-        ArrayList<BodyPhoto> newPhotos = new ArrayList<>();
-        for (String blob: bodyPhotoBlobs) {
-            newPhotos.add(new BodyPhoto(ImageConverter.base64DecodeBitmap(blob)));
-        }
-        bodyPhotos = newPhotos;
     }
 
 }
