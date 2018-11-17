@@ -83,7 +83,7 @@ public class AddProblemTask extends AsyncTask<Problem, Void, String> {
      * @param photos
      * */
     private List<Index> bulkAddPhotos(List<BodyPhoto> photos, String problemId) {
-        ArrayList<Index> res = new ArrayList<>();
+        List<Index> res = new ArrayList<>();
         for (BodyPhoto bp: photos) {
             bp.setProblemId(problemId);
             res.add(new Index.Builder(bp).index(IrisProjectApplication.INDEX).type("bodyphoto").build());

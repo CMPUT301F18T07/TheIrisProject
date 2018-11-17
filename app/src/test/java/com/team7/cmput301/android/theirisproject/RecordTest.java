@@ -30,7 +30,7 @@ public class RecordTest {
         String text = "Text";
         Date date = new Date();
         GeoLocation geoLocation = null;
-        ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
+        List<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
         Record record = getTestRecord();
 
@@ -82,7 +82,7 @@ public class RecordTest {
         String text = "Text";
         Date date = new Date();
         GeoLocation geoLocation = null;
-        ArrayList<BodyLocation> bodyLocations = new ArrayList<>(null);
+        List<BodyLocation> bodyLocations = new ArrayList<>(null);
 
         Record record = new Record(title, text, date, geoLocation, bodyLocations);
         return new Record(title, desc, date, geoLocation, bodyLocations);
