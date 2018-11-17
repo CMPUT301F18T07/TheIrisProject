@@ -22,23 +22,31 @@ public class Record {
     private String _id;
     private String problemId;
 
-    private String text;
+    private String desc;
     private String title;
     private Date date;
     private GeoLocation geoLocation;
-    private BodyLocation bodyLocation;
-    private ArrayList<RecordPhoto> recordPhotos;
+    transient private ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
     /* Constructors */
 
-    public Record(String problemId, String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
-        this.problemId = problemId;
+    public Record(String title, String desc, Date date, GeoLocation geoPt, ArrayList<BodyLocation> bodyLocations) {
         this.title = title;
-        this.text = text;
+        this.desc = desc;
         this.date = date;
         this.geoLocation = geoPt;
-        this.bodyLocation = bodyPt;
-        this.recordPhotos = recordPhotos;
+        this.bodyLocations = bodyLocations;
+    }
+
+    public Record(String problemId, String title, String desc) {
+        this.problemId = problemId;
+        this.title = title;
+        this.desc = desc;
+        this.date = new Date();
+    }
+
+    public Record() {
+
     }
 
     /* Basic getters */
@@ -51,8 +59,8 @@ public class Record {
         return problemId;
     }
 
-    public String getText() {
-        return text;
+    public String getDesc() {
+        return desc;
     }
 
     public String getTitle() {
@@ -67,22 +75,18 @@ public class Record {
         return geoLocation;
     }
 
-    public BodyLocation getBodyLocation() {
-        return bodyLocation;
-    }
-
-    public ArrayList<RecordPhoto> getRecordPhotos() {
-        return recordPhotos;
+    public ArrayList<BodyLocation> getBodyLocations() {
+        return bodyLocations;
     }
 
     /* Basic list operations */
 
-    public void addPhoto(RecordPhoto img) {
-
+    public void addPhoto(BodyLocation img) {
+        bodyLocations.add(img);
     }
 
-    public void deletePhoto(RecordPhoto img) {
-
+    public void deletePhoto(BodyLocation img) {
+        bodyLocations.remove(img);
     }
 
     /* Advanced setters */

@@ -5,21 +5,38 @@
 package com.team7.cmput301.android.theirisproject.model;
 
 import android.graphics.Bitmap;
+import io.searchbox.annotations.JestId;
+
+import com.team7.cmput301.android.theirisproject.ImageConverter;
+
 
 /**
- * A photo that is associated with a Problem.
+ * BodyPhoto is a model to parse bodyphoto type object to from
+ * our database
  *
  * @see Problem
- * @author Jmmxp
- */
+ * @author itstc
+ * */
 public class BodyPhoto {
 
-    private Bitmap img;
+    @JestId
+    private String _id;
+    private Bitmap photo;
 
     /* Constructors */
 
-    public void BodyPhoto(Bitmap img) {
+    public BodyPhoto(Bitmap image) {
+        this.photo = image;
+    }
 
+    /* Basic getters */
+
+    public String getId() {
+        return _id;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
     }
 
 }

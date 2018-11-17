@@ -8,10 +8,14 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
@@ -35,31 +39,60 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private TextView problemDate;
     private TextView problemDescription;
     private TextView problemLocation;
-    private ViewFlipper problemImages;
+    //private ViewFlipper problemImages;
+  
+    private RecyclerView problemImages;
+    private BodyPhotoListAdapter bodyPhotoListAdapter;
+    private RecyclerView.LayoutManager imageListLayout;
+
+    private Button viewRecordsButton;
+    private Button createRecordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_problem);
+        problemController = (ProblemController) createController(getIntent());
+
+        String problemId = getIntent().getStringExtra(EXTRA_PROBLEM_ID);
+
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
-        problemImages = findViewById(R.id.problem_pic);
-        problemController = (ProblemController) createController(getIntent());
+        problemImages = findViewById(R.id.problem_images);
+        //problemImages = findViewById(R.id.viewProblem_viewflipper);
+
+        viewRecordsButton = findViewById(R.id.view_record_button);
+        createRecordButton = findViewById(R.id.create_record_button);
+
+        viewRecordsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dispatchViewRecordsActivity(problemId);
+            }
+        });
+
+        createRecordButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dispatchCreateRecordActivity(problemId);
+            }
+        });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        problemTitle = findViewById(R.id.viewProblem_title);
-        problemDate = findViewById(R.id.viewProblem_date);
-        problemDescription = findViewById(R.id.viewProblem_description);
-        problemLocation = findViewById(R.id.viewProblem_geolocation);
-        problemImages = findViewById(R.id.viewProblem_viewflipper);
 
         problemController.getProblem(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
+                imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
+                ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
+                problemImages.setLayoutManager(imageListLayout);
+                bodyPhotoListAdapter = new BodyPhotoListAdapter(problemController.getBodyPhotos(), false);
+                problemImages.setAdapter(bodyPhotoListAdapter);
                 render(res);
             }
         });
@@ -73,7 +106,19 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());
-        //problemDate.setText(newState.getDate().toString());
+        problemDate.setText(newState.getDate().toString());
         problemDescription.setText(newState.getDescription());
+    }
+
+    private void dispatchViewRecordsActivity(String id) {
+        Intent intent = new Intent(ViewProblemActivity.this, RecordListActivity.class);
+        intent.putExtra(EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
+    }
+
+    private void dispatchCreateRecordActivity(String id) {
+        Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
+        intent.putExtra(EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
     }
 }
