@@ -59,7 +59,6 @@
             android:label="@string/pEditprofile_title_text"
             android:theme="@style/AppTheme.NoActionBar" />
 
-
     </application>
 
 </manifest>

@@ -6,13 +6,16 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.searchbox.annotations.JestId;
 
 /**
  * A single record of a particular Problem
  *
- * @author Jmmxp
+ * @see RecordList
+ * @see Problem
+ * @author jtfwong
  */
 public class Record {
 
@@ -24,9 +27,10 @@ public class Record {
     private String title;
     private Date date;
     private GeoLocation geoLocation;
-    transient private ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
+    transient private List<BodyLocation> bodyLocations;
+    /* Constructors */
 
-    public Record(String title, String desc, Date date, GeoLocation geoPt, ArrayList<BodyLocation> bodyLocations) {
+    public Record(String title, String desc, Date date, GeoLocation geoPt, List<BodyLocation> bodyLocations) {
         this.title = title;
         this.desc = desc;
         this.date = date;
@@ -42,7 +46,12 @@ public class Record {
     }
 
     public Record() {
+    }
 
+    /* Basic getters */
+
+    public String getId() {
+        return _id;
     }
 
     public String getProblemId() {
@@ -65,10 +74,11 @@ public class Record {
         return geoLocation;
     }
 
-    public ArrayList<BodyLocation> getBodyLocations() {
+    public List<BodyLocation> getBodyLocations() {
         return bodyLocations;
     }
 
+    /* Basic list operations */
     public void addPhoto(BodyLocation img) {
         bodyLocations.add(img);
     }
@@ -76,6 +86,8 @@ public class Record {
     public void deletePhoto(BodyLocation img) {
         bodyLocations.remove(img);
     }
+
+    /* Advanced setters */
 
     public void editGeoLocation(int x, int y) {
 
@@ -85,7 +97,4 @@ public class Record {
 
     }
 
-    public String getId() {
-        return _id;
-    }
 }

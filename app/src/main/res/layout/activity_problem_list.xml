@@ -12,6 +12,12 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProblemListActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout = "@layout/problem_list_toolbar">
+
+    </include>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/problem_list_add"
         android:layout_width="wrap_content"
