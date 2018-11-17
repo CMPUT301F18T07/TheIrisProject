@@ -22,7 +22,7 @@ import java.util.List;
 public class RecordList implements Iterable<Record> {
 
     private transient List<Record> records = new ArrayList<Record>();
-    private List<String> record_ids = new ArrayList<>();
+    private List<String> recordIds = new ArrayList<>();
 
     /* Constructors */
 
@@ -35,7 +35,7 @@ public class RecordList implements Iterable<Record> {
 
     /* Basic getters */
 
-    public List<Record> getRecords() {
+    public List<Record> asList() {
         return records;
     }
 

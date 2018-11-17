@@ -24,11 +24,11 @@ public class RecordListTest {
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
-        Assert.assertEquals(recordList.getRecords().size(), 0);
+        Assert.assertEquals(recordList.asList().size(), 0);
 
         recordList.add(record);
 
-        Assert.assertEquals(recordList.getRecords().size(), 1);
+        Assert.assertEquals(recordList.asList().size(), 1);
     }
 
     @Test
@@ -46,11 +46,11 @@ public class RecordListTest {
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
-        Assert.assertEquals(recordList.getRecords().size(), 1);
+        Assert.assertEquals(recordList.asList().size(), 1);
 
         recordList.remove(record);
 
-        Assert.assertEquals(recordList.getRecords().size(), 0);
+        Assert.assertEquals(recordList.asList().size(), 0);
     }
 
     @Test

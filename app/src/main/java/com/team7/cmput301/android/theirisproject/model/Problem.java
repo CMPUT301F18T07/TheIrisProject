@@ -26,10 +26,10 @@ public class Problem {
     private String title;
     private String user;
     private Date date;
-    private RecordList records;
+    private RecordList records = new RecordList();
     private List<Comment> comments = new ArrayList<>();
     private String description;
-    private List<BodyPhoto> bodyPhotos;
+    private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
     /* Constructors */
 
@@ -51,6 +51,12 @@ public class Problem {
 
     public Problem() {
 
+    }
+
+    /* Basic setters */
+
+    public void setRecords(RecordList records){
+        this.records = records;
     }
 
     /* Basic getters */

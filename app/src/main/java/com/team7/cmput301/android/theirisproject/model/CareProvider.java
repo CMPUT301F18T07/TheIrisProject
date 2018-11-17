@@ -34,4 +34,8 @@ public class CareProvider extends User {
         return null;
     }
 
+    public Problem getPatientProblemById(String problemId) {
+        return null;
+    }
+
 }

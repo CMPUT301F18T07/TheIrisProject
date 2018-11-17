@@ -108,7 +108,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
      */
     public void render(RecordList records) {
         Integer recordItemLayout = R.layout.list_record_item;
-        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.getRecords());
+        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.asList());
         recordListView.setAdapter(adapter);
     }
 }
