@@ -26,6 +26,11 @@ public class RecordTest {
 
     @Test
     public void testRecord(){
+        String title = "Title";
+        String text = "Text";
+        Date date = new Date();
+        GeoLocation geoLocation = null;
+        List<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
         Record record = getTestRecord();
 
@@ -73,9 +78,14 @@ public class RecordTest {
     }
 
     private Record getTestRecord() {
+        String title = "Title";
+        String text = "Text";
+        Date date = new Date();
+        GeoLocation geoLocation = null;
+        List<BodyLocation> bodyLocations = new ArrayList<>(null);
 
+        Record record = new Record(title, text, date, geoLocation, bodyLocations);
         return new Record(title, desc, date, geoLocation, bodyLocations);
-
     }
 
 }
