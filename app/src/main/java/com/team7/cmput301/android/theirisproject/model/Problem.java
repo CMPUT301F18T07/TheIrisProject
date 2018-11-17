@@ -71,8 +71,6 @@ public class Problem {
         this.records = records;
     }
 
-    /* Basic getters */
-
     public RecordList getRecords() {
         return records;
     }
@@ -109,6 +107,10 @@ public class Problem {
 
     public List<RecordPhoto> getSlideShowInfo() {
         return null;
+    }
+
+    public void setBodyPhotos(List<BodyPhoto> photos) {
+        bodyPhotos = photos;
     }
 
 }

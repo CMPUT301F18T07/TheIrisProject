@@ -21,12 +21,19 @@ public class BodyPhoto {
 
     @JestId
     private String _id;
-    private Bitmap photo;
+    private String problemId;
+    private String blob;
+    transient private Bitmap photo;
 
     /* Constructors */
 
     public BodyPhoto(Bitmap image) {
         this.photo = image;
+        this.blob = ImageConverter.base64EncodeBitmap(image);
+    }
+
+    public void setProblemId(String id) {
+        problemId = id;
     }
 
     /* Basic getters */
@@ -39,4 +46,7 @@ public class BodyPhoto {
         return photo;
     }
 
+    public void convertBlobToPhoto() {
+        photo = ImageConverter.base64DecodeBitmap(blob);
+    }
 }

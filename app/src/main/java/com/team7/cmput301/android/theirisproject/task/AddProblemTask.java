@@ -11,11 +11,16 @@ import android.os.AsyncTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Bulk;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
@@ -52,6 +57,13 @@ public class AddProblemTask extends AsyncTask<Problem, Void, String> {
                     .build();
             DocumentResult res = IrisProjectApplication.getDB().execute(post);
             if (res.isSucceeded()) {
+                Bulk postBodyPhoto = new Bulk.Builder()
+                        .defaultIndex(IrisProjectApplication.INDEX)
+                        .defaultType("bodyphoto")
+                        .addAction(bulkAddPhotos(params[0].getBodyPhotos(), res.getId()))
+                        .build();
+                IrisProjectApplication.getDB().execute(postBodyPhoto);
+                Thread.sleep(500);
                 return res.getId();
             }
             else {
@@ -59,8 +71,24 @@ public class AddProblemTask extends AsyncTask<Problem, Void, String> {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return null;
+    }
+    /**
+     * bulkAddPhotos sets up the bulk add to the database by
+     * setting all bodyphotos as Index in Jest to execute
+     *
+     * @param photos
+     * */
+    private List<Index> bulkAddPhotos(List<BodyPhoto> photos, String problemId) {
+        ArrayList<Index> res = new ArrayList<>();
+        for (BodyPhoto bp: photos) {
+            bp.setProblemId(problemId);
+            res.add(new Index.Builder(bp).index(IrisProjectApplication.INDEX).type("bodyphoto").build());
+        }
+        return res;
     }
 
     @Override
