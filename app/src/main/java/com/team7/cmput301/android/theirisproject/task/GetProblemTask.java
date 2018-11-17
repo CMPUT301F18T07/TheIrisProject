@@ -7,8 +7,10 @@
 package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 
@@ -16,6 +18,7 @@ import java.io.IOException;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Get;
+import io.searchbox.core.Search;
 
 import static com.team7.cmput301.android.theirisproject.IrisProjectApplication.INDEX;
 
@@ -34,15 +37,25 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
 
     @Override
     protected Problem doInBackground(String... params) {
-        JestResult res = null;
         Problem result = null;
         try {
             Get get = new Get.Builder(INDEX,params[0])
                     .type("problem")
                     .build();
-            res = IrisProjectApplication.getDB().execute(get);
+            JestResult res = IrisProjectApplication.getDB().execute(get);
             result = res.getSourceAsObject(Problem.class);
-            result.convertBlobsToBitmaps();
+
+            Search bodyPhotoSearch = new Search.Builder("{\"query\": {\"term\": {\"problemId\": \"" + params[0] + "\"}}}")
+                    .addIndex(IrisProjectApplication.INDEX)
+                    .addType("bodyphoto")
+                    .build();
+            res = IrisProjectApplication.getDB().execute(bodyPhotoSearch);
+            result.setBodyPhotos(res.getSourceAsObjectList(BodyPhoto.class, true));
+
+            for (BodyPhoto bp: result.getBodyPhotos()) {
+                Log.d("Iris", bp.getId());
+                bp.convertBlobToPhoto();
+            }
 
             return result;
         } catch (IOException e) {

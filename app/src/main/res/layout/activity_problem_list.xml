@@ -12,11 +12,10 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProblemListActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout = "@layout/problem_list_toolbar">
-
-    </include>
+    <!--<include-->
+        <!--android:id="@+id/toolbar"-->
+        <!--layout = "@layout/problem_list_toolbar">-->
+    <!--</include>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/problem_list_add"
@@ -40,10 +39,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.120000005" />
 
-    <include
-        android:id="@+id/problem_list_task_bar"
-        layout = "@layout/problem_list_task_bar">
+    <!--<include-->
+        <!--android:id="@+id/problem_list_task_bar"-->
+        <!--layout = "@layout/problem_list_task_bar">-->
 
-    </include>
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    <!--</include>-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
 </android.support.constraint.ConstraintLayout>

@@ -44,7 +44,6 @@ public class ProblemController extends IrisController {
         new GetProblemTask(new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
-                res.convertBlobsToBitmaps();
                 model = res;
                 cb.onComplete(res);
             }
