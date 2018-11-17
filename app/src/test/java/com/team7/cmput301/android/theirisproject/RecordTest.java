@@ -18,7 +18,7 @@ public class RecordTest {
 
     private String problemID = "mgfdj23";
     private String title = "Title";
-    private String text = "Text";
+    private String desc = "Text";
     private Date date = new Date();
     private GeoLocation geoLocation = null;
     private ArrayList<BodyLocation> bodyLocations = null;
@@ -30,7 +30,7 @@ public class RecordTest {
 
         Assert.assertEquals(problemID, record.getProblemId());
         Assert.assertEquals(title, record.getTitle());
-        Assert.assertEquals(text, record.getText());
+        Assert.assertEquals(desc, record.getDesc());
         Assert.assertEquals(date, record.getDate());
         Assert.assertEquals(geoLocation, record.getGeoLocation());
         Assert.assertEquals(bodyLocations, record.getBodyLocations());
@@ -57,7 +57,7 @@ public class RecordTest {
     public void testEditGeoLocation() {
         Record record = getTestRecord();
 
-        GeoLocation updatedGeoLocation = null;
+        GeoLocation updatedGeoLocation = new GeoLocation(1.0, 1.0);
 
         Assert.assertEquals(updatedGeoLocation, record.getGeoLocation());
     }
@@ -66,15 +66,14 @@ public class RecordTest {
     public void testEditBodyLocation() {
         Record record = getTestRecord();
 
-        BodyLocation updatedBodyLocation = null;
+        ArrayList<BodyLocation> updatedBodyLocation = new ArrayList<>();
 
         Assert.assertEquals(updatedBodyLocation, record.getBodyLocations());
     }
 
     private Record getTestRecord() {
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocations);
-        return record;
+        return new Record(title, desc, date, geoLocation, bodyLocations);
 
     }
 

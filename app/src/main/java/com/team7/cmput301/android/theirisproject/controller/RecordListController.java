@@ -47,8 +47,8 @@ public class RecordListController extends IrisController<RecordList> {
             @Override
             public void onComplete(SearchResult res) {
                 RecordList results = new RecordList(res.getSourceAsObjectList(Record.class, true));
-                records.getRecords().clear();
-                records.getRecords().addAll(results.getRecords());
+                records.asList().clear();
+                records.asList().addAll(results.asList());
                 contCallback.onComplete(results);
             }
         };
