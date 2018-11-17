@@ -14,7 +14,7 @@ import io.searchbox.annotations.JestId;
  *
  * @see RecordList
  * @see Problem
- * @author Jmmxp
+ * @author jtfwong
  */
 public class Record {
 

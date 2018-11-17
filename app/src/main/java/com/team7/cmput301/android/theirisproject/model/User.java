@@ -9,7 +9,7 @@ import io.searchbox.annotations.JestId;
 /**
  * An abstract user of the app.
  *
- * @author Jmmxp
+ * @author jtfwong
  */
 public abstract class User {
 

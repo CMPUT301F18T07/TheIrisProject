@@ -10,7 +10,7 @@ import java.util.Date;
  * A time-stamped message associated with a Problem.
  *
  * @see Problem
- * @author Jmmxp
+ * @author jtfwong
  */
 public class Comment {
 

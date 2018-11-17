@@ -10,7 +10,7 @@ import android.graphics.Bitmap;
  * A photo associated with a Record.
  *
  * @see Record
- * @author Jmmxp
+ * @author jtfwong
  */
 public class RecordPhoto {
 

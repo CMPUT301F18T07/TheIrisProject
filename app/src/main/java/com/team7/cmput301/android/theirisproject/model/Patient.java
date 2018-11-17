@@ -11,7 +11,7 @@ import java.util.List;
  * Represents a Patient-type User
  *
  * @author itstc
- * @author Jmmxp
+ * @author jtfwong
  * @author anticobalt
  */
 public class Patient extends User {

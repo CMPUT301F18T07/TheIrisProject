@@ -19,7 +19,7 @@ import io.searchbox.annotations.JestId;
  * @see ProblemList
  * @see Patient
  * @author itstc
- * @author Jmmxp
+ * @author jtfwong
  */
 public class Problem {
 

@@ -8,7 +8,7 @@ package com.team7.cmput301.android.theirisproject.model;
  * A specific location on Earth, belonging to a Record.
  *
  * @see Record
- * @author Jmmxp
+ * @author jtfwong
  */
 public class GeoLocation {
 

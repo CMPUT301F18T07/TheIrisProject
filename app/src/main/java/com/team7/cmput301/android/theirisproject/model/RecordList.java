@@ -17,7 +17,8 @@ import java.util.List;
  * 1-1 association with Problem.
  *
  * @see Problem
- * @author Jmmxp
+ * @author jtfwong
+ * @author anticobalt
  */
 public class RecordList implements Iterable<Record> {
 

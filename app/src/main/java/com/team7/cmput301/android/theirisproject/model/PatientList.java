@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 1-1 association with Care Provider.
  *
  * @see CareProvider
- * @author Jmmxp
+ * @author jtfwong
  */
 public class PatientList {
 

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Represents a CareProvider-type User
  *
- * @author Jmmxp
+ * @author jtfwong
  */
 public class CareProvider extends User {
 

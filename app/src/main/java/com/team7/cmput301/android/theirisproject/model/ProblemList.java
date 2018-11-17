@@ -17,7 +17,7 @@ import java.util.List;
  * 1-1 association with Patient.
  *
  * @author itstc
- * @author Jmmxp
+ * @author jtfwong
  */
 public class ProblemList implements Iterable<Problem> {
 
