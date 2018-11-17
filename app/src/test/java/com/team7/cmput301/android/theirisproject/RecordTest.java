@@ -22,17 +22,15 @@ public class RecordTest {
         String text = "Text";
         Date date = new Date();
         GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhoto = new ArrayList<>(null);
+        ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhoto);
+        Record record = new Record(title, text, date, geoLocation, bodyLocations);
 
         Assert.assertEquals(title, record.getTitle());
         Assert.assertEquals(text, record.getText());
         Assert.assertEquals(date, record.getDate());
         Assert.assertEquals(geoLocation, record.getGeoLocation());
-        Assert.assertEquals(bodyLocation, record.getBodyLocation());
-        Assert.assertEquals(recordPhoto, record.getRecordPhotos());
+        Assert.assertEquals(bodyLocations, record.getBodyLocations());
     }
 
     @Test
@@ -40,7 +38,7 @@ public class RecordTest {
         Record record = getTestRecord();
 
         record.addPhoto(null);
-        Assert.assertEquals(record.getRecordPhotos().size(), 1);
+        Assert.assertEquals(record.getBodyLocations().size(), 1);
     }
 
     @Test
@@ -48,7 +46,7 @@ public class RecordTest {
         Record record = getTestRecord();
 
         record.deletePhoto(null);
-        Assert.assertEquals(record.getRecordPhotos().size(), 0);
+        Assert.assertEquals(record.getBodyLocations().size(), 0);
     }
 
     @Test
@@ -66,7 +64,7 @@ public class RecordTest {
 
         BodyLocation updatedBodyLocation = null;
 
-        Assert.assertEquals(updatedBodyLocation, record.getBodyLocation());
+        Assert.assertEquals(updatedBodyLocation, record.getBodyLocations());
     }
 
     private Record getTestRecord() {
@@ -74,10 +72,9 @@ public class RecordTest {
         String text = "Text";
         Date date = new Date();
         GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
+        ArrayList<BodyLocation> bodyLocations = new ArrayList<>(null);
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
+        Record record = new Record(title, text, date, geoLocation, bodyLocations);
         return record;
     }
 

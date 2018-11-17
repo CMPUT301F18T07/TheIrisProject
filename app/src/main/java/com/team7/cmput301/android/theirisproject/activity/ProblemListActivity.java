@@ -9,13 +9,14 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -42,6 +43,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.problem_list_task_bar);
+        setSupportActionBar(toolbar);
 
         problemsView = findViewById(R.id.problem_item_list);
         controller = createController(getIntent());
@@ -89,8 +92,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_problem_list,menu);
+        getMenuInflater().inflate(R.menu.menu_problem_list, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -98,7 +100,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
-            case R.id.edit_problem:
+            case R.id.problem_list_action_edit:
                 // Set flag so that when user taps on problem, will take user to edit page
                 if (doEditProblem){
                     Toast.makeText(ProblemListActivity.this, "Click on Problem to view", Toast.LENGTH_LONG);
@@ -109,7 +111,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                     doEditProblem = true;
                 }
                 break;
-            case R.id.view_profile:
+            case R.id.problem_list_action_viewProfile:
                 // View a profile
                 Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
                 break;
