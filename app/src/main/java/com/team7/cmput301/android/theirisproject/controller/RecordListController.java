@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
@@ -32,7 +33,7 @@ public class RecordListController extends IrisController<RecordList> {
 
     public RecordListController(Intent intent){
         super(intent);
-        problemId = intent.getStringExtra("problemId");
+        problemId = intent.getStringExtra(ViewProblemActivity.EXTRA_PROBLEM_ID);
         records = model; // aliasing for clarity
     }
 
@@ -46,7 +47,8 @@ public class RecordListController extends IrisController<RecordList> {
             @Override
             public void onComplete(SearchResult res) {
                 RecordList results = new RecordList(res.getSourceAsObjectList(Record.class, true));
-                RecordListController.this.records = results;
+                records.getRecords().clear();
+                records.getRecords().addAll(results.getRecords());
                 contCallback.onComplete(results);
             }
         };
