@@ -10,8 +10,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a collection of Problems pertaining a particular Patient
+ * Besides doing typical List things like add/delete, handles more advanced
+ * actions like self-lookup.
+ * 1-1 association with Patient.
+ *
+ * @author itstc
+ * @author jtfwong
+ */
 public class ProblemList implements Iterable<Problem> {
-    private ArrayList<Problem> problems = new ArrayList<Problem>();
+
+    private ArrayList<Problem> problems = new ArrayList<>();
+
+    /* Constructors */
 
     public ProblemList(List<Problem> problems) {
         this.problems = (ArrayList<Problem>) problems;
@@ -20,34 +32,45 @@ public class ProblemList implements Iterable<Problem> {
     public ProblemList() {
     }
 
-    public ArrayList<Problem> getProblems() {
+    /* Basic getters */
+
+    public List<Problem> getProblems() {
         return problems;
     }
 
-    public void delete(Problem problem) {
+    /* Basic list operations */
 
+    public void add(Problem problem) {
+        problems.add(problem);
     }
 
-    public Problem getProblemByID(String id) {
+    public void remove(Problem problem) {
+        problems.remove(problem);
+    }
+
+    public boolean contains(Problem problem) {
+        return problems.contains(problem);
+    }
+
+    public int length() {
+        return problems.size();
+    }
+
+    /* Searches */
+
+    public Problem getProblemById(String id) {
         for(Problem problem: problems) {
-            if(problem.getId() == id) return problem;
+            if (problem.getId().equals(id)) return problem;
         }
         return null;
     }
 
-    public boolean contains(Problem problem) {
-        return false;
-    }
-
-    public int length() {
-        return 0;
-    }
-
+    /* Misc */
 
     @NonNull
     @Override
     public Iterator<Problem> iterator() {
         return problems.iterator();
     }
-}
 
+}

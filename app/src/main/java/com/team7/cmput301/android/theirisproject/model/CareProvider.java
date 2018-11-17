@@ -7,13 +7,29 @@ package com.team7.cmput301.android.theirisproject.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a CareProvider-type User
+ *
+ * @author jtfwong
+ */
 public class CareProvider extends User {
     transient private List<Patient> patients;
-    private List<String> patientIds;
+    private List<String> patientIds = new ArrayList<>();
+    private List<Patient> patients = new ArrayList<>();
+
+    /* Constructors */
+
+    public CareProvider(String name, String email, String phoneNumber) {
+        super(name, email, phoneNumber, UserType.CARE_PROVIDER);
+    }
+
+    /* Basic getters */
 
     public List<Patient> getPatients() {
         return patients;
     }
+
+    /* Searches */
 
     public ProblemList getPatientProblems(Patient patient) {
         return null;
@@ -31,17 +47,8 @@ public class CareProvider extends User {
         return patientIds;
     }
 
-    /**
-     * Generates a String representing the concatenation of all the patientIds with a comma in between
-     * separating all of them e.g. id1, id2, id3
-     *
-     * Used to concatenate a new Patient ID into existing ones for a Care Provider
-     */
-
-
-    public CareProvider(String name, String email, String phoneNumber) {
-        super(name, email, phoneNumber, UserType.CARE_PROVIDER);
-        patients = new ArrayList<>();
-        patientIds = new ArrayList<>();
+    public Problem getPatientProblemById(String problemId) {
+        return null;
     }
+
 }

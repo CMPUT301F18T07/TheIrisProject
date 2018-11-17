@@ -6,7 +6,13 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import io.searchbox.annotations.JestId;
 
-public abstract class User { 
+/**
+ * An abstract user of the app.
+ *
+ * @author jtfwong
+ */
+public abstract class User {
+
     public enum UserType {
         PATIENT, CARE_PROVIDER
     }
@@ -25,9 +31,13 @@ public abstract class User {
         this.type = type;
     }
 
+    /* Basic setters */
+
     public void setId(String _id) {
         this._id = _id;
     }
+
+    /* Basic getters */
 
     public String getName() {
         return name;
@@ -49,9 +59,12 @@ public abstract class User {
         return this.type;
     }
 
+    /* Advanced setters */
+
     public void editContact(String username, String email, String phoneNumber) {
         this.name = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
 }

@@ -8,17 +8,39 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+/**
+ * Represents a collection of Records pertaining a particular Problem
+ * Besides doing typical List things like add/delete, handles more advanced
+ * actions like self-lookup.
+ * 1-1 association with Problem.
+ *
+ * @see Problem
+ * @author jtfwong
+ * @author anticobalt
+ */
 public class RecordList implements Iterable<Record> {
-    private ArrayList<Record> records = new ArrayList<Record>();
 
-    public ArrayList<Record> getRecords() {
+    private transient List<Record> records = new ArrayList<Record>();
+    private List<String> recordIds = new ArrayList<>();
+
+    /* Constructors */
+
+    public RecordList() {
+    }
+
+    public RecordList(List<Record> records) {
+        this.records = records;
+    }
+
+    /* Basic getters */
+
+    public List<Record> asList() {
         return records;
     }
 
-    public RecordList() {
-
-    }
+    /* Basic list operations */
 
     public boolean contains(Record record) {
         return records.contains(record);
@@ -36,9 +58,23 @@ public class RecordList implements Iterable<Record> {
         return records.size();
     }
 
+    /* Searches */
+
+    public Record getRecordById(String id) {
+        for (Record record : records) {
+            if (record.getId().equals(id)) {
+                return record;
+            }
+        }
+        return null;
+    }
+
+    /* Misc */
+
     @NonNull
     @Override
     public Iterator<Record> iterator() {
         return records.iterator();
     }
+
 }

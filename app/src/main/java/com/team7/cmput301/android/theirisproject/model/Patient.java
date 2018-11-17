@@ -7,16 +7,25 @@ package com.team7.cmput301.android.theirisproject.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Patient-type User
+ *
+ * @author itstc
+ * @author jtfwong
+ * @author anticobalt
+ */
 public class Patient extends User {
-    transient private List<CareProvider> careProviders;
-    private List<String> careProviderIds;
+    transient private List<CareProvider> careProviders = new ArrayList<>();
+    private List<String> careProviderIds = new ArrayList<>();
+    private ProblemList problems = new ProblemList();
 
-    private ProblemList problems;
+    /* Constructors */
 
-    public void addCareProvider(CareProvider careProvider) {
-
+    public Patient(String name, String email, String phoneNumber) {
+        super(name, email, phoneNumber, UserType.PATIENT);
     }
 
+    /* Basic getters */
     public List<CareProvider> getCareProviders() {
         return careProviders;
     }
@@ -33,9 +42,31 @@ public class Patient extends User {
         return careProviderIds;
     }
 
-    public Patient(String name, String email, String phoneNumber) {
-        super(name, email, phoneNumber, UserType.PATIENT);
-        careProviders = new ArrayList<>();
-        careProviderIds = new ArrayList<>();
+    /* Basic list operations */
+
+    public void addProblem(Problem problem){
+        problems.add(problem);
     }
+  
+    /* Basic setters */
+    public void addCareProvider(CareProvider careProvider) {
+        careProviders.add(careProvider);
+    }
+
+    /* Searches */
+
+    public Problem getProblemById(String id) {
+        return problems.getProblemById(id);
+    }
+
+    public Record getRecordById(String id) {
+        for (Problem problem: problems) {
+            Record record = problem.getRecords().getRecordById(id);
+            if (record != null) {
+                return record;
+            }
+        }
+        return null;
+    }
+
 }

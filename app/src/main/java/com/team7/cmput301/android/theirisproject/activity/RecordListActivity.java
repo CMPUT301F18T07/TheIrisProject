@@ -11,14 +11,21 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.RecordListAdapter;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
+import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * Activity for viewing and clicking all Records for a Patient
+ *
  * @author anticobalt
  * @see RecordListController
  * @see Callback
@@ -27,30 +34,45 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
     private RecordListController controller;
     private Toolbar toolbar;
+    private ListView recordListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        String title = "Records";
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
+        toolbar = findViewById(R.id.record_list_task_bar);
+        setSupportActionBar(toolbar);
         this.controller = createController(getIntent());
 
-        setTitle(title);
+        recordListView = findViewById(R.id.record_item_list);
+        controller = createController(getIntent());
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
+
+        recordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Record record = (Record) recordListView.getItemAtPosition(i);
+                // View the problem
+                Intent intent = new Intent(RecordListActivity.this, ViewRecordActivity.class);
+                intent.putExtra("record_id", record.getId());
+                startActivity(intent);
+            }
+        });
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        controller.getRecords(new Callback<RecordList>(){
+        Callback<RecordList> contCallback = new Callback<RecordList>() {
             @Override
             public void onComplete(RecordList result) {
                 render(result);
             }
-        });
+        };
+        controller.getRecords(contCallback);
     }
 
     /**
@@ -61,7 +83,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_record_list, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     /**
@@ -73,7 +95,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.edit_records:
+            case R.id.record_list_action_edit:
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -95,7 +117,13 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     }
 
 
+    /**
+     * Display all records by populating adapter and setting adapter to ListView
+     * @param records
+     */
     public void render(RecordList records) {
-
+        Integer recordItemLayout = R.layout.list_record_item;
+        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.asList());
+        recordListView.setAdapter(adapter);
     }
 }
