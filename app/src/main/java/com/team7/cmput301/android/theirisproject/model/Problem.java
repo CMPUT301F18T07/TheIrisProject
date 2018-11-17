@@ -17,7 +17,16 @@ import java.util.Locale;
 
 import io.searchbox.annotations.JestId;
 
+/**
+ * Represents a particular issue that a Patient has.
+ *
+ * @see ProblemList
+ * @see Patient
+ * @author itstc
+ * @author jtfwong
+ */
 public class Problem {
+
     @JestId
     private String _id;
 
@@ -63,13 +72,13 @@ public class Problem {
 
     }
 
-    public void convertBlobsToBitmaps() {
-        ArrayList<BodyPhoto> newPhotos = new ArrayList<>();
-        for (String blob: bodyPhotoBlobs) {
-            newPhotos.add(new BodyPhoto(ImageConverter.base64DecodeBitmap(blob)));
-        }
-        bodyPhotos = newPhotos;
+    /* Basic setters */
+
+    public void setRecords(RecordList records){
+        this.records = records;
     }
+
+    /* Basic getters */
 
     public RecordList getRecords() {
         return records;
@@ -115,8 +124,20 @@ public class Problem {
         return bodyPhotos;
     }
 
+    /* Advanced getters */
+
     public List<RecordPhoto> getSlideShowInfo() {
         return null;
+    }
+
+    /* ElasticSearch handlers */
+
+    public void convertBlobsToBitmaps() {
+        ArrayList<BodyPhoto> newPhotos = new ArrayList<>();
+        for (String blob: bodyPhotoBlobs) {
+            newPhotos.add(new BodyPhoto(ImageConverter.base64DecodeBitmap(blob)));
+        }
+        bodyPhotos = newPhotos;
     }
 
 }

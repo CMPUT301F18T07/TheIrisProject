@@ -6,11 +6,30 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.Date;
 
+/**
+ * A time-stamped message associated with a Problem.
+ *
+ * @see Problem
+ * @author jtfwong
+ */
 public class Comment {
+
     private CareProvider author;
     private String title;
     private Date date;
     private String body;
+
+    /* Constructors */
+
+    public void Comment(CareProvider careProvider, String title, Date date, String body) {
+
+    }
+
+    public void Comment(CareProvider careProvider, String title, String body) {
+
+    }
+
+    /* Basic getters */
 
     public CareProvider getCareProvider() {
         return author;
@@ -28,11 +47,4 @@ public class Comment {
         return body;
     }
 
-    public void Comment(CareProvider careProvider, String title, Date date, String body) {
-
-    }
-
-    public void Comment(CareProvider careProvider, String title, String body) {
-
-    }
 }
