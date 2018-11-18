@@ -35,7 +35,7 @@ public class Problem {
     private String title;
     private Date date;
     private String description;
-    transient private RecordList records;
+    transient private RecordList records = new RecordList();
     transient private List<Comment> comments = new ArrayList<>();
     transient private List<BodyPhoto> bodyPhotos;
 
@@ -66,7 +66,7 @@ public class Problem {
 
     }
 
-    /* Basic setters */
+    /* Basic setter + adders */
 
     public void setRecords(RecordList records){
         this.records = records;
@@ -74,6 +74,14 @@ public class Problem {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
+    public void addBodyPhoto(BodyPhoto bodyPhoto) {
+        bodyPhotos.add(bodyPhoto);
     }
 
     /* Basic getters */

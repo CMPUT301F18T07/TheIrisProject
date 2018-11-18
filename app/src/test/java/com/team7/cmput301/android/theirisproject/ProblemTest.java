@@ -22,7 +22,7 @@ public class ProblemTest {
 
     @Test
     public void testProblem() {
-        Problem problem = new Problem(title, description, userid ,records, body_photos);
+        Problem problem = new Problem(title, description, userid, body_photos);
         Assert.assertEquals(title, problem.getTitle());
         Assert.assertEquals(description, problem.getDescription());
         Assert.assertEquals(body_photos, problem.getBodyPhotos());
@@ -32,7 +32,7 @@ public class ProblemTest {
     @Test
     public void testGetSlideshowInfo() {
 
-        Problem problem = new Problem(title, description, userid, records, body_photos);
+        Problem problem = new Problem(title, description, userid, body_photos);
         List<RecordPhoto> test_photos = problem.getSlideShowInfo();
 
         for (Record record: records){
