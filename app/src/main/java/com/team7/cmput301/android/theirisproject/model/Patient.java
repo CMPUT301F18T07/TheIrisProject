@@ -15,9 +15,11 @@ import java.util.List;
  * @author anticobalt
  */
 public class Patient extends User {
+
     transient private List<CareProvider> careProviders = new ArrayList<>();
     private List<String> careProviderIds = new ArrayList<>();
     private ProblemList problems = new ProblemList();
+    transient private List<String> problemIds = new ArrayList<>();
 
     /* Constructors */
 
@@ -25,7 +27,18 @@ public class Patient extends User {
         super(name, email, phoneNumber, UserType.PATIENT);
     }
 
+    /* Basic setters */
+
+    public void setProblems(ProblemList problems) {
+        this.problems = problems;
+    }
+
+    public void setProblems(List<Problem> problems) {
+        this.problems = new ProblemList(problems);
+    }
+
     /* Basic getters */
+
     public List<CareProvider> getCareProviders() {
         return careProviders;
     }
@@ -49,6 +62,11 @@ public class Patient extends User {
     }
   
     /* Basic setters */
+
+    public void setCareProviders(List<CareProvider> careProviders) {
+        this.careProviders = careProviders;
+    }
+
     public void addCareProvider(CareProvider careProvider) {
         careProviders.add(careProvider);
     }

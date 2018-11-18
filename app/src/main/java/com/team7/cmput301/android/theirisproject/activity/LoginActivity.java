@@ -24,6 +24,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @author itstc
  * */
 public class LoginActivity extends IrisActivity {
+
     private LoginController controller;
     private TextView email;
     private TextView password;
@@ -64,19 +65,34 @@ public class LoginActivity extends IrisActivity {
                     @Override
                     public void onComplete(Boolean success) {
                         // Start activity if login is successful, else stay on login activity
-                        if (success) {
-                            if (IrisProjectApplication.getCurrentUser().getType() == User.UserType.PATIENT) {
-                                startUserActivity(ProblemListActivity.class);
-                            } else {
-                                startUserActivity(PatientListActivity.class);
-                            }
+                        if(success) {
+                            buildUserSession();
                         }
-                        else Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();
+                        else {
+                            Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
 
             }
         });
+
+    }
+
+    /**
+     * Get all the logged in User's associated data, then start a specified activity for them
+     */
+    private void buildUserSession() {
+
+        Callback callback = new Callback() {
+            @Override
+            public void onComplete(Object res) {
+                Class activity = controller.getStartingActivity();
+                startUserActivity(activity);
+            }
+        };
+
+        controller.fetchAllUserData(callback);
 
     }
 
