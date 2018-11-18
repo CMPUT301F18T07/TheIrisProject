@@ -21,8 +21,6 @@ import com.team7.cmput301.android.theirisproject.model.User;
 import java.io.IOException;
 import java.util.List;
 
-import io.searchbox.client.JestResult;
-import io.searchbox.core.Get;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
@@ -155,14 +153,14 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             problem.setRecords(records);
 
             for (Record record : records) {
-                bindRecordPhotos(record);
+                getAndBindRecordPhotos(record);
             }
 
         } else printError(Problem.class, problem.getId());
 
     }
 
-    private void bindRecordPhotos(Record record) {
+    private void getAndBindRecordPhotos(Record record) {
 
         String query = generateQuery(TERM, "recordId", record.getId());
         SearchResult res = search(query, RECORDPHOTO);
