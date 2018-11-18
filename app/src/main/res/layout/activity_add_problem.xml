@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:background="@color/colorAccent"
-                android:text="@string/record_problem"
+                android:text="@string/add_problem"
                 android:textColor="?android:attr/colorBackground"
                 android:layout_marginTop="16dp"/>
 

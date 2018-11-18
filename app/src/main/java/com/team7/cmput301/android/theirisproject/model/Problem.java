@@ -30,7 +30,7 @@ public class Problem {
 
     @JestId
     private String _id;
-    private String userId;
+    private String user;
 
     private String title;
     private Date date;
@@ -41,24 +41,24 @@ public class Problem {
 
     /* Constructors */
 
-    public Problem(String title, String description, String userId, List<BodyPhoto> bodyPhotos) {
-        this(title, description, userId);
+    public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
+        this(title, description, user);
         this.bodyPhotos = bodyPhotos;
         this.date = new Date();
     }
 
-    public Problem(String title, String description, String userId) {
+    public Problem(String title, String description, String user) {
         this.title = title;
         this.description = description;
-        this.userId = userId;
+        this.user = user;
         this.date = new Date();
 
     }
 
-    public Problem(String title, String description, String date, String userId) throws ParseException {
+    public Problem(String title, String description, String date, String user) throws ParseException {
         this.title = title;
         this.description = description;
-        this.userId = userId;
+        this.user = user;
         this.date = DateHelper.parse(date);
     }
 
@@ -104,7 +104,7 @@ public class Problem {
         return this.description;
     }
 
-    public String getUserId() {return userId;}
+    public String getUser() {return user;}
 
     public List<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;

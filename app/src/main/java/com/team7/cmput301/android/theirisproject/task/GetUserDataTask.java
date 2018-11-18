@@ -126,7 +126,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      */
     private void getAndBindProblems(Patient patient) {
 
-        String query = generateQuery(TERM, "patientId", patient.getId());
+        String query = generateQuery(TERM, "user", patient.getId());
         SearchResult res = search(query, PROBLEM);
 
         if (res != null) {
