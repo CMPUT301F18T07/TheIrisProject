@@ -47,6 +47,8 @@
             android:name=".activity.AddRecordActivity"
             android:label="@string/add_record"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.PatientListActivity" />
+
         <activity
             android:name=".activity.ViewRecordActivity"
             android:theme="@style/AppTheme.NoActionBar" />

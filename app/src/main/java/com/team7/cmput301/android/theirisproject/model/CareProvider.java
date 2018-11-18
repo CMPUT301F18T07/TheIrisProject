@@ -13,7 +13,8 @@ import java.util.List;
  * @author jtfwong
  */
 public class CareProvider extends User {
-
+    transient private List<Patient> patients;
+    private List<String> patientIds = new ArrayList<>();
     private List<Patient> patients = new ArrayList<>();
 
     /* Constructors */
@@ -32,6 +33,18 @@ public class CareProvider extends User {
 
     public ProblemList getPatientProblems(Patient patient) {
         return null;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
+    public void addPatientId(String patientId) {
+        patientIds.add(patientId);
+    }
+
+    public List<String> getPatientIds() {
+        return patientIds;
     }
 
     public Problem getPatientProblemById(String problemId) {
