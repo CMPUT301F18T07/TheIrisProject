@@ -47,7 +47,7 @@ public class Comment {
     public String getAuthor() {
         return author;
     }
-
+  
     public String getDate() {
         return DateHelper.format(date);
     }
