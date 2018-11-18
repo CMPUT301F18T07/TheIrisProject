@@ -4,6 +4,8 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import com.team7.cmput301.android.theirisproject.helper.DateHelper;
+
 import java.util.Date;
 
 import io.searchbox.annotations.JestId;
@@ -19,38 +21,35 @@ public class Comment {
     @JestId
     private String _id;
     private String problemId;
-
     private String author;
-    private String title;
+    private String role;
     private Date date;
     private String body;
 
     /* Constructors */
 
-    public Comment(String problemId, String author, String title, Date date, String body) {
-        this(problemId, author, title, body);
-        this.date = date;
-    }
-
-    public Comment(String problemId, String author, String title, String body) {
+    public Comment(String problemId, String author, String body, String role) {
         this.problemId = problemId;
         this.author = author;
-        this.title = title;
         this.body = body;
+        this.role = role;
+        this.date = new Date();
     }
 
     /* Basic getters */
 
+    public String getId() { return _id; }
+
+    public String getProblemId() { return problemId; }
+
+    public String getRole() { return role; }
+
     public String getAuthor() {
         return author;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Date getDate() {
-        return date;
+  
+    public String getDate() {
+        return DateHelper.format(date);
     }
 
     public String getBody() {

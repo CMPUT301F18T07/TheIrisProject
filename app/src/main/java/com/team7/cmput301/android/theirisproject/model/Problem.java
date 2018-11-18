@@ -37,7 +37,7 @@ public class Problem {
     private String description;
     transient private RecordList records;
     transient private List<Comment> comments = new ArrayList<>();
-    transient private List<BodyPhoto> bodyPhotos;
+    transient private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
     /* Constructors */
 
@@ -71,6 +71,8 @@ public class Problem {
     public void setRecords(RecordList records){
         this.records = records;
     }
+
+    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {this.bodyPhotos = bodyPhotos;}
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
@@ -116,8 +118,5 @@ public class Problem {
         return null;
     }
 
-    public void setBodyPhotos(List<BodyPhoto> photos) {
-        bodyPhotos = photos;
-    }
 
 }
