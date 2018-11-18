@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.LoginActivity;
+import com.team7.cmput301.android.theirisproject.activity.PatientListActivity;
 import com.team7.cmput301.android.theirisproject.activity.ProblemListActivity;
 import com.team7.cmput301.android.theirisproject.model.PatientList;
 import com.team7.cmput301.android.theirisproject.task.Callback;

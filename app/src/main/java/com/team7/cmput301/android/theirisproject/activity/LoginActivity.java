@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -72,6 +73,7 @@ public class LoginActivity extends IrisActivity {
                         }
                     }
                 });
+
             }
         });
 

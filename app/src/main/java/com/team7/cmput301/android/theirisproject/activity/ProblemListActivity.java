@@ -38,6 +38,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private ListView problemsView;
     private Boolean doEditProblem = false;
 
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         controller = new ProblemListController(getIntent());
 
         problemsView = findViewById(R.id.problem_item_list);
+        toolbar = findViewById(R.id.problem_list_toolbar);
+        setSupportActionBar(toolbar);
 
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
