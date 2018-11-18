@@ -17,6 +17,13 @@ import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.util.List;
 
+/**
+ * CommentListAdapter handles putting comments
+ * into the RecyclerView by inflating the data
+ * into a CommentViewHolder
+ *
+ * @author itstc
+ * */
 public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.CommentViewHolder>  {
 
     private final int COMMENT_ITEM_LAYOUT = R.layout.comment_item;
