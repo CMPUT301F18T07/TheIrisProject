@@ -14,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/Viewprofile_username"
         app:layout_constraintStart_toStartOf="@id/comment_item_role"
@@ -24,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/viewprofile_date_text"
         app:layout_constraintStart_toEndOf="@id/comment_item_name"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,10 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginVertical="8dp"
         android:text="@string/viewprofile_descrption_text"
         app:layout_constraintStart_toStartOf="@id/comment_item_role"
-        app:layout_constraintTop_toBottomOf="@id/comment_item_name" />
+        app:layout_constraintTop_toBottomOf="@id/comment_item_name"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/comment_item_role"
