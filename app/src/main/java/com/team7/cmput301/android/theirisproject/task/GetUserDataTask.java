@@ -7,10 +7,15 @@ package com.team7.cmput301.android.theirisproject.task;
 import android.os.AsyncTask;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
+import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordList;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
@@ -28,25 +33,36 @@ import io.searchbox.core.SearchResult;
  *
  * @author anticobalt
  */
-public class GetUserDataTask extends AsyncTask<User, Void, User> {
+public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
     private Callback cb;
+
+    private final String MATCH = "match";
+    private final String TERM = "term";
+
+    private final String USER = "user";
+    private final String PROBLEM = "problem";
+    private final String RECORD = "record";
+    private final String BODYPHOTO = "bodyphoto";
+    private final String RECORDPHOTO = "recordphoto";
+    private final String COMMENT = "comment";
+
 
     public GetUserDataTask(Callback cb) {
         this.cb = cb;
     }
 
     @Override
-    protected User doInBackground(User... users) {
+    protected Void doInBackground(User... users) {
 
         User user = users[0];
 
         switch (user.getType()) {
             case PATIENT:
-                bindProblems((Patient) user);
+                getAndBindProblems((Patient) user);
                 break;
             case CARE_PROVIDER:
-                bindPatients((CareProvider) user);
+                getAndBindPatients((CareProvider) user);
                 break;
             default:
                 System.err.println(String.format("Unhandled user type in %s.",
@@ -54,16 +70,16 @@ public class GetUserDataTask extends AsyncTask<User, Void, User> {
                 break;
         }
 
-        return user;
+        return null;
 
     }
 
     /**
-     * Attach all Patients (and their proper data) with a specified Care Provider to its Patient list
+     * Make and attach all Patients (and their proper data) with a specified Care Provider to its Patient list
      *
      * @param careProvider the bound-to Care Provider
      */
-    private void bindPatients(CareProvider careProvider) {
+    private void getAndBindPatients(CareProvider careProvider) {
 
         String query = "{\"query\": {\"match\": {\"careProviderIds\": \"" + careProvider.getId() + "\"}}}";
         SearchResult res = search(query, "user");
@@ -74,7 +90,8 @@ public class GetUserDataTask extends AsyncTask<User, Void, User> {
             careProvider.setPatients(patients);
 
             for (Patient patient: patients) {
-                bindProblems(patient);
+                getAndBindProblems(patient);
+                getAndBindCareProviders(patient);
             }
 
         } else printError(CareProvider.class, careProvider.getId());
@@ -82,43 +99,125 @@ public class GetUserDataTask extends AsyncTask<User, Void, User> {
     }
 
     /**
-     * Attach all Problems (and their aggregate model data) to a specified Patient
+     * Make and attach Care Providers of a Patient.
+     * Patients only need to know Care Providers contact info,
+     * so binding all of their Care Provider's other Patients not required.
      *
      * @param patient the bound-to Patient
      */
-    private void bindProblems(Patient patient) {
+    private void getAndBindCareProviders(Patient patient) {
 
-        String query = "{\"query\": {\"match\": {\"patientID\": \"" + patient.getId() + "\"}}}";
-        SearchResult res = search(query, "problem");
+        String query = generateQuery(MATCH, "patientId", patient.getId());
+        SearchResult res = search(query, USER);
 
         if (res != null) {
 
-            ProblemList problems = new ProblemList(res.getSourceAsObjectList(Problem.class, true));
+            List<CareProvider> careProviders = res.getSourceAsObjectList(CareProvider.class, true);
+            patient.setCareProviders(careProviders);
 
-        }
-
-    }
-
-    private Patient getPatient(String id){
-
-        Patient patient = null;
-
-        try {
-
-            Get get = new Get.Builder(IrisProjectApplication.INDEX, id).type("user").build();
-            JestResult result = IrisProjectApplication.getDB().execute(get);
-            patient = result.getSourceAsObject(Patient.class);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return patient;
+        } else printError(Patient.class, patient.getId());
 
     }
 
     /**
-     * Execute an elasticsearch query and return its results
+     * Make and attach all Problems (and their aggregate model data) to a specified Patient
+     *
+     * @param patient the bound-to Patient
+     */
+    private void getAndBindProblems(Patient patient) {
+
+        String query = generateQuery(TERM, "patientId", patient.getId());
+        SearchResult res = search(query, PROBLEM);
+
+        if (res != null) {
+
+            ProblemList problems = new ProblemList(res.getSourceAsObjectList(Problem.class, true));
+            patient.setProblems(problems);
+
+            for (Problem problem : problems) {
+                getAndBindComments(problem);
+                getAndBindBodyPhotos(problem);
+                getAndBindRecords(problem);
+            }
+
+        } else printError(Patient.class, patient.getId());
+
+    }
+
+    private void getAndBindRecords(Problem problem) {
+
+        String query = generateQuery(TERM, "problemId", problem.getId());
+        SearchResult res = search(query, RECORD);
+
+        if (res != null) {
+
+            RecordList records = new RecordList(res.getSourceAsObjectList(Record.class, true));
+            problem.setRecords(records);
+
+            for (Record record : records) {
+                bindRecordPhotos(record);
+            }
+
+        } else printError(Problem.class, problem.getId());
+
+    }
+
+    private void bindRecordPhotos(Record record) {
+
+        String query = generateQuery(TERM, "recordId", record.getId());
+        SearchResult res = search(query, RECORDPHOTO);
+
+        if (res != null) {
+
+            List<RecordPhoto> recordPhotos = res.getSourceAsObjectList(RecordPhoto.class, true);
+            record.setRecordPhotos(recordPhotos);
+
+        } else printError(Record.class, record.getId());
+
+    }
+
+    private void getAndBindBodyPhotos(Problem problem) {
+
+        String query = generateQuery(TERM, "problemId", problem.getId());
+        SearchResult res = search(query, BODYPHOTO);
+
+        if (res != null) {
+
+            List<BodyPhoto> bodyPhotos = res.getSourceAsObjectList(BodyPhoto.class, true);
+            problem.setBodyPhotos(bodyPhotos);
+
+        } else printError(Problem.class, problem.getId());
+
+    }
+
+    private void getAndBindComments(Problem problem) {
+
+        String query = generateQuery(TERM, "problemId", problem.getId());
+        SearchResult res = search(query, COMMENT);
+
+        if (res != null) {
+
+            List<Comment> comments = res.getSourceAsObjectList(Comment.class, true);
+            problem.setComments(comments);
+
+        } else printError(Problem.class, problem.getId());
+
+    }
+
+    /**
+     * Returns a query string of specified lookup type and value to look for
+     *
+     * @param type Type of query (e.g. match, term)
+     * @param key The key to check
+     * @param value The value actually being looked for
+     * @return The properly formatted query
+     */
+    private String generateQuery(String type, String key, String value) {
+        return String.format("{\"query\": {\"%s\": {\"%s\": \"%s\"}}}", type, key, value);
+    }
+
+    /**
+     * Executes an elasticsearch query and return its results
      *
      * @param query properly formatted Elasticsearch query
      * @param type The index type the query pertains to
@@ -151,6 +250,12 @@ public class GetUserDataTask extends AsyncTask<User, Void, User> {
     private void printError(Class type, String id) {
         System.err.println(String.format("Could not get %s %s in %s.",
                 type.getSimpleName(), id, this.getClass().getSimpleName()));
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        cb.onComplete(aVoid);
     }
 
 }

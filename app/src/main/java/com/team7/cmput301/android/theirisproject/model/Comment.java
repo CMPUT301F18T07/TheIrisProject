@@ -6,6 +6,8 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import java.util.Date;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * A time-stamped message associated with a Problem.
  *
@@ -14,24 +16,32 @@ import java.util.Date;
  */
 public class Comment {
 
-    private CareProvider author;
+    @JestId
+    private String _id;
+    private String problemId;
+
+    private String author;
     private String title;
     private Date date;
     private String body;
 
     /* Constructors */
 
-    public void Comment(CareProvider careProvider, String title, Date date, String body) {
-
+    public Comment(String problemId, String author, String title, Date date, String body) {
+        this(problemId, author, title, body);
+        this.date = date;
     }
 
-    public void Comment(CareProvider careProvider, String title, String body) {
-
+    public Comment(String problemId, String author, String title, String body) {
+        this.problemId = problemId;
+        this.author = author;
+        this.title = title;
+        this.body = body;
     }
 
     /* Basic getters */
 
-    public CareProvider getCareProvider() {
+    public String getAuthor() {
         return author;
     }
 

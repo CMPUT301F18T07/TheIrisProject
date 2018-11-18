@@ -13,14 +13,10 @@ import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.LoginActivity;
 import com.team7.cmput301.android.theirisproject.activity.PatientListActivity;
 import com.team7.cmput301.android.theirisproject.activity.ProblemListActivity;
-import com.team7.cmput301.android.theirisproject.model.PatientList;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.GetUserDataTask;
 import com.team7.cmput301.android.theirisproject.task.LoginTask;
-
-import static com.team7.cmput301.android.theirisproject.model.User.UserType.CARE_PROVIDER;
-import static com.team7.cmput301.android.theirisproject.model.User.UserType.PATIENT;
 
 /**
  * LoginController helps the activity interact with the database

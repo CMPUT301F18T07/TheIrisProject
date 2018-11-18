@@ -30,9 +30,9 @@ public class Problem {
 
     @JestId
     private String _id;
+    private String userId;
 
     private String title;
-    private String user;
     private Date date;
     private String description;
     transient private RecordList records;
@@ -41,24 +41,24 @@ public class Problem {
 
     /* Constructors */
 
-    public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
-        this(title, description, user);
+    public Problem(String title, String description, String userId, List<BodyPhoto> bodyPhotos) {
+        this(title, description, userId);
         this.bodyPhotos = bodyPhotos;
         this.date = new Date();
     }
 
-    public Problem(String title, String description, String user) {
+    public Problem(String title, String description, String userId) {
         this.title = title;
         this.description = description;
-        this.user = user;
+        this.userId = userId;
         this.date = new Date();
 
     }
 
-    public Problem(String title, String description, String date, String user) throws ParseException {
+    public Problem(String title, String description, String date, String userId) throws ParseException {
         this.title = title;
         this.description = description;
-        this.user = user;
+        this.userId = userId;
         this.date = DateHelper.parse(date);
     }
 
@@ -71,6 +71,12 @@ public class Problem {
     public void setRecords(RecordList records){
         this.records = records;
     }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /* Basic getters */
 
     public RecordList getRecords() {
         return records;
@@ -98,7 +104,7 @@ public class Problem {
         return this.description;
     }
 
-    public String getUser() {return user;}
+    public String getUserId() {return userId;}
 
     public List<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;

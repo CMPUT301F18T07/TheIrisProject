@@ -23,7 +23,7 @@ public class CareProvider extends User {
         super(name, email, phoneNumber, UserType.CARE_PROVIDER);
     }
 
-    /* Basic setters */
+    /* Basic setters + adders */
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
@@ -33,24 +33,24 @@ public class CareProvider extends User {
         patients.add(patient);
     }
 
+    public void addPatientId(String patientId) {
+        patientIds.add(patientId);
+    }
+
     /* Basic getters */
 
     public List<Patient> getPatients() {
         return patients;
     }
 
+    public List<String> getPatientIds() {
+        return patientIds;
+    }
+
     /* Searches */
 
     public ProblemList getPatientProblems(Patient patient) {
         return null;
-    }
-
-    public void addPatientId(String patientId) {
-        patientIds.add(patientId);
-    }
-
-    public List<String> getPatientIds() {
-        return patientIds;
     }
 
     public Problem getPatientProblemById(String problemId) {

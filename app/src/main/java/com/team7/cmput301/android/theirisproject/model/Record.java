@@ -4,7 +4,6 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,15 +26,17 @@ public class Record {
     private String title;
     private Date date;
     private GeoLocation geoLocation;
-    transient private List<BodyLocation> bodyLocations;
+    transient private List<RecordPhoto> recordPhotos;
+
     /* Constructors */
 
-    public Record(String title, String desc, Date date, GeoLocation geoPt, List<BodyLocation> bodyLocations) {
+    public Record(String problemId, String title, String desc, Date date, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this.problemId = problemId;
         this.title = title;
         this.desc = desc;
         this.date = date;
         this.geoLocation = geoPt;
-        this.bodyLocations = bodyLocations;
+        this.recordPhotos = recordPhotos;
     }
 
     public Record(String problemId, String title, String desc) {
@@ -46,6 +47,12 @@ public class Record {
     }
 
     public Record() {
+    }
+
+    /* Basic setter */
+
+    public void setRecordPhotos(List<RecordPhoto> recordPhotos) {
+        this.recordPhotos = recordPhotos;
     }
 
     /* Basic getters */
@@ -74,26 +81,23 @@ public class Record {
         return geoLocation;
     }
 
-    public List<BodyLocation> getBodyLocations() {
-        return bodyLocations;
+    public List<RecordPhoto> getRecordPhotos() {
+        return recordPhotos;
     }
 
     /* Basic list operations */
-    public void addPhoto(BodyLocation img) {
-        bodyLocations.add(img);
+
+    public void addPhoto(RecordPhoto img) {
+        recordPhotos.add(img);
     }
 
-    public void deletePhoto(BodyLocation img) {
-        bodyLocations.remove(img);
+    public void deletePhoto(RecordPhoto img) {
+        recordPhotos.remove(img);
     }
 
     /* Advanced setters */
 
     public void editGeoLocation(int x, int y) {
-
-    }
-
-    public void editBodyLocation(int x, int y) {
 
     }
 

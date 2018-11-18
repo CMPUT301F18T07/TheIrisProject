@@ -27,9 +27,16 @@ public class BodyPhoto {
 
     /* Constructors */
 
-    public BodyPhoto(Bitmap image) {
+    public BodyPhoto(String problemId, Bitmap image) {
+        this.problemId = problemId;
         this.photo = image;
         this.blob = ImageConverter.base64EncodeBitmap(image);
+    }
+
+    public BodyPhoto(String problemId, String blob) {
+        this.problemId = problemId;
+        this.photo = ImageConverter.base64DecodeBitmap(blob);
+        this.blob = blob;
     }
 
     public void setProblemId(String id) {
