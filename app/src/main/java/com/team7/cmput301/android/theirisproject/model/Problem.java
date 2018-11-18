@@ -72,6 +72,8 @@ public class Problem {
         this.records = records;
     }
 
+    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {this.bodyPhotos = bodyPhotos;}
+
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
@@ -116,14 +118,5 @@ public class Problem {
         return null;
     }
 
-    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {
-        this.bodyPhotos.clear();
-        this.bodyPhotos.addAll(bodyPhotos);
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments.clear();
-        this.comments.addAll(comments);
-    }
 
 }

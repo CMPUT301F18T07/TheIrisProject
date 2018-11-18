@@ -46,6 +46,7 @@
     <string name="add_record">Add Record</string>
 
     <!-- View Record List screen strings -->
+    <string name="title_activity_view_record">ViewRecordActivity</string>
     <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
 
@@ -68,8 +69,7 @@
     <string name="record_list_edit_records_text">Edit Records</string>
 
     <!-- View Problem screen strings-->
-    <string name="title_activity_view_record">ViewRecordActivity</string>
-
+    <string name="problem_comments_label">Comments</string>
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>
@@ -113,6 +113,5 @@
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by e-mail</string>
     <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
-    <string name="problem_comments_label">Comments</string>
 
 </resources>
