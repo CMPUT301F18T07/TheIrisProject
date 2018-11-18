@@ -12,10 +12,17 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProblemListActivity">
 
-    <!--<include-->
-        <!--android:id="@+id/toolbar"-->
-        <!--layout = "@layout/problem_list_toolbar">-->
-    <!--</include>-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/problem_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/problem_list_add"
@@ -32,17 +39,8 @@
         android:id="@+id/problem_item_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.120000005" />
+        app:layout_constraintTop_toBottomOf="@+id/problem_list_toolbar" />
 
-    <!--<include-->
-        <!--android:id="@+id/problem_list_task_bar"-->
-        <!--layout = "@layout/problem_list_task_bar">-->
-
-    <!--</include>-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
 </android.support.constraint.ConstraintLayout>
