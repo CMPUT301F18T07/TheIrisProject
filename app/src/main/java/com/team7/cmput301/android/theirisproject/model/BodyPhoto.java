@@ -39,6 +39,11 @@ public class BodyPhoto {
         this.blob = blob;
     }
 
+    public BodyPhoto(Bitmap image) {
+        this.photo = image;
+        this.blob = ImageConverter.base64EncodeBitmap(image);
+    }
+
     public void setProblemId(String id) {
         problemId = id;
     }
