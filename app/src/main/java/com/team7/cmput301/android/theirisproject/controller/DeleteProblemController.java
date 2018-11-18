@@ -20,7 +20,7 @@ import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
  * @see DeleteProblemTask
  * */
 public class DeleteProblemController extends IrisController {
-    String problemID;
+    private String problemID;
 
 
     public DeleteProblemController(Intent intent) {

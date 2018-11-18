@@ -12,13 +12,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProblemListActivity">
 
-<<<<<<< HEAD
-    <include
-        android:id="@+id/toolbar"
-        layout = "@layout/problem_list_toolbar">
 
-    </include>
-=======
     <android.support.v7.widget.Toolbar
         android:id="@+id/problem_list_toolbar"
         android:layout_width="match_parent"
@@ -30,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </android.support.v7.widget.Toolbar>
->>>>>>> master
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/problem_list_add"

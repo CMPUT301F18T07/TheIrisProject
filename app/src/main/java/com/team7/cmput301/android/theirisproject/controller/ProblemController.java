@@ -27,7 +27,7 @@ import java.util.List;
  * @see ViewProblemActivity
  */
 public class ProblemController extends IrisController {
-    String problemID;
+    private String problemID;
 
     public ProblemController(Intent intent) {
         super(intent);

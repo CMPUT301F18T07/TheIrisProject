@@ -28,7 +28,7 @@ import java.text.ParseException;
  * @see com.team7.cmput301.android.theirisproject.activity.EditProblemActivity
  */
 public class EditProblemController extends IrisController {
-    String problemID;
+    private String problemID;
 
     public EditProblemController(Intent intent) {
         super(intent);

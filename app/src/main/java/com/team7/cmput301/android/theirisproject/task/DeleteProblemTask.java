@@ -35,13 +35,11 @@ public class DeleteProblemTask extends AsyncTask<String, Void, Boolean> {
             if (res.isSucceeded()) {
                 return true;
             }
-            else {
-                return false;
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
 

@@ -4,10 +4,8 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
-<<<<<<< HEAD
-=======
+
 import com.team7.cmput301.android.theirisproject.ImageConverter;
->>>>>>> master
 import com.team7.cmput301.android.theirisproject.helper.DateHelper;
 
 import java.text.DateFormat;
