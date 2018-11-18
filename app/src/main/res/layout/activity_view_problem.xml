@@ -44,7 +44,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
         android:textSize="24sp"
-        android:text="@string/viewprofile_title_text"
+        android:text="@string/view_problem_title_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/viewprofile_date_text"
+        android:text="@string/view_problem_date_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/problem_title" />
 
@@ -86,7 +86,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/viewprofile_descrption_text" />
+            android:text="@string/view_problem_description_text" />
     </ScrollView>
 
     <!--<TextView-->

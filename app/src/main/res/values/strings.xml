@@ -53,11 +53,11 @@
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
-    <string name="viewprofile_title_text">Title</string>
-    <string name="viewprofile_date_text">Date</string>
-    <string name="viewprofile_descrption_text">Description</string>
-    <string name="viewprofile_geolocation_text">Geo Location</string>
-    <string name="viewprofile_title">View Problem</string>
+    <string name="view_problem_title_text">Title</string>
+    <string name="view_problem_date_text">Date</string>
+    <string name="view_problem_description_text">Description</string>
+    <string name="view_problem_geolocation_text">Geo Location</string>
+    <string name="view_problem_title">View Problem</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>
@@ -84,36 +84,36 @@
     <string name="dont_delete_problem">No</string>
 
     <!-- View Patient Edit Profile screen strings-->
-    <string name="pEditprofile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
-    <string name="pEditprofile_title_text">Edit Profile</string>
-    <string name="pEditprofile_save_changes_button_text">Save Changes</string>
-    <string name="pEditprofile_cancel_button_text">Cancel</string>
-    <string name="pEditprofile_username_hint">Username</string>
-    <string name="pEditprofile_phone_number_hint">Phone Number</string>
-    <string name="pEditprofile_current_password_hint">Current Password</string>
-    <string name="pEditprofile_email_hint">Email</string>
-    <string name="pEditprofile_new_password_hint">New Password</string>
+    <string name="patient_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
+    <string name="patient_edit_profile_title_text">Edit Profile</string>
+    <string name="patient_edit_profile_save_changes_button_text">Save Changes</string>
+    <string name="patient_edit_profile_cancel_button_text">Cancel</string>
+    <string name="patient_edit_profile_username_hint">Username</string>
+    <string name="patient_edit_profile_phone_number_hint">Phone Number</string>
+    <string name="patient_edit_profile_current_password_hint">Current Password</string>
+    <string name="patient_edit_profile_email_hint">Email</string>
+    <string name="patient_edit_profile_new_password_hint">New Password</string>
 
 
     <!-- View Care Provider Edit Profile screen strings-->
-    <string name="cEditprofile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
-    <string name="cEditprofile_title_text">Edit Profile</string>
-    <string name="cEditprofile_save_changes_button_text">Save Changes</string>
-    <string name="cEditprofile_cancel_button_text">Cancel</string>
-    <string name="cEditprofile_username_hint">Username</string>
-    <string name="cEditprofile_phone_number_hint">Phone Number</string>
-    <string name="cEditprofile_current_password_hint">Current Password</string>
-    <string name="cEditprofile_email_hint">Email</string>
-    <string name="cEditprofile_new_password_hint">New Password</string>
+    <string name="care_provider_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
+    <string name="care_provider_edit_profile_title_text">Edit Profile</string>
+    <string name="care_provider_edit_profile_save_changes_button_text">Save Changes</string>
+    <string name="care_provider_edit_profile_cancel_button_text">Cancel</string>
+    <string name="care_provider_edit_profile_username_hint">Username</string>
+    <string name="care_provider_edit_profile_phone_number_hint">Phone Number</string>
+    <string name="care_provider_edit_profile_current_password_hint">Current Password</string>
+    <string name="care_provider_edit_profile_email_hint">Email</string>
+    <string name="care_provider_edit_profile_new_password_hint">New Password</string>
 
 
     <!-- View Profile screen strings-->
-    <string name="Viewprofile_username">Username</string>
-    <string name="Viewprofile_title">Profile</string>
-    <string name="Viewprofile_email">User Email</string>
-    <string name="Viewprofile__phone_number">User Phone Number</string>
-    <string name="Viewprofile_edit_profile_button_text">Edit Profile</string>
-    <string name="Viewprofile_care_providers_text">Care Providers:</string>
+    <string name="view_profile_username">Username</string>
+    <string name="view_profile_title">Profile</string>
+    <string name="view_profile_email">User Email</string>
+    <string name="view_profile_phone_number">User Phone Number</string>
+    <string name="view_profile_edit_profile_button_text">Edit Profile</string>
+    <string name="view_profile_care_providers_text">Care Providers:</string>
 
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by e-mail</string>

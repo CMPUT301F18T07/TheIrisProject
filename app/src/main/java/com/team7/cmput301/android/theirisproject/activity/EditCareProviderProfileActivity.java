@@ -12,20 +12,17 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 
 /**
- * ViewCareproviderProfileActivity is for allowing the care provider to view their profile information.
+ * EditCareProviderProfileActivity is for allowing the care provider to edit their profile information.
  * @author caboteja
  */
 
-
-public class ViewCareproviderProfileActivity extends IrisActivity {
+public class EditCareProviderProfileActivity extends IrisActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_careprovider_view_profile);
-
+        setContentView(R.layout.activity_care_provider_edit_profile);
     }
-
 
     @Override
     protected IrisController createController(Intent intent) {
