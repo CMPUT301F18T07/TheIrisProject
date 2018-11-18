@@ -43,11 +43,11 @@ public class Comment {
     public String getProblemId() { return problemId; }
 
     public String getRole() { return role; }
-
+  
     public String getAuthor() {
         return author;
     }
-
+  
     public String getDate() {
         return DateHelper.format(date);
     }

@@ -21,6 +21,8 @@ import java.io.IOException;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+import static com.team7.cmput301.android.theirisproject.model.User.UserType.PATIENT;
+
 public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
     private static final String TAG = LoginTask.class.getSimpleName();
@@ -59,7 +61,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
             // User is only set successfully if there exists a hit (exact email match)
             User user;
-            if (type.equals(UserType.PATIENT)) {
+            if (type.equals(PATIENT.toString())) {
                 user = searchResult.getSourceAsObject(Patient.class, true);
             } else {
                 user = searchResult.getSourceAsObject(CareProvider.class, true);
