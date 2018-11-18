@@ -38,7 +38,7 @@ public class Problem {
     private String description;
     transient private RecordList records;
     transient private List<Comment> comments = new ArrayList<>();
-    transient private List<BodyPhoto> bodyPhotos;
+    transient private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
     public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
         this(title, description, user);
@@ -109,8 +109,14 @@ public class Problem {
         return null;
     }
 
-    public void setBodyPhotos(List<BodyPhoto> photos) {
-        bodyPhotos = photos;
+    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {
+        this.bodyPhotos.clear();
+        this.bodyPhotos.addAll(bodyPhotos);
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments.clear();
+        this.comments.addAll(comments);
     }
 
 }

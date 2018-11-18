@@ -55,6 +55,11 @@ public class BodyPhotoListAdapter extends RecyclerView.Adapter<BodyPhotoListAdap
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
     }
+
+    public void setItems(List<BodyPhoto> images) {
+        this.images = images;
+    }
+
     /**
      * Our View for each item should be able to remove the item by having a
      * remove button
