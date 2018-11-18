@@ -76,7 +76,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     }
 
     /**
-     * Inflate Action Bar menu
+     * Inflate Toolbar menu
      * @param menu Menu to inflate
      * @return Must return True to actually show menu
      */
@@ -87,7 +87,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     }
 
     /**
-     * Called when an Action Bar item is clicked
+     * Called when an Toolbar item is clicked
      * https://developer.android.com/training/appbar/actions
      * @param item The selected menu item
      * @return False if normal menu processing is to occur, true otherwise
