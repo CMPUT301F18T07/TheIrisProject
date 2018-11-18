@@ -1,9 +1,7 @@
 package com.team7.cmput301.android.theirisproject;
 
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
-import com.team7.cmput301.android.theirisproject.model.RecordList;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,42 +13,42 @@ import java.util.List;
 public class ProblemListTest {
 
     private List<Problem> problems = new ArrayList<>();
-    private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", "0", new ArrayList<BodyPhoto>());
-    private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", "0", new ArrayList<BodyPhoto>());
+    private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", "0", new ArrayList<>());
+    private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", "0", new ArrayList<>());
 
     @Test
     public void testAdd() {
 
-        ProblemList p_list = new ProblemList();
-        p_list.add(p1);
-        p_list.add(p2);
+        ProblemList pList = new ProblemList();
+        pList.add(p1);
+        pList.add(p2);
 
-        Assert.assertTrue(p_list.contains(p1));
-        Assert.assertTrue(p_list.contains(p2));
+        Assert.assertTrue(pList.contains(p1));
+        Assert.assertTrue(pList.contains(p2));
 
     }
 
     @Test
     public void testDelete() {
 
-        ProblemList p_list = new ProblemList();
-        p_list.add(p1);
-        p_list.add(p2);
-        p_list.remove(p1);
-        p_list.remove(p2);
+        ProblemList pList = new ProblemList();
+        pList.add(p1);
+        pList.add(p2);
+        pList.remove(p1);
+        pList.remove(p2);
 
-        Assert.assertFalse(p_list.contains(p1));
-        Assert.assertFalse(p_list.contains(p2));
+        Assert.assertFalse(pList.contains(p1));
+        Assert.assertFalse(pList.contains(p2));
 
     }
 
     @Test
     public void testLength() {
 
-        ProblemList p_list = new ProblemList();
-        List<Problem> test_list = new ArrayList<>(Arrays.asList(p1, p2));
+        ProblemList pList = new ProblemList();
+        List<Problem> testList = new ArrayList<>(Arrays.asList(p1, p2));
 
-        Assert.assertEquals(test_list.size(), p_list.length());
+        Assert.assertEquals(testList.size(), pList.length());
 
     }
 
