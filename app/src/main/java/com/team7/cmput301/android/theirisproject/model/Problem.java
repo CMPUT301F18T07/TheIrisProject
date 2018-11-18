@@ -30,15 +30,16 @@ public class Problem {
 
     @JestId
     private String _id;
-
+    private String user;
 
     private String title;
-    private String user;
     private Date date;
     private String description;
     transient private RecordList records;
     transient private List<Comment> comments = new ArrayList<>();
     transient private List<BodyPhoto> bodyPhotos;
+
+    /* Constructors */
 
     public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
         this(title, description, user);
@@ -70,6 +71,12 @@ public class Problem {
     public void setRecords(RecordList records){
         this.records = records;
     }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /* Basic getters */
 
     public RecordList getRecords() {
         return records;
