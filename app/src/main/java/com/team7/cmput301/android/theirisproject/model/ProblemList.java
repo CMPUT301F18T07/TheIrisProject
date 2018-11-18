@@ -1,35 +1,76 @@
 /*
- * Copyright (c) Team X, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class ProblemList {
-    private ArrayList<Problem> problems = new ArrayList<Problem>();
+/**
+ * Represents a collection of Problems pertaining a particular Patient
+ * Besides doing typical List things like add/delete, handles more advanced
+ * actions like self-lookup.
+ * 1-1 association with Patient.
+ *
+ * @author itstc
+ * @author jtfwong
+ */
+public class ProblemList implements Iterable<Problem> {
 
-    public ArrayList<Problem> getProblems() {
-        return this.problems;
+    private ArrayList<Problem> problems = new ArrayList<>();
+
+    /* Constructors */
+
+    public ProblemList(List<Problem> problems) {
+        this.problems = (ArrayList<Problem>) problems;
     }
 
-    public void ProblemList() {
-
+    public ProblemList() {
     }
+
+    /* Basic getters */
+
+    public List<Problem> getProblems() {
+        return problems;
+    }
+
+    /* Basic list operations */
 
     public void add(Problem problem) {
-
+        problems.add(problem);
     }
 
-    public void delete(Problem problem) {
-
+    public void remove(Problem problem) {
+        problems.remove(problem);
     }
 
     public boolean contains(Problem problem) {
-        return false;
+        return problems.contains(problem);
     }
 
     public int length() {
-        return 0;
+        return problems.size();
     }
+
+    /* Searches */
+
+    public Problem getProblemById(String id) {
+        for(Problem problem: problems) {
+            if (problem.getId().equals(id)) return problem;
+        }
+        return null;
+    }
+
+    /* Misc */
+
+    @NonNull
+    @Override
+    public Iterator<Problem> iterator() {
+        return problems.iterator();
+    }
+
 }
