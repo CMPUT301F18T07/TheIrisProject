@@ -7,13 +7,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/Viewprofie_phone_number"
+        android:id="@+id/view_profile_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/view_profile__phone_number"
+        android:text="@string/view_profile_phone_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,10 +43,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Viewprofie_phone_number" />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_phone_number" />
 
     <TextView
-        android:id="@+id/ViewProfile_care_providers_text"
+        android:id="@+id/view_profile_care_providers_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ViewProfile_care_providers_text" />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_care_providers_text" />
 
     <Button
         android:id="@+id/view_profile_edit_profile_button"
