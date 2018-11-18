@@ -13,9 +13,9 @@ import java.util.List;
  * @author jtfwong
  */
 public class CareProvider extends User {
-    transient private List<Patient> patients;
+
+    transient private List<Patient> patients = new ArrayList<>();
     private List<String> patientIds = new ArrayList<>();
-    private List<Patient> patients = new ArrayList<>();
 
     /* Constructors */
 
