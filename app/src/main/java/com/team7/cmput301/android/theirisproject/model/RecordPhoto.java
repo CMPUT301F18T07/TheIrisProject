@@ -6,14 +6,27 @@ package com.team7.cmput301.android.theirisproject.model;
 
 import android.graphics.Bitmap;
 
+/**
+ * A photo associated with a Record.
+ *
+ * @see Record
+ * @author jtfwong
+ */
 public class RecordPhoto {
+
     private Bitmap img;
+
+    /* Constructors */
+
+    public RecordPhoto(Bitmap photo) {
+
+    }
+
+    /* Basic getters */
 
     public Bitmap getImg() {
         return img;
     }
 
-    public RecordPhoto(Bitmap photo) {
 
-    }
 }

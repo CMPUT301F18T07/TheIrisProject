@@ -26,15 +26,15 @@ import java.util.List;
  * */
 public class ProblemListAdapter extends ArrayAdapter<Problem> {
 
-    private int resource;
     private Activity context;
+    private int resource;
     private List<Problem> problems;
 
     public ProblemListAdapter(Activity context, int resource, List<Problem> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.problems = objects;
         this.resource = resource;
+        this.problems = objects;
     }
 
     @Override

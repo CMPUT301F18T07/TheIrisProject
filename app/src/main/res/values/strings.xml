@@ -48,7 +48,7 @@
     <!-- View Record List screen strings -->
     <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
-  
+
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
@@ -77,6 +77,11 @@
 
     <!-- Edit Problem strings-->
     <string name="submit_problem">Submit</string>
+
+    <!-- Delete Problem strings-->
+    <string name="delete_problem_hint">Do you want to delete this problem?</string>
+    <string name="do_delete_problem">Yes</string>
+    <string name="dont_delete_problem">No</string>
 
     <!-- View Patient Edit Profile screen strings-->
     <string name="pEditprofile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
@@ -110,6 +115,8 @@
     <string name="Viewprofile_edit_profile_button_text">Edit Profile</string>
     <string name="Viewprofile_care_providers_text">Care Providers:</string>
 
-
+    <!-- Add Patient dialog strings -->
+    <string name="add_patient_dialog_title">Add a patient by e-mail</string>
+    <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
 
 </resources>

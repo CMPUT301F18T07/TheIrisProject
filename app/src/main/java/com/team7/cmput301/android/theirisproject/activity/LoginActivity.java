@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -63,10 +64,17 @@ public class LoginActivity extends IrisActivity {
                     @Override
                     public void onComplete(Boolean success) {
                         // Start activity if login is successful, else stay on login activity
-                        if(success) startUserActivity(ProblemListActivity.class);
+                        if (success) {
+                            if (IrisProjectApplication.getCurrentUser().getType() == User.UserType.PATIENT) {
+                                startUserActivity(ProblemListActivity.class);
+                            } else {
+                                startUserActivity(PatientListActivity.class);
+                            }
+                        }
                         else Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();
                     }
                 });
+
             }
         });
 

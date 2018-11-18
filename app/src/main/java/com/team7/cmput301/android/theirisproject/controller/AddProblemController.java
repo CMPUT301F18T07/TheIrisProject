@@ -17,7 +17,11 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 
+<<<<<<< HEAD
 import java.util.Date;
+=======
+import java.util.ArrayList;
+>>>>>>> master
 
 /**
  * AddProblemController has methods to allow our AddProblemActivity

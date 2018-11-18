@@ -41,14 +41,14 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.record_list_task_bar);
-        setSupportActionBar(toolbar);
-        this.controller = createController(getIntent());
-
-        recordListView = findViewById(R.id.record_item_list);
         controller = createController(getIntent());
 
+        toolbar = findViewById(R.id.record_list_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
+
+        recordListView = findViewById(R.id.record_item_list);
+
 
         recordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,7 +76,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     }
 
     /**
-     * Inflate Action Bar menu
+     * Inflate Toolbar menu
      * @param menu Menu to inflate
      * @return Must return True to actually show menu
      */
@@ -87,7 +87,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     }
 
     /**
-     * Called when an Action Bar item is clicked
+     * Called when an Toolbar item is clicked
      * https://developer.android.com/training/appbar/actions
      * @param item The selected menu item
      * @return False if normal menu processing is to occur, true otherwise
@@ -123,7 +123,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
      */
     public void render(RecordList records) {
         Integer recordItemLayout = R.layout.list_record_item;
-        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.getRecords());
+        RecordListAdapter adapter = new RecordListAdapter(this, recordItemLayout, records.asList());
         recordListView.setAdapter(adapter);
     }
 }

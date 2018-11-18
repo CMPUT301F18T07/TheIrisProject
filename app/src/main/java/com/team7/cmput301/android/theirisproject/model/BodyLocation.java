@@ -4,7 +4,15 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+/**
+ * A specific point on a Body Photo.
+ * Associated with a Record.
+ *
+ * @see Record
+ * @author jtfwong
+ */
 public class BodyLocation {
+
     private int x;
     private int y;
     private BodyPhoto src;
@@ -14,15 +22,22 @@ public class BodyLocation {
         this.y = y;
     }
 
-    public int[] asInt() {
-        return new int[0];
-    }
+    /* Basic getters */
 
     public BodyPhoto getSrc() {
         return null;
     }
 
+    /* Advanced setters */
+
     public void update(int x, int y) {
 
     }
+
+    /* Misc */
+
+    public int[] asInt() {
+        return new int[0];
+    }
+
 }
