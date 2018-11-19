@@ -7,7 +7,7 @@
     tools:context=".activity.DeleteProblemActivity">
 
     <TextView
-        android:id="@+id/deleteProblemHint"
+        android:id="@+id/delete_problem_hint_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
@@ -17,22 +17,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/dontDeleteProblemButton"
+        android:id="@+id/dont_delete_problem_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:text="@string/dont_delete_problem"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteProblemHint" />
+        app:layout_constraintTop_toBottomOf="@id/delete_problem_hint_text_view" />
 
     <Button
-        android:id="@+id/doDeleteProblemButton"
+        android:id="@+id/do_delete_problem_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="64dp"
         android:text="@string/do_delete_problem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteProblemHint" />
+        app:layout_constraintTop_toBottomOf="@id/delete_problem_hint_text_view" />
 </android.support.constraint.ConstraintLayout>
