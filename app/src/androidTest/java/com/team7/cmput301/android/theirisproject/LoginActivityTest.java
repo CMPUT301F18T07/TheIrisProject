@@ -6,8 +6,17 @@ import android.widget.EditText;
 
 import com.robotium.solo.Solo;
 import com.team7.cmput301.android.theirisproject.activity.LoginActivity;
+import com.team7.cmput301.android.theirisproject.activity.PatientListActivity;
 import com.team7.cmput301.android.theirisproject.activity.ProblemListActivity;
-import com.team7.cmput301.android.theirisproject.activity.RegisterActivity;
+import com.team7.cmput301.android.theirisproject.helper.DeleteUserTask;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.RegisterTask;
+
+import org.junit.Test;
 
 /**
  * LoginActivityTest contains UI testing pertaining to the login screen
@@ -18,6 +27,10 @@ import com.team7.cmput301.android.theirisproject.activity.RegisterActivity;
 public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginActivity> {
 
     private Solo solo;
+
+    private String testName = "John Doe";
+    private String testEmail = "johndoe@gmail.com";
+    private String testPhone = "123-456-7890";
 
     public LoginActivityTest() {
         super(LoginActivity.class);
@@ -33,6 +46,7 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginAct
         solo.finishOpenedActivities();
     }
 
+    @Test
     public void testActivity() {
         String activityName = LoginActivity.class.getSimpleName();
         solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
@@ -41,6 +55,7 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginAct
     /**
      * Logging in with an empty email
      */
+    @Test
     public void testLoginFailureEmptyEmail() {
         setupLogin("");
 
@@ -50,25 +65,67 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginAct
     /**
      * Logging in with an email that doesn't exist
      */
+    @Test
     public void testLoginFailure() {
-        setupLogin("foobar@gmail.com");
+        deleteUserWithEmail(testEmail);
+
+        setupLogin(testEmail);
+
+        Timer.sleep(1000);
 
         solo.waitForText(getActivity().getString(R.string.login_failure));
     }
 
     /**
-     * Logging in with an e-mail that does exist
+     * Logging in with an e-mail that does exist, where the User is of type Patient
      */
-    public void testLoginSuccess() {
-        setupLogin("johndoe@gmail.com");
+    @Test
+    public void testLoginSuccessPatient() {
+        deleteUserWithEmail(testEmail);
+
+        new RegisterTask(new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean registerResult) {
+                if (!registerResult) {
+                    assert false;
+                }
+            }
+        }).execute(getTestPatient());
+
+        setupLogin(testEmail);
+
+        Timer.sleep(1000);
 
         solo.waitForText(getActivity().getString(R.string.login_success));
 
-        // TODO: Code below assumes the user is a Patient, there should be a dedicated login test for both a Patient and CP.
-        // Need to implement simplified start-of-test reading and deleting from test DB if possible
+        String problemListActivityName = ProblemListActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity found, should be " + problemListActivityName, problemListActivityName);
+    }
 
-//        String problemListActivityName = ProblemListActivity.class.getSimpleName();
-//        solo.assertCurrentActivity("Wrong activity found, should be " + problemListActivityName, problemListActivityName);
+    /**
+     * Logging in with an e-mail that does exist, where the User is of type Care Provider
+     */
+    @Test
+    public void testLoginSuccessCareProvider() {
+        deleteUserWithEmail(testEmail);
+
+        new RegisterTask(new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean registerResult) {
+                if (!registerResult) {
+                    assert false;
+                }
+            }
+        }).execute(getTestCareProvider());
+
+        setupLogin(testEmail);
+
+        Timer.sleep(1000);
+
+        solo.waitForText(getActivity().getString(R.string.login_success));
+
+        String patientListActivityName = PatientListActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity found, should be " + patientListActivityName, patientListActivityName);
     }
 
     /**
@@ -81,6 +138,25 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2<LoginAct
 
         solo.enterText(emailEditText, email);
         solo.clickOnView(loginButton);
+    }
+
+    private void deleteUserWithEmail(String email) {
+        new DeleteUserTask(new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean res) {
+                // Don't need to do anything with result
+            }
+        }).execute(email);
+
+        Timer.sleep(1000);
+    }
+
+    private Patient getTestPatient() {
+        return new Patient(testName, testEmail, testPhone);
+    }
+
+    private CareProvider getTestCareProvider() {
+        return new CareProvider(testName, testEmail, testPhone);
     }
 
 }
