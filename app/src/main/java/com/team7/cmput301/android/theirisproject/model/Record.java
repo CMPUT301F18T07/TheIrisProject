@@ -4,15 +4,17 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.searchbox.annotations.JestId;
 
 /**
  * A single record of a particular Problem
  *
- * @author Jmmxp
+ * @see RecordList
+ * @see Problem
+ * @author jtfwong
  */
 public class Record {
 
@@ -20,29 +22,51 @@ public class Record {
     private String _id;
     private String problemId;
 
-    private String text;
+    private String desc;
     private String title;
     private Date date;
     private GeoLocation geoLocation;
-    private BodyLocation bodyLocation;
-    private ArrayList<RecordPhoto> recordPhotos = new ArrayList<RecordPhoto>();
+    transient private List<RecordPhoto> recordPhotos;
 
-    public Record(String problemId, String title, String text, Date date, GeoLocation geoPt, BodyLocation bodyPt, ArrayList<RecordPhoto> recordPhotos) {
+    /* Constructors */
+
+    public Record(String problemId, String title, String desc, Date date, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
         this.problemId = problemId;
         this.title = title;
-        this.text = text;
+        this.desc = desc;
         this.date = date;
         this.geoLocation = geoPt;
-        this.bodyLocation = bodyPt;
         this.recordPhotos = recordPhotos;
+    }
+
+    public Record(String problemId, String title, String desc) {
+        this.problemId = problemId;
+        this.title = title;
+        this.desc = desc;
+        this.date = new Date();
+    }
+
+    public Record() {
+    }
+
+    /* Basic setter */
+
+    public void setRecordPhotos(List<RecordPhoto> recordPhotos) {
+        this.recordPhotos = recordPhotos;
+    }
+
+    /* Basic getters */
+
+    public String getId() {
+        return _id;
     }
 
     public String getProblemId() {
         return problemId;
     }
 
-    public String getText() {
-        return text;
+    public String getDesc() {
+        return desc;
     }
 
     public String getTitle() {
@@ -57,31 +81,24 @@ public class Record {
         return geoLocation;
     }
 
-    public BodyLocation getBodyLocation() {
-        return bodyLocation;
-    }
-
-    public ArrayList<RecordPhoto> getRecordPhotos() {
+    public List<RecordPhoto> getRecordPhotos() {
         return recordPhotos;
     }
 
-    public void addPhoto(RecordPhoto img) {
+    /* Basic list operations */
 
+    public void addPhoto(RecordPhoto img) {
+        recordPhotos.add(img);
     }
 
     public void deletePhoto(RecordPhoto img) {
-
+        recordPhotos.remove(img);
     }
+
+    /* Advanced setters */
 
     public void editGeoLocation(int x, int y) {
 
     }
 
-    public void editBodyLocation(int x, int y) {
-
-    }
-
-    public String getId() {
-        return _id;
-    }
 }

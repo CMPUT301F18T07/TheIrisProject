@@ -7,12 +7,15 @@
 package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
@@ -26,8 +29,8 @@ import io.searchbox.core.SearchResult;
  * */
 public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
 
+    private static final String TAG = GetProblemListTask.class.getSimpleName();
     private Callback cb;
-
 
     public GetProblemListTask(Callback callback) {
         this.cb = callback;
@@ -42,12 +45,17 @@ public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
     protected ProblemList doInBackground(String... params) {
         try {
             // send GET request to our database endpoint ".../_search?q=_type:problem&q=user:`params[0]`"
-            Search get = new Search.Builder("{\"query\": {\"term\": {\"user\": \"" + params[0] + "\"}}}")
+            Search get = new Search.Builder("{"+
+                    "    \"query\" : {\n" +
+                    "        \"term\" : { \"user\" : \"" + params[0] +"\" }\n" +
+                    "    }\n" +
+                    "}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("problem")
                     .build();
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);
+
             return new ProblemList(res.getSourceAsObjectList(Problem.class, true));
         } catch (IOException e) {
             e.printStackTrace();

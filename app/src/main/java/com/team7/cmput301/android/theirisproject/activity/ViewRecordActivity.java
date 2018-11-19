@@ -5,13 +5,14 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.controller.RecordController;
+import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * ViewRecordActivity used to view a record
@@ -20,6 +21,13 @@ import com.team7.cmput301.android.theirisproject.R;
  * */
 public class ViewRecordActivity extends AppCompatActivity {
 
+    private TextView title;
+    private TextView desc;
+    private TextView date;
+
+    private RecordController controller;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,14 +35,27 @@ public class ViewRecordActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        controller = new RecordController(getIntent());
+
+        title = findViewById(R.id.record_title);
+        desc = findViewById(R.id.record_description);
+        date = findViewById(R.id.record_date);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        controller.getRecordData(new Callback<Record>() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onComplete(Record res) {
+                render(res);
             }
         });
     }
 
+    private void render(Record newState) {
+        title.setText(newState.getTitle());
+        desc.setText(newState.getDesc());
+        date.setText(newState.getDate().toString());
+    }
 }

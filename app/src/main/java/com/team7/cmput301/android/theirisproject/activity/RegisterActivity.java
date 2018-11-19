@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.RegisterController;
+import com.team7.cmput301.android.theirisproject.helper.StringHelper;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+
+import java.util.Arrays;
 
 /**
  * Activity that is used to help registerUser new users into the database
@@ -65,8 +68,16 @@ public class RegisterActivity extends IrisActivity {
      */
     private void registerUser() {
         String username = usernameEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String phoneNumber = phoneEditText.getText().toString();
+
+        String[] fields = {username, password, email, phoneNumber};
+
+        if (StringHelper.hasEmptyString(Arrays.asList(fields))) {
+            Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         int radioButtonId = userRadioGroup.getCheckedRadioButtonId();
         UserType type;

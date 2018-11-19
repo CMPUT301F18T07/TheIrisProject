@@ -17,6 +17,9 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.EditProblemTask;
 
 
+import java.text.ParseException;
+
+
 /**
  * Controller that submits the edited problem to the database
  * Called from EditProblemActivity
@@ -25,7 +28,7 @@ import com.team7.cmput301.android.theirisproject.task.EditProblemTask;
  * @see com.team7.cmput301.android.theirisproject.activity.EditProblemActivity
  */
 public class EditProblemController extends IrisController {
-    String problemID;
+    private String problemID;
 
     public EditProblemController(Intent intent) {
         super(intent);
@@ -38,9 +41,13 @@ public class EditProblemController extends IrisController {
         return null;
     }
 
-    public void submitProblem(String title, String desc, Callback cb) {
-        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
+
+    public void submitProblem(String title, String desc, String date, Callback cb) throws ParseException{
+
+        Problem submitProblem = new Problem(title, desc, date, IrisProjectApplication.getCurrentUser().getId());
         new EditProblemTask(cb).execute(submitProblem, problemID);
+
+
     }
 
 }

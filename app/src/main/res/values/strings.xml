@@ -32,10 +32,9 @@
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
     <string name="enter_a_title_max_30_characters">Enter a title (Max 30 characters)</string>
-    <string name="select_start_date">Select start date</string>
     <string name="enter_a_description_max_300_characters">Enter a description (Max 300 characters)</string>
     <string name="geo_location">Geo Location</string>
-    <string name="record_problem">Record Problem</string>
+    <string name="add_problem">Add Problem</string>
     <string name="login_register_text">Don\'t have an account?</string>
     <string name="login_register_button_text">" Sign Up"</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
@@ -47,13 +46,30 @@
     <string name="add_record">Add Record</string>
 
     <!-- View Record List screen strings -->
+    <string name="title_activity_view_record">ViewRecordActivity</string>
     <string name="record_list_activity_title">Records</string>
     <string name="edit_records">Edit</string>
 
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
     <string name="create_record">Create Record</string>
-    <string name="title_activity_view_record">ViewRecordActivity</string>
+    <string name="view_problem_title_text">Title</string>
+    <string name="view_problem_date_text">Date</string>
+    <string name="view_problem_description_text">Description</string>
+    <string name="view_problem_geolocation_text">Geo Location</string>
+    <string name="view_problem_title">View Problem</string>
+
+    <!-- View Problem list screen strings-->
+    <string name="problem_list_map_of_all_records">Map of all Records</string>
+    <string name="problem_list_edit_problems_text">Edit Problems</string>
+    <string name="problem_list_profile_text">Profile</string>
+    <string name="problem_list_search_text">Search</string>
+
+    <!-- View Record list screen strings-->
+    <string name="record_list_edit_records_text">Edit Records</string>
+
+    <!-- View Problem screen strings-->
+    <string name="problem_comments_label">Comments</string>
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>
@@ -61,5 +77,46 @@
 
     <!-- Edit Problem strings-->
     <string name="submit_problem">Submit</string>
+
+    <!-- Delete Problem strings-->
+    <string name="delete_problem_hint">Do you want to delete this problem?</string>
+    <string name="do_delete_problem">Yes</string>
+    <string name="dont_delete_problem">No</string>
+
+    <!-- View Patient Edit Profile screen strings-->
+    <string name="patient_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
+    <string name="patient_edit_profile_title_text">Edit Profile</string>
+    <string name="patient_edit_profile_save_changes_button_text">Save Changes</string>
+    <string name="patient_edit_profile_cancel_button_text">Cancel</string>
+    <string name="patient_edit_profile_username_hint">Username</string>
+    <string name="patient_edit_profile_phone_number_hint">Phone Number</string>
+    <string name="patient_edit_profile_current_password_hint">Current Password</string>
+    <string name="patient_edit_profile_email_hint">Email</string>
+    <string name="patient_edit_profile_new_password_hint">New Password</string>
+
+
+    <!-- View Care Provider Edit Profile screen strings-->
+    <string name="care_provider_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
+    <string name="care_provider_edit_profile_title_text">Edit Profile</string>
+    <string name="care_provider_edit_profile_save_changes_button_text">Save Changes</string>
+    <string name="care_provider_edit_profile_cancel_button_text">Cancel</string>
+    <string name="care_provider_edit_profile_username_hint">Username</string>
+    <string name="care_provider_edit_profile_phone_number_hint">Phone Number</string>
+    <string name="care_provider_edit_profile_current_password_hint">Current Password</string>
+    <string name="care_provider_edit_profile_email_hint">Email</string>
+    <string name="care_provider_edit_profile_new_password_hint">New Password</string>
+
+
+    <!-- View Profile screen strings-->
+    <string name="view_profile_username">Username</string>
+    <string name="view_profile_title">Profile</string>
+    <string name="view_profile_email">User Email</string>
+    <string name="view_profile_phone_number">User Phone Number</string>
+    <string name="view_profile_edit_profile_button_text">Edit Profile</string>
+    <string name="view_profile_care_providers_text">Care Providers:</string>
+
+    <!-- Add Patient dialog strings -->
+    <string name="add_patient_dialog_title">Add a patient by e-mail</string>
+    <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
 
 </resources>

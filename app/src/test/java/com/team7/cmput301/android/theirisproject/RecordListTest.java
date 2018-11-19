@@ -4,7 +4,6 @@
 
 package com.team7.cmput301.android.theirisproject;
 
-import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
@@ -15,6 +14,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class RecordListTest {
@@ -24,11 +24,11 @@ public class RecordListTest {
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
-        Assert.assertEquals(recordList.getRecords().size(), 0);
+        Assert.assertEquals(recordList.asList().size(), 0);
 
         recordList.add(record);
 
-        Assert.assertEquals(recordList.getRecords().size(), 1);
+        Assert.assertEquals(recordList.asList().size(), 1);
     }
 
     @Test
@@ -46,11 +46,11 @@ public class RecordListTest {
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
-        Assert.assertEquals(recordList.getRecords().size(), 1);
+        Assert.assertEquals(recordList.asList().size(), 1);
 
         recordList.remove(record);
 
-        Assert.assertEquals(recordList.getRecords().size(), 0);
+        Assert.assertEquals(recordList.asList().size(), 0);
     }
 
     @Test
@@ -64,15 +64,16 @@ public class RecordListTest {
     }
 
     private Record getTestRecord() {
+
+        String problemID = "mk543";
         String title = "Title";
         String text = "Text";
         Date date = new Date();
-        GeoLocation geoLocation = null;
-        BodyLocation bodyLocation = null;
-        ArrayList<RecordPhoto> recordPhotos = new ArrayList<>(null);
+        GeoLocation geoLocation = new GeoLocation(1.0, 1.0);
+        List<RecordPhoto> recordPhotos = new ArrayList<>();
 
-        Record record = new Record(title, text, date, geoLocation, bodyLocation, recordPhotos);
-        return record;
+        return new Record(problemID, title, text, date, geoLocation, recordPhotos);
+
     }
 
 }

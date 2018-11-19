@@ -18,7 +18,7 @@ public class PatientTest {
 
         Assert.assertEquals(name, patient.getName());
         Assert.assertEquals(email, patient.getEmail());
-        Assert.assertEquals(phoneNumber, patient.getPhoneNumber());
+        Assert.assertEquals(phoneNumber, patient.getPhone());
         Assert.assertEquals(type, patient.getType());
     }
 
