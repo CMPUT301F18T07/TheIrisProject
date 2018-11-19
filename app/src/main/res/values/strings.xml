@@ -26,7 +26,6 @@
     <string name="register_password_hint">Enter a password</string>
     <string name="register_phone_hint">Enter phone number</string>
     <string name="register_email_hint">Enter email address</string>
-
     <string name="register_success">User successfully registered!</string>
     <string name="register_incomplete">Please fill in all fields!</string>
     <string name="register_failure">Could not register, e-mail already in use!</string>
@@ -40,6 +39,8 @@
     <string name="login_register_text">Don\'t have an account?</string>
     <string name="login_register_button_text">" Sign Up"</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
+    <string name="add_problem_success">New Problem created!</string>
+    <string name="add_problem_failure">"Uh oh something went wrong"</string>
 
     <!-- Create Record screen strings-->
     <string name="create_a_record">Create a Record</string>
