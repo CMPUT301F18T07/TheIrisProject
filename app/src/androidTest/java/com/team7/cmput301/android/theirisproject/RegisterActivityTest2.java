@@ -26,63 +26,79 @@ public class RegisterActivityTest2 extends ActivityInstrumentationTestCase2<Regi
         super(RegisterActivity.class);
     }
 
-//    @Override
-//    protected void setUp() throws Exception {
-//        super.setUp();
-//        solo = new Solo(getInstrumentation(), getActivity());
-//    }
-//
-//    @Override
-//    protected void tearDown() throws Exception {
-//        super.tearDown();
-//        solo.finishOpenedActivities();
-//    }
-//
-//    public void testActivity() {
-//        String activityName = RegisterActivity.class.getSimpleName();
-//        solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
-//    }
-//
-//    // Test registration when not all fields have been filled out
-//    public void testRegisterIncomplete() {
-//        Button registerButton = (Button) solo.getView(R.id.register_button);
-//
-//        solo.clickOnView(registerButton);
-//
-//        assertTrue(solo.waitForText(getString(R.string.register_failure)));
-//
-//        // Try registering with only the name field filled out
-//        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
-//        solo.enterText(nameEditText, "John Doe");
-//
-//        solo.clickOnView(registerButton);
-//
-//        assertTrue(solo.waitForText(getString(R.string.register_success)));
-//    }
-//
+    @Override
+    protected void setUp() {
+        solo = new Solo(getInstrumentation(), getActivity());
+    }
+
+    @Override
+    protected void tearDown() {
+        solo.finishOpenedActivities();
+    }
+
+    public void testActivity() {
+        String activityName = RegisterActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
+    }
+
+    // Test registration when not all fields have been filled out
+    public void testRegisterIncomplete() {
+        Button registerButton = (Button) solo.getView(R.id.register_button);
+
+        solo.clickOnView(registerButton);
+
+        assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
+
+        // Try registering with only the name field filled out
+        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
+        solo.enterText(nameEditText, "John Doe");
+
+        solo.clickOnView(registerButton);
+
+        assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
+    }
+
+    public void testRegisterAlreadyRegistered() {
+        Button registerButton = (Button) solo.getView(R.id.register_button);
+
+        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
+        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
+        EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
+        EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
+
+        solo.enterText(nameEditText, "John Doe");
+        solo.enterText(passwordEditText, "badpassword");
+        solo.enterText(emailEditText, "johndoe@gmail.com");
+        solo.enterText(phoneEditText, "123-456-7890");
+
+        solo.clickOnView(registerButton);
+
+        // TODO: Add user to DB before doing this test
+        assertTrue(solo.waitForText(getString(R.string.register_failure)));
+    }
+
     // Test registration when all fields have been filled out
-//    public void testRegisterComplete() {
-//        Button registerButton = (Button) solo.getView(R.id.register_button);
-//
-//
-//        // Try registering with only the name field filled out
-//        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
-//        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
-//        EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
-//        EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
-//
-//        solo.enterText(nameEditText, "John Doe");
-//        solo.enterText(passwordEditText, "badpassword");
-//        solo.enterText(emailEditText, "johndoe@gmail.com");
-//        solo.enterText(phoneEditText, "123-456-7890");
-//
-//        solo.clickOnView(registerButton);
-//
-//        assertTrue(solo.waitForText(getString(R.string.register_failure)) || solo.waitForText(getString(R.string.register_incomplete)));
-//    }
-//
-//    private String getString(int stringId) {
-//        return getActivity().getString(stringId);
-//    }
+    public void testRegisterSuccess() {
+        Button registerButton = (Button) solo.getView(R.id.register_button);
+
+        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
+        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
+        EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
+        EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
+
+        solo.enterText(nameEditText, "John Doe");
+        solo.enterText(passwordEditText, "badpassword");
+        solo.enterText(emailEditText, "johndoe@gmail.com");
+        solo.enterText(phoneEditText, "123-456-7890");
+
+        solo.clickOnView(registerButton);
+
+        // TODO: Delete user from DB if exists before doing this test
+        // assertTrue(solo.waitForText(getString(R.string.register_success)));
+    }
+
+    private String getString(int stringId) {
+        return getActivity().getString(stringId);
+    }
 
 }

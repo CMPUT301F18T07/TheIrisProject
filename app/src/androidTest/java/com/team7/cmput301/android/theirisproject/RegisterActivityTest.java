@@ -40,6 +40,11 @@ public class RegisterActivityTest {
     @Before
     public void setUp() {
         activity = activityRule.getActivity();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // Test registration when not all fields have been filled out
