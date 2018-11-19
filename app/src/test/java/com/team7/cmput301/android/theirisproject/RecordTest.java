@@ -17,20 +17,15 @@ import java.util.List;
 
 public class RecordTest {
 
-    private String problemID = "mgfdj23";
-    private String title = "Title";
-    private String desc = "Text";
-    private Date date = new Date();
-    private GeoLocation geoLocation = null;
-    private List<RecordPhoto> recordPhotos = null;
+    private String problemID;
+    private String title;
+    private String desc;
+    private Date date;
+    private GeoLocation geoLocation;
+    private List<RecordPhoto> recordPhotos;
 
     @Test
     public void testRecord(){
-        String title = "Title";
-        String text = "Text";
-        Date date = new Date();
-        GeoLocation geoLocation = null;
-        List<RecordPhoto> recordPhotos = new ArrayList<>();
 
         Record record = getTestRecord();
 
@@ -45,6 +40,7 @@ public class RecordTest {
 
     @Test
     public void testAddPhoto() {
+
         Record record = getTestRecord();
 
         record.addPhoto(null);
@@ -53,6 +49,7 @@ public class RecordTest {
 
     @Test
     public void testDeletePhoto() {
+
         Record record = getTestRecord();
 
         record.deletePhoto(null);
@@ -61,6 +58,7 @@ public class RecordTest {
 
     @Test
     public void testEditGeoLocation() {
+
         Record record = getTestRecord();
 
         GeoLocation updatedGeoLocation = new GeoLocation(1.0, 1.0);
@@ -70,6 +68,7 @@ public class RecordTest {
 
     @Test
     public void testEditRecordPhotos() {
+
         Record record = getTestRecord();
 
         List<RecordPhoto> recordPhotos = new ArrayList<>();

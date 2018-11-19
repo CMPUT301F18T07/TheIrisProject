@@ -15,6 +15,20 @@ public class ProblemListTest {
     private List<Problem> problems = new ArrayList<>();
     private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", "0", new ArrayList<>());
     private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", "0", new ArrayList<>());
+    private Problem p3 = new Problem("Noticed new rash", "Gotta keep track", "0", new ArrayList<>());
+
+    @Test
+    public void testContains() {
+
+        ProblemList pList = new ProblemList();
+        pList.add(p1);
+        pList.add(p2);
+
+        Assert.assertTrue(pList.contains(p1));
+        Assert.assertTrue(pList.contains(p2));
+        Assert.assertFalse(pList.contains(p3));
+
+    }
 
     @Test
     public void testAdd() {

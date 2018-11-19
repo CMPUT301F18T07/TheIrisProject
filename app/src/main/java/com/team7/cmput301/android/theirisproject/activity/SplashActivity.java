@@ -15,6 +15,7 @@ public class SplashActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
+        // Moves to login screen after splash screen is displayed
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
