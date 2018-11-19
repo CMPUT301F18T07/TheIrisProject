@@ -123,8 +123,10 @@ public class RegisterActivityTest {
         }
     }
 
-    // Check if a Toast displays given text
-    // REFERENCE: https://stackoverflow.com/questions/28390574/checking-toast-message-in-android-espresso
+    /**
+     * Check if a Toast displays given text
+     * REFERENCE: https://stackoverflow.com/questions/28390574/checking-toast-message-in-android-espresso
+     */
     private void checkToast(String toastText) {
         onView(withText(toastText))
                 .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))

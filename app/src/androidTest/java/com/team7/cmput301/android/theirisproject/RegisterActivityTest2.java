@@ -40,7 +40,9 @@ public class RegisterActivityTest2 extends ActivityInstrumentationTestCase2<Regi
         solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
     }
 
-    // Test registration when not all fields have been filled out
+    /**
+     * Test registration when not all fields have been filled out
+     */
     public void testRegisterIncomplete() {
         Button registerButton = (Button) solo.getView(R.id.register_button);
 
@@ -57,6 +59,10 @@ public class RegisterActivityTest2 extends ActivityInstrumentationTestCase2<Regi
         assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
     }
 
+    /**
+     * Test registration when all fields are filled out but the email is already in use
+     * Currently only works if the account has already been registered
+     */
     public void testRegisterAlreadyRegistered() {
         Button registerButton = (Button) solo.getView(R.id.register_button);
 
@@ -76,7 +82,10 @@ public class RegisterActivityTest2 extends ActivityInstrumentationTestCase2<Regi
         assertTrue(solo.waitForText(getString(R.string.register_failure)));
     }
 
-    // Test registration when all fields have been filled out
+    /**
+     * Test registration when all fields are filled out and user is registered successfully
+     * Currently only works if the account is guaranteed not to be registered
+     */
     public void testRegisterSuccess() {
         Button registerButton = (Button) solo.getView(R.id.register_button);
 
