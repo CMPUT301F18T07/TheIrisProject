@@ -60,7 +60,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 //        assertTrue(solo.waitForText(getString(R.string.register_success)));
 //    }
 //
-//    // Test registration when all fields have been filled out
+    // Test registration when all fields have been filled out
 //    public void testRegisterComplete() {
 //        Button registerButton = (Button) solo.getView(R.id.register_button);
 //
@@ -78,7 +78,7 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
 //
 //        solo.clickOnView(registerButton);
 //
-//        assertTrue(solo.waitForText(getString(R.string.register_failure)));
+//        assertTrue(solo.waitForText(getString(R.string.register_failure)) || solo.waitForText(getString(R.string.register_incomplete)));
 //    }
 //
 //    private String getString(int stringId) {
