@@ -22,13 +22,13 @@ public class Comment {
     private String _id;
     private String problemId;
     private String author;
-    private String role;
+    private User.UserType role;
     private Date date;
     private String body;
 
     /* Constructors */
 
-    public Comment(String problemId, String author, String body, String role) {
+    public Comment(String problemId, String author, String body, User.UserType role) {
         this.problemId = problemId;
         this.author = author;
         this.body = body;
@@ -42,7 +42,7 @@ public class Comment {
 
     public String getProblemId() { return problemId; }
 
-    public String getRole() { return role; }
+    public User.UserType getRole() { return role; }
 
     public String getAuthor() {
         return author;

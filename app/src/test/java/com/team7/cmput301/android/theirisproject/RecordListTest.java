@@ -25,9 +25,7 @@ public class RecordListTest {
         Record record = getTestRecord();
 
         Assert.assertEquals(recordList.asList().size(), 0);
-
         recordList.add(record);
-
         Assert.assertEquals(recordList.asList().size(), 1);
     }
 

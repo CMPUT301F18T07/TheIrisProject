@@ -33,8 +33,10 @@ public class CareProviderTest {
         CareProvider careProvider = getTestCareProvider();
         Patient patient = getTestPatient();
 
+        Assert.assertEquals(careProvider.getPatients().size(), 0);
         careProvider.addPatient(patient);
         Assert.assertEquals(careProvider.getPatients().size(), 1);
+        Assert.assertEquals(careProvider.getPatients(), patient);
 
     }
 

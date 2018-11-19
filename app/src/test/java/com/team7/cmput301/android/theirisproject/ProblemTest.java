@@ -5,6 +5,7 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
+import com.team7.cmput301.android.theirisproject.model.User;
 
 
 import org.junit.Assert;
@@ -28,6 +29,8 @@ public class ProblemTest {
     private String role;
     private Date date;
     private String body;
+
+    private String blob;
 
     @Test
     public void testProblem() {
@@ -67,9 +70,11 @@ public class ProblemTest {
     public void testAddBodyPhoto() {
 
         Problem problem = getTestProblem();
+        BodyPhoto bodyPhoto = getTestBodyPhoto();
 
-        problem.addBodyPhoto(null);
+        problem.addBodyPhoto(bodyPhoto);
         Assert.assertEquals(problem.getBodyPhotos().size(), 1);
+        Assert.assertEquals(problem.getBodyPhotos(), bodyPhoto);
     }
 
     private Problem getTestProblem() {
@@ -88,11 +93,19 @@ public class ProblemTest {
         String _id = "mememe";
         String problemId = "mrmrmr";
         String author = "John";
-        String role = "Care Provider";
+        User.UserType role = User.UserType.CARE_PROVIDER;
         Date date = new Date();
         String body = "Zombies aren't real";
 
         return new Comment(problemId, author, body, role);
+    }
+
+    private BodyPhoto getTestBodyPhoto() {
+
+        String problemId = "haba14";
+        String blob = "blob";
+
+        return new BodyPhoto(problemId, blob);
     }
 }
 

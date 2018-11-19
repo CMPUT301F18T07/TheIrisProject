@@ -24,6 +24,10 @@ public class RecordTest {
     private GeoLocation geoLocation;
     private List<RecordPhoto> recordPhotos;
 
+    private String blob;
+    private int x;
+    private int y;
+
     @Test
     public void testRecord(){
 
@@ -42,17 +46,20 @@ public class RecordTest {
     public void testAddPhoto() {
 
         Record record = getTestRecord();
+        RecordPhoto recordPhoto = getTestRecordPhoto();
 
-        record.addPhoto(null);
+        record.addPhoto(recordPhoto);
         Assert.assertEquals(record.getRecordPhotos().size(), 1);
+        Assert.assertEquals(record.getRecordPhotos(), recordPhoto);
     }
 
     @Test
     public void testDeletePhoto() {
 
         Record record = getTestRecord();
+        RecordPhoto recordPhoto = getTestRecordPhoto();
 
-        record.deletePhoto(null);
+        record.deletePhoto(recordPhoto);
         Assert.assertEquals(record.getRecordPhotos().size(), 0);
     }
 
@@ -62,7 +69,6 @@ public class RecordTest {
         Record record = getTestRecord();
 
         GeoLocation updatedGeoLocation = new GeoLocation(1.0, 1.0);
-
         Assert.assertEquals(updatedGeoLocation, record.getGeoLocation());
     }
 
@@ -70,7 +76,6 @@ public class RecordTest {
     public void testEditRecordPhotos() {
 
         Record record = getTestRecord();
-
         List<RecordPhoto> recordPhotos = new ArrayList<>();
 
         Assert.assertEquals(recordPhotos, record.getRecordPhotos());
@@ -87,6 +92,16 @@ public class RecordTest {
 
         return new Record(problemId, title, text, date, geoLocation, recordPhotos);
 
+    }
+
+    private RecordPhoto getTestRecordPhoto() {
+
+        String problemId = "haba14";
+        String blob = "blob";
+        int x = 1;
+        int y = 1;
+
+        return new RecordPhoto(problemId, blob, x, y);
     }
 
 }

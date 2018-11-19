@@ -44,6 +44,7 @@ public class PatientTest {
 
         patient.addCareProvider(careProvider);
         Assert.assertEquals(patient.getCareProviders().size(), 1);
+        Assert.assertEquals(patient.getCareProviders(), careProvider);
     }
 
     @Test
