@@ -17,7 +17,6 @@ import com.team7.cmput301.android.theirisproject.activity.RegisterActivity;
  */
 public class RegisterActivityTest2 extends ActivityInstrumentationTestCase2<RegisterActivity> {
 
-    // TODO: The tests in here do not work due to Solo ClassNotFound exceptions and the like
     // We have to decide if we want to use Robotium or Espresso
 
     private Solo solo;

@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 /**
- * RegisterActivityTest2 contains tests pertaining to registering users in RegisterActivity
+ * RegisterActivityTest contains tests pertaining to registering users in RegisterActivity
  *
  * @author Jmmxp
  * @see RegisterActivity
@@ -47,7 +47,10 @@ public class RegisterActivityTest {
         }
     }
 
-    // Test registration when not all fields have been filled out
+
+    /**
+     * Test registration when not all fields have been filled out
+     */
     @Test
     public void testRegisterIncomplete() {
         onView(withId(R.id.register_button))
@@ -65,10 +68,9 @@ public class RegisterActivityTest {
         checkToast(getString(R.string.register_incomplete));
     }
 
-    // Currently only works if the account has already been registered
-
     /**
      * Test registration when all fields are filled out but the email is already in use
+     * Currently only works if the account has already been registered
      */
     @Test
     public void testRegisterAlreadyRegistered() {
@@ -86,6 +88,7 @@ public class RegisterActivityTest {
 
     /**
      * Test registration when all fields are filled out and user is registered successfully
+     * Currently only works if the account is guaranteed not to be registered
      */
     @Test
     public void testRegisterSuccess() {
@@ -107,6 +110,10 @@ public class RegisterActivityTest {
                 .perform(typeText(text));
     }
 
+    /**
+     * Closes they keyboard and sleeps for 0.25s, this is currently needed or else the test tries to
+     * click the button before the keyboard is closed which causes it to fail
+     */
     private void closeKeyboardAndWait() {
         Espresso.closeSoftKeyboard();
         try {
