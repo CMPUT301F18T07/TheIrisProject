@@ -37,8 +37,7 @@ public class ProblemListController extends IrisController<ProblemList> {
      * our callback to populate the model is called, then
      * the callback from our activity is called
      *
-     * @params Callback cb: callback function from activity
-     * @return void
+     * @param cb callback function from activity
      * */
     public void getUserProblems(Callback cb) {
         new GetProblemListTask(new Callback<ProblemList>() {

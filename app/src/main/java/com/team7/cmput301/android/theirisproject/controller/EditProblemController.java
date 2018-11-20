@@ -50,7 +50,6 @@ public class EditProblemController extends IrisController {
      * @param desc edited Problem description
      * @param date edited Problem date
      * @param cb callback method
-     * @return void
      * */
     public void submitProblem(String title, String desc, String date, Callback cb) throws ParseException{
 

@@ -28,7 +28,7 @@ public class DeleteProblemTask extends AsyncTask<String, Void, Boolean> {
     /**
      * doInBackground will send a request to DB with edited problem
      * returning a boolean for its status of deletion
-     * @param params: use only params[0] containing the edited Problem.class
+     * @param params use only params[0] containing the edited Problem.class
      * @return Boolean: true if successful, else false
      * */
     @Override

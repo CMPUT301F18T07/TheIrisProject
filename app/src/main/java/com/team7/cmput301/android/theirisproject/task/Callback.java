@@ -19,8 +19,7 @@ public interface Callback<M> {
      * so that functions from the main thread can be called right after
      * AsyncTask lifecycle ends
      *
-     * @params M res: the new state to be passed down
-     * @return void
+     * @param res the new state to be passed down
      * */
     void onComplete(M res);
 }

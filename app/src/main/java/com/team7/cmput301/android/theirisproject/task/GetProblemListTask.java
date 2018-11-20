@@ -38,7 +38,7 @@ public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
   
     /**
      * doInBackground will request a problem based on given index
-     * @params String params: [0] is the _id to be given
+     * @param params [0] is the _id to be given
      * @return String to onPostExecute(String res)
      * */
     @Override
@@ -64,13 +64,9 @@ public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
     }
 
     /**
-     * onPostExecute will invoke callback once
-     * doInBackground has a response from database and populates Problem
-     * @params SearchResult res: our response of problems
-     * onPostExecute will invoke updateViews for our Problem model once
-     * doInBackground has a response from database and populates Problem
-     * @params Problem res: our response problem
-     * @return void
+     * onPostExecute will invoke updateViews for our ProblemList model once
+     * doInBackground has a response from database and populates Problems
+     * @param res our response problem
      * */
     @Override
     protected void onPostExecute(ProblemList res) {

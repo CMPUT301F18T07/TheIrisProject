@@ -32,8 +32,7 @@ public class EditProblemTask extends AsyncTask<Object, Void, String> {
     /**
      * doInBackground will send a request to DB with the edited problem
      * returning a string of the problem id
-     * @param params: params[0] containing the new edited Problem.class
-     * @param params: params[1] containing the id of the problem to be replaced
+     * @param params params[0] containing the new edited Problem.class, params[1] containing the id of the problem to be replaced
      * @return String: id of the edited problem if successful, otherwise null
      * */
     @Override
