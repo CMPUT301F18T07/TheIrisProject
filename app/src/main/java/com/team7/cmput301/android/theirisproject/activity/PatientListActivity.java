@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,6 +48,18 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
         controller = createController(getIntent());
         patientsView = findViewById(R.id.patient_item_list);
+
+        patientsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Patient patient = (Patient) patientsView.getItemAtPosition(i);
+
+                Intent intent = new Intent(PatientListActivity.this, ProblemListActivity.class);
+                intent.putExtra("user", patient.getId());
+
+                startActivity(intent);
+            }
+        });
 
         // set click listener to AddProblemFloatingButton
         findViewById(R.id.patient_list_add).setOnClickListener(new View.OnClickListener() {
