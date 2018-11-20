@@ -57,7 +57,11 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
     @Override
     protected void setUp() {
         Problem problem = new Problem(title, description, userid, body_photos);
+        problem.setID(_id);
+
         Intent intent = new Intent();
+        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, _id);
+
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
     }
