@@ -65,7 +65,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
                     String[] fields = {title, description, date};
 
                     if (StringHelper.hasEmptyString(Arrays.asList(fields))) {
-                        Toast.makeText(EditProblemActivity.this, getString(R.string.register_incomplete), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProblemActivity.this, R.string.register_incomplete, Toast.LENGTH_SHORT).show();
                         return;
                     }
                     editProblemController.submitProblem(
@@ -106,7 +106,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
         // end Activity returning to ProblemListActivity
         Intent intent = new Intent(EditProblemActivity.this, ViewProblemActivity.class);
         intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
-        Toast.makeText(EditProblemActivity.this, "Problem Edited!", Toast.LENGTH_LONG).show();
+        Toast.makeText(EditProblemActivity.this, R.string.successful_edit, Toast.LENGTH_LONG).show();
         startActivity(intent);
         finish();
     }

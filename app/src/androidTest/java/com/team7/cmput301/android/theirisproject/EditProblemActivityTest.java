@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 import com.team7.cmput301.android.theirisproject.activity.EditProblemActivity;
@@ -121,23 +122,69 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
     public void testWrongDateFormat() {
         Button submitButton = (Button) solo.getView(R.id.submit_button);
 
-        solo.clickOnView(submitButton);
-
-        assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
-
-
         EditText title = (EditText) solo.getView(R.id.problem_title);
         EditText desc = (EditText) solo.getView(R.id.problem_description);
         EditText date = (EditText) solo.getView(R.id.problem_date);
+
+        solo.clearEditText(title);
+        solo.clearEditText(desc);
         solo.clearEditText(date);
+
+        assertTrue(title.getText().toString().equals(""));
+        assertTrue(desc.getText().toString().equals(""));
+        assertTrue(date.getText().toString().equals(""));
 
         solo.enterText(title, "Gunshot wound");
         solo.enterText(desc, "It won't stop bleeding");
         solo.enterText(date, "1234");
 
+        assertTrue(title.getText().toString().equals("Gunshot wound"));
+        assertTrue(desc.getText().toString().equals("It won't stop bleeding"));
+        assertTrue(date.getText().toString().equals("1234"));
+
         solo.clickOnView(submitButton);
 
         assertTrue(solo.waitForText(getActivity().getString(R.string.incorrect_date)));
+    }
+
+    public void testSuccessfulEdit() {
+
+        Button submitButton = (Button) solo.getView(R.id.submit_button);
+
+        EditText title = (EditText) solo.getView(R.id.problem_title);
+        EditText desc = (EditText) solo.getView(R.id.problem_description);
+        EditText date = (EditText) solo.getView(R.id.problem_date);
+
+        solo.clearEditText(title);
+        solo.clearEditText(desc);
+        solo.clearEditText(date);
+
+        assertTrue(title.getText().toString().equals(""));
+        assertTrue(desc.getText().toString().equals(""));
+        assertTrue(date.getText().toString().equals(""));
+
+        solo.enterText(title, "Gunshot wound");
+        solo.enterText(desc, "It won't stop bleeding");
+        solo.enterText(date, "2020-01-01T00:01:00");
+
+        assertTrue(title.getText().toString().equals("Gunshot wound"));
+        assertTrue(desc.getText().toString().equals("It won't stop bleeding"));
+        assertTrue(date.getText().toString().equals("2020-01-01T00:01:00"));
+
+        solo.clickOnView(submitButton);
+
+        assertTrue(solo.waitForText(getActivity().getString(R.string.successful_edit)));
+
+        // Check if ViewProblemActivity now displays edited info
+        solo.waitForActivity(ViewProblemActivity.class);
+
+        TextView problemTitle = (TextView) solo.getView(R.id.problem_title);
+        TextView problemDate = (TextView) solo.getView(R.id.problem_date);
+        TextView problemDescription = (TextView) solo.getView(R.id.problem_description);
+
+        assertTrue(problemTitle.getText().toString().equals("Gunshot wound"));
+        assertTrue(problemDate.getText().toString().equals("2020-01-01T00:01:00"));
+        assertTrue(problemDescription.getText().toString().equals("It won't stop bleeding"));
     }
 
     /**
