@@ -30,17 +30,18 @@ public class DeleteProblemActivity extends IrisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_problem);
 
+        // Resizing activity to create popup display
         DisplayMetrics dm = new DisplayMetrics();
-
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = (int) (dm.widthPixels * .8);
         int height = (int) (dm.heightPixels * .6);
-
         getWindow().setLayout(width,height);
+
         controller = createController(getIntent());
 
+        // Set onclicklistener to dont delete button
         findViewById(R.id.dont_delete_problem_button).setOnClickListener(new View.OnClickListener() {
+            // Return to calling activity
             @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
@@ -48,7 +49,11 @@ public class DeleteProblemActivity extends IrisActivity {
             }
         });
 
+        // Set onclicklistener to do delete button
         findViewById(R.id.do_delete_problem_button).setOnClickListener(new View.OnClickListener() {
+            /* Delete problem from db, Callback's result is a boolean, true if deletion is
+             * successful, false otherwise
+             */
             @Override
             public void onClick(View v) {
                 controller.deleteProblem(new Callback<Boolean>() {

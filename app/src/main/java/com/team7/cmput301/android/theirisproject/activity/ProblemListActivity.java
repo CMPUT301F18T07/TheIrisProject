@@ -31,6 +31,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * extra "user"
  *
  * @author itstc
+ * @see ProblemListController
  * */
 public class ProblemListActivity extends IrisActivity<ProblemList> {
 
@@ -74,7 +75,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
             }
         });
-
+        // Set onitemlongclicklistener to listview of problems
         problemsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             // Delete problem being held on
             @Override
@@ -162,6 +163,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DELETE_PROBLEM_RESPONSE) {
+            // On return from DeleteProblemActivity, check the result of the activity for status of deletion
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_LONG);
             }
