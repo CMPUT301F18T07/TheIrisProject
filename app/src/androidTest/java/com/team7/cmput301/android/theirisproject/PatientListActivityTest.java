@@ -95,7 +95,7 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2<Pa
     public void testActivity() {
         solo.waitForActivity(PatientListActivity.class);
     }
-
+    
     public void testAddPatient() {
         View addButton = solo.getView(R.id.patient_list_add);
         solo.clickOnView(addButton, true);
@@ -107,6 +107,7 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2<Pa
         solo.enterText(editText, patientEmail);
 
         // Find a way to click on dialog buttons --> these don't have a reference id
+
     }
 
     @Test
