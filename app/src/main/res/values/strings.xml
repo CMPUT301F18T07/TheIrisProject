@@ -13,6 +13,8 @@
     <!--Login screen strings-->
     <string name="login_username_hint">Enter your e-mail</string>
     <string name="login_password_hint">Enter your password</string>
+    <string name="login_success">Logging in...</string>
+    <string name="login_failure">Incorrect login!</string>
 
     <!-- Register screen strings-->
     <string name="register_title">Register for a profile</string>
