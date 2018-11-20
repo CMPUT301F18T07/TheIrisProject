@@ -33,7 +33,7 @@ public class RecordListController extends IrisController<RecordList> {
 
     public RecordListController(Intent intent){
         super(intent);
-        problemId = intent.getStringExtra(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        problemId = intent.getStringExtra("problemId");
         records = model; // aliasing for clarity
     }
 
