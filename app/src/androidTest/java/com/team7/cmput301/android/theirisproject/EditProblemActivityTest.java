@@ -79,6 +79,9 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
         solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
     }
 
+    /**
+     * Test if problem details are displayed correctly
+     */
     public void testCorrectInitialData() {
 
         Timer.sleep(1000);
@@ -92,7 +95,7 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
     }
 
     /**
-     * Test registration when not all fields have been filled out
+     * Test submission when not all fields have been filled out
      */
     public void testFormIncomplete() {
         Button submitButton = (Button) solo.getView(R.id.submit_button);
@@ -111,6 +114,9 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
         assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
     }
 
+    /**
+     * Test if activity handles inappropriate date formats correctly
+     */
     public void testWrongDateFormat() {
         Button submitButton = (Button) solo.getView(R.id.submit_button);
 
@@ -133,6 +139,11 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
         assertTrue(solo.waitForText(getActivity().getString(R.string.incorrect_date)));
     }
 
+    /**
+     * Helper that gets the string from the activities' stringId
+     * @param stringId
+     * @return string of the stringId
+     */
     private String getString(int stringId) {
         return getActivity().getString(stringId);
     }
