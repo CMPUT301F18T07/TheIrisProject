@@ -6,6 +6,7 @@ import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 
 import org.junit.Assert;
@@ -94,7 +95,7 @@ public class ProblemTest {
         String _id = "mememe";
         String problemId = "mrmrmr";
         String author = "John";
-        User.UserType role = User.UserType.CARE_PROVIDER;
+        UserType role = UserType.CARE_PROVIDER;
         Date date = new Date();
         String body = "Zombies aren't real";
 
