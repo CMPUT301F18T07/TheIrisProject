@@ -116,16 +116,8 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2<Pa
 //        new RegisterTask(callback).execute(patient);
 //
 //        new AddPatientTask(callback).execute(patientEmail);
-//
-//        Timer.sleep(1000);
-//
-//        solo.searchText(patientName);
-//        solo.searchText(patientEmail);
-//
-//        solo.clickInList(0, 0);
-//
-//        solo.waitForActivity(ViewProblemActivity.class);
 //    }
+    }
 
     private String getString(int stringId) {
         return getActivity().getString(stringId);

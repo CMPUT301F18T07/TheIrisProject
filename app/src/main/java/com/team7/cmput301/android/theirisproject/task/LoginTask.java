@@ -33,7 +33,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
     /**
      * doInBackground is a function that asynchronously requests a search
      * from the database returning a result that matches our email (params[0])
-     * @param params: only use params[0] for email
+     * @param params only use params[0] for email
      * @return String: user id
      * */
     @Override

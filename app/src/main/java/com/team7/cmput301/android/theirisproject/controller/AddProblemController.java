@@ -38,8 +38,7 @@ public class AddProblemController extends IrisController<Problem> {
      * addBodyPhoto will scale the bitmap to 256x256 before adding it to
      * the imageList. It is required to be scaled before submitting to database
      *
-     * @param img: our bitmap image
-     * @return void
+     * @param img our bitmap image
      * */
     public void addBodyPhoto(Bitmap img) {
         Bitmap res = Bitmap.createScaledBitmap(img, 256, 256, false);
@@ -54,10 +53,9 @@ public class AddProblemController extends IrisController<Problem> {
      * once we receive a response from the database, we return a callback
      * with a boolean result either successful or not
      *
-     * @param title: Problem title
-     * @param desc: Problem description
-     * @param cb: callback method
-     * @return void
+     * @param title Problem title
+     * @param desc Problem description
+     * @param cb callback method
      * */
     public void submitProblem(String title, String desc, Callback<String> cb) {
         Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId(), bodyPhotos);

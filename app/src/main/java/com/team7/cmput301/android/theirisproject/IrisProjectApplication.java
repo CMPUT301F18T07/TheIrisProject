@@ -36,7 +36,6 @@ public class IrisProjectApplication extends Application {
      * getDB is a function to retrieve the online database
      * if the db variable is currently null we will initialize a
      * new connection to the database.
-     * @params {}
      * @return JestClient: our database
      * */
     public static JestDroidClient getDB() {

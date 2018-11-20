@@ -65,9 +65,9 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
 
         Intent intent = new Intent();
         intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, _id);
-
+      
         IrisProjectApplication.setCurrentUser(new Patient("testUser", "email@gmail.com", "1234567890"));
-
+      
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
 
