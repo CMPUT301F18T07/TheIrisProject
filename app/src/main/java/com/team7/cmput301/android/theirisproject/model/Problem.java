@@ -132,4 +132,7 @@ public class Problem {
     }
 
 
+    public void setID(String _id) {
+        this._id = _id;
+    }
 }

@@ -74,6 +74,7 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             Log.i(TAG, searchResult.getJsonString());
 
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
+
             String patientId = patient.getId();
             String careProviderId = careProvider.getId();
 
