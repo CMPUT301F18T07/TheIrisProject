@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -67,6 +68,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
             @Override
             public void onClick(View view) {
                 DialogFragment addPatientDialog = new AddPatientDialogFragment();
+
                 addPatientDialog.show(getSupportFragmentManager(), AddPatientDialogFragment.class.getSimpleName());
             }
         });

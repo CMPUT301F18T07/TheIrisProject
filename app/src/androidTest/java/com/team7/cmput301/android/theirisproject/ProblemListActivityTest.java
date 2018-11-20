@@ -44,7 +44,7 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
     public String probDate = "2018-19-11T21:25:00";
     public String probID = "456";
 
-    public ProblemListActivityTest() {super(ProblemListActivity.class);
+    public ProblemListActivityTest() { super(ProblemListActivity.class);
     }
 
     /**
