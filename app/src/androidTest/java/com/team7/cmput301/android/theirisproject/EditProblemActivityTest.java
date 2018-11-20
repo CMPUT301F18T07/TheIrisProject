@@ -15,6 +15,7 @@ import com.robotium.solo.Solo;
 import com.team7.cmput301.android.theirisproject.activity.EditProblemActivity;
 
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
@@ -80,11 +81,7 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
 
     public void testCorrectInitialData() {
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Timer.sleep(1000);
         EditText title = (EditText) solo.getView(R.id.problem_title);
         EditText desc = (EditText) solo.getView(R.id.problem_description);
         EditText date = (EditText) solo.getView(R.id.problem_date);
@@ -99,10 +96,6 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
      */
     public void testFormIncomplete() {
         Button submitButton = (Button) solo.getView(R.id.submit_button);
-
-        solo.clickOnView(submitButton);
-
-        assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
 
         // Try registering with all fields removed and empty
         EditText title = (EditText) solo.getView(R.id.problem_title);
