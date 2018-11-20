@@ -51,4 +51,9 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 
         return patientView;
     }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
 }
