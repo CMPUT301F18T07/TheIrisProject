@@ -22,7 +22,7 @@ public class ImageConverter {
      * base64EncodeBitmap will take in a bitmap image and encode
      * it to a base64 string as that is our database image format
      *
-     * @param img: Bitmap image
+     * @param img Bitmap image
      * @return String: base64 string
      * */
     public static String base64EncodeBitmap(Bitmap img) {
@@ -34,7 +34,7 @@ public class ImageConverter {
      * base64DecodeBitmap will take in a string base64 and convert
      * it to a Bitmap image
      *
-     * @param blob: base64 string
+     * @param blob base64 string
      * @return Bitmap: bitmap image
      * */
     public static Bitmap base64DecodeBitmap(String blob) {
@@ -46,7 +46,7 @@ public class ImageConverter {
      * convertBitmapToBytes will take a bitmap image and
      * convert it to a byte array
      *
-     * @param img: Bitmap image
+     * @param img Bitmap image
      * @return byte[]: byte array
      * */
     public static byte[] convertBitmapToBytes(Bitmap img) {

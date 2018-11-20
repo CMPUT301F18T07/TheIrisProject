@@ -121,7 +121,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
      *
-     * @param state: new state of model
+     * @param state new state of model
      * */
     public void render(Problem state) {
         Problem newState = state;

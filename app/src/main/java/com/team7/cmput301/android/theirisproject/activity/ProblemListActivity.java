@@ -150,8 +150,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
      *
-     * @param state: new state of model
-     * @return void
+     * @param state new state of model
      * */
     public void render(ProblemList state) {
         ProblemList newState = state;

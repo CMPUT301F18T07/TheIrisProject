@@ -51,7 +51,7 @@ public class ProblemController extends IrisController {
      * database, once finished it will invoke the callback
      * from the activity
      *
-     * @param cb: callback from activity
+     * @param cb callback from activity
      * */
     public void getProblem(Callback cb) {
         new GetProblemTask(new Callback<Problem>() {
@@ -69,8 +69,8 @@ public class ProblemController extends IrisController {
      * callback to GetProblemTask, finally will update
      * the activity
      *
-     * @param body: comment content
-     * @param cb: final callback from activity
+     * @param body comment content
+     * @param cb final callback from activity
      * */
     public void addComment(String body, Callback cb) {
         User user = IrisProjectApplication.getCurrentUser();
@@ -79,7 +79,7 @@ public class ProblemController extends IrisController {
             public void onComplete(Boolean res) {
                 if (res) getProblem(cb);
             }
-        }).execute(new Comment(problemID, user.getName(), body, user.getType().toString()));
+        }).execute(new Comment(problemID, user.getName(), body, user.getType()));
     }
 
     public List<BodyPhoto> getBodyPhotos() {

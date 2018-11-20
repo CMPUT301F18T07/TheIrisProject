@@ -89,8 +89,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
      *
-     * @param newState: new state of model
-     * @return void
+     * @param newState new state of model
      * */
     public void render(List<Patient> newState) {
         patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_patient_item, newState));

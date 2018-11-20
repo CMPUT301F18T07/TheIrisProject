@@ -44,7 +44,7 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
     /**
      * doInBackground will send a request to DB with desired problem's id
      * returning the problem
-     * @param params: use only params[0] containing the desired problem's id
+     * @param params use only params[0] containing the desired problem's id
      * @return Problem: Problem that corresponds to the problem id
      * */
     @Override
