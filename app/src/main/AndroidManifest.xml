@@ -2,21 +2,80 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <application
+        android:name=".IrisProjectApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+
+        <!-- User Activities -->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.RegisterActivity" />
+
+        <!-- Problem Activities -->
+        <activity
+            android:name=".activity.ProblemListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AddProblemActivity"
+            android:label="@string/create_a_problem"
+            android:parentActivityName=".activity.ProblemListActivity" />
+        <activity
+            android:name=".activity.ViewProblemActivity"
+            android:label="@string/view_problem_title" />
+
+        <activity android:name=".activity.EditProblemActivity" />
+        <activity android:name=".activity.DeleteProblemActivity"
+            android:theme="@style/AppTheme.PopupTheme" />
+        <!-- Record Activities -->
+        <activity
+            android:name=".activity.RecordListActivity"
+            android:label="@string/record_list_activity_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AddRecordActivity"
+            android:label="@string/add_record"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.PatientListActivity" />
+        <activity
+            android:name=".activity.ViewRecordActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Profile Activities -->
+        <activity
+            android:name=".activity.ViewCareProviderProfileActivity"
+            android:label="@string/view_profile_title" />
+        <activity
+            android:name=".activity.ViewPatientProfileActivity"
+            android:label="@string/view_profile_title" />
+        <activity
+            android:name=".activity.EditCareProviderProfileActivity"
+            android:label="@string/care_provider_edit_profile_title_text" />
+        <activity
+            android:name=".activity.EditPatientProfileActivity"
+            android:label="@string/patient_edit_profile_title_text"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

@@ -4,50 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
+    tools:context=".activity.RegisterActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <EditText
-        android:id="@+id/username_edit_text"
+        android:id="@+id/name_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
         android:ems="10"
-        android:hint="@string/username_hint"
+        android:hint="@string/register_username_hint"
         android:inputType="textPersonName"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/password_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/password_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
-        android:hint="@string/password_hint"
+        android:hint="@string/register_password_hint"
         android:inputType="textPassword"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/email_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_edit_text" />
+        app:layout_constraintStart_toEndOf="@+id/password_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/name_edit_text" />
 
     <EditText
         android:id="@+id/email_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
-        android:hint="@string/email_hint"
+        android:hint="@string/register_email_hint"
         android:inputType="textEmailAddress"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/phone_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/email_text_view"
         app:layout_constraintTop_toBottomOf="@+id/password_edit_text" />
 
     <EditText
@@ -55,100 +56,94 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
-        android:hint="@string/phone_hint"
+        android:hint="@string/register_phone_hint"
         android:inputType="phone"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phone_text_view"
         app:layout_constraintTop_toBottomOf="@+id/email_edit_text" />
 
     <TextView
-        android:id="@+id/username_text_view"
+        android:id="@+id/name_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/username_title"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/username_edit_text"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/name_edit_text"
+        app:layout_constraintEnd_toStartOf="@+id/name_edit_text"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/password_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/password_title"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/password_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/password_edit_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_text_view" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/email_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/email_title"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/email_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/email_edit_text"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_text_view" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/phone_text_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/phone_title"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/phone_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/phone_edit_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_text_view" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/register_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/register_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/user_radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_text_view">
+        android:layout_marginBottom="16dp"
+        android:checkedButton="@id/patient_radio_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/patient_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/patient" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/care_provider_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/care_provider"
@@ -156,5 +151,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="209dp" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="@string/register_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

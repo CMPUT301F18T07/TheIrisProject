@@ -17,6 +17,12 @@ bin/
 gen/
 out/
 
+# in dia state
+*.dia~
+
+# MacOS .DS_STORE
+.DS_Store
+
 # Gradle files
 .gradle/
 build/
@@ -45,6 +51,7 @@ captures/
 .idea/dictionaries
 .idea/libraries
 .idea/caches
+.idea/inspectionProfiles
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
