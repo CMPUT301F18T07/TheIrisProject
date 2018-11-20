@@ -21,12 +21,12 @@ import java.util.List;
  */
 public class ProblemList implements Iterable<Problem> {
 
-    private ArrayList<Problem> problems = new ArrayList<>();
+    private List<Problem> problems = new ArrayList<>();
 
     /* Constructors */
 
     public ProblemList(List<Problem> problems) {
-        this.problems = (ArrayList<Problem>) problems;
+        this.problems = problems;
     }
 
     public ProblemList() {

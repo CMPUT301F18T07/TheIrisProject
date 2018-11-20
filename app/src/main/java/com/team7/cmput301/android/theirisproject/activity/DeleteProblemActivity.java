@@ -40,7 +40,7 @@ public class DeleteProblemActivity extends IrisActivity {
         getWindow().setLayout(width,height);
         controller = createController(getIntent());
 
-        findViewById(R.id.dontDeleteProblemButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.dont_delete_problem_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
@@ -48,7 +48,7 @@ public class DeleteProblemActivity extends IrisActivity {
             }
         });
 
-        findViewById(R.id.doDeleteProblemButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.do_delete_problem_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 controller.deleteProblem(new Callback<Boolean>() {

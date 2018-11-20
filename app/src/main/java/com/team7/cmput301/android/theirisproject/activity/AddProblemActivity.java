@@ -77,11 +77,11 @@ public class AddProblemActivity extends IrisActivity {
                             // end Activity returning to ProblemListActivity
                             Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
                             intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
-                            Toast.makeText(AddProblemActivity.this, "New Problem Created!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_success), Toast.LENGTH_LONG).show();
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(AddProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_failure), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

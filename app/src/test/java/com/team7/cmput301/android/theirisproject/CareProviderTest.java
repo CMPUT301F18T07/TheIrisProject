@@ -20,7 +20,7 @@ public class CareProviderTest {
 
         Assert.assertEquals(name, careProvider.getName());
         Assert.assertEquals(email, careProvider.getEmail());
-        Assert.assertEquals(phoneNumber, careProvider.getPhoneNumber());
+        Assert.assertEquals(phoneNumber, careProvider.getPhone());
         Assert.assertEquals(type, careProvider.getType());
     }
 

@@ -40,4 +40,18 @@ public class StringHelper {
         return builder.toString();
     }
 
+    /**
+     * Given a List of Strings, determine if it has an empty or null string
+     * @param strings
+     */
+    public static boolean hasEmptyString(List<String> strings) {
+        for (String string : strings) {
+            if (string == null || string.isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

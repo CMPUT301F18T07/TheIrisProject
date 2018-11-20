@@ -17,7 +17,7 @@ public class UserTest {
 
         Assert.assertEquals(name, user.getName());
         Assert.assertEquals(email, user.getEmail());
-        Assert.assertEquals(phoneNumber, user.getPhoneNumber());
+        Assert.assertEquals(phoneNumber, user.getPhone());
     }
 
     @Test
@@ -29,6 +29,6 @@ public class UserTest {
 
         Assert.assertEquals(updatedName, user.getName());
         Assert.assertEquals(updatedEmail, user.getEmail());
-        Assert.assertEquals(updatedPhoneNumber, user.getPhoneNumber());
+        Assert.assertEquals(updatedPhoneNumber, user.getPhone());
     }
 }
