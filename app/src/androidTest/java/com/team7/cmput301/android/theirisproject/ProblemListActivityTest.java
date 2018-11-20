@@ -49,7 +49,7 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
     private String probID = "456";
     private Problem problem;
 
-    public ProblemListActivityTest() {super(ProblemListActivity.class);
+    public ProblemListActivityTest() { super(ProblemListActivity.class);
     }
 
     /**
