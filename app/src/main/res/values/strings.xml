@@ -65,6 +65,9 @@
     <string name="problem_list_profile_text">Profile</string>
     <string name="problem_list_search_text">Search</string>
 
+    <!-- View Patient list screen strings-->
+    <string name="add_patient">Add Patient</string>
+
     <!-- View Record list screen strings-->
     <string name="record_list_edit_records_text">Edit Records</string>
 
@@ -118,5 +121,6 @@
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by e-mail</string>
     <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
+
 
 </resources>
