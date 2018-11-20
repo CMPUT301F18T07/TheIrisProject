@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.PatientListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.PatientListController;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -95,9 +96,11 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
     @Override
     public void onFinishAddPatient(boolean success) {
+        System.out.println("Finished adding patient!!!");
         if (success) {
             // Render the List with the new Patient that was added
-            controller.getPatientsFromDB(new Callback<List<Patient>>() {
+            Timer.sleep(750);
+                    controller.getPatientsFromDB(new Callback<List<Patient>>() {
                 @Override
                 public void onComplete(List<Patient> res) {
                     render(res);
