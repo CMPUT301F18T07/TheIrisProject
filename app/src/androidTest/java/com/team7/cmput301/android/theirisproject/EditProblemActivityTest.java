@@ -39,6 +39,7 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
     private String probDesc = "I'm shot";
     private String probDate = "2018-09-01T18:30:00";
     private String probID = "123";
+
     public EditProblemActivityTest() {
         super(EditProblemActivity.class);
     }
@@ -82,7 +83,7 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
     /**
      * Test if problem details are displayed correctly
      */
-    public void testCorrectInitialData() {
+    public void testCorrectProblemData() {
 
         Timer.sleep(1000);
         EditText title = (EditText) solo.getView(R.id.problem_title);
