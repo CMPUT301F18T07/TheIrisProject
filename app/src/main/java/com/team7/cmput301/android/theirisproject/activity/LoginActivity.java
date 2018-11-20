@@ -66,10 +66,11 @@ public class LoginActivity extends IrisActivity {
                     public void onComplete(Boolean success) {
                         // Start activity if login is successful, else stay on login activity
                         if(success) {
+                            Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
                             buildUserSession();
                         }
                         else {
-                            Toast.makeText(LoginActivity.this, "Incorrect Login!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, getString(R.string.login_failure), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

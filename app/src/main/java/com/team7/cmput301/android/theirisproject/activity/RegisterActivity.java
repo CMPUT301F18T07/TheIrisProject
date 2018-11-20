@@ -47,7 +47,7 @@ public class RegisterActivity extends IrisActivity {
         setContentView(R.layout.activity_register);
         controller = (RegisterController) createController(getIntent());
 
-        usernameEditText = findViewById(R.id.username_edit_text);
+        usernameEditText = findViewById(R.id.name_edit_text);
         passwordEditText = findViewById(R.id.password_edit_text);
         emailEditText = findViewById(R.id.email_edit_text);
         phoneEditText = findViewById(R.id.phone_edit_text);
@@ -75,7 +75,7 @@ public class RegisterActivity extends IrisActivity {
         String[] fields = {username, password, email, phoneNumber};
 
         if (StringHelper.hasEmptyString(Arrays.asList(fields))) {
-            Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.register_incomplete), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -97,10 +97,10 @@ public class RegisterActivity extends IrisActivity {
             @Override
             public void onComplete(Boolean registerSuccess) {
                 if (registerSuccess) {
-                    Toast.makeText(RegisterActivity.this, "User successfully registered!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.register_success, Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Could not register, e-mail already in use!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.register_failure, Toast.LENGTH_SHORT).show();
                 }
             }
         });
