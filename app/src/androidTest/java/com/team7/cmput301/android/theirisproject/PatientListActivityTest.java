@@ -74,7 +74,7 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2<Pa
      */
 
     //currently don't have AddPatientActivity
-    public void TestAddProblem () {
+    public void TestAddPatient () {
         solo.clickOnButton("Add Patient");
         solo.assertCurrentActivity("Add patient selected", AddPatientActivity.class);
     }
