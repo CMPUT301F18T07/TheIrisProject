@@ -34,7 +34,7 @@ public class GetRecordTask extends AsyncTask<String, Void, Record> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new Record();
     }
 
     @Override

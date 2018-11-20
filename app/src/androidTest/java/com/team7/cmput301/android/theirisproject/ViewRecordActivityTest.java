@@ -41,6 +41,7 @@ public class ViewRecordActivityTest extends ActivityInstrumentationTestCase2<Vie
     protected void setUp() {
         Record record = new Record(problemId, title, text, date, geoLocation, recordPhotos);
         Intent intent = new Intent();
+        intent.putExtra("record_id", "AWclWyL9f4yBogDtdu_W");
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
     }
