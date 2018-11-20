@@ -11,12 +11,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.PatientListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.PatientListController;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -47,6 +49,18 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
         controller = createController(getIntent());
         patientsView = findViewById(R.id.patient_item_list);
+
+        patientsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Patient patient = (Patient) patientsView.getItemAtPosition(i);
+
+                Intent intent = new Intent(PatientListActivity.this, ProblemListActivity.class);
+                intent.putExtra("user", patient.getId());
+
+                startActivity(intent);
+            }
+        });
 
         // set click listener to AddProblemFloatingButton
         findViewById(R.id.patient_list_add).setOnClickListener(new View.OnClickListener() {
@@ -82,9 +96,11 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
     @Override
     public void onFinishAddPatient(boolean success) {
+        System.out.println("Finished adding patient!!!");
         if (success) {
             // Render the List with the new Patient that was added
-            controller.getPatientsFromDB(new Callback<List<Patient>>() {
+            Timer.sleep(750);
+                    controller.getPatientsFromDB(new Callback<List<Patient>>() {
                 @Override
                 public void onComplete(List<Patient> res) {
                     render(res);
