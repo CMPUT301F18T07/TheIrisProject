@@ -117,7 +117,7 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2<Pa
 //
 //        new AddPatientTask(callback).execute(patientEmail);
 //    }
-    }
+//    }
 
     private String getString(int stringId) {
         return getActivity().getString(stringId);
