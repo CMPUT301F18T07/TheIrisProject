@@ -11,10 +11,18 @@ import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * LoginActivityTest contains UI testing pertaining to the login screen
+ *
+ * @author jtwong
+ * @see ViewRecordActivity
+ */
 public class ViewRecordActivityTest extends ActivityInstrumentationTestCase2<ViewRecordActivity> {
 
     private Solo solo;
@@ -42,11 +50,16 @@ public class ViewRecordActivityTest extends ActivityInstrumentationTestCase2<Vie
         solo.finishOpenedActivities();
     }
 
+    @Test
     public void testActivity() {
         String activityName = ViewRecordActivity.class.getSimpleName();
         solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
     }
 
+    /**
+     * Checking to see if the record data is correctly displayed
+     */
+    @Test
     public void testCorrectRecordData() {
         // Wait for activity to get Record information from db
         Timer.sleep(1000);

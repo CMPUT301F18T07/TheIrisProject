@@ -18,12 +18,20 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.User;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static com.team7.cmput301.android.theirisproject.model.User.*;
 
+/**
+ * LoginActivityTest contains UI testing pertaining to the login screen
+ *
+ * @author jtwong
+ * @see ViewProblemActivity
+ */
 public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<ViewProblemActivity> {
 
     private Solo solo;
@@ -43,37 +51,33 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
     private String blob = "blob";
 
     public ViewProblemActivityTest() {
-
         super(ViewProblemActivity.class);
-
     }
 
     @Override
     protected void setUp() {
-
         Problem problem = new Problem(title, description, userid, body_photos);
         Intent intent = new Intent();
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
-
     }
 
     @Override
     protected void tearDown() {
-
         solo.finishOpenedActivities();
-
     }
 
+    @Test
     public void testActivity() {
-
         String activityName = ViewProblemActivity.class.getSimpleName();
         solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
-
     }
 
+    /**
+     * Checking to see if the problem data is correctly displayed
+     */
+    @Test
     public void testCorrectProblemData() {
-
         Timer.sleep(1000);
 
         Comment comment = new Comment(problemId, author, body, role);
@@ -91,22 +95,32 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
         assertTrue(problemComments.toString().equals(comment.toString()));
     }
 
+    /**
+     * Checking to see if the view_record_button goes to RecordListActivity when pressed
+     */
+    @Test
     public void testViewRecord() {
         Button viewRecordButton = (Button) solo.getView(R.id.view_record_button);
         solo.clickOnView(viewRecordButton);
         String recordListActivityName = RecordListActivity.class.getSimpleName();
         solo.assertCurrentActivity("Wrong activity found, should be " + recordListActivityName, recordListActivityName);
-
     }
 
+    /**
+     * Checking to see if the create_record_button goes to AddRecordActivity when pressed
+     */
+    @Test
     public void testCreateRecord() {
         Button createRecordButton = (Button) solo.getView(R.id.create_record_button);
         solo.clickOnView(createRecordButton);
         String addRecordActivityName = AddRecordActivity.class.getSimpleName();
         solo.assertCurrentActivity("Wrong activity found, should be " + addRecordActivityName, addRecordActivityName);
-
     }
 
+    /**
+     * Checking to see if comments are correctly added
+     */
+    @Test
     public void testAddComment() {
         Button problemCommentSubmitButton = (Button) solo.getView(R.id.problem_comment_submit_button);
         EditText problemCommentBox = (EditText) solo.getView(R.id.problem_comment_box);
@@ -114,6 +128,5 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
         solo.enterText(problemCommentBox, "This is a new comment");
 
         solo.clickOnView(problemCommentSubmitButton);
-
     }
 }
