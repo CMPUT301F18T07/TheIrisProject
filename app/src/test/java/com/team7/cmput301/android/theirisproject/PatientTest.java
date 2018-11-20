@@ -44,7 +44,7 @@ public class PatientTest {
 
         patient.addCareProvider(careProvider);
         Assert.assertEquals(patient.getCareProviders().size(), 1);
-        Assert.assertEquals(patient.getCareProviders(), careProvider);
+        Assert.assertEquals(patient.getCareProviders().get(0), careProvider);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class PatientTest {
         Problem problem = getTestProblem();
 
         patient.addProblem(problem);
-        Assert.assertEquals(patient.getProblems(), problem);
+        Assert.assertEquals(patient.getProblems().contains(problem), true);
     }
 
     private Patient getTestPatient() {

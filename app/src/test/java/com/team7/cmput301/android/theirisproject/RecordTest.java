@@ -50,7 +50,7 @@ public class RecordTest {
 
         record.addPhoto(recordPhoto);
         Assert.assertEquals(record.getRecordPhotos().size(), 1);
-        Assert.assertEquals(record.getRecordPhotos(), recordPhoto);
+        Assert.assertEquals(record.getRecordPhotos().get(0), recordPhoto);
     }
 
     @Test
@@ -59,6 +59,9 @@ public class RecordTest {
         Record record = getTestRecord();
         RecordPhoto recordPhoto = getTestRecordPhoto();
 
+        record.addPhoto(recordPhoto);
+        Assert.assertEquals(record.getRecordPhotos().size(), 1);
+        Assert.assertEquals(record.getRecordPhotos().get(0), recordPhoto);
         record.deletePhoto(recordPhoto);
         Assert.assertEquals(record.getRecordPhotos().size(), 0);
     }

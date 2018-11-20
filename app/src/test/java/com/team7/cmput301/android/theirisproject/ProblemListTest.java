@@ -48,6 +48,10 @@ public class ProblemListTest {
         ProblemList pList = new ProblemList();
         pList.add(p1);
         pList.add(p2);
+
+        Assert.assertTrue(pList.contains(p1));
+        Assert.assertTrue(pList.contains(p2));
+
         pList.remove(p1);
         pList.remove(p2);
 

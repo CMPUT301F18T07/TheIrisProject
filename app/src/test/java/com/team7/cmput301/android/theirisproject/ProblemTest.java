@@ -64,6 +64,7 @@ public class ProblemTest {
 
         problem.addComment(comment);
         Assert.assertEquals(problem.getComments().size(), 1);
+        Assert.assertEquals(problem.getComments().get(0), comment);
     }
 
     @Test
@@ -74,7 +75,7 @@ public class ProblemTest {
 
         problem.addBodyPhoto(bodyPhoto);
         Assert.assertEquals(problem.getBodyPhotos().size(), 1);
-        Assert.assertEquals(problem.getBodyPhotos(), bodyPhoto);
+        Assert.assertEquals(problem.getBodyPhotos().get(0), bodyPhoto);
     }
 
     private Problem getTestProblem() {
