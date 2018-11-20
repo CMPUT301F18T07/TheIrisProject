@@ -40,6 +40,11 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
     private String probDesc = "I'm shot";
     private String probDate = "2018-09-01T18:30:00";
     private String probID = "123";
+    private String editedTitle = "Gunshot wound";
+    private String editedDesc = "It won't stop bleeding";
+    private String editedIncorrectDate = "1234";
+    private String editedCorrectDate = "2020-01-01T00:01:00";
+
 
     public EditProblemActivityTest() {
         super(EditProblemActivity.class);
@@ -130,17 +135,9 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
         solo.clearEditText(desc);
         solo.clearEditText(date);
 
-        assertTrue(title.getText().toString().equals(""));
-        assertTrue(desc.getText().toString().equals(""));
-        assertTrue(date.getText().toString().equals(""));
-
-        solo.enterText(title, "Gunshot wound");
-        solo.enterText(desc, "It won't stop bleeding");
-        solo.enterText(date, "1234");
-
-        assertTrue(title.getText().toString().equals("Gunshot wound"));
-        assertTrue(desc.getText().toString().equals("It won't stop bleeding"));
-        assertTrue(date.getText().toString().equals("1234"));
+        solo.enterText(title, editedTitle);
+        solo.enterText(desc, editedDesc);
+        solo.enterText(date, editedIncorrectDate);
 
         solo.clickOnView(submitButton);
 
@@ -159,17 +156,9 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
         solo.clearEditText(desc);
         solo.clearEditText(date);
 
-        assertTrue(title.getText().toString().equals(""));
-        assertTrue(desc.getText().toString().equals(""));
-        assertTrue(date.getText().toString().equals(""));
-
-        solo.enterText(title, "Gunshot wound");
-        solo.enterText(desc, "It won't stop bleeding");
-        solo.enterText(date, "2020-01-01T00:01:00");
-
-        assertTrue(title.getText().toString().equals("Gunshot wound"));
-        assertTrue(desc.getText().toString().equals("It won't stop bleeding"));
-        assertTrue(date.getText().toString().equals("2020-01-01T00:01:00"));
+        solo.enterText(title, editedTitle);
+        solo.enterText(desc, editedDesc);
+        solo.enterText(date, editedCorrectDate);
 
         solo.clickOnView(submitButton);
 
@@ -182,9 +171,9 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
         TextView problemDate = (TextView) solo.getView(R.id.problem_date);
         TextView problemDescription = (TextView) solo.getView(R.id.problem_description);
 
-        assertTrue(problemTitle.getText().toString().equals("Gunshot wound"));
-        assertTrue(problemDate.getText().toString().equals("2020-01-01T00:01:00"));
-        assertTrue(problemDescription.getText().toString().equals("It won't stop bleeding"));
+        assertTrue(problemTitle.getText().toString().equals(editedTitle));
+        assertTrue(problemDate.getText().toString().equals(editedCorrectDate));
+        assertTrue(problemDescription.getText().toString().equals(editedDesc));
     }
 
     /**
