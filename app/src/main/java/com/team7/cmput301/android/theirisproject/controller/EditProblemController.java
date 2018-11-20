@@ -41,7 +41,17 @@ public class EditProblemController extends IrisController {
         return null;
     }
 
-
+    /**
+     * submitProblem is a method to asynchronously submit our edited problem
+     * once we receive a response from the database, we return a callback
+     * with a boolean result either successful or not
+     *
+     * @param title edited Problem title
+     * @param desc edited Problem description
+     * @param date edited Problem date
+     * @param cb callback method
+     * @return void
+     * */
     public void submitProblem(String title, String desc, String date, Callback cb) throws ParseException{
 
         Problem submitProblem = new Problem(title, desc, date, IrisProjectApplication.getCurrentUser().getId());
