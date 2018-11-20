@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
@@ -36,6 +38,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     private ProblemListController controller;
     private ListView problemsView;
+    private FloatingActionButton addProblemButton;
     private Boolean doEditProblem = false;
 
     private Toolbar toolbar;
@@ -48,6 +51,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         controller = new ProblemListController(getIntent());
 
         problemsView = findViewById(R.id.problem_item_list);
+        addProblemButton = findViewById(R.id.problem_list_add);
         toolbar = findViewById(R.id.problem_list_toolbar);
         setSupportActionBar(toolbar);
 
@@ -84,7 +88,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         });
 
         // set click listener to AddProblemFloatingButton
-        findViewById(R.id.problem_list_add).setOnClickListener(new View.OnClickListener() {
+        addProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // start a AddProblemActivity with a requestCode of ADD_PROBLEM_RESPONSE
