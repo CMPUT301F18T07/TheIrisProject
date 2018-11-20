@@ -5,6 +5,7 @@
 package com.team7.cmput301.android.theirisproject.model;
 
 import com.team7.cmput301.android.theirisproject.helper.DateHelper;
+import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 import java.util.Date;
 
@@ -22,13 +23,13 @@ public class Comment {
     private String _id;
     private String problemId;
     private String author;
-    private String role;
+    private UserType role;
     private Date date;
     private String body;
 
     /* Constructors */
 
-    public Comment(String problemId, String author, String body, String role) {
+    public Comment(String problemId, String author, String body, UserType role) {
         this.problemId = problemId;
         this.author = author;
         this.body = body;
@@ -42,7 +43,7 @@ public class Comment {
 
     public String getProblemId() { return problemId; }
 
-    public String getRole() { return role; }
+    public UserType getRole() { return role; }
 
     public String getAuthor() {
         return author;
