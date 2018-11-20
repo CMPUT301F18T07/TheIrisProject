@@ -16,6 +16,8 @@ public class PatientListTest {
         patientList.addPatient(patient);
 
         Assert.assertEquals(patientList.getPatients().size(), 1);
+        Assert.assertEquals(patientList.getPatients().get(0), patient);
+
     }
 
     @Test
@@ -25,6 +27,7 @@ public class PatientListTest {
 
         patientList.addPatient(patient);
         Assert.assertEquals(patientList.getPatients().size(), 1);
+        Assert.assertEquals(patientList.getPatients().get(0), patient);
 
         patientList.removePatient(patient);
         Assert.assertEquals(patientList.getPatients().size(), 0);

@@ -25,10 +25,9 @@ public class RecordListTest {
         Record record = getTestRecord();
 
         Assert.assertEquals(recordList.asList().size(), 0);
-
         recordList.add(record);
-
         Assert.assertEquals(recordList.asList().size(), 1);
+        Assert.assertEquals(recordList.asList().get(0), record);
     }
 
     @Test
@@ -39,6 +38,7 @@ public class RecordListTest {
         recordList.add(record);
 
         Assert.assertEquals(recordList.contains(record), true);
+        Assert.assertEquals(recordList.asList().get(0), record);
     }
 
     @Test
@@ -46,10 +46,10 @@ public class RecordListTest {
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
+        recordList.add(record);
         Assert.assertEquals(recordList.asList().size(), 1);
-
+        Assert.assertEquals(recordList.asList().get(0), record);
         recordList.remove(record);
-
         Assert.assertEquals(recordList.asList().size(), 0);
     }
 
