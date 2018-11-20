@@ -44,7 +44,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment current = comments.get(position);
-        holder.setNameView(current.getAuthor(), current.getRole());
+        holder.setNameView(current.getAuthor(), current.getRole().toString());
         holder.setDateView(current.getDate());
         holder.setBodyView(current.getBody());
     }

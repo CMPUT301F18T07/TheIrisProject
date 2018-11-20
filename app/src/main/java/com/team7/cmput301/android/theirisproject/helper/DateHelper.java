@@ -19,11 +19,23 @@ public class DateHelper {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.CANADA);
 
 
+    /**
+     * Formats a date object to a string in the specified date format
+     * @param date
+     * @return String the date argument as a string in the specified date format
+     */
     public static String format(Date date) {
         return dateFormat.format(date);
 
     }
 
+    /**
+     *
+     * @param string
+     * @return Date date object represented by the string
+     * @throws ParseException Throws following exception if string
+     * is not correctly formatted to the specified format
+     */
     public static Date parse(String string) throws ParseException {
         return dateFormat.parse(string);
     }

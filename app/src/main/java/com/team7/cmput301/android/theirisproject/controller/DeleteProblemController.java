@@ -31,6 +31,12 @@ public class DeleteProblemController extends IrisController {
     @Override
     Object getModel(Bundle date) {return null;}
 
+    /**
+     * deleteProblem is a method to asynchronously deletes the given problem
+     * once we receive a response from the database, we return a callback
+     * with a boolean result either successful or not
+     * @param cb callback method
+     */
     public void deleteProblem(Callback<Boolean> cb) {
         new DeleteProblemTask(new Callback<Boolean>() {
             @Override

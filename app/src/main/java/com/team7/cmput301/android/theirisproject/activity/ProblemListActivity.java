@@ -31,6 +31,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * extra "user"
  *
  * @author itstc
+ * @see ProblemListController
  * */
 public class ProblemListActivity extends IrisActivity<ProblemList> {
 
@@ -74,7 +75,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
             }
         });
-
+        // Set onitemlongclicklistener to listview of problems
         problemsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             // Delete problem being held on
             @Override
@@ -111,11 +112,11 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             case R.id.problem_list_action_edit:
                 // Set flag so that when user taps on problem, will take user to edit page
                 if (doEditProblem){
-                    Toast.makeText(ProblemListActivity.this, "Click on Problem to view", Toast.LENGTH_LONG);
+                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
                     doEditProblem = false;
                 }
                 else {
-                    Toast.makeText(ProblemListActivity.this, "Click on Problem to edit", Toast.LENGTH_LONG);
+                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
                     doEditProblem = true;
                 }
                 break;
@@ -149,8 +150,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
      *
-     * @param state: new state of model
-     * @return void
+     * @param state new state of model
      * */
     public void render(ProblemList state) {
         ProblemList newState = state;
@@ -162,6 +162,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DELETE_PROBLEM_RESPONSE) {
+            // On return from DeleteProblemActivity, check the result of the activity for status of deletion
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_LONG);
             }

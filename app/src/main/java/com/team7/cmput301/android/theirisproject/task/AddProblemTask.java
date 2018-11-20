@@ -44,7 +44,7 @@ public class AddProblemTask extends AsyncTask<Problem, Void, String> {
     /**
      * doInBackground will send a request to DB with given new problem
      * returning a boolean for its status
-     * @param params: use only params[0] containing a new Problem.class
+     * @param params use only params[0] containing a new Problem.class
      * @return Boolean: true if successful, else false
      * */
     @Override

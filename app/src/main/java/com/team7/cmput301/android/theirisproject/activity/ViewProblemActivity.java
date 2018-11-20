@@ -38,6 +38,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.extra_problem_id";
 
     private ProblemController problemController;
+    private String problemId;
 
     private TextView problemTitle;
     private TextView problemDate;
@@ -63,7 +64,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         setContentView(R.layout.activity_view_problem);
         problemController = (ProblemController) createController(getIntent());
 
-        String problemId = getIntent().getStringExtra(EXTRA_PROBLEM_ID);
+        problemId = getIntent().getStringExtra(EXTRA_PROBLEM_ID);
 
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
@@ -79,6 +80,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
 
+        // Set onclicklistener to submit comment button
         commentSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +90,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclicklistener to view records button
         viewRecordsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -95,6 +98,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclick listener to create record button
         createRecordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -110,6 +114,9 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemController.getProblem(onCreateCallback());
     }
 
+    /**
+     * Printing error message on current activity
+     */
     private void setCommentErrorMessage() {
         Toast.makeText(ViewProblemActivity.this, "Comment Field is Empty!", Toast.LENGTH_SHORT).show();
     }
@@ -165,6 +172,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         commentList.setAdapter(commentListAdapter);
     }
 
+    /**
+     * render will update the Activity with the new state provided
+     * in the arguments of invoking this method
+     *
+     * @param state new state of model
+     * */
     public void render(Problem state) {
         Problem newState = state;
         // update primitive fields
@@ -179,12 +192,22 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         commentListAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * dispatchViewRecordsActivity starts view record activity, adding
+     * the problem id to intent for retrieval of records.
+     * @param id id of the problem
+     */
     private void dispatchViewRecordsActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, RecordListActivity.class);
         intent.putExtra(EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }
 
+    /**
+     * dispatchCreateRecordActivity starts create record activity, adding
+     * the problem id to intent for the creation of new record.
+     * @param id id of the problem
+     */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
         intent.putExtra(EXTRA_PROBLEM_ID, id);
