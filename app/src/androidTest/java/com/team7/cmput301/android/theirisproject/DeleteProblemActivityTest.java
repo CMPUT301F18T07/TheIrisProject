@@ -20,7 +20,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  */
 public class DeleteProblemActivityTest extends ActivityInstrumentationTestCase2<DeleteProblemActivity> {
 
-    static int flag = 0;
+    int flag = 0;
 
     private Solo solo;
     private String title = "I hit my head";
@@ -74,6 +74,7 @@ public class DeleteProblemActivityTest extends ActivityInstrumentationTestCase2<
         while (flag == 0){
             Timer.sleep(100);
         }
+        flag = 0;
 
         // click delete button
         View deleteButton = solo.getView(R.id.do_delete_problem_button);
