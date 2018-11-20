@@ -14,9 +14,12 @@ import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Comment;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import org.junit.Test;
 
@@ -57,13 +60,23 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
     @Override
     protected void setUp() {
         Problem problem = new Problem(title, description, userid, body_photos);
+        problem.setRecords(records);
         problem.setID(_id);
 
         Intent intent = new Intent();
         intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, _id);
 
+        IrisProjectApplication.setCurrentUser(new Patient("testUser", "email@gmail.com", "1234567890"));
+
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
+
+        new AddProblemTask(new Callback<String>() {
+            @Override
+            public void onComplete(String res) {
+                // Don't need to do anything wtih the result
+            }
+        }).execute(problem);
     }
 
     @Override
@@ -83,20 +96,10 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
     @Test
     public void testCorrectProblemData() {
         Timer.sleep(1000);
+        // Ensure that the problem data (title and description shows up)
 
-        Comment comment = new Comment(problemId, author, body, role);
-
-        TextView problemTitle = (TextView) solo.getView(R.id.problem_title);
-        TextView problemDate = (TextView) solo.getView(R.id.problem_date);
-        TextView problemDescription = (TextView) solo.getView(R.id.problem_description);
-        RecyclerView problemImages = (RecyclerView) solo.getView(R.id.problem_images);
-        RecyclerView problemComments = (RecyclerView) solo.getView(R.id.problem_comments);
-
-        assertTrue(problemTitle.getText().toString().equals(title));
-        assertTrue(problemDate.getText().toString().equals(date.toString()));
-        assertTrue(problemDescription.getText().toString().equals(description));
-        assertTrue(problemImages.equals(body_photos));
-        assertTrue(problemComments.toString().equals(comment.toString()));
+        assertTrue(solo.searchText(title));
+        assertTrue(solo.searchText(description));
     }
 
     /**
