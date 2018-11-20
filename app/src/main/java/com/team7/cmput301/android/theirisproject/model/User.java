@@ -59,6 +59,10 @@ public abstract class User {
         return this.type;
     }
 
+    public boolean isUser(String targetId) {
+        return _id.equals(targetId);
+    }
+
     /* Advanced setters */
 
     public void editContact(String username, String email, String phoneNumber) {

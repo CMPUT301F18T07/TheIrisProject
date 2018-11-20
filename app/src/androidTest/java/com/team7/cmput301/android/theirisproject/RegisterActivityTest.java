@@ -1,71 +1,71 @@
 package com.team7.cmput301.android.theirisproject;
 
-import android.app.Activity;
-import android.support.test.espresso.Espresso;
-import android.support.test.filters.LargeTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.robotium.solo.Solo;
+import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.activity.RegisterActivity;
+import com.team7.cmput301.android.theirisproject.helper.DeleteUserTask;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
+import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.RegisterTask;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.*;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.*;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 /**
- * RegisterActivityTest contains tests pertaining to registering users in RegisterActivity
+ * Contains register tests for RegisterActivity
+ *
  *
  * @author Jmmxp
  * @see RegisterActivity
  */
+public class RegisterActivityTest extends ActivityInstrumentationTestCase2<RegisterActivity> {
 
-@RunWith(AndroidJUnit4.class)
-@LargeTest
-public class RegisterActivityTest {
+    // We have to decide if we want to use Robotium or Espresso
 
-    private Activity activity;
+    private Solo solo;
 
-    @Rule
-    public ActivityTestRule<RegisterActivity> activityRule = new ActivityTestRule<>(RegisterActivity.class);
-
-    @Before
-    public void setUp() {
-        activity = activityRule.getActivity();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public RegisterActivityTest() {
+        super(RegisterActivity.class);
     }
 
+    @Override
+    protected void setUp() {
+        solo = new Solo(getInstrumentation(), getActivity());
+    }
+
+    @Override
+    protected void tearDown() {
+        solo.finishOpenedActivities();
+    }
+
+    public void testActivity() {
+        String activityName = RegisterActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity found, should be " + activityName, activityName);
+    }
 
     /**
      * Test registration when not all fields have been filled out
      */
     @Test
     public void testRegisterIncomplete() {
-        onView(withId(R.id.register_button))
-                .perform(click());
+        Button registerButton = (Button) solo.getView(R.id.register_button);
 
-        checkToast(getString(R.string.register_incomplete));
+        solo.clickOnView(registerButton);
 
-        fillEditText(R.id.name_edit_text, "John Doe");
+        assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
 
+        // Try registering with only the name field filled out
+        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
+        solo.enterText(nameEditText, "John Doe");
 
-        closeKeyboardAndWait();
-        onView(withId(R.id.register_button))
-                .perform(click());
+        solo.clickOnView(registerButton);
 
-        checkToast(getString(R.string.register_incomplete));
+        assertTrue(solo.waitForText(getString(R.string.register_incomplete)));
     }
 
     /**
@@ -74,16 +74,33 @@ public class RegisterActivityTest {
      */
     @Test
     public void testRegisterAlreadyRegistered() {
-        fillEditText(R.id.name_edit_text, "John Doe");
-        fillEditText(R.id.password_edit_text, "badpassword");
-        fillEditText(R.id.email_edit_text, "johndoe@gmail.com");
-        fillEditText(R.id.phone_edit_text, "123-456-7890");
+        Button registerButton = (Button) solo.getView(R.id.register_button);
 
-        closeKeyboardAndWait();
-        onView(withId(R.id.register_button))
-                .perform(click());
+        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
+        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
+        EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
+        EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
 
-        checkToast(getString(R.string.register_failure));
+        solo.enterText(nameEditText, "John Doe");
+        solo.enterText(passwordEditText, "badpassword");
+        solo.enterText(emailEditText, "johndoe@gmail.com");
+        solo.enterText(phoneEditText, "123-456-7890");
+
+        User user = new Patient(nameEditText.getText().toString(), emailEditText.getText().toString(),
+                phoneEditText.getText().toString());
+
+        new RegisterTask(new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean registerSuccess) {
+                if (!registerSuccess) {
+                    assert false;
+                }
+            }
+        }).execute(user);
+
+        solo.clickOnView(registerButton);
+
+        assertTrue(solo.waitForText(getString(R.string.register_failure)));
     }
 
     /**
@@ -92,49 +109,40 @@ public class RegisterActivityTest {
      */
     @Test
     public void testRegisterSuccess() {
-        fillEditText(R.id.name_edit_text, "John Doe");
-        fillEditText(R.id.password_edit_text, "badpassword");
-        fillEditText(R.id.email_edit_text, "johndoe2@gmail.com");
-        fillEditText(R.id.phone_edit_text, "123-456-7890");
+        Button registerButton = (Button) solo.getView(R.id.register_button);
 
-        closeKeyboardAndWait();
-        onView(withId(R.id.register_button))
-                .perform(click());
+        EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
+        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
+        EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
+        EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
 
-        // TODO: Delete test user from the DB, or use a mock DB before doing this test
-        // checkToast(getString(R.string.register_success));
+        String testEmail = "johndoe@gmail.com";
+
+        solo.enterText(nameEditText, "John Doe");
+        solo.enterText(passwordEditText, "badpassword");
+        solo.enterText(emailEditText, testEmail);
+        solo.enterText(phoneEditText, "123-456-7890");
+
+        new DeleteUserTask(new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean deleteSuccess) {
+                if (!deleteSuccess) {
+                    assert false;
+                }
+            }
+        }).execute(testEmail);
+
+        // Must pause to properly give time to delete the user if it exists
+        // Need to determine if this is always going to be sufficient time
+        Timer.sleep(1000);
+
+        solo.clickOnView(registerButton);
+
+        assertTrue(solo.waitForText(getString(R.string.register_success)));
     }
 
-    private void fillEditText(int editTextResId, String text) {
-        onView(withId(editTextResId))
-                .perform(typeText(text));
-    }
-
-    /**
-     * Closes they keyboard and sleeps for 0.25s, this is currently needed or else the test tries to
-     * click the button before the keyboard is closed which causes it to fail
-     */
-    private void closeKeyboardAndWait() {
-        Espresso.closeSoftKeyboard();
-        try {
-            Thread.sleep(250);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Check if a Toast displays given text
-     * REFERENCE: https://stackoverflow.com/questions/28390574/checking-toast-message-in-android-espresso
-     */
-    private void checkToast(String toastText) {
-        onView(withText(toastText))
-                .inRoot(withDecorView(not(is(activity.getWindow().getDecorView()))))
-                .check(matches(isDisplayed()));
-    }
-
-    private String getString(int stringResId) {
-        return activity.getString(stringResId);
+    private String getString(int stringId) {
+        return getActivity().getString(stringId);
     }
 
 }

@@ -69,6 +69,10 @@ public class Problem {
 
     /* Basic setter + adders */
 
+    public void setId(String _id) {
+        this._id = _id;
+    }
+
     public void setRecords(RecordList records){
         this.records = records;
     }

@@ -25,7 +25,12 @@ public class DeleteProblemTask extends AsyncTask<String, Void, Boolean> {
 
     public DeleteProblemTask(Callback cb) {this.cb = cb;}
 
-
+    /**
+     * doInBackground will send a request to DB with edited problem
+     * returning a boolean for its status of deletion
+     * @param params: use only params[0] containing the edited Problem.class
+     * @return Boolean: true if successful, else false
+     * */
     @Override
     protected Boolean doInBackground(String... params) {
 
