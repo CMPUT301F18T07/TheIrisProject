@@ -9,12 +9,15 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 import com.team7.cmput301.android.theirisproject.activity.AddProblemActivity;
+import com.team7.cmput301.android.theirisproject.activity.DeleteProblemActivity;
+import com.team7.cmput301.android.theirisproject.activity.EditProblemActivity;
 import com.team7.cmput301.android.theirisproject.activity.ProblemListActivity;
-import com.team7.cmput301.android.theirisproject.activity.ViewPatientProfileActivity;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
@@ -27,22 +30,24 @@ import java.text.ParseException;
  * Test for ProblemListActivity(Basically the same for cp but less ui options)
  *
  * @author caboteja
+ * @author VinnyLuu
  */
 
 
-public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<ProblemListActivityTest> {
+public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<ProblemListActivity> {
 
     private Solo solo;
 
     //May need to ensure that user is not in db
-    public String userName = "Michael";
-    public String userEmail = "Michael@gmail.com";
-    public String userPhone = "123456789";
-    public String patientID = "AWcufH5g_rcORbNUUuGo";
-    public String probTitle = "Acne";
-    public String probDesc = "big big pimples";
-    public String probDate = "2018-19-11T21:25:00";
-    public String probID = "456";
+    private String userName = "John Doe";
+    private String userEmail = "notjohn@gmail.com";
+    private String userPhone = "123456789";
+    private String patientID = "03";
+    private String probTitle = "Acne";
+    private String probDesc = "big big pimples";
+    private String probDate = "2018-09-01T18:30:00";
+    private String probID = "456";
+    private Problem problem;
 
     public ProblemListActivityTest() {super(ProblemListActivity.class);
     }
@@ -55,12 +60,9 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
         Patient patient = new Patient (userName, userEmail, userPhone);
         patient.setId(patientID);
         IrisProjectApplication.setCurrentUser(patient);
-        Problem problem = null;
-
         try {
             problem = new Problem(probTitle, probDesc, probDate, patientID);
-        }
-        catch(ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         problem.setID(probID);
@@ -73,10 +75,10 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
         }).execute(problem);
 
         Intent intent = new Intent();
-        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+        intent.putExtra("user", patient.getId());
         setActivityIntent(intent);
-        solo = new Solo(getInstrumentation(), getActivity());
 
+        solo = new Solo(getInstrumentation(), getActivity());
     }
 
     @Override
@@ -94,48 +96,98 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
      */
 
     //currently don't have EditProblemListActivity
-    public void TestEditProblems () {
-        solo.clickOnButton("Edit Problems");
-        solo.assertCurrentActivity("Edit problem selected", EditProblemListActivity.class);
-    }
+//    public void testEditProblems () {
+//        solo.clickOnButton("Edit Problems");
+//        solo.assertCurrentActivity("Edit problem selected", EditProblemListActivity.class);
+//    }
 
     //currently don't have SearchProblemActivity
-    public void TestSearchProblems () {
-        solo.clickOnButton("Search");
-        solo.assertCurrentActivity("Search problems selected", SearchProblemActivity.class);
-    }
+//    public void testSearchProblems () {
+//        solo.clickOnButton("Search");
+//        solo.assertCurrentActivity("Search problems selected", SearchProblemActivity.class);
+//    }
 
-    public void TestProfile () {
-        solo.clickOnButton("Profile");
-        solo.assertCurrentActivity("Profile selected", ViewPatientProfileActivity.class);
-    }
+//    public void testProfile () {
+//        solo.clickOnMenuItem("Profile");
+//        solo.assertCurrentActivity("Profile selected", ViewPatientProfileActivity.class);
+//    }
 
     //currently don't have ViewMapOfAllRecordsActivity
-    public void TestMap_of_all_records () {
-        solo.clickOnButton("Map of all Records");
-        solo.assertCurrentActivity("Map of all Records selected", ViewMapOfAllRecordsActivity.class );
-    }
+//    public void TestMap_of_all_records () {
+//        solo.clickOnButton("Map of all Records");
+//        solo.assertCurrentActivity("Map of all Records selected", ViewMapOfAllRecordsActivity.class );
+//    }
 
-    public void TestAddProblem () {
-        solo.clickOnButton("Add Problem");
-        solo.assertCurrentActivity("Add problem selected", AddProblemActivity.class);
+    /**
+     * Test if AddProblemActivity starts when Add problem button is clicked
+     */
+    public void testAddProblem () {
+        View addproblem = solo.getView(R.id.problem_list_add);
+        solo.clickOnView(addproblem);
+        solo.waitForActivity(AddProblemActivity.class);
+        String activityName = AddProblemActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity!", activityName);
     }
 
     /**
      * Test problem list info
      */
-    public void TestProblemListInfo () {
+    public void testProblemListInfo () {
         //Title
-        solo.searchText("Acne");
+        assertTrue(solo.searchText(probTitle));
         //Patient ID
-        solo.searchText("AWcufH5g_rcORbNUUuGo");
+        assertTrue(solo.searchText(probID));
         //Problem Description
-        solo.searchText("big big pimples");
+        assertTrue(solo.searchText(probDesc));
     }
 
-    public void TestSelectProblem () {
+    /**
+     * Test if ViewProblemActivity starts and displays correct information when problem is clicked
+     */
+    public void testSelectProblem () {
         solo.clickInList(1);
-        solo.assertCurrentActivity("Problem selected", ViewProblemActivity.class );
+        solo.waitForActivity(ViewProblemActivity.class);
+        String activityName = ViewProblemActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity!", activityName);
+
+        TextView problemTitle = (TextView) solo.getView(R.id.problem_title);
+        TextView problemDate = (TextView) solo.getView(R.id.problem_date);
+        TextView problemDescription = (TextView) solo.getView(R.id.problem_description);
+
+        assertTrue(problemTitle.getText().toString().equals(probTitle));
+        assertTrue(problemDate.getText().toString().equals(probDate));
+        assertTrue(problemDescription.getText().toString().equals(probDesc));
+    }
+
+    /**
+     * Test if EditProblemActivity starts and displays correct information when
+     * edit problem button is clicked and then a problem is clicked
+     */
+    public void testEditProblem() {
+        solo.clickOnView(solo.getView(R.id.problem_list_action_edit));
+        solo.clickInList(1);
+        solo.waitForActivity(EditProblemActivity.class);
+        String activityName = EditProblemActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity!", activityName);
+
+        EditText title = (EditText) solo.getView(R.id.problem_title);
+        EditText desc = (EditText) solo.getView(R.id.problem_description);
+        EditText date = (EditText) solo.getView(R.id.problem_date);
+
+        assertTrue(title.getText().toString().equals(probTitle));
+        assertTrue(desc.getText().toString().equals(probDesc));
+        assertTrue(date.getText().toString().equals(probDate));
+
+    }
+
+    /**
+     * Test if DeleteProblemActivity starts when problem is held down
+     */
+    public void testDeleteProblem() {
+        solo.clickLongInList(1);
+        solo.waitForActivity(DeleteProblemActivity.class);
+        String activityName = DeleteProblemActivity.class.getSimpleName();
+        solo.assertCurrentActivity("Wrong activity!", activityName);
     }
 
     private String getString(int stringId) {

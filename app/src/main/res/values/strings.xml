@@ -67,6 +67,8 @@
     <string name="problem_list_edit_problems_text">Edit Problems</string>
     <string name="problem_list_profile_text">Profile</string>
     <string name="problem_list_search_text">Search</string>
+    <string name="problem_list_view_problem_hint">"Click on Problem to view"</string>
+    <string name="problem_list_edit_problem_hint">"Click on Problem to edit"</string>
 
     <!-- View Patient list screen strings-->
     <string name="add_patient">Add Patient</string>

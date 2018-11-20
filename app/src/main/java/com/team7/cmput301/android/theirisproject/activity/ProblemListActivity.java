@@ -112,11 +112,11 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             case R.id.problem_list_action_edit:
                 // Set flag so that when user taps on problem, will take user to edit page
                 if (doEditProblem){
-                    Toast.makeText(ProblemListActivity.this, "Click on Problem to view", Toast.LENGTH_LONG);
+                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
                     doEditProblem = false;
                 }
                 else {
-                    Toast.makeText(ProblemListActivity.this, "Click on Problem to edit", Toast.LENGTH_LONG);
+                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
                     doEditProblem = true;
                 }
                 break;
