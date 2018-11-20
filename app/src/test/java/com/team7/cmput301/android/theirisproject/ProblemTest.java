@@ -1,4 +1,5 @@
 package com.team7.cmput301.android.theirisproject;
+
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.Problem;
@@ -48,9 +49,9 @@ public class ProblemTest {
         Problem problem = getTestProblem();
         List<RecordPhoto> test_photos = problem.getSlideShowInfo();
 
-        for (Record record: records){
+        for (Record record : records) {
             List<RecordPhoto> photos = record.getRecordPhotos();
-            for (RecordPhoto photo: photos){
+            for (RecordPhoto photo : photos) {
                 Assert.assertTrue(test_photos.contains(photo));
             }
         }
