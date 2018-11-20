@@ -80,8 +80,7 @@ public class DeleteProblemActivityTest extends ActivityInstrumentationTestCase2<
         View deleteButton = solo.getView(R.id.do_delete_problem_button);
         solo.clickOnView(deleteButton);
 
-        // confirm the activity closes and Problem isn't on list view
-        solo.waitForActivity(ProblemListActivity.class);
+        // confirm the text of the Problem is gone
         assertFalse(solo.searchText(title));
         assertFalse(solo.searchText(desc));
 

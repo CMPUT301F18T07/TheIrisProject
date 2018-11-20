@@ -79,7 +79,7 @@ public class ProblemController extends IrisController {
             public void onComplete(Boolean res) {
                 if (res) getProblem(cb);
             }
-        }).execute(new Comment(problemID, user.getName(), body, user.getType().toString()));
+        }).execute(new Comment(problemID, user.getName(), body, user.getType()));
     }
 
     public List<BodyPhoto> getBodyPhotos() {
