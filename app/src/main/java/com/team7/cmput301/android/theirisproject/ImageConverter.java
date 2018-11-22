@@ -54,4 +54,8 @@ public class ImageConverter {
         img.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
     }
+
+    public static Bitmap scaleBitmapPhoto(Bitmap photo, int width, int height) {
+        return Bitmap.createScaledBitmap(photo, width, height, false);
+    }
 }

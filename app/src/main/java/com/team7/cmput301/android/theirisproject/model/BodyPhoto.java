@@ -17,12 +17,13 @@ import com.team7.cmput301.android.theirisproject.ImageConverter;
  * @see Problem
  * @author itstc
  * */
-public class BodyPhoto {
+public class BodyPhoto implements Photo {
 
     @JestId
     private String _id;
     private String problemId;
     private String blob;
+    private String label;
     transient private Bitmap photo;
 
     /* Constructors */

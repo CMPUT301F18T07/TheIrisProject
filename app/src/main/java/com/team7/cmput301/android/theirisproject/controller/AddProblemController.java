@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.task.AddBodyPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
@@ -41,8 +42,7 @@ public class AddProblemController extends IrisController<Problem> {
      * @param img our bitmap image
      * */
     public void addBodyPhoto(Bitmap img) {
-        Bitmap res = Bitmap.createScaledBitmap(img, 256, 256, false);
-        bodyPhotos.add(new BodyPhoto(res));
+        bodyPhotos.add(new BodyPhoto(ImageConverter.scaleBitmapPhoto(img, 256, 256)));
     }
     public ArrayList<BodyPhoto> getBodyPhotos() {
         return bodyPhotos;
