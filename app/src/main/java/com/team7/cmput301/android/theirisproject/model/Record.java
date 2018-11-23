@@ -4,6 +4,7 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class Record {
     private String title;
     private Date date;
     private GeoLocation geoLocation;
+    private BodyLocation bodyLocation;
     transient private List<RecordPhoto> recordPhotos;
 
     /* Constructors */
@@ -39,7 +41,13 @@ public class Record {
         this.recordPhotos = recordPhotos;
     }
 
+    public Record(String problemId, String title, String desc, List<RecordPhoto> recordPhotos) {
+        this(problemId, title, desc);
+        this.recordPhotos = recordPhotos;
+    }
+
     public Record(String problemId, String title, String desc) {
+        this();
         this.problemId = problemId;
         this.title = title;
         this.desc = desc;
@@ -47,6 +55,7 @@ public class Record {
     }
 
     public Record() {
+        this.recordPhotos = new ArrayList<>();
     }
 
     /* Basic setter */

@@ -64,10 +64,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/record_description_edit_text" />
 
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/record_add_image_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/record_geolocation_edit_text"
+        app:layout_constraintBottom_toTopOf="@id/record_add_button">
+    </android.support.v7.widget.RecyclerView>
 
     <Button
-        android:id="@+id/record_add_problem_button"
+        android:id="@+id/record_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -75,7 +81,8 @@
         android:text="@string/add_record"
         android:textColor="?android:attr/colorBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/record_geolocation_edit_text" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/record_camera_button"

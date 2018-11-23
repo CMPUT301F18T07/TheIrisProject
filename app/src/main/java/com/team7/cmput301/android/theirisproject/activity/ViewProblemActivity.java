@@ -18,11 +18,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
+import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -47,7 +48,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     //private ViewFlipper problemImages;
   
     private RecyclerView problemImages;
-    private BodyPhotoListAdapter bodyPhotoListAdapter;
+    private ImageListAdapter<BodyPhoto> bodyPhotoListAdapter;
 
     private RecyclerView commentList;
     private CommentListAdapter commentListAdapter;
@@ -155,7 +156,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         LinearLayoutManager imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
         imageListLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         problemImages.setLayoutManager(imageListLayout);
-        bodyPhotoListAdapter = new BodyPhotoListAdapter(problemController.getBodyPhotos(), false);
+        bodyPhotoListAdapter = new ImageListAdapter<>(this, problemController.getBodyPhotos(), false);
         problemImages.setAdapter(bodyPhotoListAdapter);
     }
 

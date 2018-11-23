@@ -8,8 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetRecordTask;
+
+import java.util.List;
 
 /**
  * RecordController allows communication between the Record Model and
@@ -46,6 +49,8 @@ public class RecordController extends IrisController<Record> {
     public String getRecordId() {
         return recordId;
     }
+
+    public List<RecordPhoto> getPhotos() { return model.getRecordPhotos(); }
 
     @Override
     Record getModel(Bundle data) {
