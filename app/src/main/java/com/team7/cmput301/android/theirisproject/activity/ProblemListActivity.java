@@ -121,7 +121,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             case R.id.problem_list_action_view_profile:
                 // View a profile
                 Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
-                Intent intent = new Intent(this, ViewPatientProfileActivity.class);
+                Intent intent = new Intent(this, ViewProfileActivity.class);
 
                 startActivity(intent);
                 break;

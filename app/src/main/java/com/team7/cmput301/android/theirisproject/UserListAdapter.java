@@ -9,29 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.team7.cmput301.android.theirisproject.activity.ViewPatientProfileActivity;
-import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.activity.ViewProfileActivity;
+import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.util.List;
 
 /**
- * CareProviderListAdapter holds a List of CareProviders, which is used in the ListView for
- * ViewPatientProfileActivity
+ * UserListAdapter holds a List of Users, which is used in the ListView for
+ * ViewProfileActivity
  *
  * @author Jmmxp
- * @see ViewPatientProfileActivity
+ * @see ViewProfileActivity
  */
-public class CareProviderListAdapter extends ArrayAdapter<CareProvider> {
+public class UserListAdapter extends ArrayAdapter<User> {
 
     private Activity context;
     private int resource;
-    private List<CareProvider> careProviders;
+    private List<User> users;
 
-    public CareProviderListAdapter(@NonNull Activity context, int resource, @NonNull List<CareProvider> careProviders) {
-        super(context, resource, careProviders);
+    public UserListAdapter(@NonNull Activity context, int resource, @NonNull List<User> users) {
+        super(context, resource, users);
         this.context = context;
         this.resource = resource;
-        this.careProviders = careProviders;
+        this.users = users;
     }
 
     @NonNull
@@ -42,10 +42,10 @@ public class CareProviderListAdapter extends ArrayAdapter<CareProvider> {
         TextView name = view.findViewById(R.id.care_provider_name_text_view);
         TextView phone = view.findViewById(R.id.care_provider_phone_text_view);
 
-        CareProvider careProvider = careProviders.get(position);
+        User user = users.get(position);
 
-        name.setText(careProvider.getName());
-        phone.setText(careProvider.getPhone());
+        name.setText(user.getName());
+        phone.setText(user.getPhone());
 
         return view;
     }

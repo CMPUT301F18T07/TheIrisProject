@@ -12,23 +12,19 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.team7.cmput301.android.theirisproject.CareProviderListAdapter;
+import com.team7.cmput301.android.theirisproject.UserListAdapter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
-import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * ViewPatientProfileActivity is for allowing the patient to view their profile information.
+ * ViewProfileActivity is for allowing the patient to view their profile information.
  * @author caboteja
  */
 
 
-public class ViewPatientProfileActivity extends IrisActivity {
+public class ViewProfileActivity extends IrisActivity {
 
     private Patient patient;
 
@@ -56,7 +52,8 @@ public class ViewPatientProfileActivity extends IrisActivity {
         phone.setText(patient.getPhone());
 
 
-        adapter = new CareProviderListAdapter(this, R.layout.list_care_provider_item, patient.getCareProviders());
+        adapter = new UserListAdapter(this, R.layout.list_care_provider_item, patient.getCareProviders());
+
         careProviders.setAdapter(adapter);
     }
 

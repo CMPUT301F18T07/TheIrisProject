@@ -8,18 +8,17 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
 
 import com.robotium.solo.Solo;
-import com.team7.cmput301.android.theirisproject.activity.ViewPatientProfileActivity;
+import com.team7.cmput301.android.theirisproject.activity.ViewProfileActivity;
 import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 
 /**
- * Test for ViewPatientProfileActivity
+ * Test for ViewProfileActivity
  * @author VinnyLuu
  */
-public class ViewPatientProfileActivityTest extends ActivityInstrumentationTestCase2<ViewPatientProfileActivity> {
+public class ViewProfileActivityTest extends ActivityInstrumentationTestCase2<ViewProfileActivity> {
 
     private Solo solo;
     private String patientName = "John Doe";
@@ -28,8 +27,8 @@ public class ViewPatientProfileActivityTest extends ActivityInstrumentationTestC
     private String patientID = "111";
 
 
-    public ViewPatientProfileActivityTest() {
-        super(ViewPatientProfileActivity.class);
+    public ViewProfileActivityTest() {
+        super(ViewProfileActivity.class);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class ViewPatientProfileActivityTest extends ActivityInstrumentationTestC
     }
 
     public void testActivity() {
-        String activityName = ViewPatientProfileActivity.class.getSimpleName();
+        String activityName = ViewProfileActivity.class.getSimpleName();
         solo.assertCurrentActivity("Wring activity found, should be " + activityName, activityName);
     }
 
@@ -59,7 +58,7 @@ public class ViewPatientProfileActivityTest extends ActivityInstrumentationTestC
         // Wait for activity to get Patient information from db
         Timer.sleep(1000);
 
-        // TODO: Make sure when ViewPatientProfileActivity is completed that ids are changed appropriately
+        // TODO: Make sure when ViewProfileActivity is completed that ids are changed appropriately
 //        TextView name = (TextView) solo.getView(R.id.patient_name);
 //        TextView email = (TextView) solo.getView(R.id.patient_email);
 //        TextView phone = (TextView) solo.getView(R.id.patient_phonenum);
