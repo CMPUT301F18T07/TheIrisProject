@@ -9,14 +9,21 @@
 
 
     <TextView
-        android:id="@+id/care_provider_name_text_view"
+        android:id="@+id/user_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="20sp"
         tools:text="Care Provider Name" />
 
     <TextView
-        android:id="@+id/care_provider_phone_text_view"
+        android:id="@+id/user_email_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        tools:text="Care Provider Email" />
+
+    <TextView
+        android:id="@+id/user_phone_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"

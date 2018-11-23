@@ -13,7 +13,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/view_profile_phone_number"
+        android:text="@string/view_profile_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/view_profile_username"
+        android:text="@string/view_profile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view_profile_phone_text_view" />
 
     <TextView
-        android:id="@+id/view_profile_care_providers_text_view"
+        android:id="@+id/view_profile_users_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -56,19 +56,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_profile_email_text_view"
-        android:text="@string/view_profile_care_providers_text"
+        android:text="@string/view_profile_users"
         android:textStyle="bold"
         />
 
     <ListView
-        android:id="@+id/view_profile_care_provider_list_view"
+        android:id="@+id/view_profile_users_list_view"
         android:layout_width="309dp"
         android:layout_height="236dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.386"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_care_providers_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_users_text_view" />
 
     <Button
         android:id="@+id/view_profile_edit_profile_button"
@@ -78,7 +78,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/view_profile_edit_profile_button_text"
+        android:text="@string/view_profile_edit_profile_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.084"

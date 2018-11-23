@@ -118,12 +118,14 @@
 
 
     <!-- View Profile screen strings-->
-    <string name="view_profile_username">Username</string>
+    <string name="view_profile_name">Name</string>
     <string name="view_profile_title">Profile</string>
-    <string name="view_profile_email">User Email</string>
-    <string name="view_profile_phone_number">User Phone Number</string>
-    <string name="view_profile_edit_profile_button_text">Edit Profile</string>
-    <string name="view_profile_care_providers_text">Care Providers:</string>
+    <string name="view_profile_email">Email</string>
+    <string name="view_profile_phone">Phone</string>
+    <string name="view_profile_edit_profile_button">Edit Profile</string>
+    <string name="view_profile_users">Users:</string>
+    <string name="view_profile_patients">Patients:</string>
+    <string name="view_profile_care_providers">Care Providers:</string>
 
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by e-mail</string>
