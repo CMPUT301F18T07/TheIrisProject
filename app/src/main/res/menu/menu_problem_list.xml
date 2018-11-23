@@ -21,7 +21,7 @@
     </item>
 
     <item
-        android:id="@+id/problem_list_action_viewProfile"
+        android:id="@+id/problem_list_action_view_profile"
         android:icon="@drawable/ic_account_circle_white_24dp"
         android:title="@string/problem_list_profile_text"
         app:showAsAction="ifRoom">

@@ -11,14 +11,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
@@ -120,9 +118,12 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                     doEditProblem = true;
                 }
                 break;
-            case R.id.problem_list_action_viewProfile:
+            case R.id.problem_list_action_view_profile:
                 // View a profile
                 Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
+                Intent intent = new Intent(this, ViewPatientProfileActivity.class);
+
+                startActivity(intent);
                 break;
             default:
 
