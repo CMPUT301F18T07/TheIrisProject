@@ -9,11 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.team7.cmput301.android.theirisproject.activity.ViewPatientProfileActivity;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
-import com.team7.cmput301.android.theirisproject.model.Patient;
 
 import java.util.List;
 
+/**
+ * CareProviderListAdapter holds a List of CareProviders, which is used in the ListView for
+ * ViewPatientProfileActivity
+ *
+ * @author Jmmxp
+ * @see ViewPatientProfileActivity
+ */
 public class CareProviderListAdapter extends ArrayAdapter<CareProvider> {
 
     private Activity context;
