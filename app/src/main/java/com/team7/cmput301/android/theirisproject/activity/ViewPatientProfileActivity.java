@@ -45,10 +45,6 @@ public class ViewPatientProfileActivity extends IrisActivity {
         setContentView(R.layout.activity_patient_view_profile);
 
         patient = (Patient) IrisProjectApplication.getCurrentUser();
-        patient.setCareProviders(new ArrayList<>());
-        patient.addCareProvider(new CareProvider("hello", "lol", "123"));
-        patient.addCareProvider(new CareProvider("hello2", "lol2", "321"));
-        System.out.println("cps " + patient.getCareProviders());
 
         name = findViewById(R.id.view_profile_name_text_view);
         email = findViewById(R.id.view_profile_email_text_view);

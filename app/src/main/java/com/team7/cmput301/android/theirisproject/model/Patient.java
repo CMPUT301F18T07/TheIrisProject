@@ -16,15 +16,16 @@ import java.util.List;
  */
 public class Patient extends User {
 
-    transient private List<CareProvider> careProviders = new ArrayList<>();
+    transient private List<CareProvider> careProviders;
+    transient private ProblemList problems = new ProblemList();
     private List<String> careProviderIds = new ArrayList<>();
-    private ProblemList problems = new ProblemList();
-    transient private List<String> problemIds = new ArrayList<>();
+    private List<String> problemIds = new ArrayList<>();
 
     /* Constructors */
 
     public Patient(String name, String email, String phoneNumber) {
         super(name, email, phoneNumber, UserType.PATIENT);
+        careProviders = new ArrayList<>();
     }
 
     /* Basic setters */
