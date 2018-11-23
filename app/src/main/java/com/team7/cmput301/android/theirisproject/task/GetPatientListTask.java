@@ -54,6 +54,7 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);
 
+
             Log.i(TAG, res.getJsonString());
             System.out.println(Arrays.toString(res.getSourceAsStringList().toArray()));
 

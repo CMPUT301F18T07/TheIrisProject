@@ -58,6 +58,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
         switch (user.getType()) {
             case PATIENT:
                 getAndBindProblems((Patient) user);
+                getAndBindCareProviders((Patient) user);
                 break;
             case CARE_PROVIDER:
                 getAndBindPatients((CareProvider) user);
@@ -79,7 +80,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      */
     private void getAndBindPatients(CareProvider careProvider) {
 
-        String query = "{\"query\": {\"match\": {\"careProviderIds\": \"" + careProvider.getId() + "\"}}}";
+        String query = generateQuery(MATCH, "careProviderIds", careProvider.getId());
         SearchResult res = search(query, "user");
 
         if (res != null) {
@@ -89,7 +90,6 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
             for (Patient patient: patients) {
                 getAndBindProblems(patient);
-                getAndBindCareProviders(patient);
             }
 
         } else printError(CareProvider.class, careProvider.getId());
@@ -105,8 +105,10 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      */
     private void getAndBindCareProviders(Patient patient) {
 
-        String query = generateQuery(MATCH, "patientId", patient.getId());
+        String query = generateQuery(MATCH, "patientIds", patient.getId());
         SearchResult res = search(query, USER);
+
+        System.out.println("res is : " + res);
 
         if (res != null) {
 
