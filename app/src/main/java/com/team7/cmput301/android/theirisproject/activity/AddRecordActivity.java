@@ -54,7 +54,7 @@ public class AddRecordActivity extends AppCompatActivity {
         descField = findViewById(R.id.record_description_edit_text);
 
         recordPhotoListView = findViewById(R.id.record_add_image_list);
-        recordPhotoListView.setAdapter(new ImageListAdapter<RecordPhoto>(controller.getRecordPhotos(), true));
+        recordPhotoListView.setAdapter(new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true));
         recordPhotoListView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
 

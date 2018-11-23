@@ -10,6 +10,12 @@
     android:layout_height="match_parent"
     tools:context=".activity.ViewRecordActivity">
 
+    <!--<fragment-->
+        <!--android:name="com.team7.cmput301.android.theirisproject.activity.ViewImageFragment"-->
+        <!--android:id="@+id/enlarge_record_photo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,6 +6,10 @@
 
 package com.team7.cmput301.android.theirisproject;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.team7.cmput301.android.theirisproject.activity.ViewImageFragment;
 import com.team7.cmput301.android.theirisproject.model.Photo;
 
 import java.util.List;
@@ -24,10 +29,12 @@ import java.util.List;
  * @author itstc
  * */
 public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<ImageListAdapter.ImageViewHolder> {
+    private Context context;
     private boolean isForm;
     private int itemLayout;
     private List<M> images;
-    public ImageListAdapter(List<M> images, boolean isForm) {
+    public ImageListAdapter(Context context, List<M> images, boolean isForm) {
+        this.context = context;
         this.isForm = isForm;
         this.images = images;
         this.itemLayout = R.layout.image_item;
@@ -42,8 +49,17 @@ public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<Imag
 
     @Override
     public void onBindViewHolder(ImageListAdapter.ImageViewHolder holder, int position) {
+        Photo photo = images.get(position);
         ImageView image = holder.imageItem.findViewById(R.id.image_item_view);
-        image.setImageBitmap(images.get(position).getPhoto());
+        image.setImageBitmap(photo.getPhoto());
+        holder.imageItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = ((Activity)context).getFragmentManager();
+                ViewImageFragment imageDialog = ViewImageFragment.newInstance(photo.getPhoto(), photo.getDate());
+                imageDialog.show(fm, "fragment_enlarge_image");
+            }
+        });
     }
 
     @Override

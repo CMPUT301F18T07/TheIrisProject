@@ -156,7 +156,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         LinearLayoutManager imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
         imageListLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         problemImages.setLayoutManager(imageListLayout);
-        bodyPhotoListAdapter = new ImageListAdapter<>(problemController.getBodyPhotos(), false);
+        bodyPhotoListAdapter = new ImageListAdapter<>(this, problemController.getBodyPhotos(), false);
         problemImages.setAdapter(bodyPhotoListAdapter);
     }
 

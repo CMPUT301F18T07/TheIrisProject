@@ -61,7 +61,7 @@ public class AddProblemActivity extends IrisActivity {
         imageListLayout = new LinearLayoutManager(this);
         ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
         imageList.setLayoutManager(imageListLayout);
-        bodyPhotoListAdapter = new ImageListAdapter(controller.getBodyPhotos(), true);
+        bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), true);
         imageList.setAdapter(bodyPhotoListAdapter);
 
         // set click listener to submit button

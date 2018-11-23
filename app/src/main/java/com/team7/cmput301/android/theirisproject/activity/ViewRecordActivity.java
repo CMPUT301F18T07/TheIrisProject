@@ -4,12 +4,16 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
@@ -24,6 +28,8 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @author jtfwong
  * */
 public class ViewRecordActivity extends AppCompatActivity {
+
+    private Fragment enlargeImageFragment;
 
     private TextView title;
     private TextView desc;
@@ -48,7 +54,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         date = findViewById(R.id.record_date);
 
         recordPhotos = findViewById(R.id.record_photos);
-        recordPhotos.setAdapter(new ImageListAdapter(controller.getPhotos(), false));
+        recordPhotos.setAdapter(new ImageListAdapter(this, controller.getPhotos(), false));
         GridLayoutManager gridLayout = new GridLayoutManager(this, 1);
         recordPhotos.setLayoutManager(gridLayout);
     }

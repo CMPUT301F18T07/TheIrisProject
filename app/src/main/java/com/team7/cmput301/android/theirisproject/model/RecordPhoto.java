@@ -47,6 +47,7 @@ public class RecordPhoto implements Photo {
     public Bitmap getPhoto() {
         return photo;
     }
+    public Date getDate() { return date; }
 
     /* Basic setters */
     public void setRecordId(String id) { this.recordId = id; }
