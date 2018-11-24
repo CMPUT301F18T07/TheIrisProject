@@ -7,18 +7,14 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.team7.cmput301.android.theirisproject.ImageListAdapter;
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddProblemController;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -42,6 +38,7 @@ public class AddProblemActivity extends IrisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_problem);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         controller = createController(getIntent());
         name = findViewById(R.id.problem_title_edit_text);
@@ -56,16 +53,8 @@ public class AddProblemActivity extends IrisActivity {
                 controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<String>() {
                     @Override
                     public void onComplete(String id) {
-                        if (id != null) {
-                            // end Activity returning to ProblemListActivity
-                            Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
-                            intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
-                            Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_success), Toast.LENGTH_LONG).show();
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_failure), Toast.LENGTH_LONG).show();
-                        }
+                        if (id != null) dispatchViewProblemActivity(id);
+                        else Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_failure), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -73,9 +62,30 @@ public class AddProblemActivity extends IrisActivity {
 
     }
 
+    // finish activity on back arrow clicked in action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected AddProblemController createController(Intent intent) {
         return new AddProblemController(intent);
+    }
+
+    private void dispatchViewProblemActivity(String id) {
+        // end Activity returning to ProblemListActivity
+        Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_success), Toast.LENGTH_LONG).show();
+        startActivity(intent);
+        finish();
     }
 
 }

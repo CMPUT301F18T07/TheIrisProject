@@ -8,13 +8,11 @@ package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
@@ -37,7 +35,7 @@ public class ProblemController extends IrisController<Problem> {
 
     public ProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
         this.model = getModel(intent.getExtras());
     }
 

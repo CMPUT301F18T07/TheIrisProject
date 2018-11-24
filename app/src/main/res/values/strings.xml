@@ -132,4 +132,9 @@
     <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
     <string name="record_photos">Photos</string>
 
+    <!-- Body Photo strings -->
+    <string name="add_bodyphoto_submit">Submit Body Photo</string>
+    <string name="add_bodyphoto_title_text">Add Body Photo</string>
+    <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
+
 </resources>

@@ -74,6 +74,7 @@
             android:label="@string/patient_edit_profile_title_text"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.BodyPhotoListActivity"/>
+        <activity android:name=".activity.AddBodyPhotoActivity" android:label="@string/add_bodyphoto_title_text"/>
 
     </application>
 

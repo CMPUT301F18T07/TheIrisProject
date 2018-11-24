@@ -13,17 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
-import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -35,8 +32,6 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @see ProblemController
  */
 public class ViewProblemActivity extends IrisActivity<Problem> {
-
-    public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.extra_problem_id";
 
     private ProblemController problemController;
     private String problemId;
@@ -62,7 +57,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         setContentView(R.layout.activity_view_problem);
         problemController = (ProblemController) createController(getIntent());
 
-        problemId = getIntent().getStringExtra(EXTRA_PROBLEM_ID);
+        problemId = getIntent().getStringExtra(Extras.EXTRA_PROBLEM_ID);
 
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
@@ -179,7 +174,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchViewRecordsActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, RecordListActivity.class);
-        intent.putExtra(EXTRA_PROBLEM_ID, id);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }
 
@@ -190,7 +185,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
-        intent.putExtra(EXTRA_PROBLEM_ID, id);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }
 }

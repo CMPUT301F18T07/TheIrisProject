@@ -123,6 +123,7 @@ public class AddRecordActivity extends AppCompatActivity {
         Intent intent = new Intent(AddRecordActivity.this, ViewRecordActivity.class);
         intent.putExtra("record_id", id);
         startActivity(intent);
+        finish();
     }
 
 }
