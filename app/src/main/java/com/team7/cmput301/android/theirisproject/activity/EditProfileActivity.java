@@ -12,16 +12,16 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 
 /**
- * EditPatientProfileActivity is for allowing the patient to edit their profile information.
+ * EditProfileActivity is used to allow a User to edit their profile information.
  * @author caboteja
  */
 
-public class EditPatientProfileActivity extends IrisActivity {
+public class EditProfileActivity extends IrisActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_edit_profile);
+        setContentView(R.layout.activity_edit_profile);
 
     }
 

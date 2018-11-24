@@ -8,6 +8,8 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ public class ViewProfileActivity extends IrisActivity {
     private TextView name;
     private TextView email;
     private TextView phone;
+    private Button editProfile;
 
     private TextView label;
     private ListView usersListView;
@@ -50,12 +53,22 @@ public class ViewProfileActivity extends IrisActivity {
         name = findViewById(R.id.view_profile_name_text_view);
         email = findViewById(R.id.view_profile_email_text_view);
         phone = findViewById(R.id.view_profile_phone_text_view);
+        editProfile = findViewById(R.id.view_profile_edit_profile_button);
+
         label = findViewById(R.id.view_profile_users_text_view);
         usersListView = findViewById(R.id.view_profile_users_list_view);
 
         name.setText(user.getUsername());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewProfileActivity.this, EditProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         String labelText;
         if (user.getType() == UserType.PATIENT) {
