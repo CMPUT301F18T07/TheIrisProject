@@ -46,8 +46,7 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
             // send GET request to our database endpoint ".../_search?q=_type:user&q=careProviders:'careProivderId'"
             // Note that this finds all matches containing
 
-            // TODO: Ensure that "match" doesn't find any patients that shouldn't be found
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"careProviderIds\": \"" + careProviderId + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"careProviderIds\": \"" + careProviderId + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
