@@ -5,6 +5,6 @@
 package com.team7.cmput301.android.theirisproject;
 
 public class Extras {
-    public static final String EXTRA_BODYPHOTO_USER = "com.team7.cmput301.android.theirisproject.bodyphoto_user";
+    public static final String EXTRA_BODYPHOTO_USER = "com.team7.cmput301.android.theirisproject.extra_bodyphoto_user";
     public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.extra_problem_id";
 }
