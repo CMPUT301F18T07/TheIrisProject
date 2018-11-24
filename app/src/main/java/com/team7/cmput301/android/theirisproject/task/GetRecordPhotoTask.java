@@ -15,6 +15,11 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 
+/**
+ * GetRecordPhotoTask querys the record photos associated to the record
+ *
+ * @author itstc
+ * */
 public class GetRecordPhotoTask extends AsyncTask<String, Void, List<RecordPhoto>> {
     private String searchQuery = "{\"query\":{\"term\":{\"recordId\": \"%s\"}}}";
     Callback cb;

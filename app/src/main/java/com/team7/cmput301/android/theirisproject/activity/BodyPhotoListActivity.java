@@ -19,6 +19,12 @@ import com.team7.cmput301.android.theirisproject.controller.BodyPhotoListControl
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 
+/**
+ * BodyPhotoListActivity is an activity to view the
+ * users body photos to be used in records
+ *
+ * @author itstc
+ * */
 public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
 
     private BodyPhotoListController controller;
@@ -37,7 +43,7 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
         addBodyPhotoButton = findViewById(R.id.add_body_photo);
 
         bodyPhotoList.setAdapter(new ImageListAdapter(this, controller.getBodyPhotos(), false));
-        bodyPhotoList.setLayoutManager(new GridLayoutManager(this, 1));
+        bodyPhotoList.setLayoutManager(new GridLayoutManager(this, 3));
 
         addBodyPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override

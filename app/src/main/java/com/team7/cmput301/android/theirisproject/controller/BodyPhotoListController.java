@@ -12,6 +12,12 @@ import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BodyPhotoListController handles the modifications and queries
+ * of body photos to be displayed on BodyPhotoListActivity
+ *
+ * @author itstc
+ * */
 public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     private String userId;
