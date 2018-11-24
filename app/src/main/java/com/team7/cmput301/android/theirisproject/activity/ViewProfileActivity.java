@@ -49,7 +49,7 @@ public class ViewProfileActivity extends IrisActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_view_profile);
+        setContentView(R.layout.activity_view_profile);
 
         user = IrisProjectApplication.getCurrentUser();
 

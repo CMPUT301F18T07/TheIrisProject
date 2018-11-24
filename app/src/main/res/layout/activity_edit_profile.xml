@@ -24,27 +24,25 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/edit_profile_save_changes"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_profile_cancel_button" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/edit_profile_cancel_button"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/edit_profile_cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/edit_profile_phone_edit_text"
+        android:id="@+id/edit_profile_email_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -58,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_profile_title_text_view" />
 
     <EditText
-        android:id="@+id/edit_profile_email_edit_text"
+        android:id="@+id/edit_profile_phone_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -69,7 +67,7 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edit_profile_phone_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_phone_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_email_edit_text" />
 
     <TextView
         android:id="@+id/edit_profile_email_text_view"
@@ -78,8 +76,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/edit_profile_new_email"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_phone_edit_text"
-        app:layout_constraintEnd_toStartOf="@+id/edit_profile_phone_edit_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_email_edit_text"
+        app:layout_constraintEnd_toStartOf="@+id/edit_profile_email_edit_text"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -90,8 +88,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/edit_profile_new_phone"
-        app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_email_edit_text"
-        app:layout_constraintEnd_toStartOf="@+id/edit_profile_email_edit_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_profile_phone_edit_text"
+        app:layout_constraintEnd_toStartOf="@+id/edit_profile_phone_edit_text"
         app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent" />
 

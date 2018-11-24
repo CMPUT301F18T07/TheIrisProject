@@ -104,7 +104,7 @@
     <string name="edit_profile_email_hint">Email</string>
 
     <string name="edit_profile_success">Profile updated successfully!</string>
-    <string name="edit_profile_failure">There cannot be an empty field!</string>
+    <string name="edit_profile_failure">Please fill out all fields!</string>
 
     <!-- View Profile screen strings-->
     <string name="view_profile_name">Name</string>
