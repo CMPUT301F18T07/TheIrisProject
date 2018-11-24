@@ -12,30 +12,31 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.team7.cmput301.android.theirisproject.CareProviderListAdapter;
+import com.team7.cmput301.android.theirisproject.UserListAdapter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.team7.cmput301.android.theirisproject.model.User;
+import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 /**
- * ViewPatientProfileActivity is for allowing the patient to view their profile information.
+ * ViewProfileActivity is for allowing the user to view their profile information.
  * @author caboteja
  */
 
 
-public class ViewPatientProfileActivity extends IrisActivity {
+public class ViewProfileActivity extends IrisActivity {
 
-    private Patient patient;
+    private User user;
 
     private TextView name;
     private TextView email;
     private TextView phone;
-    private ListView careProviders;
+
+    private TextView label;
+    private ListView usersListView;
 
     private ListAdapter adapter;
 
@@ -44,20 +45,32 @@ public class ViewPatientProfileActivity extends IrisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_profile);
 
-        patient = (Patient) IrisProjectApplication.getCurrentUser();
+        user = IrisProjectApplication.getCurrentUser();
 
         name = findViewById(R.id.view_profile_name_text_view);
         email = findViewById(R.id.view_profile_email_text_view);
         phone = findViewById(R.id.view_profile_phone_text_view);
-        careProviders = findViewById(R.id.view_profile_care_provider_list_view);
+        label = findViewById(R.id.view_profile_users_text_view);
+        usersListView = findViewById(R.id.view_profile_users_list_view);
 
-        name.setText(patient.getName());
-        email.setText(patient.getEmail());
-        phone.setText(patient.getPhone());
+        name.setText(user.getName());
+        email.setText(user.getEmail());
+        phone.setText(user.getPhone());
 
+        String labelText;
+        if (user.getType() == UserType.PATIENT) {
+            Patient patient = (Patient) user;
+            adapter = new UserListAdapter(this, R.layout.list_user_item, patient.getCareProviders());
+            labelText = getString(R.string.view_profile_care_providers);
+        } else {
+            CareProvider careProvider = (CareProvider) user;
+            adapter = new UserListAdapter(this, R.layout.list_user_item, careProvider.getPatients());
+            labelText = getString(R.string.view_profile_patients);
+        }
 
-        adapter = new CareProviderListAdapter(this, R.layout.list_care_provider_item, patient.getCareProviders());
-        careProviders.setAdapter(adapter);
+        usersListView.setAdapter(adapter);
+        label.setText(labelText);
+
     }
 
     @Override

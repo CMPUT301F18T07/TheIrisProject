@@ -109,7 +109,7 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
 
 //    public void testProfile () {
 //        solo.clickOnMenuItem("Profile");
-//        solo.assertCurrentActivity("Profile selected", ViewPatientProfileActivity.class);
+//        solo.assertCurrentActivity("Profile selected", ViewProfileActivity.class);
 //    }
 
     //currently don't have ViewMapOfAllRecordsActivity

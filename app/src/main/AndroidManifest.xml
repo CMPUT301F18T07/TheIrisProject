@@ -63,10 +63,7 @@
 
         <!-- Profile Activities -->
         <activity
-            android:name=".activity.ViewCareProviderProfileActivity"
-            android:label="@string/view_profile_title" />
-        <activity
-            android:name=".activity.ViewPatientProfileActivity"
+            android:name=".activity.ViewProfileActivity"
             android:label="@string/view_profile_title" />
         <activity
             android:name=".activity.EditCareProviderProfileActivity"
