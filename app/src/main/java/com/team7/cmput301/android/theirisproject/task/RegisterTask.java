@@ -55,7 +55,7 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
 
 
             // Search for user and get the closest match
-            Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + users[0].getEmail() + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + users[0].getUsername() + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
