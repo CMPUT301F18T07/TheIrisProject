@@ -19,13 +19,13 @@ public abstract class User {
 
     @JestId
     private String _id;
-    private String name;
+    private String username;
     private String email;
     private String phoneNumber;
     private UserType type;
 
     public User(String name, String email, String phoneNumber, UserType type) {
-        this.name = name;
+        this.username = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.type = type;
@@ -39,8 +39,8 @@ public abstract class User {
 
     /* Basic getters */
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {
@@ -66,7 +66,7 @@ public abstract class User {
     /* Advanced setters */
 
     public void editContact(String username, String email, String phoneNumber) {
-        this.name = username;
+        this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
