@@ -56,39 +56,11 @@ public class AddProblemTask extends AsyncTask<Problem, Void, String> {
                     .type("problem")
                     .build();
             DocumentResult res = IrisProjectApplication.getDB().execute(post);
-            if (res.isSucceeded()) {
-                Bulk postBodyPhoto = new Bulk.Builder()
-                        .defaultIndex(IrisProjectApplication.INDEX)
-                        .defaultType("bodyphoto")
-                        .addAction(bulkAddPhotos(params[0].getBodyPhotos(), res.getId()))
-                        .build();
-                IrisProjectApplication.getDB().execute(postBodyPhoto);
-                Thread.sleep(500);
-                return res.getId();
-            }
-            else {
-                return null;
-            }
+            return res.getId();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return null;
-    }
-    /**
-     * bulkAddPhotos sets up the bulk add to the database by
-     * setting all bodyphotos as Index in Jest to execute
-     *
-     * @param photos
-     * */
-    private List<Index> bulkAddPhotos(List<BodyPhoto> photos, String problemId) {
-        List<Index> res = new ArrayList<>();
-        for (BodyPhoto bp: photos) {
-            bp.setProblemId(problemId);
-            res.add(new Index.Builder(bp).index(IrisProjectApplication.INDEX).type("bodyphoto").build());
-        }
-        return res;
     }
 
     @Override

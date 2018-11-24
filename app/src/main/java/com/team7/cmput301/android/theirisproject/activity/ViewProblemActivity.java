@@ -46,9 +46,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private TextView problemDescription;
     private TextView problemLocation;
     //private ViewFlipper problemImages;
-  
-    private RecyclerView problemImages;
-    private ImageListAdapter<BodyPhoto> bodyPhotoListAdapter;
 
     private RecyclerView commentList;
     private CommentListAdapter commentListAdapter;
@@ -70,8 +67,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
-        problemImages = findViewById(R.id.problem_images);
-        //problemImages = findViewById(R.id.viewProblem_viewflipper);
 
         commentList = findViewById(R.id.problem_comments);
 
@@ -131,7 +126,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         return new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
-                inflateBodyPhotoImages();
                 inflateCommentList();
                 render(res);
             }
@@ -145,19 +139,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
                 render(res);
             }
         };
-    }
-
-    /**
-     * inflateBodyPhotoImages will setup the listAdapter and
-     * layoutManager for the RecyclerView problemImages once we
-     * have the problem data in the controller
-     * */
-    private void inflateBodyPhotoImages() {
-        LinearLayoutManager imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
-        imageListLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-        problemImages.setLayoutManager(imageListLayout);
-        bodyPhotoListAdapter = new ImageListAdapter<>(this, problemController.getBodyPhotos(), false);
-        problemImages.setAdapter(bodyPhotoListAdapter);
     }
 
     /**
@@ -187,9 +168,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemDescription.setText(newState.getDescription());
 
         // update the recyclerviews adapters
-        bodyPhotoListAdapter.setItems(problemController.getBodyPhotos());
         commentListAdapter.setItems(problemController.getComments());
-        bodyPhotoListAdapter.notifyDataSetChanged();
         commentListAdapter.notifyDataSetChanged();
     }
 

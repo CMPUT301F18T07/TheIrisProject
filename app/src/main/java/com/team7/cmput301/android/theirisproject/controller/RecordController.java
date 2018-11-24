@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.GetRecordPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.GetRecordTask;
 
 import java.util.List;
@@ -40,8 +41,16 @@ public class RecordController extends IrisController<Record> {
         new GetRecordTask(new Callback<Record>() {
             @Override
             public void onComplete(Record res) {
-                model = res;
-                cb.onComplete(res);
+                model.asyncSetFields(res);
+                cb.onComplete(model);
+            }
+        }).execute(recordId);
+
+        new GetRecordPhotoTask(new Callback<List<RecordPhoto>>() {
+            @Override
+            public void onComplete(List<RecordPhoto> res) {
+                model.asyncSetRecordPhotos(res);
+                cb.onComplete(model);
             }
         }).execute(recordId);
     }

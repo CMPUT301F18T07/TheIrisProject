@@ -32,6 +32,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.RegisterActivity" />
 
+
         <!-- Problem Activities -->
         <activity
             android:name=".activity.ProblemListActivity"
@@ -75,6 +76,7 @@
             android:name=".activity.EditPatientProfileActivity"
             android:label="@string/patient_edit_profile_title_text"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.BodyPhotoListActivity"/>
 
     </application>
 

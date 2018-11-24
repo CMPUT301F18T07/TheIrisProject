@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -31,7 +32,7 @@ import java.util.List;
  * @author VinnyLuu
  * @see ViewProblemActivity
  */
-public class ProblemController extends IrisController {
+public class ProblemController extends IrisController<Problem> {
     private String problemID;
 
     public ProblemController(Intent intent) {
@@ -41,7 +42,7 @@ public class ProblemController extends IrisController {
     }
 
     @Override
-    Object getModel(Bundle data) {
+    Problem getModel(Bundle data) {
         return new Problem();
     }
 
@@ -82,10 +83,6 @@ public class ProblemController extends IrisController {
         }).execute(new Comment(problemID, user.getName(), body, user.getType()));
     }
 
-    public List<BodyPhoto> getBodyPhotos() {
-        return ((Problem)model).getBodyPhotos();
-    }
-
-    public List<Comment> getComments() { return ((Problem)model).getComments(); }
+    public List<Comment> getComments() { return model.getComments(); }
 
 }

@@ -37,12 +37,6 @@ public class AddProblemActivity extends IrisActivity {
     private AddProblemController controller;
     private TextView name;
     private TextView desc;
-    private FloatingActionButton cameraButton;
-    private FloatingActionButton albumButton;
-
-    private RecyclerView imageList;
-    private ImageListAdapter bodyPhotoListAdapter;
-    private RecyclerView.LayoutManager imageListLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +46,6 @@ public class AddProblemActivity extends IrisActivity {
         controller = createController(getIntent());
         name = findViewById(R.id.problem_title_edit_text);
         desc = findViewById(R.id.problem_description_edit_text);
-
-        cameraButton = findViewById(R.id.problem_camera_edit_button);
-        albumButton = findViewById(R.id.problem_album_edit_button);
-
-        // Body Photo list
-        imageList = findViewById(R.id.problem_image_edit_list);
-        imageListLayout = new LinearLayoutManager(this);
-        ((LinearLayoutManager) imageListLayout).setOrientation(LinearLayoutManager.HORIZONTAL);
-        imageList.setLayoutManager(imageListLayout);
-        bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), true);
-        imageList.setAdapter(bodyPhotoListAdapter);
 
         // set click listener to submit button
         findViewById(R.id.problem_submit_button).setOnClickListener(new View.OnClickListener() {
@@ -88,37 +71,7 @@ public class AddProblemActivity extends IrisActivity {
             }
         });
 
-
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dispatchCameraIntent();
-            }
-        });
-
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CAMERA_IMAGE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            controller.addBodyPhoto(imageBitmap);
-        }
-    }
-
-
-    /**
-     * dispatchCameraIntent will start the camera app to take a picture
-     * if the patient wants to add a body photo
-     * */
-    private void dispatchCameraIntent() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_CAMERA_IMAGE);
-        }
-    }
-
 
     @Override
     protected AddProblemController createController(Intent intent) {
