@@ -110,4 +110,16 @@ public class Record {
 
     }
 
+    public synchronized void asyncSetFields(Record record) {
+        this._id = record._id;
+        this.problemId = record.problemId;
+        this.title = record.title;
+        this.desc = record.desc;
+        this.date = record.date;
+    }
+
+    public synchronized void asyncSetRecordPhotos(List<RecordPhoto> recordPhotos) {
+        this.recordPhotos = recordPhotos;
+    }
+
 }

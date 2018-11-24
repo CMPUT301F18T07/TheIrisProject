@@ -25,18 +25,31 @@
 
     </android.support.v7.widget.Toolbar>
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/problem_list_add"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:foreground="@drawable/add_icon"
-        android:title="@string/add_problem"
-        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/problem_list_add"
+            android:title="@string/add_problem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:foreground="@drawable/add_icon"
+            app:backgroundTint="@color/colorAccent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/body_photo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:foreground="@drawable/bodyphoto"
+            android:title="@string/add_problem"
+            app:backgroundTint="@color/colorAccent" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/problem_item_list"

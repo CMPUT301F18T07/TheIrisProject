@@ -55,7 +55,7 @@ public class ViewRecordActivity extends AppCompatActivity {
 
         recordPhotos = findViewById(R.id.record_photos);
         recordPhotos.setAdapter(new ImageListAdapter(this, controller.getPhotos(), false));
-        GridLayoutManager gridLayout = new GridLayoutManager(this, 1);
+        GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
     }
 

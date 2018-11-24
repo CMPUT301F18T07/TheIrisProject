@@ -28,7 +28,9 @@ public class ProblemListController extends IrisController<ProblemList> {
     public ProblemListController(Intent intent) {
         super(intent);
         this.model = getModel(intent.getExtras());
-        this.userID = intent.getExtras().getString("user");
+        String intentId = intent.getStringExtra("user");
+        if (intentId == null) this.userID = IrisProjectApplication.getCurrentUser().getId();
+        else this.userID = intentId;
     }
 
     /**

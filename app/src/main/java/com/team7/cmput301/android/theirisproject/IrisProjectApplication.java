@@ -44,6 +44,7 @@ public class IrisProjectApplication extends Application {
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(new DroidClientConfig
                     .Builder("http://cmput301.softwareprocess.es:8080")
+                    .multiThreaded(true)
                     .build());
             db = (JestDroidClient) factory.getObject();
         }

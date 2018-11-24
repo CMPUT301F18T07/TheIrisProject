@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
-import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
@@ -28,7 +28,7 @@ public class AddRecordController extends IrisController<Record>{
 
     public AddRecordController(Intent intent) {
         super(intent);
-        problemId = intent.getStringExtra(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
         recordPhotos = new ArrayList<>();
         model = this.getModel(intent.getExtras());
     }

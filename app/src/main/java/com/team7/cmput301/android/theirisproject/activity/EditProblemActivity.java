@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.EditProblemController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
@@ -111,7 +112,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
     private void dispatchToProblemActivity(String id) {
         // end Activity returning to ProblemListActivity
         Intent intent = new Intent(EditProblemActivity.this, ViewProblemActivity.class);
-        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         Toast.makeText(EditProblemActivity.this, R.string.successful_edit, Toast.LENGTH_LONG).show();
         startActivity(intent);
         finish();
