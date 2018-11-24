@@ -20,6 +20,12 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 
+/**
+ * AddBodyPhotoActivity is an form activity that allows user
+ * to add their body photo for the records to map to
+ *
+ * @author itstc
+ * */
 public class AddBodyPhotoActivity extends IrisActivity<BodyPhoto> {
     private static final int REQUEST_CAMERA_IMAGE = 1;
     private ImageView newBodyPhotoView;
