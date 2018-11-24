@@ -6,6 +6,7 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,8 @@ import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 
 public class ViewProfileActivity extends IrisActivity {
+
+    private static final int REQUEST_EDIT_PROFILE = 0;
 
     private User user;
 
@@ -66,7 +69,7 @@ public class ViewProfileActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewProfileActivity.this, EditProfileActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_EDIT_PROFILE);
             }
         });
 
@@ -84,6 +87,16 @@ public class ViewProfileActivity extends IrisActivity {
         usersListView.setAdapter(adapter);
         label.setText(labelText);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_EDIT_PROFILE) {
+                email.setText(user.getEmail());
+                phone.setText(user.getPhone());
+            }
+        }
     }
 
     @Override

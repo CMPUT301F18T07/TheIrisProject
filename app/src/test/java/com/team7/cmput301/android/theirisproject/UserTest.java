@@ -25,7 +25,7 @@ public class UserTest {
         String updatedName = "UserTwo";
         String updatedEmail = "UserOne@hotmail.com";
         String updatedPhoneNumber = "234-567-890";
-        user.editContact(updatedName, updatedEmail, updatedPhoneNumber);
+        user.updateProfile(updatedEmail, updatedPhoneNumber);
 
         Assert.assertEquals(updatedName, user.getUsername());
         Assert.assertEquals(updatedEmail, user.getEmail());

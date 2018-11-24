@@ -68,7 +68,7 @@
             android:label="@string/view_profile_title" />
         <activity
             android:name=".activity.EditProfileActivity"
-            android:label="@string/patient_edit_profile_title_text" />
+            android:label="@string/edit_profile_title_text" />
         <activity android:name=".activity.BodyPhotoListActivity"/>
         <activity android:name=".activity.AddBodyPhotoActivity" android:label="@string/add_bodyphoto_title_text"/>
 
