@@ -11,18 +11,18 @@
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your e-mail</string>
+    <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
     <string name="login_failure">Incorrect login!</string>
 
     <!-- Register screen strings-->
-    <string name="register_title">Register for a profile</string>
-    <string name="username_title">Username</string>
+    <string name="register_title">Register a new profile</string>
+    <string name="username_title">Username (minimum 8 characters)</string>
     <string name="password_title">Password</string>
     <string name="phone_title">Phone Number</string>
     <string name="email_title">Email Address</string>
-    <string name="register_username_hint">Enter a name</string>
+    <string name="register_username_hint">Enter a username</string>
     <string name="register_password_hint">Enter a password</string>
     <string name="register_phone_hint">Enter phone number</string>
     <string name="register_email_hint">Enter email address</string>
@@ -128,8 +128,8 @@
     <string name="view_profile_care_providers">Care Providers:</string>
 
     <!-- Add Patient dialog strings -->
-    <string name="add_patient_dialog_title">Add a patient by e-mail</string>
-    <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
+    <string name="add_patient_dialog_title">Add a patient by username</string>
+    <string name="add_patient_dialog_hint">Patient\'s username</string>
     <string name="record_photos">Photos</string>
 
     <!-- Body Photo strings -->

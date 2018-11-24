@@ -35,8 +35,8 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
     }
 
     /**
-     * Searches for the user's email and see if they are already registered in the database. If the
-     * email is already used, or if the adding of the user to the database fails, this returns false
+     * Searches for the user's username and see if they are already registered in the database. If the
+     * username is already used, or if the adding of the user to the database fails, this returns false
      * otherwise it returns true.
      */
     @Override
@@ -55,7 +55,7 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
 
 
             // Search for user and get the closest match
-            Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + users[0].getEmail() + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + users[0].getEmail() + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();

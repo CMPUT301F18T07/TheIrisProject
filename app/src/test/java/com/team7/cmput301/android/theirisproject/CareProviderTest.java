@@ -21,7 +21,7 @@ public class CareProviderTest {
 
         CareProvider careProvider = getTestCareProvider();
 
-        Assert.assertEquals(name, careProvider.getName());
+        Assert.assertEquals(name, careProvider.getUsername());
         Assert.assertEquals(email, careProvider.getEmail());
         Assert.assertEquals(phoneNumber, careProvider.getPhone());
         Assert.assertEquals(type, careProvider.getType());

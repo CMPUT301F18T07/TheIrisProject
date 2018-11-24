@@ -26,7 +26,7 @@ import io.searchbox.core.Update;
  * AddPatientTask takes in two parameters, the Patient's e-mail that the Care Provider inputted
  * and the Care Provider's ID.
  *
- * If the given email is not a registered email, task returns false onCompletion
+ * If the given username is not a registered user, task returns false onCompletion
  * Otherwise, the Patient's ID is added to the Care Provider's list of Patients and vice versa.
  *
  * @author Jmmxp
@@ -43,19 +43,19 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... strings) {
-        String patientEmail = strings[0];
+        String patientUsername = strings[0];
 
         CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
 
-        if (patientEmail == null ) {
+        if (patientUsername == null ) {
             return false;
         }
-        Log.i(TAG, patientEmail + " and " + careProvider.getId());
+        Log.i(TAG, patientUsername + " and " + careProvider.getId());
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
         // Search for user and get the closest match
-        Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + patientEmail + "\"}}}")
+        Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + patientUsername + "\"}}}")
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
                 .build();
@@ -80,7 +80,6 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
             // Add this patient's ID into the list of Patient IDs for the current Care Provider
             // Referred to Jest documentation https://github.com/searchbox-io/Jest/tree/master/jest
-            Log.i(TAG, patient.getEmail() + " and " + patient.getId() + patient.getCareProviderIds());
 
             // Append the current Patient ID onto the Care Provider's existing Patient IDs
             String patientIds = patient.getId();
