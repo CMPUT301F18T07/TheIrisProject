@@ -46,8 +46,7 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
      * the Cursor to the ListView.
      */
     private final static String[] FROM_COLUMNS = {
-            Contacts.DISPLAY_NAME_PRIMARY,
-            Contacts.HAS_PHONE_NUMBER
+            CommonDataKinds.Phone.NUMBER
     };
 
     /*
@@ -56,8 +55,7 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
      * the Android framework, so it is prefaced with "android.R.id"
      */
     private final static int[] TO_IDS = {
-            R.id.contact_name_text_view,
-            R.id.contact_phone_text_view
+            R.id.contact_name_text_view
     };
 
     // Define global mutable variables
@@ -76,10 +74,9 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
 
     private static final String[] PROJECTION =
             {
-                    Contacts._ID,
-                    Contacts.LOOKUP_KEY,
-                    Contacts.DISPLAY_NAME_PRIMARY,
-                    Contacts.HAS_PHONE_NUMBER
+                    Contacts.Data._ID,
+                    // Contacts.LOOKUP_KEY,
+                    CommonDataKinds.Phone.NUMBER
             };
 
     // The column index for the _ID column
@@ -170,7 +167,7 @@ public class ContactsFragment extends Fragment implements LoaderManager.LoaderCa
         // Starts the query
         return new CursorLoader(
                 getActivity(),
-                ContactsContract.Contacts.CONTENT_URI,
+                CommonDataKinds.Phone.CONTENT_URI,
                 PROJECTION,
                 SELECTION,
                 mSelectionArgs,
