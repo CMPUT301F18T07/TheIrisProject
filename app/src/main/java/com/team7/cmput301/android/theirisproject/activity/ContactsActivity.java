@@ -26,7 +26,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_contacts);
 
-        Fragment contactsFragment = ContactsFragment.newInstance("123");
+        Fragment contactsFragment = new ContactsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
