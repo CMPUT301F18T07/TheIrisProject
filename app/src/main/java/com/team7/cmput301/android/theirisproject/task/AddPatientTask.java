@@ -77,6 +77,11 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
 
+            // If the CP already has this patient, do not add again
+            if (careProvider.getPatients().contains(patient)) {
+                return false;
+            }
+
             careProvider.addPatient(patient);
 
             String patientId = patient.getId();

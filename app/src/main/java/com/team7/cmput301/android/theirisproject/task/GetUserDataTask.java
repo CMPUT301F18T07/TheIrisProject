@@ -81,10 +81,6 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      * @param careProvider the bound-to Care Provider
      */
     private void getAndBindPatients(CareProvider careProvider) {
-
-        System.out.println(Arrays.toString(careProvider.getPatientIds().toArray()));
-        System.out.println(careProvider.getPatientIds().size());
-
         List<Patient> patients = new ArrayList<>();
 
         for (String patientId : careProvider.getPatientIds()) {
@@ -96,7 +92,6 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             }
 
             Patient patient = res.getSourceAsObject(Patient.class, true);
-            System.out.println("patient is " + patient);
             patients.add(patient);
         }
         careProvider.setPatients(patients);

@@ -86,17 +86,6 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-//        controller.getPatientsFromDB(new Callback<List<Patient>>() {
-//            @Override
-//            public void onComplete(List<Patient> res) {
-//                render(res);
-//            }
-//        });
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_patient_list, menu);
         return super.onCreateOptionsMenu(menu);
@@ -125,14 +114,8 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
     @Override
     public void onFinishAddPatient(boolean success) {
-        System.out.println("Finished adding patient!!!");
         if (success) {
-            controller.getPatientsFromDB(new Callback<List<Patient>>() {
-                @Override
-                public void onComplete(List<Patient> res) {
-                    render();
-                }
-            });
+            render();
         } else {
             // do nothing, show unsuccess Toast
             Toast.makeText(this, "Couldn't successfully add Patient!", Toast.LENGTH_SHORT).show();
