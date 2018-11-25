@@ -6,8 +6,11 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,11 +32,14 @@ import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 public class ViewProfileActivity extends IrisActivity {
 
+    private static final int REQUEST_EDIT_PROFILE = 0;
+
     private User user;
 
     private TextView name;
     private TextView email;
     private TextView phone;
+    private Button editProfile;
 
     private TextView label;
     private ListView usersListView;
@@ -43,19 +49,29 @@ public class ViewProfileActivity extends IrisActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_view_profile);
+        setContentView(R.layout.activity_view_profile);
 
         user = IrisProjectApplication.getCurrentUser();
 
         name = findViewById(R.id.view_profile_name_text_view);
         email = findViewById(R.id.view_profile_email_text_view);
         phone = findViewById(R.id.view_profile_phone_text_view);
+        editProfile = findViewById(R.id.view_profile_edit_profile_button);
+
         label = findViewById(R.id.view_profile_users_text_view);
         usersListView = findViewById(R.id.view_profile_users_list_view);
 
         name.setText(user.getUsername());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewProfileActivity.this, EditProfileActivity.class);
+                startActivityForResult(intent, REQUEST_EDIT_PROFILE);
+            }
+        });
 
         String labelText;
         if (user.getType() == UserType.PATIENT) {
@@ -71,6 +87,16 @@ public class ViewProfileActivity extends IrisActivity {
         usersListView.setAdapter(adapter);
         label.setText(labelText);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_EDIT_PROFILE) {
+                email.setText(user.getEmail());
+                phone.setText(user.getPhone());
+            }
+        }
     }
 
     @Override
