@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
 
@@ -78,18 +82,10 @@
             android:name=".activity.ViewProfileActivity"
             android:label="@string/view_profile_title" />
         <activity
-            android:name=".activity.EditCareProviderProfileActivity"
-            android:label="@string/care_provider_edit_profile_title_text" />
-        <activity
-            android:name=".activity.EditPatientProfileActivity"
-            android:label="@string/patient_edit_profile_title_text"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.PatientListActivity" />
-
-        <activity android:name=".activity.BodyPhotoListActivity" />
-        <activity
-            android:name=".activity.AddBodyPhotoActivity"
-            android:label="@string/add_bodyphoto_title_text" />
+            android:name=".activity.EditProfileActivity"
+            android:label="@string/edit_profile_title_text" />
+        <activity android:name=".activity.BodyPhotoListActivity"/>
+        <activity android:name=".activity.AddBodyPhotoActivity" android:label="@string/add_bodyphoto_title_text"/>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
