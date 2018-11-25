@@ -7,16 +7,11 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
-import com.team7.cmput301.android.theirisproject.activity.EditRecordActivity;
 import com.team7.cmput301.android.theirisproject.model.Record;
-import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.EditRecordTask;
-
-import java.util.Locale;
 
 /**
  * Controller for editing a Record
