@@ -30,7 +30,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_view_record" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_view_record" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

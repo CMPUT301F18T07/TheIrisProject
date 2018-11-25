@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -112,6 +113,10 @@ public class AddRecordActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             controller.addRecordPhoto(imageBitmap);
+        }
+        else if (requestCode == REQUEST_MAP_LOCATION && resultCode == RESULT_OK) {
+            double location[] = data.getDoubleArrayExtra("location");
+            controller.addLocation(location);
         }
     }
 

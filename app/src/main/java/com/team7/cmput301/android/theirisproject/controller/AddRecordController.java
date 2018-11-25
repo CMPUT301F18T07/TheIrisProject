@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
@@ -25,11 +26,13 @@ import java.util.List;
 public class AddRecordController extends IrisController<Record>{
     private String problemId;
     private List<RecordPhoto> recordPhotos;
+    private GeoLocation geoLocation;
 
     public AddRecordController(Intent intent) {
         super(intent);
         problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
         recordPhotos = new ArrayList<>();
+        geoLocation = new GeoLocation(0.0,0.0);
         model = this.getModel(intent.getExtras());
     }
 
@@ -40,12 +43,16 @@ public class AddRecordController extends IrisController<Record>{
     }
 
     public void submitRecord(String text, String desc, Callback cb) {
-        Record submitRecord = new Record(problemId, text, desc, recordPhotos);
+        Record submitRecord = new Record(problemId, text, desc, geoLocation, recordPhotos);
         new AddRecordTask(cb).execute(submitRecord);
     }
 
     @Override
     Record getModel(Bundle data) {
         return new Record();
+    }
+
+    public void addLocation(double[] location) {
+        geoLocation.setPosition(location[0], location[1]);
     }
 }

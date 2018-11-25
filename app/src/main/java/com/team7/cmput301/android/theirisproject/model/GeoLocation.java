@@ -22,16 +22,17 @@ public class GeoLocation {
         this.longitude = longitude;
     }
 
-    /* Advanced setters */
+    /* Setters */
 
-    public void update(double lat, double lng) {
-
+    public void setPosition(double lat, double lng) {
+        latitude = lat;
+        longitude = lng;
     }
 
     /* Misc */
 
     public double[] asDouble() {
-        return new double[0];
+        double res[] = {latitude, latitude};
+        return res;
     }
-
 }

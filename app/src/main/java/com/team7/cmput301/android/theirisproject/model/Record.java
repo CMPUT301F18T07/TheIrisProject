@@ -54,6 +54,15 @@ public class Record {
         this.date = new Date();
     }
 
+    public Record(String problemId, String title, String desc, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this.problemId = problemId;
+        this.title = title;
+        this.desc = desc;
+        this.date = new Date();
+        this.geoLocation = geoPt;
+        this.recordPhotos = recordPhotos;
+    }
+
     public Record() {
         this.recordPhotos = new ArrayList<>();
     }

@@ -1,8 +1,12 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -10,6 +14,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.team7.cmput301.android.theirisproject.R;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -19,10 +27,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
 
@@ -43,5 +54,31 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                mMap.clear();
+                String markerDescription = String.format(Locale.getDefault(),
+                        "Lat: %1$.5f, Long: %2$.5f",
+                        latLng.latitude,
+                        latLng.longitude);
+                mMap.addMarker(new MarkerOptions().position(latLng)
+                .title(getString(R.string.selected_location))
+                .snippet(markerDescription));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                confirmLocation(latLng);
+            }
+        });
     }
+
+    public void confirmLocation(LatLng latLng) {
+        Intent intent = new Intent();
+        double location[] = {latLng.latitude, latLng.longitude};
+        // TODO: make extra name
+        intent.putExtra("location", location);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
+
 }
