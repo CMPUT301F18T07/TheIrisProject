@@ -7,16 +7,19 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -24,6 +27,10 @@ import com.team7.cmput301.android.theirisproject.controller.RecordController;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ViewRecordActivity used to view a record
@@ -58,7 +65,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         desc = findViewById(R.id.record_description);
         date = findViewById(R.id.record_date);
 
-        viewGeoLocation.findViewById(R.id.view_location);
+        viewGeoLocation = findViewById(R.id.view_location);
 
         viewGeoLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +82,14 @@ public class ViewRecordActivity extends AppCompatActivity {
 
     private void dispatchMapIntent() {
         Intent intent = new Intent(ViewRecordActivity.this, MapActivity.class);
-        intent.putExtra("location", record.getGeoLocation().asDouble());
+        List<GeoLocation> locations = new ArrayList<GeoLocation>();
+        List<String> titles = new ArrayList<String>();
+        // Package up the geolocation and the title of the record for the map activity
+        GeoLocation loc = record.getGeoLocation();
+        locations.add(loc);
+        titles.add(record.getTitle());
+        intent.putExtra("location", (Serializable) locations);
+        intent.putStringArrayListExtra("titles", (ArrayList<String>) titles);
         startActivity(intent);
     }
 
@@ -85,13 +99,14 @@ public class ViewRecordActivity extends AppCompatActivity {
         controller.getRecordData(new Callback<Record>() {
             @Override
             public void onComplete(Record res) {
+                record = res;
                 render(res);
+
             }
         });
     }
 
     private void render(Record newState) {
-        record = newState;
         title.setText(newState.getTitle());
         desc.setText(newState.getDesc());
         date.setText(newState.getDate().toString());

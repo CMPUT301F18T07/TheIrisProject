@@ -125,6 +125,7 @@ public class Record {
         this.title = record.title;
         this.desc = record.desc;
         this.date = record.date;
+        this.geoLocation = record.getGeoLocation();
     }
 
     public synchronized void asyncSetRecordPhotos(List<RecordPhoto> recordPhotos) {

@@ -94,28 +94,17 @@
     <string name="dont_delete_problem">No</string>
 
     <!-- View Patient Edit Profile screen strings-->
-    <string name="patient_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
-    <string name="patient_edit_profile_title_text">Edit Profile</string>
-    <string name="patient_edit_profile_save_changes_button_text">Save Changes</string>
-    <string name="patient_edit_profile_cancel_button_text">Cancel</string>
-    <string name="patient_edit_profile_username_hint">Username</string>
-    <string name="patient_edit_profile_phone_number_hint">Phone Number</string>
-    <string name="patient_edit_profile_current_password_hint">Current Password</string>
-    <string name="patient_edit_profile_email_hint">Email</string>
-    <string name="patient_edit_profile_new_password_hint">New Password</string>
+    <string name="edit_profile_title">Edit your profile</string>
+    <string name="edit_profile_new_email">New Email Address</string>
+    <string name="edit_profile_new_phone">New Phone Number</string>
+    <string name="edit_profile_title_text">Edit Profile</string>
+    <string name="edit_profile_save_changes">Save Changes</string>
+    <string name="edit_profile_cancel">Cancel</string>
+    <string name="edit_profile_phone_hint">Phone Number</string>
+    <string name="edit_profile_email_hint">Email</string>
 
-
-    <!-- View Care Provider Edit Profile screen strings-->
-    <string name="care_provider_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
-    <string name="care_provider_edit_profile_title_text">Edit Profile</string>
-    <string name="care_provider_edit_profile_save_changes_button_text">Save Changes</string>
-    <string name="care_provider_edit_profile_cancel_button_text">Cancel</string>
-    <string name="care_provider_edit_profile_username_hint">Username</string>
-    <string name="care_provider_edit_profile_phone_number_hint">Phone Number</string>
-    <string name="care_provider_edit_profile_current_password_hint">Current Password</string>
-    <string name="care_provider_edit_profile_email_hint">Email</string>
-    <string name="care_provider_edit_profile_new_password_hint">New Password</string>
-
+    <string name="edit_profile_success">Profile updated successfully!</string>
+    <string name="edit_profile_failure">Please fill out all fields!</string>
 
     <!-- View Profile screen strings-->
     <string name="view_profile_name">Name</string>
@@ -138,7 +127,9 @@
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
     <string name="title_activity_map">Map</string>
 
+
     <!-- Map strings -->
     <string name="selected_location">Location</string>
+
 
 </resources>

@@ -137,5 +137,15 @@
         android:layout_marginBottom="32dp"
         app:layout_constraintTop_toBottomOf="@+id/problem_comment_box" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/view_all_locations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="64dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_mapmode"
+            tools:layout_editor_absoluteY="129dp" />
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.SearchType;
 
 /**
  * GetPatientListTask is responsible for taking in a careProviderId and returning a List of Patients
@@ -46,14 +47,12 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
             // send GET request to our database endpoint ".../_search?q=_type:user&q=careProviders:'careProivderId'"
             // Note that this finds all matches containing
 
-            // TODO: Ensure that "match" doesn't find any patients that shouldn't be found
-            Search get = new Search.Builder("{\"query\": {\"match\": {\"careProviderIds\": \"" + careProviderId + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"careProviderIds\": \"" + careProviderId + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);
-
 
             Log.i(TAG, res.getJsonString());
             System.out.println(Arrays.toString(res.getSourceAsStringList().toArray()));

@@ -19,6 +19,7 @@ import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.GetProblemTask;
+import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
 import java.util.List;
 
