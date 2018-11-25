@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +17,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.PatientListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.PatientListController;
 import com.team7.cmput301.android.theirisproject.helper.Timer;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -37,8 +38,11 @@ import java.util.List;
  */
 public class PatientListActivity extends IrisActivity<List<Patient>> implements AddPatientDialogFragment.AddPatientDialogListener {
 
+    private CareProvider loggedInCareProvider;
     private PatientListController controller;
     private ListView patientsView;
+
+    private PatientListAdapter adapter;
 
     @Override
     protected PatientListController createController(Intent intent) {
@@ -50,8 +54,13 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
 
+        loggedInCareProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
+
         controller = createController(getIntent());
         patientsView = findViewById(R.id.patient_item_list);
+        adapter = new PatientListAdapter(this, R.layout.list_patient_item, loggedInCareProvider.getPatients());
+        patientsView.setAdapter(adapter);
+        render();
 
         patientsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,12 +88,12 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     @Override
     protected void onStart() {
         super.onStart();
-        controller.getPatientsFromDB(new Callback<List<Patient>>() {
-            @Override
-            public void onComplete(List<Patient> res) {
-                render(res);
-            }
-        });
+//        controller.getPatientsFromDB(new Callback<List<Patient>>() {
+//            @Override
+//            public void onComplete(List<Patient> res) {
+//                render(res);
+//            }
+//        });
     }
 
     @Override
@@ -106,25 +115,22 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     }
 
     /**
-     * render will update the Activity with the new state provided
-     * in the arguments of invoking this method
-     *
-     * @param newState new state of model
+     * render will update the PatientList view with the current logged in Care Provider's
+     * List of Patients
      * */
-    public void render(List<Patient> newState) {
-        patientsView.setAdapter(new PatientListAdapter(this, R.layout.list_patient_item, newState));
+    public void render() {
+        adapter.notifyDataSetChanged();
+        patientsView.invalidateViews();
     }
 
     @Override
     public void onFinishAddPatient(boolean success) {
         System.out.println("Finished adding patient!!!");
         if (success) {
-            // Render the List with the new Patient that was added
-            Timer.sleep(750);
-                    controller.getPatientsFromDB(new Callback<List<Patient>>() {
+            controller.getPatientsFromDB(new Callback<List<Patient>>() {
                 @Override
                 public void onComplete(List<Patient> res) {
-                    render(res);
+                    render();
                 }
             });
         } else {

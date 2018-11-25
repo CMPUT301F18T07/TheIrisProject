@@ -19,6 +19,8 @@ import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.searchbox.core.Search;
@@ -80,19 +82,28 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      */
     private void getAndBindPatients(CareProvider careProvider) {
 
-        String query = generateQuery(MATCH, "careProviderIds", careProvider.getId());
-        SearchResult res = search(query, "user");
+        System.out.println(Arrays.toString(careProvider.getPatientIds().toArray()));
+        System.out.println(careProvider.getPatientIds().size());
 
-        if (res != null) {
+        List<Patient> patients = new ArrayList<>();
 
-            List<Patient> patients = res.getSourceAsObjectList(Patient.class, true);
-            careProvider.setPatients(patients);
+        for (String patientId : careProvider.getPatientIds()) {
+            String query = generateQuery(TERM, "_id", patientId);
+            SearchResult res = search(query, "user");
 
-            for (Patient patient: patients) {
-                getAndBindProblems(patient);
+            if (res == null) {
+                printError(CareProvider.class, careProvider.getId());
             }
 
-        } else printError(CareProvider.class, careProvider.getId());
+            Patient patient = res.getSourceAsObject(Patient.class, true);
+            System.out.println("patient is " + patient);
+            patients.add(patient);
+        }
+        careProvider.setPatients(patients);
+
+        for (Patient patient: patients) {
+            getAndBindProblems(patient);
+        }
 
     }
 

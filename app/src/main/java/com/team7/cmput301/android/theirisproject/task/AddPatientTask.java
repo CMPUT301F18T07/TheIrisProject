@@ -16,6 +16,8 @@ import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Search;
@@ -75,6 +77,8 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
 
+            careProvider.addPatient(patient);
+
             String patientId = patient.getId();
             String careProviderId = careProvider.getId();
 
@@ -82,10 +86,16 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             // Referred to Jest documentation https://github.com/searchbox-io/Jest/tree/master/jest
 
             // Append the current Patient ID onto the Care Provider's existing Patient IDs
-            String patientIds = patient.getId();
-            String patientIdsConcat = StringHelper.join(careProvider.getPatientIds(), ", ");
+            String patientIds;
+
+            List<String> patientIdList = new ArrayList<>(careProvider.getPatientIds());
+            StringHelper.addQuotations(patientIdList);
+
+            String patientIdsConcat = StringHelper.join(patientIdList, ", ");
             if (!patientIdsConcat.equals("")) {
-                patientIds = patientIdsConcat + ", " + patientId;
+                patientIds = patientIdsConcat + ", " + "\"" + patientId + "\"";
+            } else {
+                patientIds = "\"" + patientId + "\"";
             }
 
             boolean success = updateUser(client, "patientIds", patientIds, careProviderId);
@@ -98,10 +108,16 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             // Add the careProvider's ID into the Patient we're currently adding
 
             // Append the current Care Provider ID onto the Patient's existing Care Provider IDs
-            String careProviderIds = careProviderId;
-            String careProviderIdsConcat = StringHelper.join(patient.getCareProviderIds(), ", ");
+            List<String> careProviderIdList = new ArrayList<>(patient.getCareProviderIds());
+            StringHelper.addQuotations(careProviderIdList);
+
+            String careProviderIds;
+
+            String careProviderIdsConcat = StringHelper.join(careProviderIdList, ", ");
             if (!careProviderIdsConcat.equals("")) {
-                careProviderIds = careProviderIdsConcat + ", " + careProviderId;
+                careProviderIds = careProviderIdsConcat + ", " + "\"" + careProviderId + "\"";
+            } else {
+                careProviderIds = "\"" + careProviderId + "\"";
             }
 
             success = updateUser(client, "careProviderIds", careProviderIds, patientId);
@@ -131,9 +147,10 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
      * @return
      */
     private boolean updateUser(JestDroidClient client, String updateType, String updateIds, String userId) {
+        System.out.println("updateIds is " + updateIds);
         String updateString = "{\n" +
                 "    \"doc\" : {\n" +
-                "        \"" + updateType + "\" : [\"" + updateIds + "\"]\n" +
+                "        \"" + updateType + "\" : [" + updateIds + "]\n" +
                 "    }\n" +
                 "}";
 
