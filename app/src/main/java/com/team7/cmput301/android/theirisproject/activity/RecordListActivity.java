@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
-import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.RecordListAdapter;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
@@ -90,7 +90,10 @@ public class RecordListActivity extends IrisActivity<RecordList> {
                 render(result);
             }
         };
-        controller.fillRecords(contCallback);
+        Boolean fullSuccess = controller.fillRecords(getApplicationContext(), contCallback);
+        if (!fullSuccess) {
+            Toast.makeText(RecordListActivity.this, R.string.offline_fetch_error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

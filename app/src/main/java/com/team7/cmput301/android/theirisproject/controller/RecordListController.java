@@ -6,6 +6,7 @@
 
 package com.team7.cmput301.android.theirisproject.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -42,42 +43,54 @@ public class RecordListController extends IrisController<RecordList> {
      * May do callback straightaway, or require an additional async task, depending on current user type.
      *
      * @param contCallback Callback with IrisActivity's specified actions
+     * @return True if no issues, False if internet-related issues
      */
-    public void fillRecords(Callback<RecordList> contCallback){
+    public Boolean fillRecords(Context context, Callback<RecordList> contCallback){
+
+        Boolean fullSuccess = false;
 
         switch (IrisProjectApplication.getCurrentUser().getType()) {
 
             case PATIENT:
                 contCallback.onComplete(records);
+                fullSuccess = true;
                 break;
 
             case CARE_PROVIDER:
-
-                // Make the task callback
-                taskCallback = new Callback<SearchResult>(){
-                    /* When complete, convert the search results into RecordList,
-                     * save, then prompt update of views
-                     */
-                    @Override
-                    public void onComplete(SearchResult res) {
-                        RecordList results = new RecordList(res.getSourceAsObjectList(Record.class, true));
-                        records.asList().clear();
-                        records.asList().addAll(results.asList());
-                        contCallback.onComplete(results);
-                    }
-                };
-
-                // execute task to get Records from, using task callback
-                new GetRecordListTask(taskCallback).execute(problemId);
-
+                if (isConnectedToInternet(context)) {
+                    fetchRecordsFromOnline(contCallback);
+                    fullSuccess = true;
+                } else {
+                    // Show local data
+                    contCallback.onComplete(records);
+                }
                 break;
 
             default:
                 break;
-
         }
 
+        return fullSuccess;
 
+    }
+
+    private void fetchRecordsFromOnline(Callback contCallback) {
+        // Make the task callback
+        taskCallback = new Callback<SearchResult>() {
+            /* When complete, convert the search results into RecordList,
+             * save, then prompt update of views
+             */
+            @Override
+            public void onComplete(SearchResult res) {
+                RecordList results = new RecordList(res.getSourceAsObjectList(Record.class, true));
+                records.asList().clear();
+                records.asList().addAll(results.asList());
+                contCallback.onComplete(results);
+            }
+        };
+
+        // execute task to get Records from, using task callback
+        new GetRecordListTask(taskCallback).execute(problemId);
     }
 
     @Override

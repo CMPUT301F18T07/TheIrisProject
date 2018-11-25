@@ -78,6 +78,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Profile Activities -->
+        <activity android:name=".activity.PatientListActivity" />
         <activity
             android:name=".activity.ViewProfileActivity"
             android:label="@string/view_profile_title" />
