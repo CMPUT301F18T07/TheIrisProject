@@ -100,6 +100,10 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
                 Intent intent = new Intent(this, ViewProfileActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.patient_list_action_import_contacts:
+                intent = new Intent(this, ContactsActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return false;
         }

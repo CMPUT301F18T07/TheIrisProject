@@ -3,6 +3,7 @@
     package="com.team7.cmput301.android.theirisproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -38,6 +39,9 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.RegisterActivity" />
+
+        <activity android:name=".activity.ContactsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Problem Activities -->
         <activity
