@@ -81,10 +81,6 @@
             android:label="@string/edit_profile_title_text" />
         <activity android:name=".activity.BodyPhotoListActivity"/>
         <activity android:name=".activity.AddBodyPhotoActivity" android:label="@string/add_bodyphoto_title_text"/>
-        <activity android:name=".activity.BodyPhotoListActivity" />
-        <activity
-            android:name=".activity.AddBodyPhotoActivity"
-            android:label="@string/add_bodyphoto_title_text" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
