@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.SearchType;
 
 /**
  * GetPatientListTask is responsible for taking in a careProviderId and returning a List of Patients
@@ -53,7 +54,6 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
                     .build();
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);
-
 
             Log.i(TAG, res.getJsonString());
             System.out.println(Arrays.toString(res.getSourceAsStringList().toArray()));

@@ -30,7 +30,7 @@ public class PatientTest {
     public void testPatient() {
         Patient patient = getTestPatient();
 
-        Assert.assertEquals(name, patient.getName());
+        Assert.assertEquals(name, patient.getUsername());
         Assert.assertEquals(email, patient.getEmail());
         Assert.assertEquals(phoneNumber, patient.getPhone());
         Assert.assertEquals(type, patient.getType());

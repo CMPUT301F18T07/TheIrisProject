@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.team7.cmput301.android.theirisproject.activity.ViewProfileActivity;
 import com.team7.cmput301.android.theirisproject.model.User;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -47,7 +45,7 @@ public class UserListAdapter extends ArrayAdapter<User> {
 
         User user = users.get(position);
 
-        name.setText(user.getName());
+        name.setText(user.getUsername());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
 

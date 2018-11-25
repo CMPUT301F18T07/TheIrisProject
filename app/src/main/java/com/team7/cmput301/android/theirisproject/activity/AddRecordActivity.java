@@ -31,6 +31,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * */
 public class AddRecordActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_IMAGE = 1;
+    private static final int REQUEST_MAP_LOCATION = 2;
     private AddRecordController controller;
     private TextView titleField;
     private TextView descField;
@@ -39,6 +40,8 @@ public class AddRecordActivity extends AppCompatActivity {
     private ImageListAdapter<RecordPhoto> recordPhotoImageListAdapter;
 
     private FloatingActionButton cameraButton;
+    private FloatingActionButton mapButton;
+
     private Button submitButton;
 
     @Override
@@ -68,6 +71,14 @@ public class AddRecordActivity extends AppCompatActivity {
         });
 
         submitButton = findViewById(R.id.record_add_button);
+        mapButton = findViewById(R.id.record_map_button);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchMapIntent();
+            }
+        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +135,11 @@ public class AddRecordActivity extends AppCompatActivity {
         intent.putExtra("record_id", id);
         startActivity(intent);
         finish();
+    }
+
+    private void dispatchMapIntent() {
+        Intent intent = new Intent(AddRecordActivity.this, MapActivity.class);
+        startActivityForResult(intent, REQUEST_MAP_LOCATION);
     }
 
 }

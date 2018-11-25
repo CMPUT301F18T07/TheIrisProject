@@ -53,7 +53,7 @@ public class ViewProfileActivity extends IrisActivity {
         label = findViewById(R.id.view_profile_users_text_view);
         usersListView = findViewById(R.id.view_profile_users_list_view);
 
-        name.setText(user.getName());
+        name.setText(user.getUsername());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
 
