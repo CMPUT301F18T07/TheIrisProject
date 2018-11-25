@@ -62,7 +62,8 @@ public class StringHelper {
      */
     public static String generateJSONArrayString(List<String> strings) {
         if (strings == null || strings.size() == 0) {
-            return null;
+            // Return empty list
+            return "[]";
         }
 
         StringBuilder builder = new StringBuilder();
