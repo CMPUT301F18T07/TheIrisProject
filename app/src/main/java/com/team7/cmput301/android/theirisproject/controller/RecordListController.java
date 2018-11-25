@@ -41,8 +41,7 @@ public class RecordListController extends IrisController<RecordList> {
      * Do callback by fill calling IrisActivity with Records.
      * May do callback straightaway, or require an additional async task, depending on current user type.
      *
-     * @param contCallback
-     * @return
+     * @param contCallback Callback with IrisActivity's specified actions
      */
     public void fillRecords(Callback<RecordList> contCallback){
 
