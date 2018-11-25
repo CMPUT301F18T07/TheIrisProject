@@ -10,10 +10,14 @@ import android.app.Application;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
+import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetUserDataTask;
+
+import java.util.HashMap;
 
 import io.searchbox.client.JestClient;
 
@@ -23,14 +27,20 @@ import io.searchbox.client.JestClient;
  * which can then allow our activity controllers to populate it.
  *
  * @author itstc
+ * @author anticobalt
  * */
 public class IrisProjectApplication extends Application {
+
     // use this index for any request to database
     public static final String INDEX = "cmput301f18t07test";
 
     // our database connection
     transient private static JestDroidClient db = null;
     transient private static User currentUser = null;
+
+    // model caches, for fast retrieval
+    private static HashMap<String, Record> records = new HashMap<>();
+    private static HashMap<String, Problem> problems = new HashMap<>();
 
     /**
      * getDB is a function to retrieve the online database
@@ -59,4 +69,41 @@ public class IrisProjectApplication extends Application {
         currentUser = user;
     }
 
+    public static void addProblemToCache(Problem problem) {
+        problems.put(problem.getId(), problem);
+    }
+
+    public static void addRecordToCache(Record record) {
+        records.put(record.getId(), record);
+    }
+
+    public static Record getRecordById(String id) {
+
+        // try the cache first
+        Record record = records.get(id);
+
+        // if nothing found, linear lookup required
+        if (record == null) {
+            // TODO
+            System.out.println("Tried to find " + id);
+        }
+
+        return record;
+
+    }
+
+    public static Problem getProblemById(String id) {
+
+        // try the cache first
+        Problem problem = problems.get(id);
+
+        // if nothing found, linear lookup required
+        if (problem == null) {
+            // TODO
+            System.out.println("Tried to find " + id);
+        }
+
+        return problem;
+
+    }
 }

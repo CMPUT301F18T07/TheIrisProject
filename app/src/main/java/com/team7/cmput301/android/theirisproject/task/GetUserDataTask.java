@@ -105,7 +105,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
     /**
      * Make and attach Care Providers of a Patient.
      * Patients only need to know Care Providers contact info,
-     * so binding all of their Care Provider's other Patients not required.
+     * so binding all of their Care Provider's other Patients is not required.
      *
      * @param patient the bound-to Patient
      */
@@ -113,8 +113,6 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
         String query = generateQuery(MATCH, "patientIds", patient.getId());
         SearchResult res = search(query, USER);
-
-        System.out.println("res is : " + res);
 
         if (res != null) {
 
@@ -141,6 +139,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             patient.setProblems(problems);
 
             for (Problem problem : problems) {
+                IrisProjectApplication.addProblemToCache(problem);
                 getAndBindComments(problem);
                 getAndBindBodyPhotos(problem);
                 getAndBindRecords(problem);
@@ -161,6 +160,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             problem.setRecords(records);
 
             for (Record record : records) {
+                IrisProjectApplication.addRecordToCache(record);
                 getAndBindRecordPhotos(record);
             }
 
