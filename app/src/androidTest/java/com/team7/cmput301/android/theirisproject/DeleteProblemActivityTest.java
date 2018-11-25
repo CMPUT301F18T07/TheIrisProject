@@ -14,7 +14,7 @@ import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
- * Tests for EditProfileActivity
+ * Tests for DeleteProblemActivity
  *
  * @author anticobalt
  */
