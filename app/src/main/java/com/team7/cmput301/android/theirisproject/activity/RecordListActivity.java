@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.RecordListAdapter;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
@@ -83,7 +84,13 @@ public class RecordListActivity extends IrisActivity<RecordList> {
     @Override
     protected void onStart() {
         super.onStart();
-        render(controller.getRecords());
+        Callback<RecordList> contCallback = new Callback<RecordList>() {
+            @Override
+            public void onComplete(RecordList result) {
+                render(result);
+            }
+        };
+        controller.fillRecords(contCallback);
     }
 
     /**
@@ -138,7 +145,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
 
     /**
      * Display all records by populating adapter and setting adapter to ListView
-     * @param records
+     * @param records Update-to-date RecordList
      */
     public void render(RecordList records) {
         Integer recordItemLayout = R.layout.list_record_item;

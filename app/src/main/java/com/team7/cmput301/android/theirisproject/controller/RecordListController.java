@@ -11,9 +11,13 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
+
+import io.searchbox.core.SearchResult;
 
 /**
  * Controller for RecordListActivity
@@ -24,20 +28,62 @@ import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
  */
 public class RecordListController extends IrisController<RecordList> {
 
+    private String problemId;
     private RecordList records;
+    private Callback<SearchResult> taskCallback;
 
     public RecordListController(Intent intent){
         super(intent);
         records = model; // aliasing for clarity
     }
 
-    public RecordList getRecords(){
-        return records;
+    /**
+     * Do callback by fill calling IrisActivity with Records.
+     * May do callback straightaway, or require an additional async task, depending on current user type.
+     *
+     * @param contCallback
+     * @return
+     */
+    public void fillRecords(Callback<RecordList> contCallback){
+
+        switch (IrisProjectApplication.getCurrentUser().getType()) {
+
+            case PATIENT:
+                contCallback.onComplete(records);
+                break;
+
+            case CARE_PROVIDER:
+
+                // Make the task callback
+                taskCallback = new Callback<SearchResult>(){
+                    /* When complete, convert the search results into RecordList,
+                     * save, then prompt update of views
+                     */
+                    @Override
+                    public void onComplete(SearchResult res) {
+                        RecordList results = new RecordList(res.getSourceAsObjectList(Record.class, true));
+                        records.asList().clear();
+                        records.asList().addAll(results.asList());
+                        contCallback.onComplete(results);
+                    }
+                };
+
+                // execute task to get Records from, using task callback
+                new GetRecordListTask(taskCallback).execute(problemId);
+
+                break;
+
+            default:
+                break;
+
+        }
+
+
     }
 
     @Override
     RecordList getModel(Bundle data) {
-        String problemId = data.getString(Extras.EXTRA_PROBLEM_ID);
+        problemId = data.getString(Extras.EXTRA_PROBLEM_ID);
         return IrisProjectApplication.getProblemById(problemId).getRecords();
     }
 
