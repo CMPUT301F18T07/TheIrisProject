@@ -40,6 +40,21 @@ public class StringHelper {
         return builder.toString();
     }
 
+    public static void addQuotations(List<String> strings) {
+        if (strings == null || strings.size() == 0) {
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < strings.size(); i++) {
+            String string = strings.get(i);
+            builder.append("\"" + string + "\"");
+
+            strings.set(i, builder.toString());
+            builder.setLength(0);
+        }
+    }
+
     /**
      * Given a List of Strings, determine if it has an empty or null string
      * @param strings

@@ -125,5 +125,6 @@
     <string name="add_bodyphoto_submit">Submit Body Photo</string>
     <string name="add_bodyphoto_title_text">Add Body Photo</string>
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
+    <string name="title_activity_map">Map</string>
 
 </resources>
