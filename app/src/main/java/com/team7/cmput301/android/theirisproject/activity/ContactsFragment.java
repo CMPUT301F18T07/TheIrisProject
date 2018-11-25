@@ -4,28 +4,23 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.team7.cmput301.android.theirisproject.PatientListRecyclerAdapter;
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.model.Contact;
+import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.GetPatientListByContactTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +41,13 @@ import static android.provider.ContactsContract.*;
  */
 public class ContactsFragment extends Fragment {
 
+    private RecyclerView patientsView;
+    private PatientListRecyclerAdapter adapter;
+
     private final String[] PROJECTION_CONTACT = {
             Contacts._ID,
             Contacts.DISPLAY_NAME
-};
+    };
 
     private final String[] PROJECTION_PHONE = {
             CommonDataKinds.Phone.NUMBER
@@ -65,13 +63,48 @@ public class ContactsFragment extends Fragment {
         // Inflate the fragment layout
         View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
 
+        patientsView = view.findViewById(R.id.contacts_recycler_view);
+        patientsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new PatientListRecyclerAdapter(new ArrayList<>());
+        patientsView.setAdapter(adapter);
+
         return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
 
+        runGetPatientListTask();
+    }
+
+    private void runGetPatientListTask() {
+        List<Contact> contacts = getContactList();
+
+        // Search each of these contacts in database, get a List of Patients from the search
+        new GetPatientListByContactTask(new Callback<List<Patient>>() {
+            @Override
+            public void onComplete(List<Patient> res) {
+                if (res != null) {
+                    System.out.println("Patients found: " + res.size());
+                    adapter.setPatients(res);
+                    render();
+                }
+            }
+        }).execute(contacts.toArray(new Contact[contacts.size()]));
+    }
+
+    private void render() {
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Gets the List of Contacts for the current user
+     * Only contains Contacts that have either a phone number or email address
+     * @return
+     */
+    private List<Contact> getContactList() {
         ContentResolver contentResolver = getActivity().getContentResolver();
         List<Contact> contacts = new ArrayList<>();
 
@@ -114,30 +147,8 @@ public class ContactsFragment extends Fragment {
             System.out.println(contact.getName() + ", " + contact.getPhone() + ", " + contact.getEmail());
         }
 
+        return contacts;
     }
 
 }
 
-class Contact {
-    private String name;
-    private String phone;
-    private String email;
-
-    public Contact(String name, String phone, String email) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-}

@@ -41,7 +41,8 @@
         <activity android:name=".activity.RegisterActivity" />
 
         <activity android:name=".activity.ContactsActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:label="@string/import_contacts_title"/>
 
         <!-- Problem Activities -->
         <activity

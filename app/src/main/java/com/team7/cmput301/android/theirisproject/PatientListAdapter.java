@@ -39,7 +39,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         LayoutInflater inflater = context.getLayoutInflater();
         View patientView = inflater.inflate(resource, parent, false);
 
-        TextView name = patientView.findViewById(R.id.patient_item_name);
+        TextView name = patientView.findViewById(R.id.patient_item_username);
         TextView email = patientView.findViewById(R.id.patient_item_email);
 
         Patient patient = patients.get(position);

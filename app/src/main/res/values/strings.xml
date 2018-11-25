@@ -142,5 +142,8 @@
     <string name="contact_permissions_granted">Contact permissions granted successfully!</string>
     <string name="contact_permissions_not_granted">Contact permissions not granted!</string>
 
+    <!-- Import Contacts strings -->
+    <string name="import_contacts_title">Import Contacts as Patients</string>
+
 
 </resources>

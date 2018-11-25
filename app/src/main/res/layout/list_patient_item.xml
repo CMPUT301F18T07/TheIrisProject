@@ -14,15 +14,21 @@
     android:paddingVertical="8dp">
 
     <TextView
-        android:id="@+id/patient_item_name"
+        android:id="@+id/patient_item_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        tools:text="Patient Name"/>
+        tools:text="Patient Username"/>
 
     <TextView
         android:id="@+id/patient_item_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Patient Email"/>
+
+    <TextView
+        android:id="@+id/patient_item_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Patient Phone"/>
 </LinearLayout>
