@@ -138,5 +138,9 @@
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
     <string name="title_activity_map">Map</string>
 
+    <!-- Permissions strings -->
+    <string name="contact_permissions_granted">Contact permissions granted successfully!</string>
+    <string name="contact_permissions_not_granted">Contact permissions not granted!</string>
+
 
 </resources>

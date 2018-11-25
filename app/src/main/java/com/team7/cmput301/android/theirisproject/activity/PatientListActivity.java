@@ -6,11 +6,16 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +41,8 @@ import java.util.List;
  * @author Jmmxp
  */
 public class PatientListActivity extends IrisActivity<List<Patient>> implements AddPatientDialogFragment.AddPatientDialogListener {
+
+    private static final int PERMISSION_REQUEST_READ_CONTACTS = 0;
 
     private PatientListController controller;
     private ListView patientsView;
@@ -101,8 +108,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
                 startActivity(intent);
                 return true;
             case R.id.patient_list_action_import_contacts:
-                intent = new Intent(this, ContactsActivity.class);
-                startActivity(intent);
+                checkPermissions();
                 return true;
             default:
                 return false;
@@ -134,6 +140,45 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
         } else {
             // do nothing, show unsuccess Toast
             Toast.makeText(this, "Couldn't successfully add Patient!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * @return whether or not this Activity has the READ_CONTACTS permission already granted to it
+     */
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission isn't granted, request the permission
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_CONTACTS},
+                    PERMISSION_REQUEST_READ_CONTACTS);
+        } else {
+            Intent intent = new Intent(this, ContactsActivity.class);
+            startActivity(intent);
+        }
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_READ_CONTACTS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, getString(R.string.contact_permissions_granted), Toast.LENGTH_SHORT)
+                            .show();
+                    Intent intent = new Intent(this, ContactsActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, getString(R.string.contact_permissions_not_granted), Toast.LENGTH_SHORT)
+                            .show();
+                }
+                return;
+            }
+            default: {
+                return;
+            }
         }
     }
 
