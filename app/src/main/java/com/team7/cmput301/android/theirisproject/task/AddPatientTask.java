@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.helper.StringHelper;
@@ -57,23 +58,34 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
         JestDroidClient client = IrisProjectApplication.getDB();
 
         // Search for user and get the closest match
-        Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + patientUsername + "\"}}}")
+        String query = "{\n" +
+                "  \"query\": {\n" +
+                "    \"bool\": {\n" +
+                "      \"must\": [\n" +
+                "    \t{ \"term\": { \"username\": \"" + patientUsername + "\" }},\n" +
+                "    \t{ \"term\": { \"type\": \"PATIENT\" }}\n" +
+                "\t  ]\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+        Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
                 .build();
 
         try {
             SearchResult searchResult = client.execute(get);
-            // TODO: add check for when we can't find any patient with that email
-            // TODO: add check for adding a patient that's already been added
-            // TODO: ensure the user is actually a patient!
             // TODO: Fix bug of PatientListActivity showing patients out of order (should be in order of being added)
 
             if (!searchResult.isSucceeded()) {
                 return false;
             }
 
-            Log.i(TAG, searchResult.getJsonString());
+            JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
+            // No users found
+            if (arrayHits.size() == 0) {
+                return false;
+            }
 
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
 
