@@ -9,16 +9,23 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.PatientListRecyclerAdapter;
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Contact;
 import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetPatientListByContactTask;
 
@@ -57,7 +64,12 @@ public class ContactsFragment extends Fragment {
             CommonDataKinds.Email.ADDRESS
     };
 
-    // A UI Fragment must inflate its View
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the fragment layout
@@ -66,6 +78,8 @@ public class ContactsFragment extends Fragment {
         patientsView = view.findViewById(R.id.contacts_recycler_view);
         patientsView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        patientsView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+
         adapter = new PatientListRecyclerAdapter(new ArrayList<>());
         patientsView.setAdapter(adapter);
 
@@ -73,10 +87,55 @@ public class ContactsFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_contact_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.contact_list_action_save_contacts: {
+                addSelectedContacts();
+                getActivity().finish();
+                return true;
+            }
+            default: {
+                return false;
+            }
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
         runGetPatientListTask();
+    }
+
+    private void addSelectedContacts() {
+        List<Patient> patients = adapter.getPatients();
+        List<Patient> selectedPatients = new ArrayList<>();
+
+        for (int i = 0; i < patients.size(); i++) {
+            PatientListRecyclerAdapter.ViewHolder viewHolder = (PatientListRecyclerAdapter.ViewHolder) patientsView.findViewHolderForAdapterPosition(i);
+            if (viewHolder.isChecked()) {
+                selectedPatients.add(patients.get(i));
+            }
+        }
+
+        CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
+        for (Patient patient : selectedPatients) {
+            // Note that this is duplicated in AddTask
+            careProvider.addPatient(patient);
+
+            new AddPatientTask(new Callback<Boolean>() {
+                @Override
+                public void onComplete(Boolean res) {
+                    // do nothing on complete
+                }
+            }).execute(patient.getUsername(), true);
+        }
     }
 
     private void runGetPatientListTask() {

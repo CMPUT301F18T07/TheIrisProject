@@ -9,9 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.List;
 
@@ -22,17 +29,21 @@ public class PatientListRecyclerAdapter extends RecyclerView.Adapter<PatientList
         this.patients = patients;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView username;
         private TextView email;
         private TextView phone;
+        private CheckBox add;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            username = itemView.findViewById(R.id.patient_item_username);
-            email = itemView.findViewById(R.id.patient_item_email);
-            phone = itemView.findViewById(R.id.patient_item_phone);
+            itemView.setOnClickListener(this);
+
+            username = itemView.findViewById(R.id.contact_item_username);
+            email = itemView.findViewById(R.id.contact_item_email);
+            phone = itemView.findViewById(R.id.contact_item_phone);
+            add = itemView.findViewById(R.id.contact_item_add);
         }
 
         public void bind(Patient patient) {
@@ -40,12 +51,30 @@ public class PatientListRecyclerAdapter extends RecyclerView.Adapter<PatientList
             email.setText(patient.getEmail());
             phone.setText(patient.getPhone());
         }
+
+        public void addContact() {
+            new AddPatientTask(new Callback<Boolean>() {
+                @Override
+                public void onComplete(Boolean res) {
+
+                }
+            }).execute(username.getText().toString());
+        }
+
+        public boolean isChecked() {
+            return add.isChecked();
+        }
+
+        @Override
+        public void onClick(View view) {
+            add.setChecked(!add.isChecked());
+        }
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_patient_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_contact_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -64,6 +93,9 @@ public class PatientListRecyclerAdapter extends RecyclerView.Adapter<PatientList
         this.patients = patients;
     }
 
+    public List<Patient> getPatients() {
+        return patients;
+    }
 }
 
 

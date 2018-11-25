@@ -28,7 +28,7 @@
     <string name="register_email_hint">Enter email address</string>
     <string name="register_success">User successfully registered!</string>
     <string name="register_incomplete">Please fill in all fields!</string>
-    <string name="register_failure">Could not register, e-mail already in use!</string>
+    <string name="register_failure">Could not register, username already in use!</string>
 
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
@@ -133,6 +133,7 @@
 
     <!-- Import Contacts strings -->
     <string name="import_contacts_title">Import Contacts as Patients</string>
+    <string name="add_contact_button">Add</string>
 
 
 </resources>

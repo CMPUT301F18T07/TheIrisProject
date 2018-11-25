@@ -94,6 +94,12 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        render();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_patient_list, menu);
         return super.onCreateOptionsMenu(menu);
