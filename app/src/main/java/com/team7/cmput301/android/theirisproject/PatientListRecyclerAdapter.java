@@ -22,6 +22,10 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.List;
 
+/**
+ * PatientListRecyclerAdapter is an adapter used for the RecyclerView to display Patients in
+ * ContactsFragment. Note that this is separate from PatientListAdapter because the Views are different
+ */
 public class PatientListRecyclerAdapter extends RecyclerView.Adapter<PatientListRecyclerAdapter.ViewHolder> {
     private List<Patient> patients;
 
@@ -50,15 +54,6 @@ public class PatientListRecyclerAdapter extends RecyclerView.Adapter<PatientList
             username.setText(patient.getUsername());
             email.setText(patient.getEmail());
             phone.setText(patient.getPhone());
-        }
-
-        public void addContact() {
-            new AddPatientTask(new Callback<Boolean>() {
-                @Override
-                public void onComplete(Boolean res) {
-
-                }
-            }).execute(username.getText().toString());
         }
 
         public boolean isChecked() {

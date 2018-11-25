@@ -22,6 +22,8 @@ import io.searchbox.core.SearchResult;
 /**
  * Takes in a List of Contacts and returns a List of Patients who either have a phone number or
  * e-mail registered in the app that is also part of the Contacts list
+ *
+ * @author Jmmxp
  */
 public class GetPatientListByContactTask extends AsyncTask<Contact, Void, List<Patient>> {
 
@@ -42,12 +44,10 @@ public class GetPatientListByContactTask extends AsyncTask<Contact, Void, List<P
             phones.add(contact.getPhone());
         }
 
-        // For every contact, check if the contact's phone or email is a registered patient in the DB
-        // Also make sure they are a Patient, and the CP does not already have them registered
+        // Check if any of the contacts' phone numbers or emails is part of a registered patient in the DB
+        // Also make sure the CP does not already have them registered
 
-        // WHERE type = "PATIENT" AND (email = contactEmail OR email = contactPhone)
-        //                "    \t\t\t{ \"terms\": { \"email\": " + StringHelper.generateJSONArrayString(emails) + " }},\n" +
-        //                "    \t\t\t{ \"terms\": { \"phoneNumber\": " + StringHelper.generateJSONArrayString(phones) + " }}\n" +
+        // WHERE type = "PATIENT" AND (email = contactEmail OR email = contactPhone) AND _id NOT IN (existing list of Patients for CP)
         String query = "{\n" +
                 "  \"query\": {\n" +
                 "    \"bool\": {\n" +
@@ -66,8 +66,6 @@ public class GetPatientListByContactTask extends AsyncTask<Contact, Void, List<P
                 "    }\n" +
                 "  }\n" +
                 "}";
-
-        System.out.println("query is " + query);
 
         Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)

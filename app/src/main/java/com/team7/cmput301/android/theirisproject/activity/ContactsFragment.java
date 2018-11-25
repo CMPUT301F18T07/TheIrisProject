@@ -35,9 +35,9 @@ import java.util.List;
 import static android.provider.ContactsContract.*;
 
 /**
- * ContactsFragment is a Fragment that displays a list of Contacts that the currently logged in
+ * ContactsFragment is a Fragment that displays a list of Contacts that the logged-in
  * Care Provider has in their Contacts app, all the Contacts of which are registered Patients
- * in the Iris application
+ * in Iris.
  *
  * Resources used for this class:
  * https://developer.android.com/training/contacts-provider/retrieve-names
@@ -113,6 +113,9 @@ public class ContactsFragment extends Fragment {
         runGetPatientListTask();
     }
 
+    /**
+     * Find out which Patients have been checked to be imported and call AddPatientTask for all of them
+     */
     private void addSelectedContacts() {
         List<Patient> patients = adapter.getPatients();
         List<Patient> selectedPatients = new ArrayList<>();
@@ -126,7 +129,7 @@ public class ContactsFragment extends Fragment {
 
         CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
         for (Patient patient : selectedPatients) {
-            // Note that this is duplicated in AddTask
+            // Note that this is duplicated in AddPatientTask!
             careProvider.addPatient(patient);
 
             new AddPatientTask(new Callback<Boolean>() {
@@ -138,6 +141,9 @@ public class ContactsFragment extends Fragment {
         }
     }
 
+    /**
+     * Get List of Patients by checking Contacts and render them to the RecyclerView
+     */
     private void runGetPatientListTask() {
         List<Contact> contacts = getContactList();
 
@@ -146,7 +152,6 @@ public class ContactsFragment extends Fragment {
             @Override
             public void onComplete(List<Patient> res) {
                 if (res != null) {
-                    System.out.println("Patients found: " + res.size());
                     adapter.setPatients(res);
                     render();
                 }
@@ -199,12 +204,7 @@ public class ContactsFragment extends Fragment {
             } while (cursor.moveToNext());
 
         }
-        System.out.println("total contacts size: " + cursor.getCount());
         cursor.close();
-
-        for (Contact contact : contacts) {
-            System.out.println(contact.getName() + ", " + contact.getPhone() + ", " + contact.getEmail());
-        }
 
         return contacts;
     }

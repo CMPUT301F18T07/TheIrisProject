@@ -26,8 +26,8 @@ import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
 /**
- * AddPatientTask takes in two parameters, the Patient's e-mail that the Care Provider inputted
- * and the Care Provider's ID.
+ * AddPatientTask takes in two parameters, the Patient's e-mail and whether or not we are
+ * adding the Patient by importing a Contact or not
  *
  * If the given username is not a registered user, task returns false onCompletion
  * Otherwise, the Patient's ID is added to the Care Provider's list of Patients and vice versa.
@@ -80,7 +80,6 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
 
         try {
             SearchResult searchResult = client.execute(get);
-            // TODO: Fix bug of PatientListActivity showing patients out of order (should be in order of being added)
 
             if (!searchResult.isSucceeded()) {
                 return false;

@@ -18,6 +18,12 @@ import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.R;
 
+/**
+ * ContactsActivity is used to host ContactsFragment, which in turn is used to help import Patients
+ * for a logged-in Care Provider
+ *
+ * @author Jmmxp
+ */
 public class ContactsActivity extends AppCompatActivity {
 
     @Override

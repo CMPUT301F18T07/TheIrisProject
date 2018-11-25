@@ -57,6 +57,7 @@ public class StringHelper {
 
     /**
      * Given a list of strings, return all of them concatenated in the form of a JSON array e.g. ["str1", "str2", "str3"]
+     * NOTE: it returns the String with the square brackets as well
      * @param strings
      * @return the JSON Array String
      */
