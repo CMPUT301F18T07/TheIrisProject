@@ -5,7 +5,11 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 import java.util.Date;
 
-public interface Photo {
-    public Bitmap getPhoto();
-    public Date getDate();
+public abstract class Photo {
+
+    public String getMetaData() {
+        return "";
+    }
+    public abstract Bitmap getPhoto();
+    public abstract Date getDate();
 }

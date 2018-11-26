@@ -11,7 +11,15 @@
     android:orientation="vertical"
     android:background="@color/common_google_signin_btn_text_light_pressed"
     android:padding="16dp">
-
+    <TextView
+        android:id="@+id/fragment_image_meta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="24sp"
+        android:textColor="@color/colorBackground"/>
     <ImageView
         android:id="@+id/fragment_image_photo"
         android:layout_width="256dp"
