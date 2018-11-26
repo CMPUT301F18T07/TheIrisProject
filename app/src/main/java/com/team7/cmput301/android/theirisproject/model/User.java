@@ -65,8 +65,7 @@ public abstract class User {
 
     /* Advanced setters */
 
-    public void editContact(String username, String email, String phoneNumber) {
-        this.username = username;
+    public void updateProfile(String email, String phoneNumber) {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }

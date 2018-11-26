@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
@@ -55,7 +59,7 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
 
 
             // Search for user and get the closest match
-            Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + users[0].getEmail() + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + users[0].getUsername() + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();
