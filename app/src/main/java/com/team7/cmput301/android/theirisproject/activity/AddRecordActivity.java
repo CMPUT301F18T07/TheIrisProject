@@ -47,7 +47,7 @@ public class AddRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_record_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,7 +70,7 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
-        submitButton = findViewById(R.id.record_add_button);
+        submitButton = findViewById(R.id.record_submit_button);
         mapButton = findViewById(R.id.record_map_button);
 
         mapButton.setOnClickListener(new View.OnClickListener() {

@@ -7,6 +7,7 @@
     package="com.team7.cmput301.android.theirisproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -58,6 +59,7 @@
         <activity
             android:name=".activity.DeleteProblemActivity"
             android:theme="@style/AppTheme.PopupTheme" />
+
         <!-- Record Activities -->
         <activity
             android:name=".activity.RecordListActivity"
@@ -65,14 +67,18 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AddRecordActivity"
-            android:label="@string/add_record"
+            android:label="@string/submit_record"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.PatientListActivity" />
         <activity
             android:name=".activity.ViewRecordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.EditRecordActivity"
+            android:label="@string/edit_record"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Profile Activities -->
+        <activity android:name=".activity.PatientListActivity" />
         <activity
             android:name=".activity.ViewProfileActivity"
             android:label="@string/view_profile_title" />
@@ -93,10 +99,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <activity
             android:name=".activity.MapActivity"
-            android:label="@string/title_activity_map"></activity>
+            android:label="@string/title_activity_map" />
     </application>
 
 </manifest>

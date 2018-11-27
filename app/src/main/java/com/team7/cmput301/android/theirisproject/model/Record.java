@@ -60,6 +60,14 @@ public class Record {
 
     /* Basic setter */
 
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setDesc(String desc){
+        this.desc = desc;
+    }
+
     public void setRecordPhotos(List<RecordPhoto> recordPhotos) {
         this.recordPhotos = recordPhotos;
     }
