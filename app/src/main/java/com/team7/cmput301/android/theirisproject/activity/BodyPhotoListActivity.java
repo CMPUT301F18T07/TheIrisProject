@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -30,6 +31,7 @@ import java.util.List;
  * @author itstc
  * */
 public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
+    private static final int ADD_BODYPHOTO_START = 1;
 
     private BodyPhotoListController controller;
 
@@ -58,6 +60,13 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
                 dispatchAddBodyPhotoActivity(IrisProjectApplication.getCurrentUser().getId());
             }
         });
+
+        controller.queryBodyPhotos(new Callback<List<BodyPhoto>>() {
+            @Override
+            public void onComplete(List<BodyPhoto> res) {
+                render(res);
+            }
+        });
     }
 
     @Override
@@ -72,20 +81,32 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        controller.queryBodyPhotos(new Callback<List<BodyPhoto>>() {
-            @Override
-            public void onComplete(List<BodyPhoto> res) {
-                render(res);
-            }
-        });
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) return;
+
+        Bundle extras = data.getExtras();
+
+        if (requestCode == ADD_BODYPHOTO_START
+                && resultCode == AddBodyPhotoActivity.RESULT_OK
+                && extras.getParcelable("data") != null) {
+            // add bodyphoto from AddBodyPhotoActivity and update UI
+            controller.addBodyPhoto(extras.getParcelable("data"));
+            render(controller.getBodyPhotos());
+        }
     }
 
+    /**
+     * dispatchAddBodyPhotoActivity will start a new activity
+     * to add a body photo. The result will return to this
+     * activity.
+     *
+     * @param id: user's _id
+     * */
     private void dispatchAddBodyPhotoActivity(String id) {
         Intent intent = new Intent(BodyPhotoListActivity.this, AddBodyPhotoActivity.class);
         intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, id);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_BODYPHOTO_START);
     }
 
     @Override

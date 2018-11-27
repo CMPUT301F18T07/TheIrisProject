@@ -18,33 +18,31 @@ import java.util.ArrayList;
 import io.searchbox.core.Index;
 
 /**
- * AddBodyPhotoTask asynchronously adds bodyphotos to the database
+ * AddBodyPhotoTask asynchronously adds a bodyphoto to the database
  *
  * @author itstc
  * */
-public class AddBodyPhotoTask extends AsyncTask<ArrayList<BodyPhoto>, Void, Boolean> {
+public class AddBodyPhotoTask extends AsyncTask<BodyPhoto, Void, BodyPhoto> {
     private Callback cb;
     public AddBodyPhotoTask(Callback cb) {
         this.cb = cb;
     }
     @Override
-    protected Boolean doInBackground(ArrayList<BodyPhoto>... params) {
-        Boolean res = true;
+    protected BodyPhoto doInBackground(BodyPhoto... params) {
         try {
-            for (BodyPhoto bp: params[0]) {
-                Index post = new Index.Builder(bp).index(IrisProjectApplication.INDEX).type("bodyphoto").build();
-                res = IrisProjectApplication.getDB().execute(post).isSucceeded();
-            }
+            Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("bodyphoto").build();
+            String res = IrisProjectApplication.getDB().execute(post).getId();
+            params[0].setUser(res);
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-        return res;
+        return params[0];
     }
 
     @Override
-    protected void onPostExecute(Boolean success) {
-        super.onPostExecute(success);
-        cb.onComplete(success);
+    protected void onPostExecute(BodyPhoto res) {
+        super.onPostExecute(res);
+        cb.onComplete(res);
     }
 }

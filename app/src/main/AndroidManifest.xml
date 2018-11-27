@@ -44,6 +44,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.RegisterActivity" />
 
+
         <!-- Problem Activities -->
         <activity
             android:name=".activity.ProblemListActivity"

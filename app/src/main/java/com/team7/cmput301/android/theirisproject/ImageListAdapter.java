@@ -56,7 +56,7 @@ public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<Imag
             @Override
             public void onClick(View view) {
                 FragmentManager fm = ((Activity)context).getFragmentManager();
-                ViewImageFragment imageDialog = ViewImageFragment.newInstance(photo.getPhoto(), photo.getDate());
+                ViewImageFragment imageDialog = ViewImageFragment.newInstance(photo.getMetaData(), photo.getPhoto(), photo.getDate());
                 imageDialog.show(fm, "fragment_enlarge_image");
             }
         });

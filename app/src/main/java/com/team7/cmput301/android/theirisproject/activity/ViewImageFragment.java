@@ -28,15 +28,18 @@ import java.util.Date;
  * @author itstc
  * */
 public class ViewImageFragment extends DialogFragment {
+    private String metadata;
     private Bitmap photo;
     private String date;
+    private TextView metaDataView;
     private ImageView photoView;
     private TextView dateView;
 
     public ViewImageFragment() {}
 
-    public static ViewImageFragment newInstance(Bitmap photo, Date date) {
+    public static ViewImageFragment newInstance(String metadata, Bitmap photo, Date date) {
         Bundle args = new Bundle();
+        args.putString("metadata", metadata);
         args.putParcelable("photo", photo);
         args.putString("date", DateHelper.format(date));
         ViewImageFragment fragment = new ViewImageFragment();
@@ -48,6 +51,7 @@ public class ViewImageFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        metadata = getArguments().getString("metadata");
         photo = (Bitmap)getArguments().getParcelable("photo");
         date = getArguments().getString("date");
         // Inflate the layout for this fragment
@@ -57,9 +61,11 @@ public class ViewImageFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        metaDataView = view.findViewById(R.id.fragment_image_meta);
         photoView =  view.findViewById(R.id.fragment_image_photo);
         dateView = view.findViewById(R.id.fragment_image_date);
 
+        metaDataView.setText(metadata);
         photoView.setImageBitmap(photo);
         dateView.setText(date);
 
