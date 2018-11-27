@@ -19,7 +19,7 @@ import io.searchbox.annotations.JestId;
  * @author jtfwong
  * @author anticobalt
  */
-public class RecordPhoto implements Photo {
+public class RecordPhoto extends Photo {
 
     @JestId
     private String _id;
