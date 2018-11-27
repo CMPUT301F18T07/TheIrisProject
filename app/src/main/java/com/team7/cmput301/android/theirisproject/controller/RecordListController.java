@@ -57,7 +57,7 @@ public class RecordListController extends IrisController<RecordList> {
                 break;
 
             case CARE_PROVIDER:
-                if (isConnectedToInternet(context)) {
+                if (IrisProjectApplication.isConnectedToInternet(context)) {
                     fetchRecordsFromOnline(contCallback);
                     fullSuccess = true;
                 } else {

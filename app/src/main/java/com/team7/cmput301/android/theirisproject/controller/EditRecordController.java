@@ -59,7 +59,7 @@ public class EditRecordController extends IrisController<Record> {
         record.setTitle(title);
         record.setDesc(desc);
 
-        if (isConnectedToInternet(context)) {
+        if (IrisProjectApplication.isConnectedToInternet(context)) {
             new EditRecordTask().execute(record);
             pushedOnline = true;
         }

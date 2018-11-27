@@ -7,6 +7,9 @@
 package com.team7.cmput301.android.theirisproject;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -67,6 +70,26 @@ public class IrisProjectApplication extends Application {
 
     public static void setCurrentUser(User user) {
         currentUser = user;
+    }
+
+    /**
+     * Determines if currently connected to internet.
+     * https://stackoverflow.com/a/32771164
+     * @param context The Context that invokes check
+     * @return True if connected, false if not
+     */
+    public static Boolean isConnectedToInternet(Context context) {
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork;
+        if (cm != null) {
+            activeNetwork = cm.getActiveNetworkInfo();
+        } else {
+            // can't determine if connected to internet, so assume not
+            return false;
+        }
+        return (activeNetwork != null);
+
     }
 
     public static void addProblemToCache(Problem problem) {
