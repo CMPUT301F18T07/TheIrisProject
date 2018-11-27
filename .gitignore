@@ -19,7 +19,7 @@ out/
 
 # in dia state
 *.dia~
-
+*.dia.autosave
 # MacOS .DS_STORE
 .DS_Store
 

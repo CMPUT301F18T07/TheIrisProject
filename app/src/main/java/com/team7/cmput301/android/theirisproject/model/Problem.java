@@ -69,6 +69,10 @@ public class Problem {
 
     /* Basic setter + adders */
 
+    public void setId(String _id) {
+        this._id = _id;
+    }
+
     public void setRecords(RecordList records){
         this.records = records;
     }
@@ -128,4 +132,24 @@ public class Problem {
     }
 
 
+    public void setID(String _id) {
+        this._id = _id;
+    }
+
+    /* Advanced setters */
+
+    public synchronized void asyncSetComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public synchronized void asyncCopyFields(Problem problem) {
+        this._id =  problem.getId();
+        this.title = problem.getTitle();
+        this.description = problem.getDescription();
+        try {
+            this.date = DateHelper.parse(problem.getDate());
+        } catch (ParseException e) {
+            this.date = new Date();
+        }
+    }
 }

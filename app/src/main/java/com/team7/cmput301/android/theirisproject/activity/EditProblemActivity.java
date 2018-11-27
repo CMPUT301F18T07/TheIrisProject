@@ -12,15 +12,18 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.EditProblemController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
+import com.team7.cmput301.android.theirisproject.helper.StringHelper;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 
 import java.text.ParseException;
+import java.util.Arrays;
 
 /**
  * Activity that is used to edit the problem selected by the user
@@ -51,12 +54,22 @@ public class EditProblemActivity extends IrisActivity<Problem> {
         problemDescription = findViewById(R.id.problem_description);
         editProblemController = new EditProblemController(getIntent());
 
-
+        // Set onclicklistener to submit button
         findViewById(R.id.submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Submit new fields to the problem
+                // Get and submit new fields to the problem
                 try {
+                    String title = problemTitle.getText().toString();
+                    String description = problemDescription.getText().toString();
+                    String date = String.valueOf(problemDate.getText());
+                    String[] fields = {title, description, date};
+
+                    // Check if all fields are correctly filled
+                    if (StringHelper.hasEmptyString(Arrays.asList(fields))) {
+                        Toast.makeText(EditProblemActivity.this, R.string.register_incomplete, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     editProblemController.submitProblem(
                             problemTitle.getText().toString(),
                             problemDescription.getText().toString(),
@@ -69,7 +82,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
                                 }
                             });
                 } catch (ParseException e) {
-                    Toast.makeText(EditProblemActivity.this, "Incorrect date format!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditProblemActivity.this, R.string.incorrect_date, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -91,15 +104,26 @@ public class EditProblemActivity extends IrisActivity<Problem> {
         return new ProblemController(intent);
     }
 
+    /**
+     * dispatchToProblemActivity will start the ViewProblemActivity on successful editing of problem
+     * and end this activity.
+     * @param id id of the edited problem
+     */
     private void dispatchToProblemActivity(String id) {
         // end Activity returning to ProblemListActivity
         Intent intent = new Intent(EditProblemActivity.this, ViewProblemActivity.class);
-        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, id);
-        Toast.makeText(EditProblemActivity.this, "Problem Edited!", Toast.LENGTH_LONG).show();
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        Toast.makeText(EditProblemActivity.this, R.string.successful_edit, Toast.LENGTH_LONG).show();
         startActivity(intent);
         finish();
     }
 
+    /**
+     * render will update the Activity with the new state provided
+     * in the arguments of invoking this method
+     *
+     * @param state new state of model
+     * */
     public void render(Problem state) {
         Problem newState = state;
         problemTitle.setText(newState.getTitle());

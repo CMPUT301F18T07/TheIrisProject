@@ -7,7 +7,6 @@
 package com.team7.cmput301.android.theirisproject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.model.Patient;
-import com.team7.cmput301.android.theirisproject.model.Problem;
 
 import java.util.List;
 
@@ -46,9 +44,14 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 
         Patient patient = patients.get(position);
 
-        name.setText(patient.getName());
+        name.setText(patient.getUsername());
         email.setText(patient.getEmail());
 
         return patientView;
     }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
+
 }

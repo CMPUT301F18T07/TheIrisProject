@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Iris</string>
 
     <!--Terminology strings-->
@@ -11,23 +12,24 @@
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your e-mail</string>
+    <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
+    <string name="login_success">Logging in...</string>
+    <string name="login_failure">Incorrect login!</string>
 
     <!-- Register screen strings-->
-    <string name="register_title">Register for a profile</string>
-    <string name="username_title">Username</string>
+    <string name="register_title">Register a new profile</string>
+    <string name="username_title">Username (minimum 8 characters)</string>
     <string name="password_title">Password</string>
     <string name="phone_title">Phone Number</string>
     <string name="email_title">Email Address</string>
-    <string name="username_hint">Enter a username</string>
-    <string name="password_hint">Enter a password</string>
-    <string name="phone_hint">Enter phone number</string>
-    <string name="email_hint">Enter email address</string>
-    <string name="register_username_hint">Enter a name</string>
+    <string name="register_username_hint">Enter a username</string>
     <string name="register_password_hint">Enter a password</string>
     <string name="register_phone_hint">Enter phone number</string>
     <string name="register_email_hint">Enter email address</string>
+    <string name="register_success">User successfully registered!</string>
+    <string name="register_incomplete">Please fill in all fields!</string>
+    <string name="register_failure">Could not register, e-mail already in use!</string>
 
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
@@ -38,17 +40,19 @@
     <string name="login_register_text">Don\'t have an account?</string>
     <string name="login_register_button_text">" Sign Up"</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
+    <string name="add_problem_success">New Problem created!</string>
+    <string name="add_problem_failure">"Uh oh something went wrong"</string>
 
     <!-- Create Record screen strings-->
     <string name="create_a_record">Create a Record</string>
     <string name="enter_body_location">Enter Body Location</string>
     <string name="label_photos">Label Photos</string>
-    <string name="add_record">Add Record</string>
+    <string name="submit_record">Submit Record</string>
 
     <!-- View Record List screen strings -->
     <string name="title_activity_view_record">ViewRecordActivity</string>
     <string name="record_list_activity_title">Records</string>
-    <string name="edit_records">Edit</string>
+    <string name="edit_record">Edit Record</string>
 
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
@@ -64,6 +68,11 @@
     <string name="problem_list_edit_problems_text">Edit Problems</string>
     <string name="problem_list_profile_text">Profile</string>
     <string name="problem_list_search_text">Search</string>
+    <string name="problem_list_view_problem_hint">"Click on Problem to view"</string>
+    <string name="problem_list_edit_problem_hint">"Click on Problem to edit"</string>
+
+    <!-- View Patient list screen strings-->
+    <string name="add_patient">Add Patient</string>
 
     <!-- View Record list screen strings-->
     <string name="record_list_edit_records_text">Edit Records</string>
@@ -77,46 +86,49 @@
 
     <!-- Edit Problem strings-->
     <string name="submit_problem">Submit</string>
+    <string name="incorrect_date">Incorrect date format!</string>
+    <string name="successful_edit">Problem Edited!</string>
 
     <!-- Delete Problem strings-->
     <string name="delete_problem_hint">Do you want to delete this problem?</string>
     <string name="do_delete_problem">Yes</string>
     <string name="dont_delete_problem">No</string>
 
-    <!-- View Patient Edit Profile screen strings-->
-    <string name="patient_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
-    <string name="patient_edit_profile_title_text">Edit Profile</string>
-    <string name="patient_edit_profile_save_changes_button_text">Save Changes</string>
-    <string name="patient_edit_profile_cancel_button_text">Cancel</string>
-    <string name="patient_edit_profile_username_hint">Username</string>
-    <string name="patient_edit_profile_phone_number_hint">Phone Number</string>
-    <string name="patient_edit_profile_current_password_hint">Current Password</string>
-    <string name="patient_edit_profile_email_hint">Email</string>
-    <string name="patient_edit_profile_new_password_hint">New Password</string>
-
-
-    <!-- View Care Provider Edit Profile screen strings-->
-    <string name="care_provider_edit_profile_verify_prompt_text">Enter current password to save ALL changes made to profile information:</string>
-    <string name="care_provider_edit_profile_title_text">Edit Profile</string>
-    <string name="care_provider_edit_profile_save_changes_button_text">Save Changes</string>
-    <string name="care_provider_edit_profile_cancel_button_text">Cancel</string>
-    <string name="care_provider_edit_profile_username_hint">Username</string>
-    <string name="care_provider_edit_profile_phone_number_hint">Phone Number</string>
-    <string name="care_provider_edit_profile_current_password_hint">Current Password</string>
-    <string name="care_provider_edit_profile_email_hint">Email</string>
-    <string name="care_provider_edit_profile_new_password_hint">New Password</string>
-
+    <!-- Edit Profile screen strings-->
+    <string name="edit_profile_title">Edit your profile</string>
+    <string name="edit_profile_new_email">New Email Address</string>
+    <string name="edit_profile_new_phone">New Phone Number</string>
+    <string name="edit_profile_title_text">Edit Profile</string>
+    <string name="edit_profile_save_changes">Save Changes</string>
+    <string name="edit_profile_cancel">Cancel</string>
+    <string name="edit_profile_phone_hint">Phone Number</string>
+    <string name="edit_profile_email_hint">Email</string>
+    <string name="edit_profile_success">Profile updated successfully!</string>
+    <string name="edit_profile_failure">Please fill out all fields!</string>
 
     <!-- View Profile screen strings-->
-    <string name="view_profile_username">Username</string>
+    <string name="view_profile_name">Name</string>
     <string name="view_profile_title">Profile</string>
-    <string name="view_profile_email">User Email</string>
-    <string name="view_profile_phone_number">User Phone Number</string>
-    <string name="view_profile_edit_profile_button_text">Edit Profile</string>
-    <string name="view_profile_care_providers_text">Care Providers:</string>
+    <string name="view_profile_email">Email</string>
+    <string name="view_profile_phone">Phone</string>
+    <string name="view_profile_edit_profile_button">Edit Profile</string>
+    <string name="view_profile_users">Users:</string>
+    <string name="view_profile_patients">Patients:</string>
+    <string name="view_profile_care_providers">Care Providers:</string>
 
     <!-- Add Patient dialog strings -->
-    <string name="add_patient_dialog_title">Add a patient by e-mail</string>
-    <string name="add_patient_dialog_hint">Patient\'s e-mail</string>
+    <string name="add_patient_dialog_title">Add a patient by username</string>
+    <string name="add_patient_dialog_hint">Patient\'s username</string>
+    <string name="record_photos">Photos</string>
+
+    <!-- Body Photo strings -->
+    <string name="add_bodyphoto_submit">Submit Body Photo</string>
+    <string name="add_bodyphoto_title_text">Add Body Photo</string>
+    <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
+    <string name="title_activity_map">Map</string>
+
+    <!-- Database-related strings -->
+    <string name="offline_upload_error">Internet disconnected, couldn\'t upload changes. Changes only saved locally.</string>
+    <string name="offline_fetch_error">Internet disconnected, couldn\'t get latest data. Showing local version.</string>
 
 </resources>

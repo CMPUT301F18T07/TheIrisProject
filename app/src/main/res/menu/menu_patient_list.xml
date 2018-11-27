@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/patient_list_action_view_profile"
+        android:icon="@drawable/ic_account_circle_white_24dp"
+        android:title="@string/problem_list_profile_text"
+        app:showAsAction="ifRoom">
+    </item>
+
+</menu>

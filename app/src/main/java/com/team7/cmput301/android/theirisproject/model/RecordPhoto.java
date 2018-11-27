@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 
 import com.team7.cmput301.android.theirisproject.ImageConverter;
 
+import java.util.Date;
+
 import io.searchbox.annotations.JestId;
 
 /**
@@ -17,53 +19,43 @@ import io.searchbox.annotations.JestId;
  * @author jtfwong
  * @author anticobalt
  */
-public class RecordPhoto {
+public class RecordPhoto implements Photo {
 
     @JestId
     private String _id;
     private String recordId;
-
-    private int x;
-    private int y;
-    transient private Bitmap img;
     private String blob;
+    private Date date;
+    transient private Bitmap photo;
 
     /* Constructors */
 
-    public RecordPhoto(String recordId, Bitmap img, int x, int y) {
-        this.recordId = recordId;
-        this.img = img;
-        this.x = x;
-        this.y = y;
-        this.blob = ImageConverter.base64EncodeBitmap(img);
+    public RecordPhoto(Bitmap photo) {
+        this.photo = photo;
+        this.blob = ImageConverter.base64EncodeBitmap(photo);
+        this.date = new Date();
     }
 
-    public RecordPhoto(String recordId, String blob, int x, int y) {
+    public RecordPhoto(String recordId, String blob) {
         this.recordId = recordId;
-        this.img = ImageConverter.base64DecodeBitmap(blob);
-        this.x = x;
-        this.y = y;
+        this.photo = ImageConverter.base64DecodeBitmap(blob);
         this.blob = blob;
     }
 
     /* Basic getters */
 
-    public Bitmap getImg() {
-        return img;
+    public Bitmap getPhoto() {
+        return photo;
     }
+    public Date getDate() { return date; }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
+    /* Basic setters */
+    public void setRecordId(String id) { this.recordId = id; }
+    public void setDate(Date date) { this.date = date; }
 
     /* Advanced setters */
-
-    public void update(int x, int y) {
-
+    public void convertBlobToBitmap() {
+        photo = ImageConverter.base64DecodeBitmap(blob);
     }
 
 

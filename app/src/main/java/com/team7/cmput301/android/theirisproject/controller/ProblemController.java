@@ -8,12 +8,11 @@ package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
@@ -31,17 +30,17 @@ import java.util.List;
  * @author VinnyLuu
  * @see ViewProblemActivity
  */
-public class ProblemController extends IrisController {
+public class ProblemController extends IrisController<Problem> {
     private String problemID;
 
     public ProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
         this.model = getModel(intent.getExtras());
     }
 
     @Override
-    Object getModel(Bundle data) {
+    Problem getModel(Bundle data) {
         return new Problem();
     }
 
@@ -51,7 +50,7 @@ public class ProblemController extends IrisController {
      * database, once finished it will invoke the callback
      * from the activity
      *
-     * @param cb: callback from activity
+     * @param cb callback from activity
      * */
     public void getProblem(Callback cb) {
         new GetProblemTask(new Callback<Problem>() {
@@ -69,8 +68,8 @@ public class ProblemController extends IrisController {
      * callback to GetProblemTask, finally will update
      * the activity
      *
-     * @param body: comment content
-     * @param cb: final callback from activity
+     * @param body comment content
+     * @param cb final callback from activity
      * */
     public void addComment(String body, Callback cb) {
         User user = IrisProjectApplication.getCurrentUser();
@@ -79,13 +78,9 @@ public class ProblemController extends IrisController {
             public void onComplete(Boolean res) {
                 if (res) getProblem(cb);
             }
-        }).execute(new Comment(problemID, user.getName(), body, user.getType().toString()));
+        }).execute(new Comment(problemID, user.getUsername(), body, user.getType()));
     }
 
-    public List<BodyPhoto> getBodyPhotos() {
-        return ((Problem)model).getBodyPhotos();
-    }
-
-    public List<Comment> getComments() { return ((Problem)model).getComments(); }
+    public List<Comment> getComments() { return model.getComments(); }
 
 }

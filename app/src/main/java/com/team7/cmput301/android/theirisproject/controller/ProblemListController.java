@@ -28,7 +28,9 @@ public class ProblemListController extends IrisController<ProblemList> {
     public ProblemListController(Intent intent) {
         super(intent);
         this.model = getModel(intent.getExtras());
-        this.userID = IrisProjectApplication.getCurrentUser().getId();
+        String intentId = intent.getStringExtra("user");
+        if (intentId == null) this.userID = IrisProjectApplication.getCurrentUser().getId();
+        else this.userID = intentId;
     }
 
     /**
@@ -37,8 +39,7 @@ public class ProblemListController extends IrisController<ProblemList> {
      * our callback to populate the model is called, then
      * the callback from our activity is called
      *
-     * @params Callback cb: callback function from activity
-     * @return void
+     * @param cb callback function from activity
      * */
     public void getUserProblems(Callback cb) {
         new GetProblemListTask(new Callback<ProblemList>() {

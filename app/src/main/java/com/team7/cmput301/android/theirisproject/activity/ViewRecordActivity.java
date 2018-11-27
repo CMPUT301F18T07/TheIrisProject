@@ -4,11 +4,19 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordController;
 import com.team7.cmput301.android.theirisproject.model.Record;
@@ -21,9 +29,13 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * */
 public class ViewRecordActivity extends AppCompatActivity {
 
+    private Fragment enlargeImageFragment;
+
     private TextView title;
     private TextView desc;
     private TextView date;
+
+    private RecyclerView recordPhotos;
 
     private RecordController controller;
 
@@ -40,6 +52,11 @@ public class ViewRecordActivity extends AppCompatActivity {
         title = findViewById(R.id.record_title);
         desc = findViewById(R.id.record_description);
         date = findViewById(R.id.record_date);
+
+        recordPhotos = findViewById(R.id.record_photos);
+        recordPhotos.setAdapter(new ImageListAdapter(this, controller.getPhotos(), false));
+        GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
+        recordPhotos.setLayoutManager(gridLayout);
     }
 
     @Override
@@ -57,5 +74,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         title.setText(newState.getTitle());
         desc.setText(newState.getDesc());
         date.setText(newState.getDate().toString());
+        ((ImageListAdapter)recordPhotos.getAdapter()).setItems(newState.getRecordPhotos());
+        recordPhotos.getAdapter().notifyDataSetChanged();
     }
 }

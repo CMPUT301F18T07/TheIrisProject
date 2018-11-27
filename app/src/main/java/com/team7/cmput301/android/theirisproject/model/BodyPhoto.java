@@ -9,6 +9,8 @@ import io.searchbox.annotations.JestId;
 
 import com.team7.cmput301.android.theirisproject.ImageConverter;
 
+import java.util.Date;
+
 
 /**
  * BodyPhoto is a model to parse bodyphoto type object to from
@@ -17,24 +19,31 @@ import com.team7.cmput301.android.theirisproject.ImageConverter;
  * @see Problem
  * @author itstc
  * */
-public class BodyPhoto {
+public class BodyPhoto implements Photo {
 
     @JestId
     private String _id;
-    private String problemId;
+    private String user;
     private String blob;
+    private String label;
+    private Date date;
     transient private Bitmap photo;
 
     /* Constructors */
 
-    public BodyPhoto(String problemId, Bitmap image) {
-        this.problemId = problemId;
+    public BodyPhoto(String user, Bitmap image, String label) {
+        this(user, image);
+        this.label = label;
+    }
+
+    public BodyPhoto(String user, Bitmap image) {
+        this.user = user;
         this.photo = image;
         this.blob = ImageConverter.base64EncodeBitmap(image);
     }
 
-    public BodyPhoto(String problemId, String blob) {
-        this.problemId = problemId;
+    public BodyPhoto(String user, String blob) {
+        this.user = user;
         this.photo = ImageConverter.base64DecodeBitmap(blob);
         this.blob = blob;
     }
@@ -44,8 +53,8 @@ public class BodyPhoto {
         this.blob = ImageConverter.base64EncodeBitmap(image);
     }
 
-    public void setProblemId(String id) {
-        problemId = id;
+    public void setUser(String id) {
+        user = id;
     }
 
     /* Basic getters */
@@ -57,6 +66,8 @@ public class BodyPhoto {
     public Bitmap getPhoto() {
         return photo;
     }
+
+    public Date getDate() { return new Date(); }
 
     public void convertBlobToPhoto() {
         photo = ImageConverter.base64DecodeBitmap(blob);

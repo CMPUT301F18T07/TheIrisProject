@@ -13,12 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
-import com.team7.cmput301.android.theirisproject.BodyPhotoListAdapter;
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
@@ -35,18 +33,14 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  */
 public class ViewProblemActivity extends IrisActivity<Problem> {
 
-    public static final String EXTRA_PROBLEM_ID = "com.team7.cmput301.android.theirisproject.extra_problem_id";
-
     private ProblemController problemController;
+    private String problemId;
 
     private TextView problemTitle;
     private TextView problemDate;
     private TextView problemDescription;
     private TextView problemLocation;
     //private ViewFlipper problemImages;
-  
-    private RecyclerView problemImages;
-    private BodyPhotoListAdapter bodyPhotoListAdapter;
 
     private RecyclerView commentList;
     private CommentListAdapter commentListAdapter;
@@ -63,13 +57,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         setContentView(R.layout.activity_view_problem);
         problemController = (ProblemController) createController(getIntent());
 
-        String problemId = getIntent().getStringExtra(EXTRA_PROBLEM_ID);
+        problemId = getIntent().getStringExtra(Extras.EXTRA_PROBLEM_ID);
 
         problemTitle = findViewById(R.id.problem_title);
         problemDate = findViewById(R.id.problem_date);
         problemDescription = findViewById(R.id.problem_description);
-        problemImages = findViewById(R.id.problem_images);
-        //problemImages = findViewById(R.id.viewProblem_viewflipper);
 
         commentList = findViewById(R.id.problem_comments);
 
@@ -79,6 +71,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
 
+        // Set onclicklistener to submit comment button
         commentSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +81,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclicklistener to view records button
         viewRecordsButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -95,6 +89,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclick listener to create record button
         createRecordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -110,6 +105,9 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemController.getProblem(onCreateCallback());
     }
 
+    /**
+     * Printing error message on current activity
+     */
     private void setCommentErrorMessage() {
         Toast.makeText(ViewProblemActivity.this, "Comment Field is Empty!", Toast.LENGTH_SHORT).show();
     }
@@ -123,7 +121,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         return new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
-                inflateBodyPhotoImages();
                 inflateCommentList();
                 render(res);
             }
@@ -140,19 +137,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     }
 
     /**
-     * inflateBodyPhotoImages will setup the listAdapter and
-     * layoutManager for the RecyclerView problemImages once we
-     * have the problem data in the controller
-     * */
-    private void inflateBodyPhotoImages() {
-        LinearLayoutManager imageListLayout = new LinearLayoutManager(ViewProblemActivity.this);
-        imageListLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-        problemImages.setLayoutManager(imageListLayout);
-        bodyPhotoListAdapter = new BodyPhotoListAdapter(problemController.getBodyPhotos(), false);
-        problemImages.setAdapter(bodyPhotoListAdapter);
-    }
-
-    /**
      * inflateCommentList will setup the listAdapter and
      * layoutManager for the RecyclerView commentList once we
      * have the problem data in the controller
@@ -165,6 +149,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         commentList.setAdapter(commentListAdapter);
     }
 
+    /**
+     * render will update the Activity with the new state provided
+     * in the arguments of invoking this method
+     *
+     * @param state new state of model
+     * */
     public void render(Problem state) {
         Problem newState = state;
         // update primitive fields
@@ -173,21 +163,29 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemDescription.setText(newState.getDescription());
 
         // update the recyclerviews adapters
-        bodyPhotoListAdapter.setItems(problemController.getBodyPhotos());
         commentListAdapter.setItems(problemController.getComments());
-        bodyPhotoListAdapter.notifyDataSetChanged();
         commentListAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * dispatchViewRecordsActivity starts view record activity, adding
+     * the problem id to intent for retrieval of records.
+     * @param id id of the problem
+     */
     private void dispatchViewRecordsActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, RecordListActivity.class);
-        intent.putExtra(EXTRA_PROBLEM_ID, id);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }
 
+    /**
+     * dispatchCreateRecordActivity starts create record activity, adding
+     * the problem id to intent for the creation of new record.
+     * @param id id of the problem
+     */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
-        intent.putExtra(EXTRA_PROBLEM_ID, id);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }
 }

@@ -19,6 +19,8 @@ import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.searchbox.core.Search;
@@ -58,6 +60,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
         switch (user.getType()) {
             case PATIENT:
                 getAndBindProblems((Patient) user);
+                getAndBindCareProviders((Patient) user);
                 break;
             case CARE_PROVIDER:
                 getAndBindPatients((CareProvider) user);
@@ -78,34 +81,37 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      * @param careProvider the bound-to Care Provider
      */
     private void getAndBindPatients(CareProvider careProvider) {
+        List<Patient> patients = new ArrayList<>();
 
-        String query = "{\"query\": {\"match\": {\"careProviderIds\": \"" + careProvider.getId() + "\"}}}";
-        SearchResult res = search(query, "user");
+        for (String patientId : careProvider.getPatientIds()) {
+            String query = generateQuery(TERM, "_id", patientId);
+            SearchResult res = search(query, "user");
 
-        if (res != null) {
-
-            List<Patient> patients = res.getSourceAsObjectList(Patient.class, true);
-            careProvider.setPatients(patients);
-
-            for (Patient patient: patients) {
-                getAndBindProblems(patient);
-                getAndBindCareProviders(patient);
+            if (res == null) {
+                printError(CareProvider.class, careProvider.getId());
             }
 
-        } else printError(CareProvider.class, careProvider.getId());
+            Patient patient = res.getSourceAsObject(Patient.class, true);
+            patients.add(patient);
+        }
+        careProvider.setPatients(patients);
+
+        for (Patient patient: patients) {
+            getAndBindProblems(patient);
+        }
 
     }
 
     /**
      * Make and attach Care Providers of a Patient.
      * Patients only need to know Care Providers contact info,
-     * so binding all of their Care Provider's other Patients not required.
+     * so binding all of their Care Provider's other Patients is not required.
      *
      * @param patient the bound-to Patient
      */
     private void getAndBindCareProviders(Patient patient) {
 
-        String query = generateQuery(MATCH, "patientId", patient.getId());
+        String query = generateQuery(MATCH, "patientIds", patient.getId());
         SearchResult res = search(query, USER);
 
         if (res != null) {
@@ -133,6 +139,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             patient.setProblems(problems);
 
             for (Problem problem : problems) {
+                IrisProjectApplication.addProblemToCache(problem);
                 getAndBindComments(problem);
                 getAndBindBodyPhotos(problem);
                 getAndBindRecords(problem);
@@ -153,6 +160,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             problem.setRecords(records);
 
             for (Record record : records) {
+                IrisProjectApplication.addRecordToCache(record);
                 getAndBindRecordPhotos(record);
             }
 

@@ -8,7 +8,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 
@@ -22,15 +22,20 @@ import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 public class DeleteProblemController extends IrisController {
     private String problemID;
 
-
     public DeleteProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
     }
 
     @Override
     Object getModel(Bundle date) {return null;}
 
+    /**
+     * deleteProblem is a method to asynchronously deletes the given problem
+     * once we receive a response from the database, we return a callback
+     * with a boolean result either successful or not
+     * @param cb callback method
+     */
     public void deleteProblem(Callback<Boolean> cb) {
         new DeleteProblemTask(new Callback<Boolean>() {
             @Override

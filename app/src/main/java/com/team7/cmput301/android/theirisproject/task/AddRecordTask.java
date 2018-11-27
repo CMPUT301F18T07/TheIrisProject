@@ -8,9 +8,14 @@ import android.os.AsyncTask;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
 
 /**
@@ -33,11 +38,32 @@ public class AddRecordTask extends AsyncTask<Record, Void, String> {
                 .type("record")
                 .build();
         try {
-            return IrisProjectApplication.getDB().execute(add).getId();
+            String recordId = IrisProjectApplication.getDB().execute(add).getId();
+            Bulk bulkAdd = new Bulk
+                    .Builder()
+                    .addAction(bulkAddRecordPhotos(params[0].getRecordPhotos(), recordId))
+                    .defaultIndex(IrisProjectApplication.INDEX)
+                    .defaultType("recordphoto")
+                    .build();
+            IrisProjectApplication.getDB().execute(bulkAdd);
+            Thread.sleep(500);
+            return recordId;
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private List<Index> bulkAddRecordPhotos(List<RecordPhoto> photos, String refId) {
+        List<Index> indices = new ArrayList<>();
+        for(RecordPhoto rp: photos) {
+            rp.setRecordId(refId);
+            rp.setDate(new Date());
+            indices.add(new Index.Builder(rp).index(IrisProjectApplication.INDEX).type("recordphoto").build());
+        }
+        return indices;
     }
 
     @Override

@@ -32,8 +32,8 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
     /**
      * doInBackground is a function that asynchronously requests a search
-     * from the database returning a result that matches our email (params[0])
-     * @param params: only use params[0] for email
+     * from the database returning a result that matches the given username (params[0])
+     * @param params only use params[0] for username
      * @return String: user id
      * */
     @Override
@@ -41,7 +41,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
         try {
             // HTTP POST to database with given query /_search?q=email:params[0]
-            Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + params[0] + "\"}}}")
+            Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + params[0] + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
                     .build();

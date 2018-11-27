@@ -5,19 +5,23 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
-import com.team7.cmput301.android.theirisproject.model.Record;
-import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
+import com.team7.cmput301.android.theirisproject.controller.AddRecordController;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -26,42 +30,100 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @author jtfwong
  * */
 public class AddRecordActivity extends AppCompatActivity {
-    private String problemId;
+    private static final int REQUEST_CAMERA_IMAGE = 1;
+    private static final int REQUEST_MAP_LOCATION = 2;
+    private AddRecordController controller;
     private TextView titleField;
     private TextView descField;
+
+    private RecyclerView recordPhotoListView;
+    private ImageListAdapter<RecordPhoto> recordPhotoImageListAdapter;
+
+    private FloatingActionButton cameraButton;
+    private FloatingActionButton mapButton;
 
     private Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_record_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        problemId = getIntent().getStringExtra(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        controller = new AddRecordController(getIntent());
+
         titleField = findViewById(R.id.record_title_edit_text);
         descField = findViewById(R.id.record_description_edit_text);
 
-        submitButton = findViewById(R.id.record_add_problem_button);
+        recordPhotoListView = findViewById(R.id.record_add_image_list);
+        recordPhotoListView.setAdapter(new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true));
+        recordPhotoListView.setLayoutManager(new LinearLayoutManager(this));
+        ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        cameraButton = findViewById(R.id.record_camera_button);
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchCameraIntent();
+            }
+        });
+
+        submitButton = findViewById(R.id.record_submit_button);
+        mapButton = findViewById(R.id.record_map_button);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchMapIntent();
+            }
+        });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Record submitRecord = new Record(problemId, titleField.getText().toString(), descField.getText().toString());
-                new AddRecordTask(new Callback<String>() {
-                    @Override
-                    public void onComplete(String res) {
-                        if (res != null) dispatchRecordActivity(res);
-                        else setErrorMessage();
-                    }
-                }).execute(submitRecord);
+                controller.submitRecord(
+                        titleField.getText().toString(),
+                        descField.getText().toString(),
+                        submitRecordCallback());
             }
         });
     }
 
     private void setErrorMessage() {
         Toast.makeText(AddRecordActivity.this, "Error making Record!", Toast.LENGTH_LONG).show();
+    }
+
+    private Callback<String> submitRecordCallback() {
+        return new Callback<String>() {
+            @Override
+            public void onComplete(String res) {
+                if (res != null) dispatchRecordActivity(res);
+                else setErrorMessage();
+            }
+        };
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CAMERA_IMAGE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            controller.addRecordPhoto(imageBitmap);
+        }
+    }
+
+    /**
+     * dispatchCameraIntent will start the camera app to take a picture
+     * if the patient wants to add a body photo
+     * */
+    private void dispatchCameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_CAMERA_IMAGE);
+        }
     }
 
     /**
@@ -72,6 +134,12 @@ public class AddRecordActivity extends AppCompatActivity {
         Intent intent = new Intent(AddRecordActivity.this, ViewRecordActivity.class);
         intent.putExtra("record_id", id);
         startActivity(intent);
+        finish();
+    }
+
+    private void dispatchMapIntent() {
+        Intent intent = new Intent(AddRecordActivity.this, MapActivity.class);
+        startActivityForResult(intent, REQUEST_MAP_LOCATION);
     }
 
 }
