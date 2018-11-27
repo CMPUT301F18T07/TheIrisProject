@@ -116,6 +116,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     }
 
+    /**
+     * dispatchMapActivity will dispatch to MapActivity, calling on allGeoLocationsController to
+     * get all the geolocations and record titles for all the records associated to the problem
+     * currently on.
+     * @see AllGeoLocationsController
+     */
     private void dispatchMapActivity() {
         allGeoLocationsController = new AllGeoLocationsController(getIntent());
         allGeoLocationsController.getGeolocation(new Callback<List<Object>>() {
@@ -123,8 +129,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             public void onComplete(List<Object> res) {
                 List<Object> locations = (ArrayList<Object>) res;
                 Intent intent = new Intent(ViewProblemActivity.this, MapActivity.class);
-                intent.putExtra("location", (Serializable) locations.get(0));
-                intent.putStringArrayListExtra("titles", (ArrayList<String>) locations.get(1));
+                intent.putExtra(Extras.EXTRA_LOCATION, (Serializable) locations.get(0));
+                intent.putStringArrayListExtra(Extras.EXTRA_TITLES, (ArrayList<String>) locations.get(1));
                 startActivity(intent);
             }
         });

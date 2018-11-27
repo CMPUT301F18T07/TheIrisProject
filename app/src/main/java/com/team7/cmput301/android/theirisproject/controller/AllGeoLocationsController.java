@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ *
+ *
+ */
+
 package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
@@ -15,6 +21,13 @@ import java.util.List;
 
 import io.searchbox.core.SearchResult;
 
+/**
+ * AllGeolocationsController collects all record's geolocations and record titles.
+ * Uses GetRecordsTask and takes after RecordListController, changing the return on the
+ * onComplete method
+ * @see RecordListController
+ * @author VinnyLuu
+ */
 public class AllGeoLocationsController extends IrisController {
 
     private String problemId;

@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordController;
@@ -80,6 +81,11 @@ public class ViewRecordActivity extends AppCompatActivity {
         recordPhotos.setLayoutManager(gridLayout);
     }
 
+    /**
+     * Called on when the map button is clicked on. Will dispatch to MapActivity, packaging the
+     * geolocation and title of the record and sending it to MapActivity, to be used to display
+     * the geolocation of the record
+     */
     private void dispatchMapIntent() {
         Intent intent = new Intent(ViewRecordActivity.this, MapActivity.class);
         List<GeoLocation> locations = new ArrayList<GeoLocation>();
@@ -88,8 +94,8 @@ public class ViewRecordActivity extends AppCompatActivity {
         GeoLocation loc = record.getGeoLocation();
         locations.add(loc);
         titles.add(record.getTitle());
-        intent.putExtra("location", (Serializable) locations);
-        intent.putStringArrayListExtra("titles", (ArrayList<String>) titles);
+        intent.putExtra(Extras.EXTRA_LOCATION, (Serializable) locations);
+        intent.putStringArrayListExtra(Extras.EXTRA_TITLES, (ArrayList<String>) titles);
         startActivity(intent);
     }
 
