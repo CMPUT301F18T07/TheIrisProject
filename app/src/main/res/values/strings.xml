@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Iris</string>
 
     <!--Terminology strings-->
@@ -46,12 +47,12 @@
     <string name="create_a_record">Create a Record</string>
     <string name="enter_body_location">Enter Body Location</string>
     <string name="label_photos">Label Photos</string>
-    <string name="add_record">Add Record</string>
+    <string name="submit_record">Submit Record</string>
 
     <!-- View Record List screen strings -->
     <string name="title_activity_view_record">ViewRecordActivity</string>
     <string name="record_list_activity_title">Records</string>
-    <string name="edit_records">Edit</string>
+    <string name="edit_record">Edit Record</string>
 
     <!-- View Problem screen strings-->
     <string name="view_records">View Records</string>
@@ -93,7 +94,7 @@
     <string name="do_delete_problem">Yes</string>
     <string name="dont_delete_problem">No</string>
 
-    <!-- View Patient Edit Profile screen strings-->
+    <!-- Edit Profile screen strings-->
     <string name="edit_profile_title">Edit your profile</string>
     <string name="edit_profile_new_email">New Email Address</string>
     <string name="edit_profile_new_phone">New Phone Number</string>
@@ -102,7 +103,6 @@
     <string name="edit_profile_cancel">Cancel</string>
     <string name="edit_profile_phone_hint">Phone Number</string>
     <string name="edit_profile_email_hint">Email</string>
-
     <string name="edit_profile_success">Profile updated successfully!</string>
     <string name="edit_profile_failure">Please fill out all fields!</string>
 
@@ -127,5 +127,9 @@
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
 
     <string name="title_activity_map">Map</string>
+
+    <!-- Database-related strings -->
+    <string name="offline_upload_error">Internet disconnected, couldn\'t upload changes. Changes only saved locally.</string>
+    <string name="offline_fetch_error">Internet disconnected, couldn\'t get latest data. Showing local version.</string>
 
 </resources>

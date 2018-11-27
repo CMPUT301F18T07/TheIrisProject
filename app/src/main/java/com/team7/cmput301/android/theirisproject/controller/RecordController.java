@@ -7,6 +7,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -27,7 +28,7 @@ public class RecordController extends IrisController<Record> {
 
     public RecordController(Intent intent) {
         super(intent);
-        recordId = intent.getStringExtra("record_id");
+        recordId = intent.getStringExtra(Extras.EXTRA_RECORD_ID);
         model = getModel(intent.getExtras());
     }
 
