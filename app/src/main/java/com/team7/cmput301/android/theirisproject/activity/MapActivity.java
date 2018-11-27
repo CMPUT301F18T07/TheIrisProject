@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.location.Location;
 import android.content.pm.PackageManager;
@@ -44,11 +45,12 @@ import java.util.Locale;
  * for how to create and set up map, get permissions and device location
  * @author VinnyLuu
  */
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, AddGeoLocationDialogFragment.AddGeoLocationDialogListener {
 
     private GoogleMap mMap;
     private ArrayList<GeoLocation> locations;
     private ArrayList<String> titles;
+    private LatLng selectedLocation;
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -197,7 +199,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                             .title(getString(R.string.selected_location))
                             .snippet(markerDescription));
                     moveCamera(latLng, DEFAULT_ZOOM);
-                    confirmLocation(latLng);
+                    selectedLocation = latLng;
+                    Log.d("SET LOCATION", selectedLocation.toString());
+                    DialogFragment addGeoLocationDialogFragment = new AddGeoLocationDialogFragment();
+                    addGeoLocationDialogFragment.show(getFragmentManager(), AddGeoLocationDialogFragment.class.getSimpleName());
                 }
             });
         }
@@ -219,11 +224,20 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         }
     }
 
-    public void confirmLocation(LatLng latLng) {
-        Intent intent = new Intent();
-        double location[] = {latLng.latitude, latLng.longitude};
-        intent.putExtra(Extras.EXTRA_LOCATION, location);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+    /**
+     * Overridden method from AddGeoLocationDialogFragment that has the result of whether the user
+     * wants to confirm the selected location as the geolocation for the record.
+     * @param success
+     */
+    @Override
+    public void onFinishGeoLocation(boolean success) {
+        if (success) {
+            Log.d("DONE LOCATION", selectedLocation.toString());
+            Intent intent = new Intent();
+            double location[] = {selectedLocation.latitude, selectedLocation.longitude};
+            intent.putExtra(Extras.EXTRA_LOCATION, location);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        }
     }
 }

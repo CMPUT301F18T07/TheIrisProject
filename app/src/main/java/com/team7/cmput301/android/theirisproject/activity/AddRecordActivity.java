@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddRecordController;
@@ -115,7 +116,7 @@ public class AddRecordActivity extends AppCompatActivity {
             controller.addRecordPhoto(imageBitmap);
         }
         else if (requestCode == REQUEST_MAP_LOCATION && resultCode == RESULT_OK) {
-            double location[] = data.getDoubleArrayExtra("location");
+            double location[] = data.getDoubleArrayExtra(Extras.EXTRA_LOCATION);
             controller.addLocation(location);
         }
     }
@@ -143,6 +144,7 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     private void dispatchMapIntent() {
+        //TODO: If previously set a marker, get last geolocation and make starting position to that
         Intent intent = new Intent(AddRecordActivity.this, MapActivity.class);
         startActivityForResult(intent, REQUEST_MAP_LOCATION);
     }
