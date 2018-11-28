@@ -68,6 +68,5 @@ public class ViewImageFragment extends DialogFragment {
         metaDataView.setText(metadata);
         photoView.setImageBitmap(photo);
         dateView.setText(date);
-
     }
 }

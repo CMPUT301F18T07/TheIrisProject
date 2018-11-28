@@ -5,6 +5,7 @@
 package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Record;
@@ -33,11 +34,11 @@ public class AddRecordTask extends AsyncTask<Record, Void, String> {
 
     @Override
     protected String doInBackground(Record... params) {
-        Index add = new Index.Builder(params[0])
-                .index(IrisProjectApplication.INDEX)
-                .type("record")
-                .build();
         try {
+            Index add = new Index.Builder(params[0])
+                    .index(IrisProjectApplication.INDEX)
+                    .type("record")
+                    .build();
             String recordId = IrisProjectApplication.getDB().execute(add).getId();
             Bulk bulkAdd = new Bulk
                     .Builder()
@@ -53,6 +54,8 @@ public class AddRecordTask extends AsyncTask<Record, Void, String> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        Log.d("Iris", "null records");
         return null;
     }
 

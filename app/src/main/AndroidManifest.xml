@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
-  -->
-
+<?xml version="1.0" encoding="utf-8"?><!--   ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
 
@@ -43,7 +39,6 @@
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.RegisterActivity" />
-
 
         <!-- Problem Activities -->
         <activity
@@ -86,8 +81,10 @@
         <activity
             android:name=".activity.EditProfileActivity"
             android:label="@string/edit_profile_title_text" />
-        <activity android:name=".activity.BodyPhotoListActivity"/>
-        <activity android:name=".activity.AddBodyPhotoActivity" android:label="@string/add_bodyphoto_title_text"/>
+        <activity android:name=".activity.BodyPhotoListActivity" />
+        <activity
+            android:name=".activity.AddBodyPhotoActivity"
+            android:label="@string/add_bodyphoto_title_text" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -100,6 +97,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" />
