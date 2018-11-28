@@ -55,7 +55,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     private Boolean mLocationPermissionGranted = false;
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 123;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     private static final float DEFAULT_ZOOM = 15f;
 
     @Override
@@ -102,7 +102,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
                         } else {
-                            Toast.makeText(MapActivity.this, "Cannot get current location", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MapActivity.this, R.string.map_error, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -174,7 +174,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         /** Check whether there is no location passed (i.e the user is adding geolocation to record)
-         * or if there are locations (i.e the user is viewing a records location
+         * or if there are locations (i.e the user is viewing a records location)
          */
         mMap = googleMap;
         if (locations == null) {

@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.R;
+
 /**
  * Dialog fragment that confirms with the user if the selected location is the location to set
  * for the record
@@ -27,16 +29,16 @@ public class AddGeoLocationDialogFragment extends DialogFragment {
 
         listener = (AddGeoLocationDialogListener) getActivity();
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setTitle("Add GeoLocation")
-        .setMessage("Do you want to add this location?")
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setTitle(R.string.geolocation_frag_title)
+        .setMessage(R.string.geolocation_frag_message)
+        .setPositiveButton(R.string.geolocation_frag_confirm_message, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onFinishGeoLocation(true);
                 dialog.dismiss();
             }
         })
-        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+        .setNegativeButton(R.string.geolocation_frag_deny_message, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onFinishGeoLocation(false);
