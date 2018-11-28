@@ -131,14 +131,14 @@ public class IrisProjectApplication extends Application {
      */
     public static void putInUpdateQueue(Object model) {
 
-        if (model.getClass() == Problem.class) {
+        if (model instanceof Problem) {
             problemUpdateQueue.add((Problem) model);
         }
-        else if (model.getClass() == Record.class) {
+        else if (model instanceof Record) {
             recordUpdateQueue.add((Record) model);
         }
         else {
-            System.err.println("Trying to put unhandled type into update Queue!");
+            System.err.println("Trying to put unhandled type into update queue!");
         }
 
         // queues should still be updated even if they aren't re-passed as arguments
