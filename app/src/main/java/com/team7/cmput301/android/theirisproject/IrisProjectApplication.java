@@ -47,7 +47,6 @@ public class IrisProjectApplication extends Application {
     // queues and handlers for models that need to have changes uploaded
     private static BulkUpdateTask updater;
     private static Boolean updaterRunning = false;
-    private static Context applicationContext;
     private static List<Record> recordUpdateQueue = new ArrayList<>();
     private static List<Problem> problemUpdateQueue = new ArrayList<>();
 
@@ -109,8 +108,6 @@ public class IrisProjectApplication extends Application {
      */
     public static void initBulkUpdater(Context context) {
 
-        applicationContext = context;
-
         if (updater == null) {
 
             Callback<Boolean> cb = new Callback<Boolean>() {
@@ -120,7 +117,7 @@ public class IrisProjectApplication extends Application {
                 }
             };
 
-            updater = new BulkUpdateTask(applicationContext, cb);
+            updater = new BulkUpdateTask(context, cb);
 
         }
 
@@ -144,6 +141,8 @@ public class IrisProjectApplication extends Application {
             System.err.println("Trying to put unhandled type into update Queue!");
         }
 
+        // queues should still be updated even if they aren't re-passed as arguments
+        // i.e. reference to queues is passed
         if (!updaterRunning) {
             updaterRunning = true;
             updater.execute(problemUpdateQueue, recordUpdateQueue);
@@ -190,16 +189,16 @@ public class IrisProjectApplication extends Application {
     }
 
     /**
-     * If bulk update successful, empty the queues.
+     * If bulk update successful, reset everything and remake the updater,
+     * so that it can be executed again if internet goes down again.
      *
      * @param success True if bulk update finished, false otherwise
      */
     private static void handleBulkUpdateResult(Boolean success) {
-        if (success) {  // reset everything
+        if (success) {
             problemUpdateQueue.clear();
             recordUpdateQueue.clear();
             updaterRunning = false;
-            initBulkUpdater(applicationContext);
         } else {
             // occurs when connection restored, task tries to upload, but connection lost mid-upload
             // (or something else causes the upload to elasticsearch to fail)
