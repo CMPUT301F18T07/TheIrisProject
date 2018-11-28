@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
-import com.team7.cmput301.android.theirisproject.controller.AllGeoLocationsController;
+import com.team7.cmput301.android.theirisproject.controller.GetAllGeoLocationsController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
@@ -40,7 +40,7 @@ import java.util.List;
 public class ViewProblemActivity extends IrisActivity<Problem> {
 
     private ProblemController problemController;
-    private AllGeoLocationsController allGeoLocationsController;
+    private GetAllGeoLocationsController getAllGeoLocationsController;
     private String problemId;
 
     private TextView problemTitle;
@@ -120,11 +120,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      * dispatchMapActivity will dispatch to MapActivity, calling on allGeoLocationsController to
      * get all the geolocations and record titles for all the records associated to the problem
      * currently on.
-     * @see AllGeoLocationsController
+     * @see GetAllGeoLocationsController
      */
     private void dispatchMapActivity() {
-        allGeoLocationsController = new AllGeoLocationsController(getIntent());
-        allGeoLocationsController.getGeolocation(new Callback<List<Object>>() {
+        getAllGeoLocationsController = new GetAllGeoLocationsController(getIntent());
+        getAllGeoLocationsController.getGeolocation(new Callback<List<Object>>() {
             @Override
             public void onComplete(List<Object> res) {
                 List<Object> locations = (ArrayList<Object>) res;

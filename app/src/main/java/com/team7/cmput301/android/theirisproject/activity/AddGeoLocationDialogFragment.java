@@ -31,14 +31,14 @@ public class AddGeoLocationDialogFragment extends DialogFragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle(R.string.geolocation_frag_title)
         .setMessage(R.string.geolocation_frag_message)
-        .setPositiveButton(R.string.geolocation_frag_confirm_message, new DialogInterface.OnClickListener() {
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onFinishGeoLocation(true);
                 dialog.dismiss();
             }
         })
-        .setNegativeButton(R.string.geolocation_frag_deny_message, new DialogInterface.OnClickListener() {
+        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onFinishGeoLocation(false);

@@ -135,8 +135,6 @@
     <!-- Add Geolocation fragment strings -->
     <string name="geolocation_frag_title">Add GeoLocation</string>
     <string name="geolocation_frag_message">Do you want to add this location?</string>
-    <string name="geolocation_frag_confirm_message">Yes</string>
-    <string name="geolocation_frag_deny_message">No</string>
 
 
 </resources>

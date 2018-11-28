@@ -28,13 +28,13 @@ import io.searchbox.core.SearchResult;
  * @see RecordListController
  * @author VinnyLuu
  */
-public class AllGeoLocationsController extends IrisController {
+public class GetAllGeoLocationsController extends IrisController {
 
     private String problemId;
     private List<Record> records;
     private Callback<SearchResult> taskCallback;
 
-    public AllGeoLocationsController(Intent intent) {
+    public GetAllGeoLocationsController(Intent intent) {
         super(intent);
         problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
     }
