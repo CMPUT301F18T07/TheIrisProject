@@ -29,11 +29,9 @@ public class AddPatientController extends IrisController<Patient> {
         super(intent);
     }
 
-    public void addPatient(String patientUsername, CareProvider careProvider, Callback<Boolean> callback) {
-        String patientIds = StringHelper.join(careProvider.getPatientIds(), ", ");
-
+    public void addPatient(String patientUsername, Callback<Boolean> callback) {
         AddPatientTask task = new AddPatientTask(callback);
-        task.execute(patientUsername, patientIds);
+        task.execute(patientUsername, false);
     }
 
     @Override
