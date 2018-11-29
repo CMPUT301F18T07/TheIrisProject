@@ -5,6 +5,7 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.BodyPhotoListController;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -30,7 +32,7 @@ import java.util.List;
  *
  * @author itstc
  * */
-public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
+public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements AddBodyLocationDialogFragment.AddBodyLocationDialogListener {
     private static final int ADD_BODYPHOTO_START = 1;
 
     private BodyPhotoListController controller;
@@ -50,7 +52,11 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
         bodyPhotoList = findViewById(R.id.body_photo_list);
         addBodyPhotoButton = findViewById(R.id.add_body_photo);
 
-        bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), false);
+        if (getIntent().getBooleanExtra(Extras.EXTRA_BODYPHOTO_FORM, false)) {
+            bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), ImageListAdapter.TYPE_BODY_LOCATION_FORM);
+        } else {
+            bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), false);
+        }
         bodyPhotoList.setAdapter(bodyPhotoListAdapter);
         bodyPhotoList.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -117,5 +123,15 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
     private void render(List<BodyPhoto> state) {
         bodyPhotoListAdapter.setItems(state);
         bodyPhotoListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFinishAddBodyLocation(BodyLocation location, Bitmap image) {
+        Intent intent = new Intent();
+        intent.putExtra("data_src", location.getBodyPhotoId());
+        intent.putExtra("data_xy", location.getLocation());
+        intent.putExtra("data_img", image);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
