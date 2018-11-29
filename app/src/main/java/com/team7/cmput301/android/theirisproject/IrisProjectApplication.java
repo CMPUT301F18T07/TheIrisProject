@@ -169,8 +169,11 @@ public class IrisProjectApplication extends Application {
      * @param callback The callback that defines that occurs after update finished.
      */
     public static void flushUpdateQueueBackups(Callback<Boolean> callback) {
+
         BulkUpdateTask updater = new BulkUpdateTask(appContext, callback);
         LocalStorageHandler fileHandler = new LocalStorageHandler();
+
+        // Bulk update with backups
         updater.execute(
                 fileHandler.loadListFromBackupFile(
                         appContext,
@@ -183,6 +186,11 @@ public class IrisProjectApplication extends Application {
                         new Record()
                 )
         );
+
+        // clear the backups
+        fileHandler.saveListToBackupFile(appContext, new ArrayList<>(), problemUpdateBackupName);
+        fileHandler.saveListToBackupFile(appContext, new ArrayList<>(), recordUpdateBackupName);
+
     }
 
     public static void addProblemToCache(Problem problem) {
