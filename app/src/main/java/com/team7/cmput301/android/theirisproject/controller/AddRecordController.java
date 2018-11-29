@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
@@ -24,6 +25,7 @@ import java.util.List;
  * */
 public class AddRecordController extends IrisController<Record>{
     private String problemId;
+    private BodyLocation bodyLocation;
     private List<RecordPhoto> recordPhotos;
 
     public AddRecordController(Intent intent) {
@@ -39,8 +41,12 @@ public class AddRecordController extends IrisController<Record>{
         recordPhotos.add(new RecordPhoto(ImageConverter.scaleBitmapPhoto(photo, 256, 256)));
     }
 
-    public void submitRecord(String text, String desc, Callback cb) {
-        Record submitRecord = new Record(problemId, text, desc, recordPhotos);
+    public void setBodyLocation(String src, float[] location) {
+        bodyLocation = new BodyLocation(src, location[0], location[1]);
+    }
+
+    public void submitRecord(String title, String desc, Callback cb) {
+        Record submitRecord = new Record(problemId, title, desc, bodyLocation, recordPhotos);
         new AddRecordTask(cb).execute(submitRecord);
     }
 

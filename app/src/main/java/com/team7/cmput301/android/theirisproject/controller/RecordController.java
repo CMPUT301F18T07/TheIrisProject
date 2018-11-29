@@ -29,7 +29,7 @@ public class RecordController extends IrisController<Record> {
     public RecordController(Intent intent) {
         super(intent);
         recordId = intent.getStringExtra(Extras.EXTRA_RECORD_ID);
-        model = getModel(intent.getExtras());
+        model = new Record();
     }
 
     /**

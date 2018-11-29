@@ -72,6 +72,8 @@ public class BodyPhoto extends Photo implements Parcelable {
         return photo;
     }
 
+    public String getBlob() { return blob; }
+
     public Date getDate() { return date; }
 
     @Override
