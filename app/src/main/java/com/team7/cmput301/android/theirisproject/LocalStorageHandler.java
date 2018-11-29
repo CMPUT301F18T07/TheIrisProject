@@ -96,7 +96,6 @@ public class LocalStorageHandler {
             objects = gson.fromJson(reader, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             objects = new ArrayList<>();
             e.printStackTrace();
         }
