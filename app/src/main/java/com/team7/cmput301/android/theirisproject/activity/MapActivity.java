@@ -177,7 +177,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
          * or if there are locations (i.e the user is viewing a records location)
          */
         mMap = googleMap;
-        if (locations == null) {
+        if (locations == null || locations.isEmpty()) {
             // No location entered, the user wants to add a location, set default to current pos
             getDeviceLocation();
             if (ActivityCompat.checkSelfPermission(this,
