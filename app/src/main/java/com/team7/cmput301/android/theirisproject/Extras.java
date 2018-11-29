@@ -4,6 +4,11 @@
 
 package com.team7.cmput301.android.theirisproject;
 
+/**
+ * Extras is a class to store all extra keys used in the app
+ *
+ * @author itstc
+ * */
 public class Extras {
     public static final String EXTRA_BODYPHOTO_FORM = "com.team7.cmput301.android.theirisproject.extra_bodyphoto_form";
     public static final String EXTRA_BODYPHOTO_USER = "com.team7.cmput301.android.theirisproject.extra_bodyphoto_user";

@@ -8,8 +8,10 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -44,7 +46,7 @@ public class IrisProjectApplication extends Application {
     // model caches, for fast retrieval
     private static HashMap<String, Record> records = new HashMap<>();
     private static HashMap<String, Problem> problems = new HashMap<>();
-
+    
     /**
      * getDB is a function to retrieve the online database
      * if the db variable is currently null we will initialize a
@@ -129,4 +131,5 @@ public class IrisProjectApplication extends Application {
         return problem;
 
     }
+
 }
