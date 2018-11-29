@@ -20,6 +20,7 @@ public class Patient extends User {
     transient private ProblemList problems = new ProblemList();
     private List<String> careProviderIds = new ArrayList<>();
     private List<String> problemIds = new ArrayList<>();
+    private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
     /* Constructors */
 
@@ -48,6 +49,10 @@ public class Patient extends User {
         return problems;
     }
 
+    public List<BodyPhoto> getBodyPhotos() {
+        return bodyPhotos;
+    }
+
     public void addCareProviderId(String careProviderId) {
         careProviderIds.add(careProviderId);
     }
@@ -60,6 +65,10 @@ public class Patient extends User {
 
     public void addProblem(Problem problem){
         problems.add(problem);
+    }
+
+    public void addBodyPhoto(BodyPhoto bodyPhoto) {
+        bodyPhotos.add(bodyPhoto);
     }
   
     /* Basic setters */

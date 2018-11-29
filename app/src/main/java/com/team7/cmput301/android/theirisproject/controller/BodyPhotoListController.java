@@ -11,6 +11,7 @@ import android.util.Log;
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetBodyPhotoTask;
 
@@ -30,19 +31,23 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
     public BodyPhotoListController(Intent intent) {
         super(intent);
         model = getModel(intent.getExtras());
-        String intentId = intent.getStringExtra(Extras.EXTRA_BODYPHOTO_USER);
-        if (intentId == null) userId = IrisProjectApplication.getCurrentUser().getId();
-        else userId = intentId;
     }
 
     public void queryBodyPhotos(Callback cb) {
-        new GetBodyPhotoTask(new Callback<List<BodyPhoto>>() {
-            @Override
-            public void onComplete(List<BodyPhoto> res) {
-                model = res;
-                cb.onComplete(res);
-            }
-        }).execute(userId);
+
+        if (!IrisProjectApplication.isConnectedToInternet()) {
+            new GetBodyPhotoTask(new Callback<List<BodyPhoto>>() {
+                @Override
+                public void onComplete(List<BodyPhoto> res) {
+                    model = res;
+                    cb.onComplete(res);
+                }
+            }).execute(userId);
+        }
+
+        // Give local data as placeholder, or alternative if internet down
+        cb.onComplete(model);
+
     }
 
     public List<BodyPhoto> getBodyPhotos() {
@@ -55,6 +60,8 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     @Override
     List<BodyPhoto> getModel(Bundle data) {
-        return new ArrayList<>();
+        String defaultID = IrisProjectApplication.getCurrentUser().getId();
+        userId = data.getString(Extras.EXTRA_BODYPHOTO_USER, defaultID);
+        return ((Patient) IrisProjectApplication.getCurrentUser()).getBodyPhotos();
     }
 }

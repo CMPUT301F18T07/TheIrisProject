@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.helper.StringHelper;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
@@ -29,11 +30,16 @@ public class AddPatientController extends IrisController<Patient> {
         super(intent);
     }
 
-    public void addPatient(String patientUsername, CareProvider careProvider, Callback<Boolean> callback) {
+    public Boolean addPatient(String patientUsername, CareProvider careProvider, Callback<Boolean> callback) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
         String patientIds = StringHelper.join(careProvider.getPatientIds(), ", ");
 
         AddPatientTask task = new AddPatientTask(callback);
         task.execute(patientUsername, patientIds);
+        return true;
+
     }
 
     @Override
