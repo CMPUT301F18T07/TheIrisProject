@@ -19,10 +19,13 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.searchly.jestdroid.JestDroidClient;
+import com.team7.cmput301.android.theirisproject.task.BulkUpdateTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetUserDataTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import io.searchbox.client.JestClient;
 
@@ -42,6 +45,12 @@ public class IrisProjectApplication extends Application {
     // our database connection
     transient private static JestDroidClient db = null;
     transient private static User currentUser = null;
+
+    // queues and handlers for models that need to have changes uploaded
+    private static BulkUpdateTask updater;
+    private static Boolean updaterRunning = false;
+    private static List<Record> recordUpdateQueue = new ArrayList<>();
+    private static List<Problem> problemUpdateQueue = new ArrayList<>();
 
     // model caches, for fast retrieval
     private static HashMap<String, Record> records = new HashMap<>();
@@ -94,6 +103,55 @@ public class IrisProjectApplication extends Application {
 
     }
 
+    /**
+     * Make the update task if not already made.
+     *
+     * @param context The application context
+     */
+    public static void initBulkUpdater(Context context) {
+
+        if (updater == null) {
+
+            Callback<Boolean> cb = new Callback<Boolean>() {
+                @Override
+                public void onComplete(Boolean res) {
+                    handleBulkUpdateResult(res);
+                }
+            };
+
+            updater = new BulkUpdateTask(context, cb);
+
+        }
+
+    }
+
+    /**
+     * Put the specified model in appropriate update queue,
+     * and execute the updater task if not already running.
+     *
+     * @param model A model instance that wasn't successfully uploaded to elasticsearch
+     */
+    public static void putInUpdateQueue(Object model) {
+
+        if (model instanceof Problem) {
+            problemUpdateQueue.add((Problem) model);
+        }
+        else if (model instanceof Record) {
+            recordUpdateQueue.add((Record) model);
+        }
+        else {
+            System.err.println("Trying to put unhandled type into update queue!");
+        }
+
+        // queues should still be updated even if they aren't re-passed as arguments
+        // i.e. reference to queues is passed
+        if (!updaterRunning) {
+            updaterRunning = true;
+            updater.execute(problemUpdateQueue, recordUpdateQueue);
+        }
+
+    }
+
     public static void addProblemToCache(Problem problem) {
         problems.put(problem.getId(), problem);
     }
@@ -130,6 +188,25 @@ public class IrisProjectApplication extends Application {
 
         return problem;
 
+    }
+
+    /**
+     * If bulk update successful, reset everything and remake the updater,
+     * so that it can be executed again if internet goes down again.
+     *
+     * @param success True if bulk update finished, false otherwise
+     */
+    private static void handleBulkUpdateResult(Boolean success) {
+        if (success) {
+            problemUpdateQueue.clear();
+            recordUpdateQueue.clear();
+            updaterRunning = false;
+        } else {
+            // occurs when connection restored, task tries to upload, but connection lost mid-upload
+            // (or something else causes the upload to elasticsearch to fail)
+            System.err.println("Connection unstable while trying to upload updates; trying to connect again.");
+            updater.execute(problemUpdateQueue, recordUpdateQueue);
+        }
     }
 
 }
