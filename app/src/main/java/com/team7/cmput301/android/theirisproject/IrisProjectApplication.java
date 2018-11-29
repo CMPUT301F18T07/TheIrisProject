@@ -19,13 +19,10 @@ import com.team7.cmput301.android.theirisproject.model.User;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.task.BulkUpdateTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
-import com.team7.cmput301.android.theirisproject.task.GetUserDataTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import io.searchbox.client.JestClient;
 
 /**
  * IrisProjectApplication is the main class to start our app.
@@ -49,10 +46,16 @@ public class IrisProjectApplication extends Application {
     private static Boolean updaterRunning = false;
     private static List<Record> recordUpdateQueue = new ArrayList<>();
     private static List<Problem> problemUpdateQueue = new ArrayList<>();
+    private static LocalStorageHandler fileHandler = new LocalStorageHandler();
+    private static final String problemUpdateBackupName = "updated_problems.json";
+    private static final String recordUpdateBackupName = "updated_records.json";
 
     // model caches, for fast retrieval
     private static HashMap<String, Record> records = new HashMap<>();
     private static HashMap<String, Problem> problems = new HashMap<>();
+
+    // application context
+    private static Context appContext;
 
     /**
      * getDB is a function to retrieve the online database
@@ -81,10 +84,13 @@ public class IrisProjectApplication extends Application {
         currentUser = user;
     }
 
+    public static void setApplicationContext(Context context) {
+        appContext = context;
+    }
+
     /**
      * Determines if currently connected to internet.
      * https://stackoverflow.com/a/32771164
-     * @param context The Context that invokes check
      * @return True if connected, false if not
      */
     public static Boolean isConnectedToInternet(Context context) {
@@ -102,12 +108,13 @@ public class IrisProjectApplication extends Application {
     }
 
     /**
-     * Make the update task if not already made.
+     * Prepare for updating in response to internet connection loss.
+     * To ensure data online is up-to-date, push non-synchronized model data, if applicable.
      *
-     * @param context The application context
      */
-    public static void initBulkUpdater(Context context) {
+    public static void initBulkUpdater() {
 
+        // make the updater
         if (updater == null) {
 
             Callback<Boolean> cb = new Callback<Boolean>() {
@@ -117,14 +124,14 @@ public class IrisProjectApplication extends Application {
                 }
             };
 
-            updater = new BulkUpdateTask(context, cb);
+            updater = new BulkUpdateTask(appContext, cb);
 
         }
 
     }
 
     /**
-     * Put the specified model in appropriate update queue,
+     * Put the specified model in appropriate update queue (if not already in there),
      * and execute the updater task if not already running.
      *
      * @param model A model instance that wasn't successfully uploaded to elasticsearch
@@ -132,10 +139,16 @@ public class IrisProjectApplication extends Application {
     public static void putInUpdateQueue(Object model) {
 
         if (model instanceof Problem) {
-            problemUpdateQueue.add((Problem) model);
+            if (!problemUpdateQueue.contains(model)) {
+                problemUpdateQueue.add((Problem) model);
+                fileHandler.saveListToBackupFile(appContext, problemUpdateQueue, problemUpdateBackupName);
+            }
         }
         else if (model instanceof Record) {
-            recordUpdateQueue.add((Record) model);
+            if (!recordUpdateQueue.contains(model)) {
+                recordUpdateQueue.add((Record) model);
+                fileHandler.saveListToBackupFile(appContext, recordUpdateQueue, recordUpdateBackupName);
+            }
         }
         else {
             System.err.println("Trying to put unhandled type into update queue!");
@@ -148,6 +161,28 @@ public class IrisProjectApplication extends Application {
             updater.execute(problemUpdateQueue, recordUpdateQueue);
         }
 
+    }
+
+    /**
+     * Get the backups of the update queues and push their data to the elasticsearch.
+     *
+     * @param callback The callback that defines that occurs after update finished.
+     */
+    public static void flushUpdateQueueBackups(Callback<Boolean> callback) {
+        BulkUpdateTask updater = new BulkUpdateTask(appContext, callback);
+        LocalStorageHandler fileHandler = new LocalStorageHandler();
+        updater.execute(
+                fileHandler.loadListFromBackupFile(
+                        appContext,
+                        problemUpdateBackupName,
+                        new Problem()
+                ),
+                fileHandler.loadListFromBackupFile(
+                        appContext,
+                        recordUpdateBackupName,
+                        new Record()
+                )
+        );
     }
 
     public static void addProblemToCache(Problem problem) {
@@ -196,9 +231,16 @@ public class IrisProjectApplication extends Application {
      */
     private static void handleBulkUpdateResult(Boolean success) {
         if (success) {
+
+            // reset objects
             problemUpdateQueue.clear();
             recordUpdateQueue.clear();
             updaterRunning = false;
+
+            // reset files
+            fileHandler.saveListToBackupFile(appContext, problemUpdateQueue, problemUpdateBackupName);
+            fileHandler.saveListToBackupFile(appContext, recordUpdateQueue, recordUpdateBackupName);
+
         } else {
             // occurs when connection restored, task tries to upload, but connection lost mid-upload
             // (or something else causes the upload to elasticsearch to fail)
