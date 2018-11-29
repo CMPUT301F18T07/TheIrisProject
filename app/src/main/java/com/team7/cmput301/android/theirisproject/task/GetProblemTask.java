@@ -54,7 +54,6 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
             GetCommentTask comments = new GetCommentTask(new Callback<List<Comment>>() {
                 @Override
                 public void onComplete(List<Comment> res) {
-                    Log.d("Iris", "Populating problems comments");
                     problemState.asyncSetComments(res);
                     publishProgress(problemState);
                 }
@@ -66,8 +65,6 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
                     .build();
             JestResult res = IrisProjectApplication.getDB().execute(get);
             problemState.asyncCopyFields(res.getSourceAsObject(Problem.class));
-
-            Log.d("Iris", "Populating problems fields");
             return problemState;
         } catch (IOException e) {
             e.printStackTrace();

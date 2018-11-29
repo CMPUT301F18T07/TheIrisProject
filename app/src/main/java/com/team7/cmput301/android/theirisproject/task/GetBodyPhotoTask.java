@@ -39,7 +39,9 @@ public class GetBodyPhotoTask extends AsyncTask<String, Void, List<BodyPhoto>> {
                     .addType("bodyphoto")
                     .build();
             SearchResult response = IrisProjectApplication.getDB().execute(search);
-            return response.getSourceAsObjectList(BodyPhoto.class, true);
+            List<BodyPhoto> result = response.getSourceAsObjectList(BodyPhoto.class, true);
+            for(BodyPhoto bp: result) bp.convertBlobToPhoto();
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }

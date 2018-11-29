@@ -28,7 +28,7 @@ public class Record {
     private Date date;
     private GeoLocation geoLocation;
     private BodyLocation bodyLocation;
-    transient private List<RecordPhoto> recordPhotos;
+    transient private List<RecordPhoto> recordPhotos = new ArrayList<>();
 
     /* Constructors */
 
@@ -46,8 +46,14 @@ public class Record {
         this.recordPhotos = recordPhotos;
     }
 
+
+    public Record(String problemId, String title, String desc, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
+        this(problemId, title, desc);
+        this.bodyLocation = bodyLocation;
+        this.recordPhotos = recordPhotos;
+    }
+
     public Record(String problemId, String title, String desc) {
-        this();
         this.problemId = problemId;
         this.title = title;
         this.desc = desc;
@@ -55,13 +61,24 @@ public class Record {
     }
 
     public Record() {
-        this.recordPhotos = new ArrayList<>();
     }
 
     /* Basic setter */
 
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public void setDesc(String desc){
+        this.desc = desc;
+    }
+
     public void setRecordPhotos(List<RecordPhoto> recordPhotos) {
         this.recordPhotos = recordPhotos;
+    }
+
+    public void setBodyLocation(BodyLocation bodyLocation) {
+        this.bodyLocation = bodyLocation;
     }
 
     /* Basic getters */
@@ -111,11 +128,10 @@ public class Record {
     }
 
     public synchronized void asyncSetFields(Record record) {
-        this._id = record._id;
-        this.problemId = record.problemId;
-        this.title = record.title;
-        this.desc = record.desc;
-        this.date = record.date;
+        this.problemId = record.getProblemId();
+        this.title = record.getTitle();
+        this.desc = record.getDesc();
+        this.date = record.getDate();
     }
 
     public synchronized void asyncSetRecordPhotos(List<RecordPhoto> recordPhotos) {
