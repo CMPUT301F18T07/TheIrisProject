@@ -10,8 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
-import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.EditProblemTask;
@@ -32,7 +32,7 @@ public class EditProblemController extends IrisController {
 
     public EditProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
         this.model = getModel(intent.getExtras());
     }
 

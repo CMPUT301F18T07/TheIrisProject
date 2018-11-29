@@ -25,7 +25,8 @@ public class GeoLocation {
     /* Advanced setters */
 
     public void update(double lat, double lng) {
-
+        this.latitude = lat;
+        this.longitude = lng;
     }
 
     /* Misc */

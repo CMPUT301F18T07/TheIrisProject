@@ -42,6 +42,11 @@ public class ImageConverter {
         return BitmapFactory.decodeByteArray(res,0, res.length);
     }
 
+    public static Bitmap base64DecodeBitmap(String blob, BitmapFactory.Options opt) {
+        byte[] res = Base64.decode(blob, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(res,0, res.length, opt);
+    }
+
     /**
      * convertBitmapToBytes will take a bitmap image and
      * convert it to a byte array
@@ -53,5 +58,15 @@ public class ImageConverter {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         img.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
+    }
+
+    public static Bitmap scaleBitmapPhoto(Bitmap photo, int width, int height) {
+        return Bitmap.createScaledBitmap(photo, width, height, false);
+    }
+
+    public static BitmapFactory.Options createMutableBitmap() {
+        BitmapFactory.Options res = new BitmapFactory.Options();
+        res.inMutable = true;
+        return res;
     }
 }

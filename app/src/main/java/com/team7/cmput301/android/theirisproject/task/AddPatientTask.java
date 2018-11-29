@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.JsonArray;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.helper.StringHelper;
@@ -16,6 +17,8 @@ import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Search;
@@ -26,7 +29,7 @@ import io.searchbox.core.Update;
  * AddPatientTask takes in two parameters, the Patient's e-mail that the Care Provider inputted
  * and the Care Provider's ID.
  *
- * If the given email is not a registered email, task returns false onCompletion
+ * If the given username is not a registered user, task returns false onCompletion
  * Otherwise, the Patient's ID is added to the Care Provider's list of Patients and vice versa.
  *
  * @author Jmmxp
@@ -43,50 +46,73 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... strings) {
-        String patientEmail = strings[0];
+        String patientUsername = strings[0];
 
         CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
 
-        if (patientEmail == null ) {
+        if (patientUsername == null ) {
             return false;
         }
-        Log.i(TAG, patientEmail + " and " + careProvider.getId());
+        Log.i(TAG, patientUsername + " and " + careProvider.getId());
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
         // Search for user and get the closest match
-        Search get = new Search.Builder("{\"query\": {\"term\": {\"email\": \"" + patientEmail + "\"}}}")
+        String query = "{\n" +
+                "  \"query\": {\n" +
+                "    \"bool\": {\n" +
+                "      \"must\": [\n" +
+                "    \t{ \"term\": { \"username\": \"" + patientUsername + "\" }},\n" +
+                "    \t{ \"term\": { \"type\": \"PATIENT\" }}\n" +
+                "\t  ]\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+        Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
                 .build();
 
         try {
             SearchResult searchResult = client.execute(get);
-            // TODO: add check for when we can't find any patient with that email
-            // TODO: add check for adding a patient that's already been added
-            // TODO: ensure the user is actually a patient!
             // TODO: Fix bug of PatientListActivity showing patients out of order (should be in order of being added)
 
             if (!searchResult.isSucceeded()) {
                 return false;
             }
 
-            Log.i(TAG, searchResult.getJsonString());
+            JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
+            // No users found
+            if (arrayHits.size() == 0) {
+                return false;
+            }
 
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
+
+            // If the CP already has this patient, do not add again
+            if (careProvider.getPatients().contains(patient)) {
+                return false;
+            }
+
+            careProvider.addPatient(patient);
 
             String patientId = patient.getId();
             String careProviderId = careProvider.getId();
 
             // Add this patient's ID into the list of Patient IDs for the current Care Provider
             // Referred to Jest documentation https://github.com/searchbox-io/Jest/tree/master/jest
-            Log.i(TAG, patient.getEmail() + " and " + patient.getId() + patient.getCareProviderIds());
 
             // Append the current Patient ID onto the Care Provider's existing Patient IDs
-            String patientIds = patient.getId();
-            String patientIdsConcat = StringHelper.join(careProvider.getPatientIds(), ", ");
+            String patientIds;
+
+            List<String> patientIdList = new ArrayList<>(careProvider.getPatientIds());
+            StringHelper.addQuotations(patientIdList);
+
+            String patientIdsConcat = StringHelper.join(patientIdList, ", ");
             if (!patientIdsConcat.equals("")) {
-                patientIds = patientIdsConcat + ", " + patientId;
+                patientIds = patientIdsConcat + ", " + "\"" + patientId + "\"";
+            } else {
+                patientIds = "\"" + patientId + "\"";
             }
 
             boolean success = updateUser(client, "patientIds", patientIds, careProviderId);
@@ -99,10 +125,16 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             // Add the careProvider's ID into the Patient we're currently adding
 
             // Append the current Care Provider ID onto the Patient's existing Care Provider IDs
-            String careProviderIds = careProviderId;
-            String careProviderIdsConcat = StringHelper.join(patient.getCareProviderIds(), ", ");
+            List<String> careProviderIdList = new ArrayList<>(patient.getCareProviderIds());
+            StringHelper.addQuotations(careProviderIdList);
+
+            String careProviderIds;
+
+            String careProviderIdsConcat = StringHelper.join(careProviderIdList, ", ");
             if (!careProviderIdsConcat.equals("")) {
-                careProviderIds = careProviderIdsConcat + ", " + careProviderId;
+                careProviderIds = careProviderIdsConcat + ", " + "\"" + careProviderId + "\"";
+            } else {
+                careProviderIds = "\"" + careProviderId + "\"";
             }
 
             success = updateUser(client, "careProviderIds", careProviderIds, patientId);
@@ -132,9 +164,10 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
      * @return
      */
     private boolean updateUser(JestDroidClient client, String updateType, String updateIds, String userId) {
+        System.out.println("updateIds is " + updateIds);
         String updateString = "{\n" +
                 "    \"doc\" : {\n" +
-                "        \"" + updateType + "\" : [\"" + updateIds + "\"]\n" +
+                "        \"" + updateType + "\" : [" + updateIds + "]\n" +
                 "    }\n" +
                 "}";
 

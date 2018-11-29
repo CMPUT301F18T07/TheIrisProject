@@ -75,7 +75,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2<Rec
         }
         flag = 0;
 
-        // check that title and desc show up
+        // check that title shows up
         assertTrue(solo.searchText(title));
 
         // click first list item

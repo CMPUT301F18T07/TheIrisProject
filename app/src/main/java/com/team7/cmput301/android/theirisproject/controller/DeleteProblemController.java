@@ -8,7 +8,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 
@@ -22,10 +22,9 @@ import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 public class DeleteProblemController extends IrisController {
     private String problemID;
 
-
     public DeleteProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(ViewProblemActivity.EXTRA_PROBLEM_ID);
+        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
     }
 
     @Override

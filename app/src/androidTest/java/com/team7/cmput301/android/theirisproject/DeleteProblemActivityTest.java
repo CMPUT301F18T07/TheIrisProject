@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package com.team7.cmput301.android.theirisproject;
 
 import android.content.Intent;
@@ -14,7 +18,7 @@ import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
- * Tests for EditPatientProfileActivity
+ * Tests for DeleteProblemActivity
  *
  * @author anticobalt
  */
@@ -80,8 +84,7 @@ public class DeleteProblemActivityTest extends ActivityInstrumentationTestCase2<
         View deleteButton = solo.getView(R.id.do_delete_problem_button);
         solo.clickOnView(deleteButton);
 
-        // confirm the activity closes and Problem isn't on list view
-        solo.waitForActivity(ProblemListActivity.class);
+        // confirm the text of the Problem is gone
         assertFalse(solo.searchText(title));
         assertFalse(solo.searchText(desc));
 

@@ -11,14 +11,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
@@ -40,6 +39,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private ProblemListController controller;
     private ListView problemsView;
     private FloatingActionButton addProblemButton;
+    private FloatingActionButton bodyPhotoButton;
     private Boolean doEditProblem = false;
 
     private Toolbar toolbar;
@@ -52,7 +52,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         controller = new ProblemListController(getIntent());
 
         problemsView = findViewById(R.id.problem_item_list);
-        addProblemButton = findViewById(R.id.problem_list_add);
+        setAddProblemButton();
+        setBodyPhotoButton();
         toolbar = findViewById(R.id.problem_list_toolbar);
         setSupportActionBar(toolbar);
 
@@ -63,13 +64,13 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 if (doEditProblem) {
                     // Edit the problem
                     Intent intent = new Intent(ProblemListActivity.this, EditProblemActivity.class);
-                    intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+                    intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
                     startActivity(intent);
                 }
                 else {
                     // View the problem
                     Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
-                    intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+                    intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
                     startActivity(intent);
                 }
 
@@ -82,21 +83,12 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Problem problem = (Problem) problemsView.getItemAtPosition(position);
                 Intent intent = new Intent(ProblemListActivity.this, DeleteProblemActivity.class);
-                intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+                intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
                 startActivityForResult(intent, DELETE_PROBLEM_RESPONSE);
                 return true;
             }
         });
 
-        // set click listener to AddProblemFloatingButton
-        addProblemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // start a AddProblemActivity with a requestCode of ADD_PROBLEM_RESPONSE
-                Intent intent = new Intent(ProblemListActivity.this, AddProblemActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -120,9 +112,12 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                     doEditProblem = true;
                 }
                 break;
-            case R.id.problem_list_action_viewProfile:
+            case R.id.patient_list_action_view_profile:
                 // View a profile
                 Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
+                Intent intent = new Intent(this, ViewProfileActivity.class);
+
+                startActivity(intent);
                 break;
             default:
 
@@ -179,5 +174,29 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_LONG);
             }
         }
+    }
+
+    private void setAddProblemButton() {
+        addProblemButton = findViewById(R.id.problem_list_add);
+        // set click listener to AddProblemFloatingButton
+        addProblemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // start a AddProblemActivity with a requestCode of ADD_PROBLEM_RESPONSE
+                Intent intent = new Intent(ProblemListActivity.this, AddProblemActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setBodyPhotoButton() {
+        bodyPhotoButton = findViewById(R.id.body_photo_button);
+        bodyPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProblemListActivity.this, BodyPhotoListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.task.AddBodyPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
@@ -28,24 +29,9 @@ import java.util.ArrayList;
 public class AddProblemController extends IrisController<Problem> {
 
     private String userId = IrisProjectApplication.getCurrentUser().getId();
-    private ArrayList<BodyPhoto> bodyPhotos = new ArrayList<BodyPhoto>();
 
     public AddProblemController(Intent intent) {
         super(intent);
-    }
-
-    /**
-     * addBodyPhoto will scale the bitmap to 256x256 before adding it to
-     * the imageList. It is required to be scaled before submitting to database
-     *
-     * @param img our bitmap image
-     * */
-    public void addBodyPhoto(Bitmap img) {
-        Bitmap res = Bitmap.createScaledBitmap(img, 256, 256, false);
-        bodyPhotos.add(new BodyPhoto(res));
-    }
-    public ArrayList<BodyPhoto> getBodyPhotos() {
-        return bodyPhotos;
     }
 
     /**
@@ -58,7 +44,7 @@ public class AddProblemController extends IrisController<Problem> {
      * @param cb callback method
      * */
     public void submitProblem(String title, String desc, Callback<String> cb) {
-        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId(), bodyPhotos);
+        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
         // add problem to our database
         new AddProblemTask(new Callback<String>() {
             @Override

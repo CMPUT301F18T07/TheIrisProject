@@ -18,6 +18,7 @@ import com.team7.cmput301.android.theirisproject.model.Problem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Get;
@@ -33,14 +34,12 @@ import static com.team7.cmput301.android.theirisproject.IrisProjectApplication.I
  *
  * @author VinnyLuu
  */
-public class GetProblemTask extends AsyncTask<String, Void, Problem> {
-
+public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
     private Callback callback;
     private String problemIdQuery = "{\"query\": {\"term\": {\"problemId\": \"%s\"}}}";
     public GetProblemTask(Callback callback) {
         this.callback = callback;
     }
-
     /**
      * doInBackground will send a request to DB with desired problem's id
      * returning the problem
@@ -49,21 +48,23 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
      * */
     @Override
     protected Problem doInBackground(String... params) {
-
-        Problem problemState = null;
+        Problem problemState = new Problem();
         try {
+            // Start another thread to get comments and updating if done querying
+            GetCommentTask comments = new GetCommentTask(new Callback<List<Comment>>() {
+                @Override
+                public void onComplete(List<Comment> res) {
+                    problemState.asyncSetComments(res);
+                    publishProgress(problemState);
+                }
+            });
+            comments.execute(params[0]);
             // populate primitive attributes in Problem
             Get get = new Get.Builder(INDEX,params[0])
                     .type("problem")
                     .build();
             JestResult res = IrisProjectApplication.getDB().execute(get);
-            problemState = res.getSourceAsObject(Problem.class);
-
-            // populate the bodyPhotos attribute in Problem
-            problemState.setBodyPhotos(getBodyPhotosFromProblemId(params[0]));
-            // populate the comments attribute in Problem
-            problemState.setComments(getCommentsFromProblemId(params[0]));
-
+            problemState.asyncCopyFields(res.getSourceAsObject(Problem.class));
             return problemState;
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,54 +72,10 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
         return problemState;
     }
 
-    /**
-     * getBodyPhotosFromProblemId will query bodyphotos related to the
-     * problem and return a list of bodyphotos with the bitmap image
-     *
-     * @param id
-     * @return List<BodyPhoto>
-     * */
-    private List<BodyPhoto> getBodyPhotosFromProblemId(String id) {
-        List<BodyPhoto> bodyPhotosResult = new ArrayList<>();
-        try {
-            Search bodyPhotoSearch = new Search.Builder(String.format(problemIdQuery, id))
-                    .addIndex(IrisProjectApplication.INDEX)
-                    .addType("bodyphoto")
-                    .build();
-            bodyPhotosResult = IrisProjectApplication
-                    .getDB()
-                    .execute(bodyPhotoSearch)
-                    .getSourceAsObjectList(BodyPhoto.class, true);
-            for(BodyPhoto bp: bodyPhotosResult) bp.convertBlobToPhoto();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return bodyPhotosResult;
-    }
-    /**
-     * getCommentsFromProblemId will query comments related to the
-     * problem and return a list of comments
-     *
-     * @param id
-     * @return List<Comment>
-     * */
-    private List<Comment> getCommentsFromProblemId(String id) {
-        List<Comment> commentsResult = new ArrayList<>();
-        try {
-            Search commentSearch = new Search.Builder(String.format(problemIdQuery, id))
-                    .addIndex(IrisProjectApplication.INDEX)
-                    .addType("comment")
-                    .build();
-            commentsResult = IrisProjectApplication
-                    .getDB()
-                    .execute(commentSearch)
-                    .getSourceAsObjectList(Comment.class, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return commentsResult;
+    @Override
+    protected void onProgressUpdate(Problem... values) {
+        super.onProgressUpdate(values);
+        callback.onComplete(values[0]);
     }
 
     @Override
@@ -126,4 +83,50 @@ public class GetProblemTask extends AsyncTask<String, Void, Problem> {
         super.onPostExecute(res);
         callback.onComplete(res);
     }
+
+    /**
+     * GetCommentTask is a nested AsyncTask that will run
+     * concurrently with GetProblemTask to speed up our process
+     * in retrieving data for a problem.
+     *
+     * @author itstc
+     * */
+    public class GetCommentTask extends AsyncTask<String, Void, List<Comment>> {
+        private Callback cb;
+        public GetCommentTask(Callback cb) {
+            this.cb = cb;
+        }
+
+        /**
+         * doInBackground will query comments related to the
+         * problem and return a list of comments
+         *
+         * @param params: params[0] should contain the problemId
+         * @return List<Comment>
+         * */
+        @Override
+        protected List<Comment> doInBackground(String... params) {
+            List<Comment> commentsResult = new ArrayList<>();
+            try {
+                Search commentSearch = new Search.Builder(String.format(problemIdQuery, params[0]))
+                        .addIndex(IrisProjectApplication.INDEX)
+                        .addType("comment")
+                        .build();
+                commentsResult = IrisProjectApplication
+                        .getDB()
+                        .execute(commentSearch)
+                        .getSourceAsObjectList(Comment.class, true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return commentsResult;
+        }
+
+        @Override
+        protected void onPostExecute(List<Comment> comments) {
+            super.onPostExecute(comments);
+            cb.onComplete(comments);
+        }
+    }
+
 }
