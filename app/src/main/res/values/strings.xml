@@ -140,6 +140,6 @@
     <string name="offline_upload_error">Internet disconnected, couldn\'t upload changes. Changes only saved locally.</string>
     <string name="offline_fetch_error">Internet disconnected, couldn\'t get latest data. Showing local version.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
-    <string name="add_body_location_submit">Save Body Location</string
+    <string name="add_body_location_submit">Save Body Location</string>
 
 </resources>

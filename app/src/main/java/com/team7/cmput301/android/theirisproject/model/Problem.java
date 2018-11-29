@@ -73,6 +73,8 @@ public class Problem {
         this._id = _id;
     }
 
+    public void addRecord(Record record) { this.records.add(record); }
+
     public void setRecords(RecordList records){
         this.records = records;
     }

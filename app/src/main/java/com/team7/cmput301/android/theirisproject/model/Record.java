@@ -65,6 +65,8 @@ public class Record {
 
     /* Basic setter */
 
+    public void setId(String id) { this._id = id; }
+
     public void setTitle(String title){
         this.title = title;
     }
