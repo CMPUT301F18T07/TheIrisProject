@@ -19,6 +19,10 @@ import com.team7.cmput301.android.theirisproject.model.Patient;
 
 import java.util.List;
 
+/**
+ * PatientListAdapter is used in PatientListActivity to show the logged in Care Provider's patients
+ * in the List View.
+ */
 public class PatientListAdapter extends ArrayAdapter<Patient> {
 
     private Activity context;
@@ -39,7 +43,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         LayoutInflater inflater = context.getLayoutInflater();
         View patientView = inflater.inflate(resource, parent, false);
 
-        TextView name = patientView.findViewById(R.id.patient_item_name);
+        TextView name = patientView.findViewById(R.id.patient_item_username);
         TextView email = patientView.findViewById(R.id.patient_item_email);
 
         Patient patient = patients.get(position);
