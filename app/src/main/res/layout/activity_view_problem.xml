@@ -28,14 +28,25 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/view_records" />
+                android:text="@string/view_records"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/create_record_button"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_record" />
+                android:text="@string/create_record"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/slideshow_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/slideshow_button"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
