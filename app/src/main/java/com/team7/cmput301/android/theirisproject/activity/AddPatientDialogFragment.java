@@ -66,9 +66,7 @@ public class AddPatientDialogFragment extends DialogFragment {
                                 listener.onFinishAddPatient(success);
                             }
                         };
-                        Boolean success = controller.addPatient(addPatientEditText.getText().toString(),
-                                (CareProvider) IrisProjectApplication.getCurrentUser(),
-                                callback);
+                        Boolean success = controller.addPatient(addPatientEditText.getText().toString(), callback);
                         if (!success) {
                             Toast.makeText(getActivity(), R.string.offline_fatal_error, Toast.LENGTH_SHORT).show();
                         }
