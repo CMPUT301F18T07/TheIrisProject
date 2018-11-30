@@ -46,6 +46,9 @@ public class AddProblemController extends IrisController<Problem> {
         new AddProblemTask(new Callback<String>() {
             @Override
             public void onComplete(String result) {
+                // add new problem to singleton
+                submitProblem.setId(result);
+                IrisProjectApplication.addProblemToCache(submitProblem);
                 cb.onComplete(result);
             }
         }).execute(submitProblem);

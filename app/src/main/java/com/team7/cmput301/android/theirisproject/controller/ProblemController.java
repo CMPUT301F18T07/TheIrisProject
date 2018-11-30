@@ -41,7 +41,13 @@ public class ProblemController extends IrisController<Problem> {
 
     @Override
     Problem getModel(Bundle data) {
+        Problem cachedModel = IrisProjectApplication.getProblemById(problemID);
+        if (cachedModel != null) return cachedModel;
         return new Problem();
+    }
+
+    public Problem getModelProblem() {
+        return model;
     }
 
     /**

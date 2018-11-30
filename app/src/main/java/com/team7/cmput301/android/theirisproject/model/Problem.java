@@ -85,6 +85,8 @@ public class Problem {
         this.date = DateHelper.parse(date);
     }
 
+    public void addRecord(Record record) { this.records.add(record); }
+
     public void setRecords(RecordList records){
         this.records = records;
     }

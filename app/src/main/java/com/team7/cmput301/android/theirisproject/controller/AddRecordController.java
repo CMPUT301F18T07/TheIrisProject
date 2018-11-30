@@ -51,7 +51,19 @@ public class AddRecordController extends IrisController<Record>{
         if (!IrisProjectApplication.isConnectedToInternet()) return false;
 
         Record submitRecord = new Record(problemId, title, desc, bodyLocation, recordPhotos);
-        new AddRecordTask(cb).execute(submitRecord);
+
+        new AddRecordTask(new Callback<String>() {
+            @Override
+            public void onComplete(String res) {
+                // add result to singleton
+                submitRecord.setId(res);
+                IrisProjectApplication.addRecordToCache(submitRecord);
+                IrisProjectApplication.getProblemById(submitRecord.getProblemId()).addRecord(submitRecord);
+                cb.onComplete(res);
+
+            }
+        }).execute(submitRecord);
+
         return true;
 
     }

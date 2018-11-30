@@ -26,6 +26,8 @@ import java.util.Date;
  * */
 public class BodyPhoto extends Photo implements Parcelable {
 
+    public static final String FILE_FORMAT = "bp_%s";
+
     @JestId
     private String _id;
     private String user;
