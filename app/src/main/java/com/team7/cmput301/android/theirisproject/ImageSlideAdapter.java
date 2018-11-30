@@ -10,6 +10,12 @@ import com.team7.cmput301.android.theirisproject.model.Photo;
 
 import java.util.List;
 
+/**
+ *
+ * Reference: https://www.youtube.com/watch?v=Q2FPDI99-as
+ *
+ * @author jtfwong
+ * */
 public class ImageSlideAdapter<M extends Photo> extends PagerAdapter {
     private Context context;
     private List<M> images;
@@ -24,11 +30,18 @@ public class ImageSlideAdapter<M extends Photo> extends PagerAdapter {
         return images.size();
     }
 
+    /***
+     * isViewFromObject() checks if image created is an object
+     */
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
 
+    /***
+     * instantiateItem() creates image views from a list of
+     * all record photos associated with the problem
+     */
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Photo photo = images.get(position);

@@ -9,6 +9,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * Activity that is displayed upon opening the app. Displays app logo
+ * and proceeds onto the login screen
+ *
+ * @author jtfwong
+ * */
 public class SplashActivity extends AppCompatActivity{
 
     @Override
