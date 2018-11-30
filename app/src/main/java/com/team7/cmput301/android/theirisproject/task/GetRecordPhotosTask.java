@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package com.team7.cmput301.android.theirisproject.task;
 
 import android.os.AsyncTask;
@@ -23,7 +27,7 @@ public class GetRecordPhotosTask extends AsyncTask<String, List<RecordPhoto>, Vo
     private Callback cb;
     private String queryString = "{\"query\":{\"term\":{\"recordId\": \"%s\"}}}";
 
-    public GetRecordPhotosTask(Callback<List<RecordPhoto>> callback) {
+    public GetRecordPhotosTask(Callback<List<RecordPhoto>> cb) {
         this.cb = cb;
     }
 
@@ -51,6 +55,6 @@ public class GetRecordPhotosTask extends AsyncTask<String, List<RecordPhoto>, Vo
     @Override
     protected void onProgressUpdate(List<RecordPhoto>... recordPhotos) {
         super.onProgressUpdate(recordPhotos);
-        cb.onComplete(recordPhotos);
+        this.cb.onComplete(recordPhotos);
     }
 }
