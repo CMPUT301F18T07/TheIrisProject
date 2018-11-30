@@ -50,7 +50,7 @@ public class EditRecordController extends IrisController<Record> {
      * @param context Required for internet check
      * @param title Record's new title
      * @param desc Record's new description
-     * @return
+     * @return Whether update to online was possible or not
      */
     public boolean submitRecord(Context context, String title, String desc){
 
@@ -62,6 +62,8 @@ public class EditRecordController extends IrisController<Record> {
         if (IrisProjectApplication.isConnectedToInternet(context)) {
             new EditRecordTask().execute(record);
             pushedOnline = true;
+        } else {
+            IrisProjectApplication.putInUpdateQueue(record);
         }
 
         return pushedOnline;

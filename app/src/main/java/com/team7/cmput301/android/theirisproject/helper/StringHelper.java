@@ -56,6 +56,35 @@ public class StringHelper {
     }
 
     /**
+     * Given a list of strings, return all of them concatenated in the form of a JSON array e.g. ["str1", "str2", "str3"]
+     * NOTE: it returns the String with the square brackets as well
+     * @param strings
+     * @return the JSON Array String
+     */
+    public static String generateJSONArrayString(List<String> strings) {
+        if (strings == null || strings.size() == 0) {
+            // Return empty list
+            return "[]";
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+
+        int size = strings.size();
+        for (int i = 0; i < size; i++) {
+            String string = strings.get(i);
+            if (i == size - 1) {
+                builder.append("\"" + string + "\"");
+            } else {
+                builder.append("\"" + string + "\", ");
+            }
+        }
+
+        builder.append("]");
+        return builder.toString();
+    }
+
+    /**
      * Given a List of Strings, determine if it has an empty or null string
      * @param strings
      */
