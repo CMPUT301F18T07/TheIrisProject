@@ -76,7 +76,7 @@ public class EditRecordActivity extends IrisActivity<Record>{
                 if (title.isEmpty()) {
                     missingFieldsToast.show();
                 } else {
-                    Boolean online = controller.submitRecord(getApplicationContext(), title, desc);
+                    Boolean online = controller.submitRecord(title, desc);
                     if (!online) {
                         onlineFailedToast.show();
                     }

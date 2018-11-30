@@ -141,6 +141,6 @@
     <string name="offline_fetch_error">Internet disconnected, couldn\'t get latest data. Showing local version.</string>
     <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
-    <string name="add_body_location_submit">Save Body Location</string
+    <string name="add_body_location_submit">Save Body Location</string>
 
 </resources>

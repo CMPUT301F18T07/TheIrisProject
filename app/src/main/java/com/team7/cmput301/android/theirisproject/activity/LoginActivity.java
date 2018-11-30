@@ -36,9 +36,7 @@ public class LoginActivity extends IrisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        IrisProjectApplication.setApplicationContext(getApplicationContext());
         controller = createController(getIntent());
-        IrisProjectApplication.initBulkUpdater();
 
         // initialize android views from xml
         loginButton = findViewById(R.id.login_button);

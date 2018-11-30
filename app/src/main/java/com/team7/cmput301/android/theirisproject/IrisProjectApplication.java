@@ -57,6 +57,13 @@ public class IrisProjectApplication extends Application {
     // application context
     private static Context appContext;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        IrisProjectApplication.appContext = getApplicationContext();
+        IrisProjectApplication.initBulkUpdater();
+    }
+
     /**
      * getDB is a function to retrieve the online database
      * if the db variable is currently null we will initialize a
@@ -84,18 +91,14 @@ public class IrisProjectApplication extends Application {
         currentUser = user;
     }
 
-    public static void setApplicationContext(Context context) {
-        appContext = context;
-    }
-
     /**
      * Determines if currently connected to internet.
      * https://stackoverflow.com/a/32771164
      * @return True if connected, false if not
      */
-    public static Boolean isConnectedToInternet(Context context) {
+    public static Boolean isConnectedToInternet() {
 
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork;
         if (cm != null) {
             activeNetwork = cm.getActiveNetworkInfo();
@@ -124,7 +127,7 @@ public class IrisProjectApplication extends Application {
                 }
             };
 
-            updater = new BulkUpdateTask(appContext, cb);
+            updater = new BulkUpdateTask(cb);
 
         }
 
@@ -170,7 +173,7 @@ public class IrisProjectApplication extends Application {
      */
     public static void flushUpdateQueueBackups(Callback<Boolean> callback) {
 
-        BulkUpdateTask updater = new BulkUpdateTask(appContext, callback);
+        BulkUpdateTask updater = new BulkUpdateTask(callback);
         LocalStorageHandler fileHandler = new LocalStorageHandler();
 
         // Bulk update with backups

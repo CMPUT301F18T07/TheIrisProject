@@ -30,12 +30,10 @@ import io.searchbox.core.Index;
  */
 public class BulkUpdateTask extends AsyncTask<List, Void, Boolean> {
 
-    private final WeakReference<Context> reference;
     private Callback<Boolean> callback;
     private int sleepDuration = 120000; // 2 minutes
 
-    public BulkUpdateTask(Context context, Callback<Boolean> callback) {
-        this.reference = new WeakReference<>(context);
+    public BulkUpdateTask(Callback<Boolean> callback) {
         this.callback = callback;
     }
 
@@ -48,7 +46,7 @@ public class BulkUpdateTask extends AsyncTask<List, Void, Boolean> {
     @Override
     protected Boolean doInBackground(List... lists) {
 
-        while (!IrisProjectApplication.isConnectedToInternet(reference.get())){
+        while (!IrisProjectApplication.isConnectedToInternet()){
             Timer.sleep(sleepDuration);
         }
 

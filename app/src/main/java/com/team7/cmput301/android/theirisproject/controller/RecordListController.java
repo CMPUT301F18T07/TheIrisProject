@@ -45,7 +45,7 @@ public class RecordListController extends IrisController<RecordList> {
      * @param contCallback Callback with IrisActivity's specified actions
      * @return True if no issues, False if internet-related issues
      */
-    public Boolean fillRecords(Context context, Callback<RecordList> contCallback){
+    public Boolean fillRecords(Callback<RecordList> contCallback){
 
         Boolean fullSuccess = false;
 
@@ -57,7 +57,7 @@ public class RecordListController extends IrisController<RecordList> {
                 break;
 
             case CARE_PROVIDER:
-                if (IrisProjectApplication.isConnectedToInternet(context)) {
+                if (IrisProjectApplication.isConnectedToInternet()) {
                     fetchRecordsFromOnline(contCallback);
                     fullSuccess = true;
                 } else {
