@@ -21,7 +21,7 @@ import io.searchbox.core.SearchResult;
 public class GetRecordPhotosTask extends AsyncTask<String, List<RecordPhoto>, Void> {
 
     private Callback cb;
-    private String queryString;
+    private String queryString = "{\"query\":{\"term\":{\"recordId\": \"%s\"}}}";
 
     public GetRecordPhotosTask(Callback<List<RecordPhoto>> callback) {
         this.cb = cb;
