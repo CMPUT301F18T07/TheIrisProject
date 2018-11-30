@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.team7.cmput301.android.theirisproject.ImageSlideAdapter;
 import com.team7.cmput301.android.theirisproject.R;
-import com.team7.cmput301.android.theirisproject.controller.RecordController;
 import com.team7.cmput301.android.theirisproject.controller.RecordPhotoListController;
+import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * Activity that displays a slideshow for all of the record
@@ -19,6 +19,8 @@ import com.team7.cmput301.android.theirisproject.controller.RecordPhotoListContr
  * @author jtfwong
  * */
 public class ProblemSlideshowActivity extends AppCompatActivity {
+
+    private ViewPager viewPager;
 
     private RecordPhotoListController recordPhotoListController;
 
@@ -31,9 +33,25 @@ public class ProblemSlideshowActivity extends AppCompatActivity {
 
         recordPhotoListController = new RecordPhotoListController(getIntent());
 
-        ViewPager viewPager = findViewById(R.id.photo_slideshow);
+        viewPager = findViewById(R.id.photo_slideshow);
         ImageSlideAdapter adapter = new ImageSlideAdapter(this, recordPhotoListController.getPhotos());
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        recordPhotoListController.queryRecordPhotos(new Callback<Record>() {
+            @Override
+            public void onComplete(Record res) {
+                render(res);
+            }
+        });
+    }
+
+    private void render(Record newState) {
+        ((ImageSlideAdapter)viewPager.getAdapter()).setItems(newState.getRecordPhotos());
+        viewPager.getAdapter().notifyDataSetChanged();
     }
 
 }

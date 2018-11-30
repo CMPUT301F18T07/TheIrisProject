@@ -56,4 +56,8 @@ public class ImageSlideAdapter<M extends Photo> extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((ImageView) object);
     }
+
+    public void setItems(List<M> images) {
+        this.images = images;
+    }
 }
