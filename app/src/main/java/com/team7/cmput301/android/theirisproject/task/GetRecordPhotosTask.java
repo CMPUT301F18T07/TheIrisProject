@@ -35,7 +35,7 @@ public class GetRecordPhotosTask extends AsyncTask<String, List<RecordPhoto>, Vo
                 List<RecordPhoto> recordPhotos = new ArrayList<>();
                 List<Record> recordList = res.getSourceAsObjectList(Record.class, true);
                 for (Record r: recordList) {
-                    Search search = new Search.Builder(queryString).addIndex(IrisProjectApplication.INDEX).addType("recordphoto").build();
+                    Search search = new Search.Builder(String.format(queryString, r.getId())).addIndex(IrisProjectApplication.INDEX).addType("recordphoto").build();
                     try {
                         recordPhotos.addAll(IrisProjectApplication.getDB().execute(search).getSourceAsObjectList(RecordPhoto.class, true));
                     } catch (IOException e) {
