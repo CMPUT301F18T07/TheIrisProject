@@ -20,7 +20,6 @@ import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.searchbox.core.Search;
@@ -97,6 +96,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
         careProvider.setPatients(patients);
 
         for (Patient patient: patients) {
+            IrisProjectApplication.addUserToCache(patient);
             getAndBindProblems(patient);
         }
 

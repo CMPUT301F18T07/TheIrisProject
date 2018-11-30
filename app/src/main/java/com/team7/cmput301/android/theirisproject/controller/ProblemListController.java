@@ -9,7 +9,9 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetProblemListTask;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
@@ -26,11 +28,19 @@ public class ProblemListController extends IrisController<ProblemList> {
     private String userID;
 
     public ProblemListController(Intent intent) {
+
         super(intent);
+        String intentId = intent.getStringExtra(Extras.EXTRA_USER_ID);
+
+        if (intentId == null){
+            this.userID = IrisProjectApplication.getCurrentUser().getId();
+        }
+        else {
+            this.userID = intentId;
+        }
+
         this.model = getModel(intent.getExtras());
-        String intentId = intent.getStringExtra("user");
-        if (intentId == null) this.userID = IrisProjectApplication.getCurrentUser().getId();
-        else this.userID = intentId;
+
     }
 
     /**
@@ -41,14 +51,37 @@ public class ProblemListController extends IrisController<ProblemList> {
      *
      * @param cb callback function from activity
      * */
-    public void getUserProblems(Callback cb) {
-        new GetProblemListTask(new Callback<ProblemList>() {
-            @Override
-            public void onComplete(ProblemList res) {
-                model = res;
-                cb.onComplete(res);
-            }
-        }).execute(userID);
+    public Boolean getUserProblems(Callback cb) {
+
+        // Assume can't get latest data, and get the local version unconditionally
+        Boolean fullSuccess = false;
+        cb.onComplete(model);
+
+        switch (IrisProjectApplication.getCurrentUser().getType()) {
+
+            case PATIENT:
+                fullSuccess = true;
+                break;
+
+            case CARE_PROVIDER:
+                if (IrisProjectApplication.isConnectedToInternet()) {
+                    new GetProblemListTask(new Callback<ProblemList>() {
+                        @Override
+                        public void onComplete(ProblemList res) {
+                            cb.onComplete(res);
+                        }
+                    }).execute(userID);
+                    fullSuccess = true;
+                }
+                break;
+
+            default:
+                break;
+
+        }
+
+        return fullSuccess;
+
     }
 
     public ProblemList getProblems() {
@@ -57,6 +90,6 @@ public class ProblemListController extends IrisController<ProblemList> {
 
     @Override
     ProblemList getModel(Bundle data) {
-        return new ProblemList();
+        return ((Patient) IrisProjectApplication.getUserById(userID)).getProblems();
     }
 }

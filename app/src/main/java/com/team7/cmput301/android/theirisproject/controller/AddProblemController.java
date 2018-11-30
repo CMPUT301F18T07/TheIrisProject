@@ -7,18 +7,12 @@
 package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.ImageConverter;
-import com.team7.cmput301.android.theirisproject.task.AddBodyPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
-
-import java.util.ArrayList;
 
 /**
  * AddProblemController has methods to allow our AddProblemActivity
@@ -43,7 +37,10 @@ public class AddProblemController extends IrisController<Problem> {
      * @param desc Problem description
      * @param cb callback method
      * */
-    public void submitProblem(String title, String desc, Callback<String> cb) {
+    public Boolean submitProblem(String title, String desc, Callback<String> cb) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
         Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
         // add problem to our database
         new AddProblemTask(new Callback<String>() {
@@ -52,10 +49,14 @@ public class AddProblemController extends IrisController<Problem> {
                 cb.onComplete(result);
             }
         }).execute(submitProblem);
+
+        return true;
+
     }
 
     @Override
     Problem getModel(Bundle data) {
         return null;
     }
+
 }

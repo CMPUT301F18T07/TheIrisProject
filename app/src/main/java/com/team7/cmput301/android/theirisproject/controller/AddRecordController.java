@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
@@ -45,9 +46,14 @@ public class AddRecordController extends IrisController<Record>{
         bodyLocation = new BodyLocation(src, location[0], location[1]);
     }
 
-    public void submitRecord(String title, String desc, Callback cb) {
+    public Boolean submitRecord(String title, String desc, Callback cb) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
         Record submitRecord = new Record(problemId, title, desc, bodyLocation, recordPhotos);
         new AddRecordTask(cb).execute(submitRecord);
+        return true;
+
     }
 
     @Override

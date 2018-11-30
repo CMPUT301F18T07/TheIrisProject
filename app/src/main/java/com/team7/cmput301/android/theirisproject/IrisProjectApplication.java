@@ -53,6 +53,7 @@ public class IrisProjectApplication extends Application {
     // model caches, for fast retrieval
     private static HashMap<String, Record> records = new HashMap<>();
     private static HashMap<String, Problem> problems = new HashMap<>();
+    private static HashMap<String, User> users = new HashMap<>();
 
     // application context
     private static Context appContext;
@@ -196,6 +197,10 @@ public class IrisProjectApplication extends Application {
 
     }
 
+    public static void addUserToCache(User user) {
+        users.put(user.getId(), user);
+    }
+
     public static void addProblemToCache(Problem problem) {
         problems.put(problem.getId(), problem);
     }
@@ -231,6 +236,21 @@ public class IrisProjectApplication extends Application {
         }
 
         return problem;
+
+    }
+
+    public static User getUserById(String id) {
+
+        // try the cache first
+        User user = users.get(id);
+
+        // if nothing found, linear lookup required
+        if (user == null) {
+            // TODO
+            System.out.println("Tried to find " + id);
+        }
+
+        return user;
 
     }
 

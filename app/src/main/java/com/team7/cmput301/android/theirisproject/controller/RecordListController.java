@@ -47,12 +47,14 @@ public class RecordListController extends IrisController<RecordList> {
      */
     public Boolean fillRecords(Callback<RecordList> contCallback){
 
+        // Assume can't get latest Record data from online,
+        // and unconditionally fill activity with local version of Records
         Boolean fullSuccess = false;
+        contCallback.onComplete(records);
 
         switch (IrisProjectApplication.getCurrentUser().getType()) {
 
             case PATIENT:
-                contCallback.onComplete(records);
                 fullSuccess = true;
                 break;
 
@@ -60,14 +62,12 @@ public class RecordListController extends IrisController<RecordList> {
                 if (IrisProjectApplication.isConnectedToInternet()) {
                     fetchRecordsFromOnline(contCallback);
                     fullSuccess = true;
-                } else {
-                    // Show local data
-                    contCallback.onComplete(records);
                 }
                 break;
 
             default:
                 break;
+
         }
 
         return fullSuccess;

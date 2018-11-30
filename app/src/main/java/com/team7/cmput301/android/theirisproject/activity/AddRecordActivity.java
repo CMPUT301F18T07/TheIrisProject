@@ -100,16 +100,19 @@ public class AddRecordActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.submitRecord(
-                        titleField.getText().toString(),
-                        descField.getText().toString(),
-                        submitRecordCallback());
+                Boolean submitted = controller.submitRecord(
+                                        titleField.getText().toString(),
+                                        descField.getText().toString(),
+                                        submitRecordCallback());
+                if (!submitted) {
+                    setErrorMessage(R.string.offline_fatal_error);
+                }
             }
         });
     }
 
-    private void setErrorMessage() {
-        Toast.makeText(AddRecordActivity.this, "Error making Record!", Toast.LENGTH_LONG).show();
+    private void setErrorMessage(int messageResource) {
+        Toast.makeText(AddRecordActivity.this, messageResource, Toast.LENGTH_SHORT).show();
     }
 
     private Callback<String> submitRecordCallback() {
@@ -117,7 +120,7 @@ public class AddRecordActivity extends AppCompatActivity {
             @Override
             public void onComplete(String res) {
                 if (res != null) dispatchRecordActivity(res);
-                else setErrorMessage();
+                else setErrorMessage(R.string.create_record_error);
             }
         };
     }

@@ -64,7 +64,7 @@ public class AddBodyPhotoActivity extends IrisActivity<BodyPhoto> {
                     public void onComplete(BodyPhoto res) { finishWithResult(res); }
                 });
                 if (!success) {
-                    Toast.makeText(AddBodyPhotoActivity.this, R.string.offline_fatal_error, Toast.LENGTH_SHORT).show();
+                    showOfflineFatalToast(AddBodyPhotoActivity.this);
                     finishWithFailure();
                 }
             }

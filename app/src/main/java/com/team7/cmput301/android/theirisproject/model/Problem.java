@@ -73,6 +73,18 @@ public class Problem {
         this._id = _id;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(String date) throws ParseException {
+        this.date = DateHelper.parse(date);
+    }
+
     public void setRecords(RecordList records){
         this.records = records;
     }
@@ -129,11 +141,6 @@ public class Problem {
 
     public List<RecordPhoto> getSlideShowInfo() {
         return null;
-    }
-
-
-    public void setID(String _id) {
-        this._id = _id;
     }
 
     /* Advanced setters */

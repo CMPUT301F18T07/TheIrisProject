@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
-import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -114,7 +114,7 @@ public class LoginActivity extends IrisActivity {
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(LoginActivity.this, targetActivity);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
-        intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
+        intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
 

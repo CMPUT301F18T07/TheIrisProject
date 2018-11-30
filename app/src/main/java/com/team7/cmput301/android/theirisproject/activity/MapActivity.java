@@ -11,6 +11,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.team7.cmput301.android.theirisproject.R;
 
+/**
+ * Shows a map.
+ *
+ * @author VinnyLuu
+ */
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
