@@ -25,7 +25,7 @@ public class Record {
 
     private String desc;
     private String title;
-    private Date date;
+    private Date date = new Date();
     private GeoLocation geoLocation;
     private BodyLocation bodyLocation;
     transient private List<RecordPhoto> recordPhotos = new ArrayList<>();
@@ -64,6 +64,8 @@ public class Record {
     }
 
     /* Basic setter */
+
+    public void setId(String id) { this._id = id; }
 
     public void setTitle(String title){
         this.title = title;

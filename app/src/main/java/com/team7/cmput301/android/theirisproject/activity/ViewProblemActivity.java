@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+
+import java.util.ArrayList;
 
 /**
  * Activity that is used to view the problem selected by the user
@@ -55,6 +58,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_problem);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         problemController = (ProblemController) createController(getIntent());
 
         problemId = getIntent().getStringExtra(Extras.EXTRA_PROBLEM_ID);
@@ -64,6 +69,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemDescription = findViewById(R.id.problem_description);
 
         commentList = findViewById(R.id.problem_comments);
+        inflateCommentList();
 
         commentBox = findViewById(R.id.problem_comment_box);
         commentSubmit = findViewById(R.id.problem_comment_submit_button);
@@ -76,7 +82,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             @Override
             public void onClick(View view) {
                 if (commentBox.getText().length() == 0) setCommentErrorMessage();
-                else problemController.addComment(commentBox.getText().toString(), updateCallback());
+                else problemController.addComment(commentBox.getText().toString(), renderCallback());
                 commentBox.setText("");
             }
         });
@@ -97,12 +103,26 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        render(problemController.getModelProblem());
+
+    }
+
+    // finish activity on back arrow clicked in action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        problemController.getProblem(onCreateCallback());
+        problemController.getProblem(renderCallback());
     }
 
     /**
@@ -117,17 +137,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         return new ProblemController(intent);
     }
 
-    private Callback<Problem> onCreateCallback() {
-        return new Callback<Problem>() {
-            @Override
-            public void onComplete(Problem res) {
-                inflateCommentList();
-                render(res);
-            }
-        };
-    }
-
-    private Callback<Problem> updateCallback() {
+    private Callback<Problem> renderCallback() {
         return new Callback<Problem>() {
             @Override
             public void onComplete(Problem res) {
@@ -145,7 +155,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         LinearLayoutManager commentListLayout = new LinearLayoutManager(ViewProblemActivity.this);
         commentListLayout.setOrientation(LinearLayoutManager.VERTICAL);
         commentList.setLayoutManager(commentListLayout);
-        commentListAdapter = new CommentListAdapter(problemController.getComments());
+        commentListAdapter = new CommentListAdapter(new ArrayList<>());
         commentList.setAdapter(commentListAdapter);
     }
 
@@ -156,14 +166,13 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      * @param state new state of model
      * */
     public void render(Problem state) {
-        Problem newState = state;
         // update primitive fields
-        problemTitle.setText(newState.getTitle());
-        problemDate.setText(newState.getDate());
-        problemDescription.setText(newState.getDescription());
+        problemTitle.setText(state.getTitle());
+        problemDate.setText(state.getDate());
+        problemDescription.setText(state.getDescription());
 
         // update the recyclerviews adapters
-        commentListAdapter.setItems(problemController.getComments());
+        commentListAdapter.setItems(state.getComments());
         commentListAdapter.notifyDataSetChanged();
     }
 

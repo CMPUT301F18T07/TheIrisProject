@@ -20,7 +20,10 @@ import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordController;
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+
+import java.util.ArrayList;
 
 /**
  * ViewRecordActivity used to view a record
@@ -36,6 +39,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     private TextView date;
 
     private RecyclerView recordPhotos;
+    private ImageListAdapter<RecordPhoto> recordPhotoAdapter;
 
     private RecordController controller;
 
@@ -54,9 +58,12 @@ public class ViewRecordActivity extends AppCompatActivity {
         date = findViewById(R.id.record_date);
 
         recordPhotos = findViewById(R.id.record_photos);
-        recordPhotos.setAdapter(new ImageListAdapter(this, controller.getPhotos(), false));
+        recordPhotoAdapter = new ImageListAdapter(this, new ArrayList(), false);
+        recordPhotos.setAdapter(recordPhotoAdapter);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
+
+        render(controller.getRecordModel());
     }
 
     @Override
@@ -74,7 +81,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         title.setText(newState.getTitle());
         desc.setText(newState.getDesc());
         date.setText(newState.getDate().toString());
-        ((ImageListAdapter)recordPhotos.getAdapter()).setItems(newState.getRecordPhotos());
-        recordPhotos.getAdapter().notifyDataSetChanged();
+        recordPhotoAdapter.setItems(newState.getRecordPhotos());
+        recordPhotoAdapter.notifyDataSetChanged();
     }
 }
