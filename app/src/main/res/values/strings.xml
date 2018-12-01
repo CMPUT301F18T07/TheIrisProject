@@ -82,6 +82,7 @@
 
     <!-- View Problem screen strings-->
     <string name="problem_comments_label">Comments</string>
+    <string name="comment_empty_error">Comment Field is Empty!</string>
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>
