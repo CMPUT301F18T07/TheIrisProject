@@ -55,6 +55,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     private Button viewRecordsButton;
     private Button createRecordButton;
+    private Button viewSlideshowButton;
+    private Button editProblemButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
+        viewSlideshowButton = findViewById(R.id.slideshow_button);
+        editProblemButton = findViewById(R.id.edit_problem_button);
 
         // Set onclicklistener to submit comment button
         commentSubmit.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +109,21 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclick listener to view slideshow button
+        viewSlideshowButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dispatchProblemSlideshowActivity(problemId);
+            }
+        });
+
+        // Set onclick listener to view slideshow button
+        editProblemButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dispatchEditProblemActivity(problemId);
+            }
+        });
         render(problemController.getModelProblem());
 
     }
@@ -210,6 +229,28 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
+    }
+
+    /**
+     * dispatchProblemSlideshowActivity starts problem slideshow activity, adding
+     * the problem id to intent for the view of slideshow.
+     * @param id id of the problem
+     */
+    private void dispatchProblemSlideshowActivity(String id) {
+        Intent intent = new Intent(ViewProblemActivity.this, ProblemSlideshowActivity.class);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
+    }
+
+    /**
+     * dispatchEditProblemActivity starts edit problem activity, adding
+     * the problem id to intent for the editing of the problem.
+     * @param id id of the problem
+     */
+    private void dispatchEditProblemActivity(String id) {
+        Intent intent = new Intent(ViewProblemActivity.this, EditProblemActivity.class);
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }

@@ -105,6 +105,10 @@
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" />
+        <activity
+            android:name=".activity.ProblemSlideshowActivity"
+            android:label="@string/title_activity_problem_slideshow"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
