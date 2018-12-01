@@ -17,7 +17,8 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="32sp"
+        android:text="@string/login_username_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,10 +27,15 @@
         android:id="@+id/fragment_contact_email_div"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_contact_name">
+
         <ImageButton
             android:id="@+id/fragment_contact_email_icon"
             android:layout_width="wrap_content"
@@ -50,17 +56,22 @@
         android:id="@+id/fragment_contact_phone_div"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_contact_email_div">
+
         <ImageButton
             android:id="@+id/fragment_contact_phone_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@mipmap/phone_button"
             tools:layout_editor_absoluteY="137dp" />
 
