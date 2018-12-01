@@ -40,7 +40,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private ListView problemsView;
     private FloatingActionButton addProblemButton;
     private FloatingActionButton bodyPhotoButton;
-    private Boolean doEditProblem = false;
 
     private Toolbar toolbar;
 
@@ -61,21 +60,13 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Problem problem = (Problem) problemsView.getItemAtPosition(i);
-                if (doEditProblem) {
-                    // Edit the problem
-                    Intent intent = new Intent(ProblemListActivity.this, EditProblemActivity.class);
-                    intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
-                    startActivity(intent);
-                }
-                else {
-                    // View the problem
-                    Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
-                    intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
-                    startActivity(intent);
-                }
-
+                // View the problem
+                Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
+                intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
+                startActivity(intent);
             }
         });
+
         // Set onitemlongclicklistener to listview of problems
         problemsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             // Delete problem being held on
@@ -89,40 +80,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             }
         });
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_problem_list, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.problem_list_action_edit:
-                // Set flag so that when user taps on problem, will take user to edit page
-                if (doEditProblem){
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
-                    doEditProblem = false;
-                }
-                else {
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
-                    doEditProblem = true;
-                }
-                break;
-            case R.id.patient_list_action_view_profile:
-                // View a profile
-                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
-                Intent intent = new Intent(this, ViewProfileActivity.class);
-
-                startActivity(intent);
-                break;
-            default:
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
