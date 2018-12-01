@@ -60,6 +60,7 @@ public class IrisProjectApplication extends Application {
 
     // application context
     private static Context appContext;
+
     /**
      * getDB is a function to retrieve the online database
      * if the db variable is currently null we will initialize a
