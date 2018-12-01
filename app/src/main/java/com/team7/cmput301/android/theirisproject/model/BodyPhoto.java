@@ -25,6 +25,7 @@ import java.util.Date;
  * @author itstc
  * */
 public class BodyPhoto extends Photo implements Parcelable {
+    public static final String FILE_FORMAT = "bp_%s_%s";
 
     @JestId
     private String _id;
@@ -71,6 +72,8 @@ public class BodyPhoto extends Photo implements Parcelable {
     public Bitmap getPhoto() {
         return photo;
     }
+
+    public String getBlob() { return blob; }
 
     public Date getDate() { return date; }
 

@@ -36,7 +36,9 @@ public class LoginActivity extends IrisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        IrisProjectApplication.setApplicationContext(getApplicationContext());
         controller = createController(getIntent());
+        IrisProjectApplication.initBulkUpdater();
 
         // initialize android views from xml
         loginButton = findViewById(R.id.login_button);
@@ -81,11 +83,12 @@ public class LoginActivity extends IrisActivity {
     }
 
     /**
-     * Get all the logged in User's associated data, then start a specified activity for them
+     * Push the update queue backups to online, get all the logged in User's associated data,
+     * then start a specified activity for them.
      */
     private void buildUserSession() {
 
-        Callback callback = new Callback() {
+        Callback callbackToStart = new Callback() {
             @Override
             public void onComplete(Object res) {
                 Class activity = controller.getStartingActivity();
@@ -93,7 +96,14 @@ public class LoginActivity extends IrisActivity {
             }
         };
 
-        controller.fetchAllUserData(callback);
+        Callback<Boolean> callbackToFetch = new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean res) {
+                controller.fetchAllUserData(callbackToStart);
+            }
+        };
+
+        IrisProjectApplication.flushUpdateQueueBackups(callbackToFetch);
 
     }
 

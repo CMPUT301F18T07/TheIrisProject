@@ -4,13 +4,15 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import java.io.Serializable;
+
 /**
  * A specific location on Earth, belonging to a Record.
  *
  * @see Record
  * @author jtfwong
  */
-public class GeoLocation {
+public class GeoLocation implements Serializable{
 
     private Double latitude;
     private Double longitude;
@@ -22,17 +24,18 @@ public class GeoLocation {
         this.longitude = longitude;
     }
 
-    /* Advanced setters */
+    /* Setters */
 
-    public void update(double lat, double lng) {
-        this.latitude = lat;
-        this.longitude = lng;
+    public void setPosition(double lat, double lng) {
+        latitude = lat;
+        longitude = lng;
     }
 
     /* Misc */
 
     public double[] asDouble() {
-        return new double[0];
+        double res[] = {latitude, longitude};
+        return res;
     }
-
+  
 }

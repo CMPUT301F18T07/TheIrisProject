@@ -65,9 +65,7 @@ public class AddPatientDialogFragment extends DialogFragment {
                                 listener.onFinishAddPatient(success);
                             }
                         };
-                        controller.addPatient(addPatientEditText.getText().toString(),
-                                (CareProvider) IrisProjectApplication.getCurrentUser(),
-                                callback);
+                        controller.addPatient(addPatientEditText.getText().toString(), callback);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
