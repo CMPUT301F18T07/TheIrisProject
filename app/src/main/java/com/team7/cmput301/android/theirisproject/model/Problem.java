@@ -38,15 +38,8 @@ public class Problem {
     private String description;
     transient private RecordList records = new RecordList();
     transient private List<Comment> comments = new ArrayList<>();
-    transient private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
     /* Constructors */
-
-    public Problem(String title, String description, String user, List<BodyPhoto> bodyPhotos) {
-        this(title, description, user);
-        this.bodyPhotos = bodyPhotos;
-        this.date = new Date();
-    }
 
     public Problem(String title, String description, String user) {
         this.title = title;
@@ -73,13 +66,23 @@ public class Problem {
         this._id = _id;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(String date) throws ParseException {
+        this.date = DateHelper.parse(date);
+    }
+
     public void addRecord(Record record) { this.records.add(record); }
 
     public void setRecords(RecordList records){
         this.records = records;
     }
-
-    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {this.bodyPhotos = bodyPhotos;}
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
@@ -87,10 +90,6 @@ public class Problem {
 
     public void addComment(Comment comment) {
         comments.add(comment);
-    }
-
-    public void addBodyPhoto(BodyPhoto bodyPhoto) {
-        bodyPhotos.add(bodyPhoto);
     }
 
     /* Basic getters */
@@ -123,19 +122,10 @@ public class Problem {
 
     public String getUser() {return user;}
 
-    public List<BodyPhoto> getBodyPhotos() {
-        return bodyPhotos;
-    }
-
     /* Advanced getters */
 
     public List<RecordPhoto> getSlideShowInfo() {
         return null;
-    }
-
-
-    public void setID(String _id) {
-        this._id = _id;
     }
 
     /* Advanced setters */

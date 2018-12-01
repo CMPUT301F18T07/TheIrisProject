@@ -15,10 +15,10 @@ import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
-import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.task.BulkUpdateTask;
@@ -57,9 +57,17 @@ public class IrisProjectApplication extends Application {
     // model caches, for fast retrieval
     private static HashMap<String, Record> records = new HashMap<>();
     private static HashMap<String, Problem> problems = new HashMap<>();
+    private static HashMap<String, User> users = new HashMap<>();
 
     // application context
     private static Context appContext;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        IrisProjectApplication.appContext = getApplicationContext();
+        IrisProjectApplication.initBulkUpdater();
+    }
 
     /**
      * getDB is a function to retrieve the online database
@@ -88,18 +96,16 @@ public class IrisProjectApplication extends Application {
         currentUser = user;
     }
 
-    public static void setApplicationContext(Context context) {
-        appContext = context;
-    }
     public static Context getAppContext() { return appContext; }
+
     /**
      * Determines if currently connected to internet.
      * https://stackoverflow.com/a/32771164
      * @return True if connected, false if not
      */
-    public static Boolean isConnectedToInternet(Context context) {
+    public static Boolean isConnectedToInternet() {
 
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork;
         if (cm != null) {
             activeNetwork = cm.getActiveNetworkInfo();
@@ -128,7 +134,7 @@ public class IrisProjectApplication extends Application {
                 }
             };
 
-            updater = new BulkUpdateTask(appContext, cb);
+            updater = new BulkUpdateTask(cb);
 
         }
 
@@ -174,7 +180,7 @@ public class IrisProjectApplication extends Application {
      */
     public static void flushUpdateQueueBackups(Callback<Boolean> callback) {
 
-        BulkUpdateTask updater = new BulkUpdateTask(appContext, callback);
+        BulkUpdateTask updater = new BulkUpdateTask(callback);
         LocalStorageHandler fileHandler = new LocalStorageHandler();
 
         // Bulk update with backups
@@ -197,6 +203,10 @@ public class IrisProjectApplication extends Application {
 
     }
 
+    public static void addUserToCache(User user) {
+        users.put(user.getId(), user);
+    }
+
     public static void addProblemToCache(Problem problem) {
         problems.put(problem.getId(), problem);
     }
@@ -212,8 +222,19 @@ public class IrisProjectApplication extends Application {
 
         // if nothing found, linear lookup required
         if (record == null) {
-            // TODO
-            System.out.println("Tried to find " + id);
+
+            List<Patient> patients = getSessionPatients();
+
+            for (Patient patient : patients) {
+                for (Problem problem : patient.getProblems()) {
+                    for (Record r : problem.getRecords()) {
+                        if (r.getId().equals(id)) {
+                            return r;
+                        }
+                    }
+                }
+            }
+
         }
 
         return record;
@@ -227,12 +248,53 @@ public class IrisProjectApplication extends Application {
 
         // if nothing found, linear lookup required
         if (problem == null) {
-            // TODO
-            System.out.println("Tried to find " + id);
+
+            List<Patient> patients = getSessionPatients();
+
+            for (Patient patient : patients) {
+                for (Problem p : patient.getProblems()) {
+                    if (p.getId().equals(id)) {
+                        return p;
+                    }
+                }
+            }
+
         }
 
         return problem;
 
+    }
+
+    public static User getUserById(String id) {
+
+        // try the cache first
+        User user = users.get(id);
+
+        // if nothing found, linear lookup required
+        if (user == null) {
+
+            if (currentUser.getId().equals(id)) {
+                return currentUser;
+            }
+
+            for (Patient p : getSessionPatients()) {
+                if (p.getId().equals(id)) {
+                    return p;
+                }
+            }
+
+        }
+
+        return user;
+
+    }
+
+    public static String getUserIdByProblemId(String problemId) {
+        return getProblemById(problemId).getUser();
+    }
+
+    public static void bindRecord(Record record) {
+        getProblemById(record.getProblemId()).addRecord(record);
     }
 
     /**
@@ -259,6 +321,25 @@ public class IrisProjectApplication extends Application {
             System.err.println("Connection unstable while trying to upload updates; trying to connect again.");
             updater.execute(problemUpdateQueue, recordUpdateQueue);
         }
+    }
+
+    private static List<Patient> getSessionPatients() {
+
+        List<Patient> patients = new ArrayList<>();
+
+        switch (currentUser.getType()){
+            case CARE_PROVIDER:
+                patients = ((CareProvider) currentUser).getPatients();
+                break;
+            case PATIENT:
+                patients.add((Patient) currentUser);
+                break;
+            default:
+                break;
+        }
+
+        return patients;
+
     }
 
 }

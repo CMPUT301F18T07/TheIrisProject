@@ -25,8 +25,14 @@ public class AddBodyPhotoController extends IrisController<Bitmap> {
         else userId = intentId;
     }
 
-    public void submitBodyPhoto(String label, Callback cb) {
-        if (model != null) new AddBodyPhotoTask(cb).execute(new BodyPhoto(userId, model, label));
+    public Boolean submitBodyPhoto(String label, Callback cb) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
+        if (model != null)
+            new AddBodyPhotoTask(cb).execute(new BodyPhoto(userId, model, label));
+        return true;
+
     }
 
     public Bitmap getBodyPhoto() {

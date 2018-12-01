@@ -100,8 +100,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             @Override
             public void onClick(View view) {
                 if (commentBox.getText().length() == 0) setCommentErrorMessage();
-                else problemController.addComment(commentBox.getText().toString(), commentsCallback());
-                commentBox.setText("");
+                else {
+                    Boolean success = problemController.addComment(commentBox.getText().toString(), commentsCallback());
+                    if (success) commentBox.setText("");
+                    else showOfflineFatalToast(ViewProblemActivity.this);
+                }
+
             }
         });
 
@@ -174,7 +178,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      * Printing error message on current activity
      */
     private void setCommentErrorMessage() {
-        Toast.makeText(ViewProblemActivity.this, "Comment Field is Empty!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewProblemActivity.this, R.string.comment_empty_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

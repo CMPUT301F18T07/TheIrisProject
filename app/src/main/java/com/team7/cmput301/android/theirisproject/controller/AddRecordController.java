@@ -18,6 +18,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * AddRecordController handles the models within the
@@ -28,6 +29,7 @@ import java.util.List;
  * @author itstc
  * */
 public class AddRecordController extends IrisController<Record> {
+
     private String problemId;
     private BodyLocation bodyLocation;
     private List<RecordPhoto> recordPhotos;
@@ -41,6 +43,10 @@ public class AddRecordController extends IrisController<Record> {
         model = this.getModel(intent.getExtras());
     }
 
+    public String getUserId() {
+        return IrisProjectApplication.getUserIdByProblemId(problemId);
+    }
+
     public List<RecordPhoto> getRecordPhotos() {return recordPhotos;}
 
     public void addRecordPhoto(Bitmap photo) {
@@ -51,19 +57,33 @@ public class AddRecordController extends IrisController<Record> {
         bodyLocation = new BodyLocation(src, location[0], location[1]);
     }
 
-    public void submitRecord(String title, String desc, Callback cb) {
-        Record submitRecord = new Record(problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
-        new AddRecordTask(new Callback<String>() {
-            @Override
-            public void onComplete(String res) {
-                // add result to singleton
-                submitRecord.setId(res);
-                IrisProjectApplication.addRecordToCache(submitRecord);
-                IrisProjectApplication.getProblemById(submitRecord.getProblemId()).addRecord(submitRecord);
-                cb.onComplete(res);
+    public Boolean submitRecord(String title, String desc, Callback cb) {
 
-            }
-        }).execute(submitRecord);
+        Record submitRecord = new Record(problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
+        IrisProjectApplication.addRecordToCache(submitRecord);
+        IrisProjectApplication.bindRecord(submitRecord);
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+
+            new AddRecordTask(new Callback<String>() {
+                @Override
+                public void onComplete(String res) {
+                    submitRecord.setId(res);
+                    cb.onComplete(res);
+                }
+            }).execute(submitRecord);
+            return true;
+
+        } else {
+
+            // Records not initialized with JestID, and isn't generated
+            // unless added to elasticsearch, so manually make one
+            submitRecord.setId(UUID.randomUUID().toString());
+
+            IrisProjectApplication.putInUpdateQueue(submitRecord);
+            return false;
+
+        }
 
     }
 

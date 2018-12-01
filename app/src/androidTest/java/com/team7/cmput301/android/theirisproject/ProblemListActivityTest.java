@@ -65,7 +65,7 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        problem.setID(probID);
+        problem.setId(probID);
 
         new AddProblemTask(new Callback<String>() {
             @Override

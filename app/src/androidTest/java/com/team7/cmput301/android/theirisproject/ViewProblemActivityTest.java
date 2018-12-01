@@ -61,7 +61,7 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
     protected void setUp() {
         Problem problem = new Problem(title, description, userid, body_photos);
         problem.setRecords(records);
-        problem.setID(_id);
+        problem.setId(_id);
 
         Intent intent = new Intent();
         intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, _id);

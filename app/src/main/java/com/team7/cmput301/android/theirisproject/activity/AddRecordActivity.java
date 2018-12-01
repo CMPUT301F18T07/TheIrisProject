@@ -26,6 +26,8 @@ import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddRecordController;
+import com.team7.cmput301.android.theirisproject.controller.IrisController;
+import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -34,7 +36,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  *
  * @author jtfwong
  * */
-public class AddRecordActivity extends AppCompatActivity {
+public class AddRecordActivity extends IrisActivity<Record> {
     private static final int REQUEST_CAMERA_IMAGE = 1;
     private static final int REQUEST_MAP_LOCATION = 2;
     private static final int REQUEST_BODY_LOCATION = 3;
@@ -60,7 +62,7 @@ public class AddRecordActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        controller = new AddRecordController(getIntent());
+        controller = createController(getIntent());
 
         titleField = findViewById(R.id.record_title_edit_text);
         descField = findViewById(R.id.record_description_edit_text);
@@ -99,16 +101,19 @@ public class AddRecordActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.submitRecord(
-                        titleField.getText().toString(),
-                        descField.getText().toString(),
-                        submitRecordCallback());
+                Boolean submitted = controller.submitRecord(
+                                        titleField.getText().toString(),
+                                        descField.getText().toString(),
+                                        submitRecordCallback());
+                if (!submitted) {
+                    showOfflineUploadToast(AddRecordActivity.this);
+                }
             }
         });
     }
 
-    private void setErrorMessage() {
-        Toast.makeText(AddRecordActivity.this, "Error making Record!", Toast.LENGTH_LONG).show();
+    private void setErrorMessage(int messageResource) {
+        Toast.makeText(AddRecordActivity.this, messageResource, Toast.LENGTH_SHORT).show();
     }
 
     private Callback<String> submitRecordCallback() {
@@ -116,7 +121,7 @@ public class AddRecordActivity extends AppCompatActivity {
             @Override
             public void onComplete(String res) {
                 if (res != null) dispatchRecordActivity(res);
-                else setErrorMessage();
+                else setErrorMessage(R.string.create_record_error);
             }
         };
     }
@@ -144,7 +149,7 @@ public class AddRecordActivity extends AppCompatActivity {
     private void dispatchBodyLocationForm() {
         Intent intent = new Intent(AddRecordActivity.this, BodyPhotoListActivity.class);
         intent.putExtra(Extras.EXTRA_BODYPHOTO_FORM, true);
-        intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, IrisProjectApplication.getCurrentUser().getId());
+        intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, controller.getUserId());
         startActivityForResult(intent, REQUEST_BODY_LOCATION);
     }
 
@@ -174,6 +179,11 @@ public class AddRecordActivity extends AppCompatActivity {
         //TODO: If previously set a marker, get last geolocation and make starting position to that
         Intent intent = new Intent(AddRecordActivity.this, MapActivity.class);
         startActivityForResult(intent, REQUEST_MAP_LOCATION);
+    }
+
+    @Override
+    protected AddRecordController createController(Intent intent) {
+        return new AddRecordController(intent);
     }
 
 }
