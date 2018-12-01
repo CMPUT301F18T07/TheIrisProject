@@ -34,7 +34,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_email_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/add_bodyphoto_image" />
 
     <Button
         android:id="@+id/add_bodyphoto_submit"
@@ -58,6 +58,6 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_bodyphoto_image" />
+        app:layout_constraintTop_toBottomOf="@+id/add_bodyphoto_label" />
 
 </android.support.constraint.ConstraintLayout>
