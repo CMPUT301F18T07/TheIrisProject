@@ -9,12 +9,13 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetPatientListTask;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +24,18 @@ import java.util.List;
  * @author Jmmxp
  */
 public class PatientListController extends IrisController<List<Patient>> {
-    private String userID;
+
+    private String userID = IrisProjectApplication.getCurrentUser().getId();
 
     public PatientListController(Intent intent) {
         super(intent);
         this.model = getModel(intent.getExtras());
-        this.userID = intent.getExtras().getString("user");
     }
 
-    public void getPatientsFromDB(Callback<List<Patient>> callback) {
+    public Boolean getPatientsFromDB(Callback<List<Patient>> callback) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
         GetPatientListTask task = new GetPatientListTask(new Callback<List<Patient>>() {
             @Override
             public void onComplete(List<Patient> res) {
@@ -39,7 +43,10 @@ public class PatientListController extends IrisController<List<Patient>> {
                 callback.onComplete(res);
             }
         });
-        task.execute(IrisProjectApplication.getCurrentUser().getId());
+        task.execute(userID);
+
+        return true;
+
     }
 
     public List<Patient> getPatients() {
@@ -48,6 +55,7 @@ public class PatientListController extends IrisController<List<Patient>> {
 
     @Override
     List<Patient> getModel(Bundle data) {
-        return new ArrayList<>();
+        return ((CareProvider) IrisProjectApplication.getCurrentUser()).getPatients();
     }
+
 }

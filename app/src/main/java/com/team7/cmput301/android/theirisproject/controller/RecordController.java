@@ -29,8 +29,7 @@ public class RecordController extends IrisController<Record> {
 
     public RecordController(Intent intent) {
         super(intent);
-        recordId = intent.getStringExtra(Extras.EXTRA_RECORD_ID);
-        model = new Record();
+        model = getModel(intent.getExtras());
     }
 
     public Record getRecordModel() {
@@ -41,24 +40,37 @@ public class RecordController extends IrisController<Record> {
      * getRecordData executes GetRecordTask and updates
      * the model in controller and also invoking the callback
      * given from activity
-     * @param cb
+     * @param cb Callback that defines what the calling activity wants to do
      * */
-    public void getRecordData(Callback cb) {
-        new GetRecordTask(new Callback<Record>() {
-            @Override
-            public void onComplete(Record res) {
-                model.asyncSetFields(res);
-                cb.onComplete(model);
-            }
-        }).execute(recordId);
+    public Boolean getRecordData(Callback cb) {
 
-        new GetRecordPhotoTask(new Callback<List<RecordPhoto>>() {
-            @Override
-            public void onComplete(List<RecordPhoto> res) {
-                model.asyncSetRecordPhotos(res);
-                cb.onComplete(model);
-            }
-        }).execute(recordId);
+        // get local version
+        cb.onComplete(model);
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+
+            new GetRecordTask(new Callback<Record>() {
+                @Override
+                public void onComplete(Record res) {
+                    model.asyncSetFields(res);
+                    cb.onComplete(model);
+                }
+            }).execute(recordId);
+
+            new GetRecordPhotoTask(new Callback<List<RecordPhoto>>() {
+                @Override
+                public void onComplete(List<RecordPhoto> res) {
+                    model.asyncSetRecordPhotos(res);
+                    cb.onComplete(model);
+                }
+            }).execute(recordId);
+
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
     public String getRecordId() {
@@ -69,6 +81,7 @@ public class RecordController extends IrisController<Record> {
 
     @Override
     Record getModel(Bundle data) {
+        recordId = data.getString(Extras.EXTRA_RECORD_ID);
         Record cachedRecord = IrisProjectApplication.getRecordById(recordId);
         if (cachedRecord != null) return cachedRecord;
         return new Record();

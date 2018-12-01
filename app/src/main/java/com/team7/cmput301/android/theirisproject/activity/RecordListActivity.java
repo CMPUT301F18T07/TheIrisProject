@@ -90,10 +90,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
                 render(result);
             }
         };
-        Boolean fullSuccess = controller.fillRecords(getApplicationContext(), contCallback);
-        if (!fullSuccess) {
-            Toast.makeText(RecordListActivity.this, R.string.offline_fetch_error, Toast.LENGTH_SHORT).show();
-        }
+        controller.fillRecords(contCallback);
     }
 
     /**

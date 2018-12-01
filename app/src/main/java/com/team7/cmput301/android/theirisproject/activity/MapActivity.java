@@ -34,7 +34,6 @@ import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 
-
 import java.util.ArrayList;
 import java.util.Locale;
 

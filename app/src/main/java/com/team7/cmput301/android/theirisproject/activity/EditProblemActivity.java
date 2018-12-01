@@ -70,7 +70,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
                         Toast.makeText(EditProblemActivity.this, R.string.register_incomplete, Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    editProblemController.submitProblem(
+                    Boolean submitted = editProblemController.submitProblem(
                             problemTitle.getText().toString(),
                             problemDescription.getText().toString(),
                             String.valueOf(problemDate.getText()),
@@ -78,11 +78,18 @@ public class EditProblemActivity extends IrisActivity<Problem> {
                                 @Override
                                 public void onComplete(String id) {
                                     if (id != null) dispatchToProblemActivity(id);
-                                    else Toast.makeText(EditProblemActivity.this, "Uh oh something went wrong", Toast.LENGTH_LONG).show();
+                                    else {
+                                        Toast.makeText(EditProblemActivity.this,
+                                                R.string.edit_problem_failure,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
+                    if (!submitted) {
+                        showOfflineUploadToast(EditProblemActivity.this);
+                    }
                 } catch (ParseException e) {
-                    Toast.makeText(EditProblemActivity.this, R.string.incorrect_date, Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditProblemActivity.this, R.string.incorrect_date, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -113,7 +120,7 @@ public class EditProblemActivity extends IrisActivity<Problem> {
         // end Activity returning to ProblemListActivity
         Intent intent = new Intent(EditProblemActivity.this, ViewProblemActivity.class);
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
-        Toast.makeText(EditProblemActivity.this, R.string.successful_edit, Toast.LENGTH_LONG).show();
+        Toast.makeText(EditProblemActivity.this, R.string.successful_edit, Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();
     }

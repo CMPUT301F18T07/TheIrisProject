@@ -104,17 +104,17 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             case R.id.problem_list_action_edit:
                 // Set flag so that when user taps on problem, will take user to edit page
                 if (doEditProblem){
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
+                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_SHORT);
                     doEditProblem = false;
                 }
                 else {
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
+                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_SHORT);
                     doEditProblem = true;
                 }
                 break;
             case R.id.patient_list_action_view_profile:
                 // View a profile
-                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_SHORT);
                 Intent intent = new Intent(this, ViewProfileActivity.class);
 
                 startActivity(intent);
@@ -159,10 +159,10 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         if (requestCode == DELETE_PROBLEM_RESPONSE) {
             // On return from DeleteProblemActivity, check the result of the activity for status of deletion
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_SHORT);
             }
             else if (resultCode == RESULT_OK) {
-                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_SHORT);
                 controller.getUserProblems(new Callback<ProblemList>() {
                     @Override
                     public void onComplete(ProblemList res) {
@@ -171,7 +171,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 });
             }
             else {
-                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_SHORT);
             }
         }
     }
@@ -195,6 +195,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProblemListActivity.this, BodyPhotoListActivity.class);
+                intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, controller.getUserId());
                 startActivity(intent);
             }
         });
