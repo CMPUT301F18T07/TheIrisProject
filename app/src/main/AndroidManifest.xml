@@ -109,7 +109,7 @@
         <activity
             android:name=".activity.ProblemSlideshowActivity"
             android:label="@string/title_activity_problem_slideshow"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
