@@ -15,6 +15,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * AddRecordController handles the models within the
@@ -72,7 +73,7 @@ public class AddRecordController extends IrisController<Record>{
 
             // Records not initialized with JestID, and isn't generated
             // unless added to elasticsearch, so manually make one
-            submitRecord.setId(submitRecord.getDate().toString().replaceAll(" ", "_"));
+            submitRecord.setId(UUID.randomUUID().toString());
 
             IrisProjectApplication.putInUpdateQueue(submitRecord);
             return false;

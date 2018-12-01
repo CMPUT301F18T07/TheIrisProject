@@ -14,6 +14,8 @@ import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 
+import java.util.UUID;
+
 /**
  * AddProblemController has methods to allow our AddProblemActivity
  * to interact with the database by POST requesting new problems to it
@@ -58,7 +60,7 @@ public class AddProblemController extends IrisController<Problem> {
 
             // Problems not initialized with JestID, and isn't generated
             // unless added to elasticsearch, so manually make one
-            submitProblem.setId(submitProblem.getDate());
+            submitProblem.setId(UUID.randomUUID().toString());
 
             IrisProjectApplication.putInUpdateQueue(submitProblem);
             return false;
