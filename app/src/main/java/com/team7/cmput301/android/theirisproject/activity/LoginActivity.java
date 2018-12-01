@@ -27,7 +27,6 @@ public class LoginActivity extends IrisActivity {
 
     private LoginController controller;
     private TextView email;
-    private TextView password;
     private Button loginButton;
     private TextView registerTextView;
 
@@ -44,7 +43,6 @@ public class LoginActivity extends IrisActivity {
         loginButton = findViewById(R.id.login_button);
         registerTextView = findViewById(R.id.login_register_button);
         email = findViewById(R.id.login_email_field);
-        password = findViewById(R.id.login_password_field);
 
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +61,7 @@ public class LoginActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // Create login request, and start new activity if id is found
-                controller.loginUser(email.getText().toString(), password.getText().toString(), new Callback<Boolean>() {
+                controller.loginUser(email.getText().toString(), new Callback<Boolean>() {
                     @Override
                     public void onComplete(Boolean success) {
                         // Start activity if login is successful, else stay on login activity

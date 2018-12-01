@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">Iris</string>
+    <string name="shared_preferences_file">preferences.xml</string>
 
     <!--Terminology strings-->
     <string name="patient">Patient</string>
@@ -8,11 +9,11 @@
 
     <!--Main screen strings-->
     <string name="main_title">Iris</string>
-    <string name="login_button">Login</string>
+    <string name="transfer_button">Transfer</string>
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_username_hint">Enter your username</string>
+    <string name="login_transfer_hint">Enter your transfer code</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
     <string name="login_failure">Incorrect login!</string>
@@ -107,11 +108,12 @@
     <string name="edit_profile_failure">Please fill out all fields!</string>
 
     <!-- View Profile screen strings-->
-    <string name="view_profile_name">Name</string>
+    <string name="view_profile_username">Username</string>
     <string name="view_profile_title">Profile</string>
     <string name="view_profile_email">Email</string>
     <string name="view_profile_phone">Phone</string>
     <string name="view_profile_edit_profile_button">Edit Profile</string>
+    <string name="view_profile_generate_code_button">Generate Transfer Code</string>
     <string name="view_profile_users">Users:</string>
     <string name="view_profile_patients">Patients:</string>
     <string name="view_profile_care_providers">Care Providers:</string>

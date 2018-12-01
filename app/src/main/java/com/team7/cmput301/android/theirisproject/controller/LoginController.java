@@ -38,10 +38,9 @@ public class LoginController extends IrisController<User> {
      * when we receive a response with a result boolean success or not
      *
      * @param email User email
-     * @param password User password
      * @param cb Callback method
      * */
-    public void loginUser(String email, String password, Callback cb) {
+    public void loginUser(String email, Callback cb) {
         new LoginTask(cb).execute(email);
     }
 

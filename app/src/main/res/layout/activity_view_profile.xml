@@ -11,58 +11,91 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/view_profile_phone_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/view_profile_phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_name_text_view" />
-
-    <TextView
-        android:id="@+id/view_profile_name_text_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/view_profile_name_label"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/view_profile_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginEnd="24dp"
+        android:text="@string/view_profile_username"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_profile_name_text_view"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/view_profile_email_text_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/view_profile_phone_label"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/view_profile_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/view_profile_phone"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_profile_phone_text_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_phone_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_name_label" />
+
+    <TextView
+        android:id="@+id/view_profile_email_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/view_profile_email"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_profile_email_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_phone_label" />
+
+    <TextView
+        android:id="@+id/view_profile_phone_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="200dp"
+        android:text="@string/view_profile_phone"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/view_profile_phone_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_profile_phone_label" />
+
+    <TextView
+        android:id="@+id/view_profile_name_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="200dp"
+        android:text="@string/view_profile_username"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/view_profile_name_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_profile_name_label" />
+
+    <TextView
+        android:id="@+id/view_profile_email_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="200dp"
+        android:text="@string/view_profile_email"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/view_profile_email_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view_profile_email_label" />
 
     <TextView
         android:id="@+id/view_profile_users_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:text="@string/view_profile_users"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_email_text_view"
-        android:text="@string/view_profile_users"
-        android:textStyle="bold"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_email_text_view" />
 
     <ListView
         android:id="@+id/view_profile_users_list_view"
@@ -86,6 +119,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/view_profile_generate_code_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/view_profile_generate_code_button"
+        app:layout_constraintBottom_toTopOf="@+id/view_profile_edit_profile_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
