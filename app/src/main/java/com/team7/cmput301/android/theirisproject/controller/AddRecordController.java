@@ -62,17 +62,21 @@ public class AddRecordController extends IrisController<Record>{
             new AddRecordTask(new Callback<String>() {
                 @Override
                 public void onComplete(String res) {
-
                     submitRecord.setId(res);
                     cb.onComplete(res);
-
                 }
             }).execute(submitRecord);
             return true;
 
         } else {
+
+            // Records not initialized with JestID, and isn't generated
+            // unless added to elasticsearch, so manually make one
+            submitRecord.setId(submitRecord.getDate().toString().replaceAll(" ", "_"));
+
             IrisProjectApplication.putInUpdateQueue(submitRecord);
             return false;
+
         }
 
     }

@@ -39,7 +39,7 @@ public class AddProblemController extends IrisController<Problem> {
      * */
     public Boolean submitProblem(String title, String desc, Callback<String> cb) {
 
-        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
+        Problem submitProblem = new Problem(title, desc, userId);
         IrisProjectApplication.addProblemToCache(submitProblem);
 
         if (IrisProjectApplication.isConnectedToInternet()) {
@@ -55,8 +55,14 @@ public class AddProblemController extends IrisController<Problem> {
             return true;
 
         } else {
+
+            // Problems not initialized with JestID, and isn't generated
+            // unless added to elasticsearch, so manually make one
+            submitProblem.setId(submitProblem.getDate());
+
             IrisProjectApplication.putInUpdateQueue(submitProblem);
             return false;
+
         }
 
     }
