@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
@@ -28,11 +29,13 @@ public class AddRecordController extends IrisController<Record>{
     private String problemId;
     private BodyLocation bodyLocation;
     private List<RecordPhoto> recordPhotos;
+    private GeoLocation geoLocation;
 
     public AddRecordController(Intent intent) {
         super(intent);
         problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
         recordPhotos = new ArrayList<>();
+        geoLocation = new GeoLocation(0.0,0.0);
         model = this.getModel(intent.getExtras());
     }
 
@@ -47,7 +50,7 @@ public class AddRecordController extends IrisController<Record>{
     }
 
     public void submitRecord(String title, String desc, Callback cb) {
-        Record submitRecord = new Record(problemId, title, desc, bodyLocation, recordPhotos);
+        Record submitRecord = new Record(problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
         new AddRecordTask(new Callback<String>() {
             @Override
             public void onComplete(String res) {
@@ -59,10 +62,15 @@ public class AddRecordController extends IrisController<Record>{
 
             }
         }).execute(submitRecord);
+
     }
 
     @Override
     Record getModel(Bundle data) {
         return new Record();
+    }
+
+    public void addLocation(double[] location) {
+        geoLocation.setPosition(location[0], location[1]);
     }
 }

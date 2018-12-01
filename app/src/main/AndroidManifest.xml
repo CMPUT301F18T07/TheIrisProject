@@ -105,6 +105,7 @@
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" />
+
     </application>
 
 </manifest>
