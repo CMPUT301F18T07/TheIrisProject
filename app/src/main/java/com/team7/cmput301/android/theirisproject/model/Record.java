@@ -52,12 +52,26 @@ public class Record {
         this.bodyLocation = bodyLocation;
         this.recordPhotos = recordPhotos;
     }
+  
+    public Record(String problemId, String title, String desc, GeoLocation geoPt, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
+        this(problemId, title, desc, bodyLocation, recordPhotos);
+        this.geoLocation = geoPt;
+    }
 
     public Record(String problemId, String title, String desc) {
         this.problemId = problemId;
         this.title = title;
         this.desc = desc;
         this.date = new Date();
+    }
+
+    public Record(String problemId, String title, String desc, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this.problemId = problemId;
+        this.title = title;
+        this.desc = desc;
+        this.date = new Date();
+        this.geoLocation = geoPt;
+        this.recordPhotos = recordPhotos;
     }
 
     public Record() {
@@ -130,10 +144,12 @@ public class Record {
     }
 
     public synchronized void asyncSetFields(Record record) {
-        this.problemId = record.getProblemId();
-        this.title = record.getTitle();
-        this.desc = record.getDesc();
-        this.date = record.getDate();
+        this._id = record._id;
+        this.problemId = record.problemId;
+        this.title = record.title;
+        this.desc = record.desc;
+        this.date = record.date;
+        this.geoLocation = record.getGeoLocation();
     }
 
     public synchronized void asyncSetRecordPhotos(List<RecordPhoto> recordPhotos) {

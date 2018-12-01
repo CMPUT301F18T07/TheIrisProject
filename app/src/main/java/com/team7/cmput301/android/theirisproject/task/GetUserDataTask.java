@@ -20,7 +20,6 @@ import com.team7.cmput301.android.theirisproject.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.searchbox.core.Search;
@@ -56,10 +55,12 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
     protected Void doInBackground(User... users) {
 
         User user = users[0];
+        IrisProjectApplication.addUserToCache(user);
 
         switch (user.getType()) {
             case PATIENT:
                 getAndBindProblems((Patient) user);
+                getAndBindBodyPhotos((Patient) user);
                 getAndBindCareProviders((Patient) user);
                 break;
             case CARE_PROVIDER:
@@ -97,7 +98,9 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
         careProvider.setPatients(patients);
 
         for (Patient patient: patients) {
+            IrisProjectApplication.addUserToCache(patient);
             getAndBindProblems(patient);
+            getAndBindBodyPhotos(patient);
         }
 
     }
@@ -141,7 +144,6 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             for (Problem problem : problems) {
                 IrisProjectApplication.addProblemToCache(problem);
                 getAndBindComments(problem);
-                getAndBindBodyPhotos(problem);
                 getAndBindRecords(problem);
             }
 
@@ -178,21 +180,29 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             List<RecordPhoto> recordPhotos = res.getSourceAsObjectList(RecordPhoto.class, true);
             record.setRecordPhotos(recordPhotos);
 
+            for (RecordPhoto photo : recordPhotos) {
+                photo.convertBlobToBitmap();
+            }
+
         } else printError(Record.class, record.getId());
 
     }
 
-    private void getAndBindBodyPhotos(Problem problem) {
+    private void getAndBindBodyPhotos(Patient patient) {
 
-        String query = generateQuery(TERM, "problemId", problem.getId());
+        String query = generateQuery(TERM, "user", patient.getId());
         SearchResult res = search(query, BODYPHOTO);
 
         if (res != null) {
 
             List<BodyPhoto> bodyPhotos = res.getSourceAsObjectList(BodyPhoto.class, true);
-            problem.setBodyPhotos(bodyPhotos);
+            patient.setBodyPhotos(bodyPhotos);
 
-        } else printError(Problem.class, problem.getId());
+            for (BodyPhoto photo : bodyPhotos) {
+                photo.convertBlobToPhoto();
+            }
+
+        } else printError(Patient.class, patient.getId());
 
     }
 

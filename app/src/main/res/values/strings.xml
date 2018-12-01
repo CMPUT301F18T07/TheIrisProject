@@ -48,6 +48,7 @@
     <string name="enter_body_location">Enter Body Location</string>
     <string name="label_photos">Label Photos</string>
     <string name="submit_record">Submit Record</string>
+    <string name="create_record_error">Error Making Record!</string>
 
     <!-- View Record List screen strings -->
     <string name="title_activity_view_record">ViewRecordActivity</string>
@@ -62,6 +63,8 @@
     <string name="view_problem_description_text">Description</string>
     <string name="view_problem_geolocation_text">Geo Location</string>
     <string name="view_problem_title">View Problem</string>
+    <string name="slideshow_button">Slideshow</string>
+    <string name="title_activity_problem_slideshow">Slideshow</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>
@@ -79,6 +82,7 @@
 
     <!-- View Problem screen strings-->
     <string name="problem_comments_label">Comments</string>
+    <string name="comment_empty_error">Comment Field is Empty!</string>
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>
@@ -88,6 +92,7 @@
     <string name="submit_problem">Submit</string>
     <string name="incorrect_date">Incorrect date format!</string>
     <string name="successful_edit">Problem Edited!</string>
+    <string name="edit_problem_failure">"Uh oh something went wrong"</string>
 
     <!-- Delete Problem strings-->
     <string name="delete_problem_hint">Do you want to delete this problem?</string>
@@ -126,7 +131,14 @@
     <string name="add_bodyphoto_title_text">Add Body Photo</string>
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
 
+    <!-- Map strings -->
     <string name="title_activity_map">Map</string>
+    <string name="selected_location">Location</string>
+    <string name="map_error">Cannot get current location</string>
+
+    <!-- Add Geolocation fragment strings -->
+    <string name="geolocation_frag_title">Add GeoLocation</string>
+    <string name="geolocation_frag_message">Do you want to add this location?</string>
 
     <!-- Permissions strings -->
     <string name="contact_permissions_granted">Contact permissions granted successfully!</string>
@@ -137,8 +149,9 @@
     <string name="add_contact_button">Add</string>
 
     <!-- Database-related strings -->
-    <string name="offline_upload_error">Internet disconnected, couldn\'t upload changes. Changes only saved locally.</string>
-    <string name="offline_fetch_error">Internet disconnected, couldn\'t get latest data. Showing local version.</string>
+    <string name="offline_upload_error">Internet disconnected, will upload changes when restored.</string>
+    <string name="offline_fetch_error">Internet disconnected, showing local data.</string>
+    <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
     <string name="add_body_location_submit">Save Body Location</string>
 

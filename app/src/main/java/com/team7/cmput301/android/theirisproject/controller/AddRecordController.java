@@ -6,8 +6,11 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.ImageListAdapter;
+import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
+import com.team7.cmput301.android.theirisproject.model.Photo;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
@@ -15,6 +18,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * AddRecordController handles the models within the
@@ -24,16 +28,23 @@ import java.util.List;
  *
  * @author itstc
  * */
-public class AddRecordController extends IrisController<Record>{
+public class AddRecordController extends IrisController<Record> {
+
     private String problemId;
     private BodyLocation bodyLocation;
     private List<RecordPhoto> recordPhotos;
+    private GeoLocation geoLocation;
 
     public AddRecordController(Intent intent) {
         super(intent);
         problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
         recordPhotos = new ArrayList<>();
+        geoLocation = new GeoLocation(0.0,0.0);
         model = this.getModel(intent.getExtras());
+    }
+
+    public String getUserId() {
+        return IrisProjectApplication.getUserIdByProblemId(problemId);
     }
 
     public List<RecordPhoto> getRecordPhotos() {return recordPhotos;}
@@ -46,23 +57,43 @@ public class AddRecordController extends IrisController<Record>{
         bodyLocation = new BodyLocation(src, location[0], location[1]);
     }
 
-    public void submitRecord(String title, String desc, Callback cb) {
-        Record submitRecord = new Record(problemId, title, desc, bodyLocation, recordPhotos);
-        new AddRecordTask(new Callback<String>() {
-            @Override
-            public void onComplete(String res) {
-                // add result to singleton
-                submitRecord.setId(res);
-                IrisProjectApplication.addRecordToCache(submitRecord);
-                IrisProjectApplication.getProblemById(submitRecord.getProblemId()).addRecord(submitRecord);
-                cb.onComplete(res);
+    public Boolean submitRecord(String title, String desc, Callback cb) {
 
-            }
-        }).execute(submitRecord);
+        Record submitRecord = new Record(problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
+        IrisProjectApplication.addRecordToCache(submitRecord);
+        IrisProjectApplication.bindRecord(submitRecord);
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+
+            new AddRecordTask(new Callback<String>() {
+                @Override
+                public void onComplete(String res) {
+                    submitRecord.setId(res);
+                    cb.onComplete(res);
+                }
+            }).execute(submitRecord);
+            return true;
+
+        } else {
+
+            // Records not initialized with JestID, and isn't generated
+            // unless added to elasticsearch, so manually make one
+            submitRecord.setId(UUID.randomUUID().toString());
+
+            IrisProjectApplication.putInUpdateQueue(submitRecord);
+            return false;
+
+        }
+
     }
 
     @Override
     Record getModel(Bundle data) {
         return new Record();
     }
+
+    public void addLocation(double[] location) {
+        geoLocation.setPosition(location[0], location[1]);
+    }
+
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import io.searchbox.core.Search;
 
 /**
- * GetRecordPhotoTask querys the record photos associated to the record
+ * GetRecordPhotoTask queries the record photos associated to the record
  *
  * @author itstc
  * */

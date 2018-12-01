@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -20,12 +21,14 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
+import com.team7.cmput301.android.theirisproject.controller.GetAllGeoLocationsController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,7 @@ import java.util.List;
 public class ViewProblemActivity extends IrisActivity<Problem> {
 
     private ProblemController problemController;
+    private GetAllGeoLocationsController getAllGeoLocationsController;
     private String problemId;
 
     private TextView problemTitle;
@@ -55,6 +59,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     private Button viewRecordsButton;
     private Button createRecordButton;
+    private Button viewSlideshowButton;
+    private FloatingActionButton viewAllLocations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +84,28 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
+        viewSlideshowButton = findViewById(R.id.slideshow_button);
+        viewAllLocations = findViewById(R.id.view_all_locations);
+
+        // Set onclicklistener to view all record locations associated with problem
+        viewAllLocations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchMapActivity();
+            }
+        });
 
         // Set onclicklistener to submit comment button
         commentSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (commentBox.getText().length() == 0) setCommentErrorMessage();
-                else problemController.addComment(commentBox.getText().toString(), commentsCallback());
-                commentBox.setText("");
+                else {
+                    Boolean success = problemController.addComment(commentBox.getText().toString(), commentsCallback());
+                    if (success) commentBox.setText("");
+                    else showOfflineFatalToast(ViewProblemActivity.this);
+                }
+
             }
         });
 
@@ -105,6 +125,13 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclick listener to view slideshow button
+        viewSlideshowButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dispatchProblemSlideshowActivity(problemId);
+            }
+        });
         render(problemController.getModelProblem());
 
     }
@@ -121,6 +148,26 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         }
     }
 
+    /**
+     * dispatchMapActivity will dispatch to MapActivity, calling on allGeoLocationsController to
+     * get all the geolocations and record titles for all the records associated to the problem
+     * currently on.
+     * @see GetAllGeoLocationsController
+     */
+    private void dispatchMapActivity() {
+        getAllGeoLocationsController = new GetAllGeoLocationsController(getIntent());
+        getAllGeoLocationsController.getGeolocation(new Callback<List<Object>>() {
+            @Override
+            public void onComplete(List<Object> res) {
+                List<Object> locations = (ArrayList<Object>) res;
+                Intent intent = new Intent(ViewProblemActivity.this, MapActivity.class);
+                intent.putExtra(Extras.EXTRA_LOCATION, (Serializable) locations.get(0));
+                intent.putStringArrayListExtra(Extras.EXTRA_TITLES, (ArrayList<String>) locations.get(1));
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -131,7 +178,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      * Printing error message on current activity
      */
     private void setCommentErrorMessage() {
-        Toast.makeText(ViewProblemActivity.this, "Comment Field is Empty!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewProblemActivity.this, R.string.comment_empty_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -210,6 +257,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
+    }
+
+    private void dispatchProblemSlideshowActivity(String id) {
+        Intent intent = new Intent(ViewProblemActivity.this, ProblemSlideshowActivity.class);
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }

@@ -18,6 +18,8 @@ import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
+import java.util.List;
+
 import io.searchbox.core.SearchResult;
 
 /**
@@ -45,29 +47,29 @@ public class RecordListController extends IrisController<RecordList> {
      * @param contCallback Callback with IrisActivity's specified actions
      * @return True if no issues, False if internet-related issues
      */
-    public Boolean fillRecords(Context context, Callback<RecordList> contCallback){
+    public Boolean fillRecords(Callback<RecordList> contCallback){
 
+        // Assume can't get latest Record data from online,
+        // and unconditionally fill activity with local version of Records
         Boolean fullSuccess = false;
+        contCallback.onComplete(records);
 
         switch (IrisProjectApplication.getCurrentUser().getType()) {
 
             case PATIENT:
-                contCallback.onComplete(records);
                 fullSuccess = true;
                 break;
 
             case CARE_PROVIDER:
-                if (IrisProjectApplication.isConnectedToInternet(context)) {
+                if (IrisProjectApplication.isConnectedToInternet()) {
                     fetchRecordsFromOnline(contCallback);
                     fullSuccess = true;
-                } else {
-                    // Show local data
-                    contCallback.onComplete(records);
                 }
                 break;
 
             default:
                 break;
+
         }
 
         return fullSuccess;
@@ -96,7 +98,9 @@ public class RecordListController extends IrisController<RecordList> {
     @Override
     RecordList getModel(Bundle data) {
         problemId = data.getString(Extras.EXTRA_PROBLEM_ID);
-        return IrisProjectApplication.getProblemById(problemId).getRecords();
+        RecordList records = IrisProjectApplication.getProblemById(problemId).getRecords();
+        if (records != null) return records;
+        return new RecordList();
     }
 
 }
