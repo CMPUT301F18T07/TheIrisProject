@@ -56,16 +56,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/problem_title_edit_text" />
 
-        <EditText
-            android:id="@+id/problem_geolocation_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="@string/geo_location"
-            android:inputType="textPersonName"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@+id/problem_description_edit_text" />
 
         <Button
             android:id="@+id/problem_submit_button"

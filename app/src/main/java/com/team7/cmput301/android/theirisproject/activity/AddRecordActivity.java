@@ -79,7 +79,6 @@ public class AddRecordActivity extends AppCompatActivity {
         });
 
         cameraButton = findViewById(R.id.record_camera_button);
-
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,9 +86,7 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
-        submitButton = findViewById(R.id.record_submit_button);
         mapButton = findViewById(R.id.record_map_button);
-
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +94,7 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
+        submitButton = findViewById(R.id.record_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
