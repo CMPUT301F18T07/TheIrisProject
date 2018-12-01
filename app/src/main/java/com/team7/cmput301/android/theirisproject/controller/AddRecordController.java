@@ -53,23 +53,27 @@ public class AddRecordController extends IrisController<Record>{
 
     public Boolean submitRecord(String title, String desc, Callback cb) {
 
-        if (!IrisProjectApplication.isConnectedToInternet()) return false;
-
         Record submitRecord = new Record(problemId, title, desc, bodyLocation, recordPhotos);
+        IrisProjectApplication.addRecordToCache(submitRecord);
+        IrisProjectApplication.bindRecord(submitRecord);
 
-        new AddRecordTask(new Callback<String>() {
-            @Override
-            public void onComplete(String res) {
-                // add result to singleton
-                submitRecord.setId(res);
-                IrisProjectApplication.addRecordToCache(submitRecord);
-                IrisProjectApplication.getProblemById(submitRecord.getProblemId()).addRecord(submitRecord);
-                cb.onComplete(res);
+        if (IrisProjectApplication.isConnectedToInternet()) {
 
-            }
-        }).execute(submitRecord);
+            new AddRecordTask(new Callback<String>() {
+                @Override
+                public void onComplete(String res) {
 
-        return true;
+                    submitRecord.setId(res);
+                    cb.onComplete(res);
+
+                }
+            }).execute(submitRecord);
+            return true;
+
+        } else {
+            IrisProjectApplication.putInUpdateQueue(submitRecord);
+            return false;
+        }
 
     }
 

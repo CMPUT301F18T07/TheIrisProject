@@ -39,21 +39,25 @@ public class AddProblemController extends IrisController<Problem> {
      * */
     public Boolean submitProblem(String title, String desc, Callback<String> cb) {
 
-        if (!IrisProjectApplication.isConnectedToInternet()) return false;
-
         Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
-        // add problem to our database
-        new AddProblemTask(new Callback<String>() {
-            @Override
-            public void onComplete(String result) {
-                // add new problem to singleton
-                submitProblem.setId(result);
-                IrisProjectApplication.addProblemToCache(submitProblem);
-                cb.onComplete(result);
-            }
-        }).execute(submitProblem);
+        IrisProjectApplication.addProblemToCache(submitProblem);
 
-        return true;
+        if (IrisProjectApplication.isConnectedToInternet()) {
+
+            // add problem to our database
+            new AddProblemTask(new Callback<String>() {
+                @Override
+                public void onComplete(String result) {
+                    submitProblem.setId(result);
+                    cb.onComplete(result);
+                }
+            }).execute(submitProblem);
+            return true;
+
+        } else {
+            IrisProjectApplication.putInUpdateQueue(submitProblem);
+            return false;
+        }
 
     }
 

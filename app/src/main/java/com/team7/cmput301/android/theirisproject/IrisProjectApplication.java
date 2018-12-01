@@ -15,6 +15,8 @@ import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
+import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
@@ -219,8 +221,19 @@ public class IrisProjectApplication extends Application {
 
         // if nothing found, linear lookup required
         if (record == null) {
-            // TODO
-            System.out.println("Tried to find " + id);
+
+            List<Patient> patients = getSessionPatients();
+
+            for (Patient patient : patients) {
+                for (Problem problem : patient.getProblems()) {
+                    for (Record r : problem.getRecords()) {
+                        if (r.getId().equals(id)) {
+                            return r;
+                        }
+                    }
+                }
+            }
+
         }
 
         return record;
@@ -234,8 +247,17 @@ public class IrisProjectApplication extends Application {
 
         // if nothing found, linear lookup required
         if (problem == null) {
-            // TODO
-            System.out.println("Tried to find " + id);
+
+            List<Patient> patients = getSessionPatients();
+
+            for (Patient patient : patients) {
+                for (Problem p : patient.getProblems()) {
+                    if (p.getId().equals(id)) {
+                        return p;
+                    }
+                }
+            }
+
         }
 
         return problem;
@@ -249,8 +271,17 @@ public class IrisProjectApplication extends Application {
 
         // if nothing found, linear lookup required
         if (user == null) {
-            // TODO
-            System.out.println("Tried to find " + id);
+
+            if (currentUser.getId().equals(id)) {
+                return currentUser;
+            }
+
+            for (Patient p : getSessionPatients()) {
+                if (p.getId().equals(id)) {
+                    return p;
+                }
+            }
+
         }
 
         return user;
@@ -259,6 +290,10 @@ public class IrisProjectApplication extends Application {
 
     public static String getUserIdByProblemId(String problemId) {
         return getProblemById(problemId).getUser();
+    }
+
+    public static void bindRecord(Record record) {
+        getProblemById(record.getProblemId()).addRecord(record);
     }
 
     /**
@@ -285,6 +320,25 @@ public class IrisProjectApplication extends Application {
             System.err.println("Connection unstable while trying to upload updates; trying to connect again.");
             updater.execute(problemUpdateQueue, recordUpdateQueue);
         }
+    }
+
+    private static List<Patient> getSessionPatients() {
+
+        List<Patient> patients = new ArrayList<>();
+
+        switch (currentUser.getType()){
+            case CARE_PROVIDER:
+                patients = ((CareProvider) currentUser).getPatients();
+                break;
+            case PATIENT:
+                patients.add((Patient) currentUser);
+                break;
+            default:
+                break;
+        }
+
+        return patients;
+
     }
 
 }

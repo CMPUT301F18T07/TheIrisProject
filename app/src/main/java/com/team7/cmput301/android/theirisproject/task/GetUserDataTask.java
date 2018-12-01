@@ -55,10 +55,10 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
     protected Void doInBackground(User... users) {
 
         User user = users[0];
+        IrisProjectApplication.addUserToCache(user);
 
         switch (user.getType()) {
             case PATIENT:
-                IrisProjectApplication.addUserToCache(user);
                 getAndBindProblems((Patient) user);
                 getAndBindBodyPhotos((Patient) user);
                 getAndBindCareProviders((Patient) user);
