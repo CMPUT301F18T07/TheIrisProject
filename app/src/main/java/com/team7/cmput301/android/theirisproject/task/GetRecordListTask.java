@@ -27,9 +27,15 @@ public class GetRecordListTask extends AsyncTask<String, Void, SearchResult> {
 
     private SearchResult res = null;
     private Callback<SearchResult> callback;
+    private Sort sort = new Sort("date", Sort.Sorting.DESC);
 
     public GetRecordListTask(Callback<SearchResult> callback) {
         this.callback = callback;
+    }
+
+    public GetRecordListTask(Callback<SearchResult> callback, Sort sort) {
+        this(callback);
+        this.sort = sort;
     }
 
     /**
@@ -47,7 +53,7 @@ public class GetRecordListTask extends AsyncTask<String, Void, SearchResult> {
             Search search = new Search.Builder(query)
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType(type)
-                    .addSort(new Sort("date", Sort.Sorting.DESC))
+                    .addSort(sort)
                     .build();
             res = IrisProjectApplication.getDB().execute(search);
         } catch (IOException e) {

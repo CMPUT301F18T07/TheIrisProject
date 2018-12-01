@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.search.sort.Sort;
 
 /**
  * RecordPhotoListController's main purpose is to return a list of
@@ -55,7 +56,7 @@ public class RecordPhotoListController extends IrisController<List<RecordPhoto>>
                     }
                 }).execute(records);
             }
-        }).execute(problemId);
+        }, new Sort("date", Sort.Sorting.ASC)).execute(problemId);
     }
 
     public List<RecordPhoto> getPhotos() { return model; }
