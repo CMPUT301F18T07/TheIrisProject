@@ -97,31 +97,37 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //Changed to if's so I can add problem_list_action_search
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.problem_list_action_edit:
-                // Set flag so that when user taps on problem, will take user to edit page
-                if (doEditProblem){
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
-                    doEditProblem = false;
-                }
-                else {
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
-                    doEditProblem = true;
-                }
-                break;
-            case R.id.patient_list_action_view_profile:
-                // View a profile
-                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
-                Intent intent = new Intent(this, ViewProfileActivity.class);
+        int id = item.getItemId();
 
-                startActivity(intent);
-                break;
-            default:
-
+        if (id == R.id.problem_list_action_edit) {
+            //Set flag so that when user taps on problem, will take user to edit page
+            if (doEditProblem) {
+                Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
+                doEditProblem = false;
+            }
+            else {
+                Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
+                doEditProblem = true;
+            }
         }
+
+        if (id == R.id.patient_list_action_view_profile) {
+            // View a profile
+            Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
+            Intent intent = new Intent(this, ViewProfileActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == R.id.problem_list_action_search) {
+            // Search Problems/Records
+            Toast.makeText(ProblemListActivity.this, "Search Problems/Records", Toast.LENGTH_LONG);
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

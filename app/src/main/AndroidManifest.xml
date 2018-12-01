@@ -103,6 +103,8 @@
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" />
+        <activity android:name=".activity.SearchActivity" />
+
     </application>
 
 </manifest>

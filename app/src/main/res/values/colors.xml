@@ -6,4 +6,6 @@
     <color name="colorBackground">#fdfdfd</color>
     <color name="title_color">#FDFDFD</color>
     <color name="menu_icon_active_color">#7B68EE</color>
+    <color name="grey">#aaa</color>
+    <color name="search_field_color">#FFE6E5E5</color>
 </resources>

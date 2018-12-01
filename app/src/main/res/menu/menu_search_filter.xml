@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+  -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/search_by_geolocation"
+        android:icon="@drawable/ic_place_white_24dp"
+        android:title="search_by_geolocation"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item
+        android:id="@+id/search_by_bodylocation"
+        android:icon="@drawable/ic_accessibility_white_24dp"
+        android:title="search_by_bodylocation"
+        app:showAsAction="ifRoom">
+    </item>
+
+
+</menu>
