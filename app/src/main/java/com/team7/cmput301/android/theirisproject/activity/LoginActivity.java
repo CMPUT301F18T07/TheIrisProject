@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.DeleteTransferCodeTask;
 
 /**
  * LoginActivity is our landing page for the user to authenticate
@@ -29,6 +31,11 @@ public class LoginActivity extends IrisActivity {
     private Button loginButton;
     private TextView registerTextView;
 
+    private EditText transferField;
+    private Button transferButton;
+
+    private Callback loginCallback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +45,26 @@ public class LoginActivity extends IrisActivity {
         controller = createController(getIntent());
         IrisProjectApplication.initBulkUpdater();
 
+        loginCallback = new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean success) {
+                // Start activity if login is successful, else stay on login activity
+                if (success) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
+                    buildUserSession();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, getString(R.string.login_failure), Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+
         // initialize android views from xml
         loginButton = findViewById(R.id.login_button);
         registerTextView = findViewById(R.id.login_register_button);
         username = findViewById(R.id.login_email_field);
+        transferField = findViewById(R.id.login_transfer_code_field);
+        transferButton = findViewById(R.id.login_transfer_button);
 
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,21 +83,27 @@ public class LoginActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // Create login request, and start new activity if id is found
-                controller.loginUser(username.getText().toString(), new Callback<Boolean>() {
+                IrisProjectApplication.loginCurrentUser(username.getText().toString());
+                controller.loginUser(username.getText().toString(), loginCallback);
+            }
+        });
+
+        transferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DeleteTransferCodeTask(new Callback<String>() {
                     @Override
-                    public void onComplete(Boolean success) {
-                        // Start activity if login is successful, else stay on login activity
-                        if (success) {
-                            Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
-                            IrisProjectApplication.loginCurrentUser(username.getText().toString());
-                            buildUserSession();
-                        }
-                        else {
-                            Toast.makeText(LoginActivity.this, getString(R.string.login_failure), Toast.LENGTH_LONG).show();
+                    public void onComplete(String username) {
+                        System.out.println("username is " + username);
+                        if (username != null) {
+                            IrisProjectApplication.loginCurrentUser(username);
+                            controller.loginUser(username, loginCallback);
+                            Toast.makeText(LoginActivity.this, R.string.login_transfer_success, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LoginActivity.this, R.string.login_transfer_failure, Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
-
+                }).execute(transferField.getText().toString());
             }
         });
 

@@ -37,4 +37,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     implementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
 }
