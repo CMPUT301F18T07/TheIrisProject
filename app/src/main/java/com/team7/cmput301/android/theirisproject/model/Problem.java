@@ -34,7 +34,7 @@ public class Problem {
     private String user;
 
     private String title;
-    private Date date;
+    private Date date = new Date();
     private String description;
     transient private RecordList records = new RecordList();
     transient private List<Comment> comments = new ArrayList<>();

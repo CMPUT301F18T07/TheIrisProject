@@ -22,10 +22,12 @@ import com.team7.cmput301.android.theirisproject.CommentListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
+import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activity that is used to view the problem selected by the user
@@ -82,7 +84,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             @Override
             public void onClick(View view) {
                 if (commentBox.getText().length() == 0) setCommentErrorMessage();
-                else problemController.addComment(commentBox.getText().toString(), renderCallback());
+                else problemController.addComment(commentBox.getText().toString(), commentsCallback());
                 commentBox.setText("");
             }
         });
@@ -137,6 +139,15 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         return new ProblemController(intent);
     }
 
+    private Callback<List<Comment>> commentsCallback() {
+        return new Callback<List<Comment>>() {
+            @Override
+            public void onComplete(List<Comment> res) {
+                renderComments(res);
+            }
+        };
+    }
+
     private Callback<Problem> renderCallback() {
         return new Callback<Problem>() {
             @Override
@@ -159,6 +170,13 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         commentList.setAdapter(commentListAdapter);
     }
 
+    public void renderComments(List<Comment> state) {
+        // update the recyclerviews adapters
+        commentListAdapter.setItems(state);
+        commentListAdapter.notifyDataSetChanged();
+
+    }
+
     /**
      * render will update the Activity with the new state provided
      * in the arguments of invoking this method
@@ -171,9 +189,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         problemDate.setText(state.getDate());
         problemDescription.setText(state.getDescription());
 
-        // update the recyclerviews adapters
-        commentListAdapter.setItems(state.getComments());
-        commentListAdapter.notifyDataSetChanged();
+        renderComments(state.getComments());
     }
 
     /**

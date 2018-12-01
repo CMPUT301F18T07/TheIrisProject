@@ -117,7 +117,7 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
 
     @Override
     protected BodyPhotoListController createController(Intent intent) {
-        return new BodyPhotoListController(intent);
+        return new BodyPhotoListController(getApplicationContext(), intent);
     }
 
     private void render(List<BodyPhoto> state) {
