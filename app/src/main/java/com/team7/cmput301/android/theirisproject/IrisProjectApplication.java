@@ -19,7 +19,6 @@ import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
-import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.task.BulkUpdateTask;
@@ -96,6 +95,8 @@ public class IrisProjectApplication extends Application {
     public static void setCurrentUser(User user) {
         currentUser = user;
     }
+
+    public static Context getAppContext() { return appContext; }
 
     /**
      * Determines if currently connected to internet.

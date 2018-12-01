@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -139,6 +140,10 @@ public class AddRecordActivity extends IrisActivity<Record> {
             bodyLocationImage.setImageBitmap(bp);
 
         }
+        else if (requestCode == REQUEST_MAP_LOCATION && resultCode == RESULT_OK) {
+            double location[] = data.getDoubleArrayExtra(Extras.EXTRA_LOCATION);
+            controller.addLocation(location);
+        }
     }
 
     private void dispatchBodyLocationForm() {
@@ -171,6 +176,7 @@ public class AddRecordActivity extends IrisActivity<Record> {
     }
 
     private void dispatchMapIntent() {
+        //TODO: If previously set a marker, get last geolocation and make starting position to that
         Intent intent = new Intent(AddRecordActivity.this, MapActivity.class);
         startActivityForResult(intent, REQUEST_MAP_LOCATION);
     }
