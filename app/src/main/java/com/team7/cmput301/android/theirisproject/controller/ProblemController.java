@@ -72,8 +72,8 @@ public class ProblemController extends IrisController<Problem> {
         new GetProblemTask.GetCommentTask(new Callback<List<Comment>>() {
             @Override
             public void onComplete(List<Comment> res) {
-                model.setComments(res);
-                cb.onComplete(res);
+                model.asyncSetComments(res);
+                cb.onComplete(model.getComments());
             }
         }).execute(problemID);
     }

@@ -30,11 +30,8 @@ public class AddCommentTask extends AsyncTask<Comment, Void, Boolean> {
                     .type("comment")
                     .build();
             Boolean res = IrisProjectApplication.getDB().execute(addComment).isSucceeded();
-            Thread.sleep(500);
             return res;
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return false;
