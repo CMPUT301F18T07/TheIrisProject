@@ -6,9 +6,11 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
+import com.team7.cmput301.android.theirisproject.model.Photo;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
@@ -26,7 +28,7 @@ import java.util.UUID;
  *
  * @author itstc
  * */
-public class AddRecordController extends IrisController<Record>{
+public class AddRecordController extends IrisController<Record> {
 
     private String problemId;
     private BodyLocation bodyLocation;
@@ -93,4 +95,5 @@ public class AddRecordController extends IrisController<Record>{
     public void addLocation(double[] location) {
         geoLocation.setPosition(location[0], location[1]);
     }
+
 }
