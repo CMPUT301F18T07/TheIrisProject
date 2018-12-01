@@ -16,11 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddRecordController;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
@@ -34,9 +37,13 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 public class AddRecordActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_IMAGE = 1;
     private static final int REQUEST_MAP_LOCATION = 2;
+    private static final int REQUEST_BODY_LOCATION = 3;
+
     private AddRecordController controller;
     private TextView titleField;
     private TextView descField;
+    private ImageView bodyLocationImage;
+    private Button bodyLocationButton;
 
     private RecyclerView recordPhotoListView;
     private ImageListAdapter<RecordPhoto> recordPhotoImageListAdapter;
@@ -49,7 +56,7 @@ public class AddRecordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_record_form);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,14 +64,22 @@ public class AddRecordActivity extends AppCompatActivity {
 
         titleField = findViewById(R.id.record_title_edit_text);
         descField = findViewById(R.id.record_description_edit_text);
+        bodyLocationImage = findViewById(R.id.record_body_location_image);
 
         recordPhotoListView = findViewById(R.id.record_add_image_list);
         recordPhotoListView.setAdapter(new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true));
         recordPhotoListView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        cameraButton = findViewById(R.id.record_camera_button);
+        bodyLocationButton = findViewById(R.id.record_body_location_button);
+        bodyLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchBodyLocationForm();
+            }
+        });
 
+        cameraButton = findViewById(R.id.record_camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,9 +87,7 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
-        submitButton = findViewById(R.id.record_add_button);
         mapButton = findViewById(R.id.record_map_button);
-
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +95,7 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
+        submitButton = findViewById(R.id.record_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,11 +128,24 @@ public class AddRecordActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             controller.addRecordPhoto(imageBitmap);
+        } else if (requestCode == REQUEST_BODY_LOCATION && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap bp = ImageConverter.scaleBitmapPhoto((Bitmap) extras.get("data_img"), 512, 512);
+            controller.setBodyLocation((String) extras.get("data_src"), (float[]) extras.get("data_xy"));
+            bodyLocationImage.setImageBitmap(bp);
+
         }
         else if (requestCode == REQUEST_MAP_LOCATION && resultCode == RESULT_OK) {
             double location[] = data.getDoubleArrayExtra(Extras.EXTRA_LOCATION);
             controller.addLocation(location);
         }
+    }
+
+    private void dispatchBodyLocationForm() {
+        Intent intent = new Intent(AddRecordActivity.this, BodyPhotoListActivity.class);
+        intent.putExtra(Extras.EXTRA_BODYPHOTO_FORM, true);
+        intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, IrisProjectApplication.getCurrentUser().getId());
+        startActivityForResult(intent, REQUEST_BODY_LOCATION);
     }
 
     /**
@@ -138,7 +165,7 @@ public class AddRecordActivity extends AppCompatActivity {
      * */
     private void dispatchRecordActivity(String id) {
         Intent intent = new Intent(AddRecordActivity.this, ViewRecordActivity.class);
-        intent.putExtra("record_id", id);
+        intent.putExtra(Extras.EXTRA_RECORD_ID, id);
         startActivity(intent);
         finish();
     }

@@ -14,7 +14,6 @@ import java.io.Serializable;
  */
 public class GeoLocation implements Serializable{
 
-
     private Double latitude;
     private Double longitude;
 
@@ -38,4 +37,5 @@ public class GeoLocation implements Serializable{
         double res[] = {latitude, longitude};
         return res;
     }
+  
 }

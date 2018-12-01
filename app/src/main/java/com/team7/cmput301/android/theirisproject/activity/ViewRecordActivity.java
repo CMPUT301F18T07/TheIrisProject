@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -27,11 +28,13 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordController;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * ViewRecordActivity used to view a record
@@ -49,6 +52,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     private FloatingActionButton viewGeoLocation;
 
     private RecyclerView recordPhotos;
+    private ImageListAdapter<RecordPhoto> recordPhotoAdapter;
 
     private RecordController controller;
 
@@ -57,8 +61,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_record);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         controller = new RecordController(getIntent());
 
@@ -76,9 +79,12 @@ public class ViewRecordActivity extends AppCompatActivity {
         });
 
         recordPhotos = findViewById(R.id.record_photos);
-        recordPhotos.setAdapter(new ImageListAdapter(this, controller.getPhotos(), false));
+        recordPhotoAdapter = new ImageListAdapter(this, new ArrayList(), false);
+        recordPhotos.setAdapter(recordPhotoAdapter);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
+
+        render(controller.getRecordModel());
     }
 
     /**
@@ -99,6 +105,18 @@ public class ViewRecordActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // finish activity on back arrow clicked in action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     @Override
     protected void onStart() {
         super.onStart();
@@ -116,7 +134,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         title.setText(newState.getTitle());
         desc.setText(newState.getDesc());
         date.setText(newState.getDate().toString());
-        ((ImageListAdapter)recordPhotos.getAdapter()).setItems(newState.getRecordPhotos());
-        recordPhotos.getAdapter().notifyDataSetChanged();
+        recordPhotoAdapter.setItems(newState.getRecordPhotos());
+        recordPhotoAdapter.notifyDataSetChanged();
     }
 }

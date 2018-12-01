@@ -5,11 +5,13 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,6 +20,7 @@ import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.BodyPhotoListController;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -29,7 +32,8 @@ import java.util.List;
  *
  * @author itstc
  * */
-public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
+public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements AddBodyLocationDialogFragment.AddBodyLocationDialogListener {
+    private static final int ADD_BODYPHOTO_START = 1;
 
     private BodyPhotoListController controller;
 
@@ -48,7 +52,11 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
         bodyPhotoList = findViewById(R.id.body_photo_list);
         addBodyPhotoButton = findViewById(R.id.add_body_photo);
 
-        bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), false);
+        if (getIntent().getBooleanExtra(Extras.EXTRA_BODYPHOTO_FORM, false)) {
+            bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), ImageListAdapter.TYPE_BODY_LOCATION_FORM);
+        } else {
+            bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), false);
+        }
         bodyPhotoList.setAdapter(bodyPhotoListAdapter);
         bodyPhotoList.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -56,6 +64,13 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
             @Override
             public void onClick(View view) {
                 dispatchAddBodyPhotoActivity(IrisProjectApplication.getCurrentUser().getId());
+            }
+        });
+
+        controller.queryBodyPhotos(new Callback<List<BodyPhoto>>() {
+            @Override
+            public void onComplete(List<BodyPhoto> res) {
+                render(res);
             }
         });
     }
@@ -72,20 +87,32 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        controller.queryBodyPhotos(new Callback<List<BodyPhoto>>() {
-            @Override
-            public void onComplete(List<BodyPhoto> res) {
-                render(res);
-            }
-        });
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) return;
+
+        Bundle extras = data.getExtras();
+
+        if (requestCode == ADD_BODYPHOTO_START
+                && resultCode == AddBodyPhotoActivity.RESULT_OK
+                && extras.getParcelable("data") != null) {
+            // add bodyphoto from AddBodyPhotoActivity and update UI
+            controller.addBodyPhoto(extras.getParcelable("data"));
+            render(controller.getBodyPhotos());
+        }
     }
 
+    /**
+     * dispatchAddBodyPhotoActivity will start a new activity
+     * to add a body photo. The result will return to this
+     * activity.
+     *
+     * @param id: user's _id
+     * */
     private void dispatchAddBodyPhotoActivity(String id) {
         Intent intent = new Intent(BodyPhotoListActivity.this, AddBodyPhotoActivity.class);
         intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, id);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_BODYPHOTO_START);
     }
 
     @Override
@@ -96,5 +123,15 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> {
     private void render(List<BodyPhoto> state) {
         bodyPhotoListAdapter.setItems(state);
         bodyPhotoListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFinishAddBodyLocation(BodyLocation location, Bitmap image) {
+        Intent intent = new Intent();
+        intent.putExtra("data_src", location.getBodyPhotoId());
+        intent.putExtra("data_xy", location.getLocation());
+        intent.putExtra("data_img", image);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

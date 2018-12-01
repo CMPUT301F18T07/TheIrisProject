@@ -4,12 +4,15 @@
 
 package com.team7.cmput301.android.theirisproject.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+import com.team7.cmput301.android.theirisproject.task.CacheBodyPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetBodyPhotoTask;
 
@@ -46,6 +49,11 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     public List<BodyPhoto> getBodyPhotos() {
         return model;
+    }
+
+    public void addBodyPhoto(BodyPhoto bp) {
+        new CacheBodyPhotoTask().execute(bp);
+        model.add(bp);
     }
 
     @Override

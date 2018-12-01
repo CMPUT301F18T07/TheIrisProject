@@ -7,6 +7,8 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -27,8 +29,12 @@ public class RecordController extends IrisController<Record> {
 
     public RecordController(Intent intent) {
         super(intent);
-        recordId = intent.getStringExtra("record_id");
-        model = getModel(intent.getExtras());
+        recordId = intent.getStringExtra(Extras.EXTRA_RECORD_ID);
+        model = new Record();
+    }
+
+    public Record getRecordModel() {
+        return model;
     }
 
     /**
@@ -63,6 +69,8 @@ public class RecordController extends IrisController<Record> {
 
     @Override
     Record getModel(Bundle data) {
+        Record cachedRecord = IrisProjectApplication.getRecordById(recordId);
+        if (cachedRecord != null) return cachedRecord;
         return new Record();
     }
 }
