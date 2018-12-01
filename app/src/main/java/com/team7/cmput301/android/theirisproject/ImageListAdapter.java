@@ -32,20 +32,31 @@ import java.util.List;
 public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<ImageListAdapter.ImageViewHolder> {
     public static final int TYPE_BODY_LOCATION_FORM = 1;
     public static final int TYPE_IMAGE_LIST = 0;
-    private Context context;
     private boolean isForm;
     private int itemLayout;
     private List<M> images;
     private int type = TYPE_IMAGE_LIST;
 
-    public ImageListAdapter(Context context, List<M> images, boolean isForm) {
+    private Activity context;
+    private ImageListListener listener;
+
+    public interface ImageListListener {
+        void onDeletePhoto(Photo photo);
+    }
+
+    public ImageListAdapter(Activity context, List<M> images, boolean isForm) {
         this.context = context;
         this.isForm = isForm;
         this.images = images;
         this.itemLayout = R.layout.image_item;
     }
 
-    public ImageListAdapter(Context context, List<M> images, int type) {
+    public ImageListAdapter(Activity context, List<M> images, boolean isForm, ImageListListener listener) {
+        this(context, images, isForm);
+        this.listener = listener;
+    }
+
+    public ImageListAdapter(Activity context, List<M> images, int type) {
         this.context = context;
         this.isForm = false;
         this.images = images;
@@ -86,7 +97,7 @@ public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<Imag
         holder.imageItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = ((Activity)context).getFragmentManager();
+                FragmentManager fm = context.getFragmentManager();
                 ViewImageFragment imageDialog = ViewImageFragment.newInstance(photo.getMetaData(), photo.getPhoto(), photo.getDate());
                 imageDialog.show(fm, "fragment_enlarge_image");
             }
@@ -102,7 +113,7 @@ public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<Imag
         holder.imageItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = ((Activity)context).getFragmentManager();
+                FragmentManager fm = context.getFragmentManager();
                 AddBodyLocationDialogFragment addBodyLocationDialog = AddBodyLocationDialogFragment.newInstance((BodyPhoto) photo);
                 addBodyLocationDialog.show(fm, "fragment_pick_body_location");
             }
@@ -115,13 +126,18 @@ public class ImageListAdapter<M extends Photo> extends RecyclerView.Adapter<Imag
     }
 
     public void removeItem(int position) {
-        images.remove(position);
+        Photo target = images.remove(position);
+        if (listener != null) listener.onDeletePhoto(target);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, getItemCount());
     }
 
     public void setItems(List<M> images) {
         this.images = images;
+    }
+
+    public boolean isAdapterForm() {
+        return isForm;
     }
 
     /**
