@@ -7,20 +7,15 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
+
 import android.view.View;
-import android.widget.ListView;
+
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
@@ -116,7 +111,7 @@ public class ViewRecordActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
