@@ -91,7 +91,8 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
      *
      * @author itstc
      * */
-    public class GetCommentTask extends AsyncTask<String, Void, List<Comment>> {
+    public static class GetCommentTask extends AsyncTask<String, Void, List<Comment>> {
+        private String problemIdQuery = "{\"query\": {\"term\": {\"problemId\": \"%s\"}}}";
         private Callback cb;
         public GetCommentTask(Callback cb) {
             this.cb = cb;

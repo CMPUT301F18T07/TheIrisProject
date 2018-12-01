@@ -27,18 +27,19 @@ import java.text.ParseException;
  * @author VinnyLuu
  * @see com.team7.cmput301.android.theirisproject.activity.EditProblemActivity
  */
-public class EditProblemController extends IrisController {
+public class EditProblemController extends IrisController<Problem> {
+
     private String problemID;
 
     public EditProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
         this.model = getModel(intent.getExtras());
     }
 
     @Override
-    Object getModel(Bundle data) {
-        return null;
+    Problem getModel(Bundle data) {
+        problemID = data.getString(Extras.EXTRA_PROBLEM_ID);
+        return IrisProjectApplication.getProblemById(problemID);
     }
 
     /**
@@ -51,11 +52,20 @@ public class EditProblemController extends IrisController {
      * @param date edited Problem date
      * @param cb callback method
      * */
-    public void submitProblem(String title, String desc, String date, Callback cb) throws ParseException{
+    public Boolean submitProblem(String title, String desc, String date, Callback cb) throws ParseException{
 
-        Problem submitProblem = new Problem(title, desc, date, IrisProjectApplication.getCurrentUser().getId());
-        new EditProblemTask(cb).execute(submitProblem, problemID);
+        model.setTitle(title);
+        model.setDescription(desc);
+        model.setDate(date);
 
+        if (IrisProjectApplication.isConnectedToInternet()) {
+            Problem submitProblem = new Problem(title, desc, date, IrisProjectApplication.getCurrentUser().getId());
+            new EditProblemTask(cb).execute(submitProblem, problemID);
+            return true;
+        } else {
+            IrisProjectApplication.putInUpdateQueue(model);
+            return false;
+        }
 
     }
 

@@ -4,6 +4,8 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import java.util.List;
+
 import io.searchbox.annotations.JestId;
 
 /**

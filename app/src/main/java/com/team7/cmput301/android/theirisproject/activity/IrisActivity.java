@@ -6,9 +6,12 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 
 /**
@@ -26,5 +29,17 @@ public abstract class IrisActivity<M> extends AppCompatActivity {
      * @return The IrisController (e.g. ProblemController)
      */
     protected abstract IrisController createController(Intent intent);
+
+    protected void showOfflineFatalToast(Context context) {
+        Toast.makeText(context, R.string.offline_fatal_error, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showOfflineFetchToast(Context context) {
+        Toast.makeText(context, R.string.offline_fetch_error, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void showOfflineUploadToast(Context context) {
+        Toast.makeText(context, R.string.offline_upload_error, Toast.LENGTH_SHORT).show();
+    }
   
 }

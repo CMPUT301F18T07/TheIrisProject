@@ -73,8 +73,7 @@
             android:label="@string/submit_record"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ViewRecordActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".activity.ViewRecordActivity" />
         <activity
             android:name=".activity.EditRecordActivity"
             android:label="@string/edit_record"
@@ -92,6 +91,9 @@
         <activity
             android:name=".activity.AddBodyPhotoActivity"
             android:label="@string/add_bodyphoto_title_text" />
+        <activity
+            android:name=".activity.ProblemSlideshowActivity"
+            android:label="@string/title_activity_problem_slideshow" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -108,6 +110,7 @@
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" />
+
     </application>
 
 </manifest>

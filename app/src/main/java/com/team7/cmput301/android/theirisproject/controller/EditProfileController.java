@@ -7,6 +7,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.EditProfileTask;
 
@@ -15,17 +16,37 @@ import com.team7.cmput301.android.theirisproject.task.EditProfileTask;
  *
  * @author Jmmxp
  */
-public class EditProfileController extends IrisController<Void> {
+public class EditProfileController extends IrisController<User> {
+
     public EditProfileController(Intent intent) {
         super(intent);
+        model = getModel(intent.getExtras());
     }
 
-    public void updateProfile(User updatedUser) {
-        new EditProfileTask().execute(updatedUser);
+    public String getEmail() {
+        return model.getEmail();
+    }
+
+    public String getPhone() {
+        return model.getPhone();
+    }
+
+    public Boolean updateProfile(String newEmailText, String newPhoneText) {
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+            model.updateProfile(newEmailText, newPhoneText);
+            new EditProfileTask().execute(model);
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
     @Override
-    Void getModel(Bundle data) {
-        return null;
+    User getModel(Bundle data) {
+        return IrisProjectApplication.getCurrentUser();
     }
+
 }

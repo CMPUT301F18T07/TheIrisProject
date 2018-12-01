@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -58,10 +59,14 @@ public class AddBodyPhotoActivity extends IrisActivity<BodyPhoto> {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controller.submitBodyPhoto(labelField.getText().toString(), new Callback<BodyPhoto>() {
+                Boolean success = controller.submitBodyPhoto(labelField.getText().toString(), new Callback<BodyPhoto>() {
                     @Override
                     public void onComplete(BodyPhoto res) { finishWithResult(res); }
                 });
+                if (!success) {
+                    showOfflineFatalToast(AddBodyPhotoActivity.this);
+                    finishWithFailure();
+                }
             }
         });
     }
@@ -97,6 +102,11 @@ public class AddBodyPhotoActivity extends IrisActivity<BodyPhoto> {
         Intent intent = new Intent();
         intent.putExtra("data", res);
         setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void finishWithFailure() {
+        setResult(RESULT_CANCELED);
         finish();
     }
 

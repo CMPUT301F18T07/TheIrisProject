@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
@@ -41,9 +42,7 @@ public class LoginActivity extends IrisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        IrisProjectApplication.setApplicationContext(getApplicationContext());
         controller = createController(getIntent());
-        IrisProjectApplication.initBulkUpdater();
 
         loginCallback = new Callback<Boolean>() {
             @Override
@@ -142,7 +141,7 @@ public class LoginActivity extends IrisActivity {
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(LoginActivity.this, targetActivity);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
-        intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
+        intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
 
