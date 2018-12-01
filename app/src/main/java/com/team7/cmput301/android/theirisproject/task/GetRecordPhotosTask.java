@@ -56,7 +56,6 @@ public class GetRecordPhotosTask extends AsyncTask<List<Record>, List<RecordPhot
     @Override
     protected void onProgressUpdate(List<RecordPhoto>... recordPhotos) {
         super.onProgressUpdate(recordPhotos);
-        Log.d("Iris", recordPhotos.toString());
         for (RecordPhoto p: recordPhotos[0]) p.convertBlobToBitmap();
         this.cb.onComplete(recordPhotos[0]);
     }
