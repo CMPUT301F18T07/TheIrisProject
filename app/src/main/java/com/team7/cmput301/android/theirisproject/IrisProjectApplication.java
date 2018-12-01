@@ -15,6 +15,7 @@ import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
@@ -286,6 +287,19 @@ public class IrisProjectApplication extends Application {
         }
 
         return user;
+
+    }
+
+    public static BodyPhoto getBodyPhotoById(String id) {
+
+        for (Patient p : getSessionPatients()) {
+            for (BodyPhoto b : p.getBodyPhotos()) {
+                if (b.getId().equals(id)) {
+                    return b;
+                }
+            }
+        }
+        return null;
 
     }
 

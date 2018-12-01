@@ -6,13 +6,12 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
-import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
-import com.team7.cmput301.android.theirisproject.model.Photo;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
+import com.team7.cmput301.android.theirisproject.task.AddRecordPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.AddRecordTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 

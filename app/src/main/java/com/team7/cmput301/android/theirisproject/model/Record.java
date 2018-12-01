@@ -4,6 +4,10 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import android.graphics.Bitmap;
+
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -129,18 +133,39 @@ public class Record {
 
     /* Basic list operations */
 
-    public void addPhoto(RecordPhoto img) {
+    public void addRecordPhoto(RecordPhoto img) {
         recordPhotos.add(img);
     }
 
-    public void deletePhoto(RecordPhoto img) {
+    public void addRecordPhotos(List<RecordPhoto> photos) {
+        recordPhotos.addAll(photos);
+    }
+
+    public void deleteRecordPhoto(RecordPhoto img) {
         recordPhotos.remove(img);
+    }
+
+    /* Advanced getters */
+
+    public Bitmap getBodyPhotoBitmap() {
+
+        if (bodyLocation == null) {
+            return null;
+        }
+        else {
+            BodyPhoto b = IrisProjectApplication.getBodyPhotoById(bodyLocation.getBodyPhotoId());
+            if (b != null) {
+                return b.getPhoto();
+            } else {
+                return null;
+            }
+        }
     }
 
     /* Advanced setters */
 
-    public void editGeoLocation(int x, int y) {
-
+    public void editGeoLocation(double x, double y) {
+        geoLocation.setPosition(x, y);
     }
 
     public synchronized void asyncSetFields(Record record) {

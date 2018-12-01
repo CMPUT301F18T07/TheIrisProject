@@ -74,12 +74,11 @@ public class ViewRecordActivity extends AppCompatActivity {
         });
 
         recordPhotos = findViewById(R.id.record_photos);
-        recordPhotoAdapter = new ImageListAdapter(this, new ArrayList(), false);
+        recordPhotoAdapter = new ImageListAdapter<>(this, controller.getPhotos(), false);
         recordPhotos.setAdapter(recordPhotoAdapter);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
 
-        render(controller.getRecordModel());
     }
 
     /**
@@ -120,9 +119,9 @@ public class ViewRecordActivity extends AppCompatActivity {
             public void onComplete(Record res) {
                 record = res;
                 render(res);
-
             }
         });
+        recordPhotoAdapter.notifyDataSetChanged();
     }
 
     private void render(Record newState) {

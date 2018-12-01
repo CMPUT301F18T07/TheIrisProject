@@ -4,14 +4,21 @@
 
 package com.team7.cmput301.android.theirisproject.controller;
 
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
+import com.team7.cmput301.android.theirisproject.task.AddRecordPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.EditRecordTask;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller for editing a Record
@@ -23,6 +30,7 @@ import com.team7.cmput301.android.theirisproject.task.EditRecordTask;
 public class EditRecordController extends IrisController<Record> {
 
     private Record record;
+    private List<RecordPhoto> newRecordPhotos = new ArrayList<>();
 
     public EditRecordController(Intent intent){
         super(intent);
@@ -43,6 +51,18 @@ public class EditRecordController extends IrisController<Record> {
         return record.getDesc();
     }
 
+    public List<RecordPhoto> getRecordPhotos() {
+        return record.getRecordPhotos();
+    }
+
+    public Bitmap getBodyPhotoBitmap() {
+        return record.getBodyPhotoBitmap();
+    }
+
+    public String getUserId() {
+        return IrisProjectApplication.getUserIdByProblemId(record.getProblemId());
+    }
+
     /**
      * Updates record locally and attempts to update online.
      * If online fails, return false; true otherwise
@@ -57,10 +77,19 @@ public class EditRecordController extends IrisController<Record> {
 
         record.setTitle(title);
         record.setDesc(desc);
+        record.addRecordPhotos(newRecordPhotos);
 
         if (IrisProjectApplication.isConnectedToInternet()) {
+
             new EditRecordTask().execute(record);
+
+            // add only the new photos
+            for (RecordPhoto p : newRecordPhotos) {
+                new AddRecordPhotoTask().execute(p);
+            }
+
             pushedOnline = true;
+
         } else {
             IrisProjectApplication.putInUpdateQueue(record);
         }
@@ -69,4 +98,15 @@ public class EditRecordController extends IrisController<Record> {
 
     }
 
+    public void addRecordPhoto(Bitmap imageBitmap) {
+        newRecordPhotos.add(new RecordPhoto(ImageConverter.scaleBitmapPhoto(imageBitmap, 256, 256)));
+    }
+
+    public void setBodyLocation(String data_src, float[] data_xies) {
+        record.setBodyLocation(new BodyLocation(data_src, data_xies[0], data_xies[1]));
+    }
+
+    public void setGeoLocation(double[] location) {
+        record.editGeoLocation(location[0], location[1]);
+    }
 }
