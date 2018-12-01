@@ -128,16 +128,12 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     @Override
     protected void onStart() {
         super.onStart();
-        Boolean fullSuccess = controller.getUserProblems(new Callback<ProblemList>() {
+        controller.getUserProblems(new Callback<ProblemList>() {
             @Override
             public void onComplete(ProblemList res) {
                 render(res);
             }
         });
-        if (!fullSuccess) {
-            // Needed to get data from online, but couldn't
-            showOfflineFetchToast(ProblemListActivity.this);
-        }
     }
 
     @Override
@@ -199,6 +195,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProblemListActivity.this, BodyPhotoListActivity.class);
+                intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, controller.getUserId());
                 startActivity(intent);
             }
         });

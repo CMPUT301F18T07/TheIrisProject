@@ -25,20 +25,11 @@ import com.team7.cmput301.android.theirisproject.model.ProblemList;
  * */
 public class ProblemListController extends IrisController<ProblemList> {
 
-    private String userID;
+    private String userId;
 
     public ProblemListController(Intent intent) {
 
         super(intent);
-        String intentId = intent.getStringExtra(Extras.EXTRA_USER_ID);
-
-        if (intentId == null){
-            this.userID = IrisProjectApplication.getCurrentUser().getId();
-        }
-        else {
-            this.userID = intentId;
-        }
-
         this.model = getModel(intent.getExtras());
 
     }
@@ -70,7 +61,7 @@ public class ProblemListController extends IrisController<ProblemList> {
                         public void onComplete(ProblemList res) {
                             cb.onComplete(res);
                         }
-                    }).execute(userID);
+                    }).execute(userId);
                     fullSuccess = true;
                 }
                 break;
@@ -88,8 +79,13 @@ public class ProblemListController extends IrisController<ProblemList> {
         return model;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     @Override
     ProblemList getModel(Bundle data) {
-        return ((Patient) IrisProjectApplication.getUserById(userID)).getProblems();
+        userId = data.getString(Extras.EXTRA_USER_ID);
+        return ((Patient) IrisProjectApplication.getUserById(userId)).getProblems();
     }
 }

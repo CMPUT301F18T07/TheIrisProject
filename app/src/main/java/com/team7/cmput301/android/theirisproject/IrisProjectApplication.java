@@ -257,6 +257,10 @@ public class IrisProjectApplication extends Application {
 
     }
 
+    public static String getUserIdByProblemId(String problemId) {
+        return getProblemById(problemId).getUser();
+    }
+
     /**
      * If bulk update successful, reset everything and remake the updater,
      * so that it can be executed again if internet goes down again.

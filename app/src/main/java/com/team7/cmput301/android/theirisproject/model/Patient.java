@@ -39,6 +39,10 @@ public class Patient extends User {
         this.problems = new ProblemList(problems);
     }
 
+    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {
+        this.bodyPhotos = bodyPhotos;
+    }
+
     /* Basic getters */
 
     public List<CareProvider> getCareProviders() {

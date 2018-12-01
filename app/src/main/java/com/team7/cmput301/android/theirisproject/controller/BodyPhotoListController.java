@@ -35,7 +35,7 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     public void queryBodyPhotos(Callback cb) {
 
-        if (!IrisProjectApplication.isConnectedToInternet()) {
+        if (IrisProjectApplication.isConnectedToInternet()) {
             new GetBodyPhotoTask(new Callback<List<BodyPhoto>>() {
                 @Override
                 public void onComplete(List<BodyPhoto> res) {
@@ -60,8 +60,7 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     @Override
     List<BodyPhoto> getModel(Bundle data) {
-        String defaultID = IrisProjectApplication.getCurrentUser().getId();
-        userId = data.getString(Extras.EXTRA_BODYPHOTO_USER, defaultID);
-        return ((Patient) IrisProjectApplication.getCurrentUser()).getBodyPhotos();
+        userId = data.getString(Extras.EXTRA_BODYPHOTO_USER);
+        return ((Patient) IrisProjectApplication.getUserById(userId)).getBodyPhotos();
     }
 }

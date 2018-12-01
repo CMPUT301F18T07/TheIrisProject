@@ -25,6 +25,7 @@ import java.util.List;
  * @author itstc
  * */
 public class AddRecordController extends IrisController<Record>{
+
     private String problemId;
     private BodyLocation bodyLocation;
     private List<RecordPhoto> recordPhotos;
@@ -34,6 +35,10 @@ public class AddRecordController extends IrisController<Record>{
         problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
         recordPhotos = new ArrayList<>();
         model = this.getModel(intent.getExtras());
+    }
+
+    public String getUserId() {
+        return IrisProjectApplication.getUserIdByProblemId(problemId);
     }
 
     public List<RecordPhoto> getRecordPhotos() {return recordPhotos;}

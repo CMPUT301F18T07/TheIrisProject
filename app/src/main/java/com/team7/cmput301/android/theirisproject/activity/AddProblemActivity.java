@@ -63,7 +63,7 @@ public class AddProblemActivity extends IrisActivity {
                             }
                         });
                 if (!submitted) {
-                    showOfflineFatalToast(AddProblemActivity.this);
+                    showOfflineUploadToast(AddProblemActivity.this);
                 }
             }
         });

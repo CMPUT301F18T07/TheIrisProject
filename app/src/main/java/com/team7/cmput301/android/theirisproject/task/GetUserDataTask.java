@@ -58,7 +58,9 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
         switch (user.getType()) {
             case PATIENT:
+                IrisProjectApplication.addUserToCache(user);
                 getAndBindProblems((Patient) user);
+                getAndBindBodyPhotos((Patient) user);
                 getAndBindCareProviders((Patient) user);
                 break;
             case CARE_PROVIDER:
@@ -98,6 +100,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
         for (Patient patient: patients) {
             IrisProjectApplication.addUserToCache(patient);
             getAndBindProblems(patient);
+            getAndBindBodyPhotos(patient);
         }
 
     }
@@ -141,7 +144,6 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             for (Problem problem : problems) {
                 IrisProjectApplication.addProblemToCache(problem);
                 getAndBindComments(problem);
-                getAndBindBodyPhotos(problem);
                 getAndBindRecords(problem);
             }
 
@@ -178,21 +180,29 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             List<RecordPhoto> recordPhotos = res.getSourceAsObjectList(RecordPhoto.class, true);
             record.setRecordPhotos(recordPhotos);
 
+            for (RecordPhoto photo : recordPhotos) {
+                photo.convertBlobToBitmap();
+            }
+
         } else printError(Record.class, record.getId());
 
     }
 
-    private void getAndBindBodyPhotos(Problem problem) {
+    private void getAndBindBodyPhotos(Patient patient) {
 
-        String query = generateQuery(TERM, "problemId", problem.getId());
+        String query = generateQuery(TERM, "user", patient.getId());
         SearchResult res = search(query, BODYPHOTO);
 
         if (res != null) {
 
             List<BodyPhoto> bodyPhotos = res.getSourceAsObjectList(BodyPhoto.class, true);
-            problem.setBodyPhotos(bodyPhotos);
+            patient.setBodyPhotos(bodyPhotos);
 
-        } else printError(Problem.class, problem.getId());
+            for (BodyPhoto photo : bodyPhotos) {
+                photo.convertBlobToPhoto();
+            }
+
+        } else printError(Patient.class, patient.getId());
 
     }
 

@@ -90,10 +90,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
                 render(result);
             }
         };
-        Boolean fullSuccess = controller.fillRecords(contCallback);
-        if (!fullSuccess) {
-            showOfflineFetchToast(RecordListActivity.this);
-        }
+        controller.fillRecords(contCallback);
     }
 
     /**
