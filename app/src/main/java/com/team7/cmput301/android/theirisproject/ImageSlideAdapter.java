@@ -16,7 +16,8 @@ import com.team7.cmput301.android.theirisproject.model.Photo;
 import java.util.List;
 
 /**
- *
+ * ImageSlideAdapter is used to display a full-sized slideshow of bitmap images on the
+ * activity given its viewPager view
  * Reference: https://www.youtube.com/watch?v=Q2FPDI99-as
  *
  * @author jtfwong
