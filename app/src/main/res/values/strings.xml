@@ -62,6 +62,8 @@
     <string name="view_problem_description_text">Description</string>
     <string name="view_problem_geolocation_text">Geo Location</string>
     <string name="view_problem_title">View Problem</string>
+    <string name="slideshow_button">Slideshow</string>
+    <string name="title_activity_problem_slideshow">Slideshow</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>

@@ -59,6 +59,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     private Button viewRecordsButton;
     private Button createRecordButton;
+    private Button viewSlideshowButton;
     private FloatingActionButton viewAllLocations;
 
     @Override
@@ -83,6 +84,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
+        viewSlideshowButton = findViewById(R.id.slideshow_button);
         viewAllLocations = findViewById(R.id.view_all_locations);
 
         // Set onclicklistener to view all record locations associated with problem
@@ -119,6 +121,13 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
+        // Set onclick listener to view slideshow button
+        viewSlideshowButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dispatchProblemSlideshowActivity(problemId);
+            }
+        });
         render(problemController.getModelProblem());
 
     }
@@ -244,6 +253,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
+    }
+
+    private void dispatchProblemSlideshowActivity(String id) {
+        Intent intent = new Intent(ViewProblemActivity.this, ProblemSlideshowActivity.class);
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }
