@@ -37,7 +37,7 @@ public class SplashActivity extends IrisActivity<Void> {
     private static final String TAG = SplashActivity.class.getSimpleName();
 
     private LoginController controller;
-    
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +108,6 @@ public class SplashActivity extends IrisActivity<Void> {
      * */
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(SplashActivity.this, targetActivity);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
         intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
