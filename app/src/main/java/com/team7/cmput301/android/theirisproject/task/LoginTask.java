@@ -66,7 +66,6 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
                 user = searchResult.getSourceAsObject(Patient.class, true);
             } else {
                 user = searchResult.getSourceAsObject(CareProvider.class, true);
-                Log.d(TAG, String.valueOf(((CareProvider) user).getPatients().size()));
             }
 
             IrisProjectApplication.setCurrentUser(user);

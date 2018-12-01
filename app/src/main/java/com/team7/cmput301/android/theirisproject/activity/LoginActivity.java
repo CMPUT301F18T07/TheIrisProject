@@ -64,7 +64,7 @@ public class LoginActivity extends IrisActivity {
                     @Override
                     public void onComplete(Boolean success) {
                         // Start activity if login is successful, else stay on login activity
-                        if(success) {
+                        if (success) {
                             Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
                             IrisProjectApplication.loginCurrentUser(username.getText().toString());
                             buildUserSession();

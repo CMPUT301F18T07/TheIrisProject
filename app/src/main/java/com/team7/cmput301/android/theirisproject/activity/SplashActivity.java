@@ -52,13 +52,13 @@ public class SplashActivity extends IrisActivity<Void> {
                 public void onComplete(Boolean success) {
                     // Start ProblemList or PatientList activity if login is successful,
                     // otherwise redirect to login/register activity
-                    finish();
                     if (success) {
                         Toast.makeText(SplashActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
                         buildUserSession();
-                        startUserActivity(controller.getStartingActivity());
+                        // Build user session will start the correct User activity
                     } else {
-                        startUserActivity(LoginActivity.class);
+                        finish();
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
                 }
             });
@@ -76,6 +76,8 @@ public class SplashActivity extends IrisActivity<Void> {
             @Override
             public void onComplete(Object res) {
                 Class activity = controller.getStartingActivity();
+                // Put finish here so that the splash screen stays until we're done loading
+                finish();
                 startUserActivity(activity);
             }
         };
