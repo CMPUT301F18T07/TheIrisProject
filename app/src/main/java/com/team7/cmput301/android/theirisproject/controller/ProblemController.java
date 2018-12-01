@@ -68,6 +68,16 @@ public class ProblemController extends IrisController<Problem> {
         }).execute(problemID);
     }
 
+    public void queryComments(Callback cb) {
+        new GetProblemTask.GetCommentTask(new Callback<List<Comment>>() {
+            @Override
+            public void onComplete(List<Comment> res) {
+                model.asyncSetComments(res);
+                cb.onComplete(model.getComments());
+            }
+        }).execute(problemID);
+    }
+
     /**
      * addComment will invoke a AddCommentTask to
      * add comment to database and will then make a
@@ -79,12 +89,17 @@ public class ProblemController extends IrisController<Problem> {
      * */
     public void addComment(String body, Callback cb) {
         User user = IrisProjectApplication.getCurrentUser();
+        Comment newComment = new Comment(problemID, user.getUsername(), body, user.getType());
+        model.addComment(newComment);
+        cb.onComplete(getComments());
+
+        // update database and pull new comments if found
         new AddCommentTask(new Callback<Boolean>() {
             @Override
             public void onComplete(Boolean res) {
-                if (res) getProblem(cb);
+                if (res) queryComments(cb);
             }
-        }).execute(new Comment(problemID, user.getUsername(), body, user.getType()));
+        }).execute(newComment);
     }
 
     public List<Comment> getComments() { return model.getComments(); }

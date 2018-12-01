@@ -15,6 +15,7 @@ import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
@@ -90,7 +91,7 @@ public class IrisProjectApplication extends Application {
     public static void setApplicationContext(Context context) {
         appContext = context;
     }
-
+    public static Context getAppContext() { return appContext; }
     /**
      * Determines if currently connected to internet.
      * https://stackoverflow.com/a/32771164

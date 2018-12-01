@@ -12,6 +12,7 @@ import com.team7.cmput301.android.theirisproject.model.Comment;
 import java.io.IOException;
 
 import io.searchbox.core.Index;
+import io.searchbox.core.Search;
 
 /**
  * AddCommentTask adds a comment asynchronously on another thread
@@ -28,13 +29,11 @@ public class AddCommentTask extends AsyncTask<Comment, Void, Boolean> {
             Index addComment = new Index.Builder(params[0])
                     .index(IrisProjectApplication.INDEX)
                     .type("comment")
+                    .setParameter("refresh", "wait_for")
                     .build();
             Boolean res = IrisProjectApplication.getDB().execute(addComment).isSucceeded();
-            Thread.sleep(500);
             return res;
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return false;
