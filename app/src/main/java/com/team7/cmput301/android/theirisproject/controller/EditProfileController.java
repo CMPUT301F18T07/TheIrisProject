@@ -34,6 +34,7 @@ public class EditProfileController extends IrisController<User> {
     public Boolean updateProfile(String newEmailText, String newPhoneText) {
 
         if (IrisProjectApplication.isConnectedToInternet()) {
+            model.updateProfile(newEmailText, newPhoneText);
             new EditProfileTask().execute(model);
             return true;
         }
