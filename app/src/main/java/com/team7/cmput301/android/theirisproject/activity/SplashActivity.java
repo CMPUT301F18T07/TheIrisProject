@@ -37,13 +37,11 @@ public class SplashActivity extends IrisActivity<Void> {
     private static final String TAG = SplashActivity.class.getSimpleName();
 
     private LoginController controller;
-
-
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        IrisProjectApplication.setApplicationContext(getApplicationContext());
         controller = (LoginController) createController(getIntent());
         IrisProjectApplication.initBulkUpdater();
 
