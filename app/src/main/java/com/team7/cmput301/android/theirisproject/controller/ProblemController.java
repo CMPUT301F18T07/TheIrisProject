@@ -111,12 +111,13 @@ public class ProblemController extends IrisController<Problem> {
      * */
     public Boolean addComment(String body, Callback cb) {
 
-        User user = IrisProjectApplication.getCurrentUser();
-        Comment newComment = new Comment(problemID, user.getUsername(), body, user.getType());
-        model.addComment(newComment);
-        cb.onComplete(getComments());
-
         if (IrisProjectApplication.isConnectedToInternet()) {
+
+            User user = IrisProjectApplication.getCurrentUser();
+            Comment newComment = new Comment(problemID, user.getUsername(), body, user.getType());
+            model.addComment(newComment);
+            cb.onComplete(getComments());
+
             // update database and pull new comments if found
             new AddCommentTask(new Callback<Boolean>() {
                 @Override
@@ -124,7 +125,9 @@ public class ProblemController extends IrisController<Problem> {
                     if (res) queryComments(cb);
                 }
             }).execute(newComment);
+
             return true;
+
         } else {
             return false;
         }
