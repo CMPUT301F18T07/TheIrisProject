@@ -18,6 +18,8 @@ import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
+import java.util.List;
+
 import io.searchbox.core.SearchResult;
 
 /**
@@ -96,7 +98,9 @@ public class RecordListController extends IrisController<RecordList> {
     @Override
     RecordList getModel(Bundle data) {
         problemId = data.getString(Extras.EXTRA_PROBLEM_ID);
-        return IrisProjectApplication.getProblemById(problemId).getRecords();
+        RecordList records = IrisProjectApplication.getProblemById(problemId).getRecords();
+        if (records != null) return records;
+        return new RecordList();
     }
 
 }
