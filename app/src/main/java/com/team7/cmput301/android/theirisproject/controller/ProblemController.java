@@ -14,6 +14,7 @@ import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.model.Comment;
+import com.team7.cmput301.android.theirisproject.model.Contact;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -131,7 +132,6 @@ public class ProblemController extends IrisController<Problem> {
         } else {
             return false;
         }
-
     }
 
     public List<Comment> getComments() { return model.getComments(); }

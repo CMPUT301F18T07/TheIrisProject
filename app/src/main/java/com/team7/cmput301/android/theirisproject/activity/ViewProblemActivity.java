@@ -213,7 +213,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         LinearLayoutManager commentListLayout = new LinearLayoutManager(ViewProblemActivity.this);
         commentListLayout.setOrientation(LinearLayoutManager.VERTICAL);
         commentList.setLayoutManager(commentListLayout);
-        commentListAdapter = new CommentListAdapter(new ArrayList<>());
+        commentListAdapter = new CommentListAdapter(this, new ArrayList<>());
         commentList.setAdapter(commentListAdapter);
     }
 
