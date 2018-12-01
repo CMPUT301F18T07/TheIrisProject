@@ -23,13 +23,14 @@ import com.team7.cmput301.android.theirisproject.model.Contact;
  * @author itstc
  * */
 public class ContactDialogFragment extends DialogFragment {
+    private static final String CONTACT_DATA = "data";
 
     public static ContactDialogFragment newInstance(Contact contact) {
         ContactDialogFragment f = new ContactDialogFragment();
 
         // Supply num input as an argument.
         Bundle args = new Bundle();
-        args.putParcelable("data", contact);
+        args.putParcelable(CONTACT_DATA, contact);
         f.setArguments(args);
 
         return f;
@@ -48,7 +49,7 @@ public class ContactDialogFragment extends DialogFragment {
         TextView emailText = dialog.findViewById(R.id.fragment_contact_email);
         TextView phoneText = dialog.findViewById(R.id.fragment_contact_phone);
 
-        Contact contact = extras.getParcelable("data");
+        Contact contact = extras.getParcelable(CONTACT_DATA);
         nameText.setText(contact.getName());
         emailText.setText(contact.getEmail());
         phoneText.setText(contact.getPhone());
