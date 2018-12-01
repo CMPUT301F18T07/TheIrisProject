@@ -11,10 +11,15 @@ import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
+import com.team7.cmput301.android.theirisproject.task.GetRecordPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.GetRecordPhotosTask;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.searchbox.core.SearchResult;
+import io.searchbox.core.search.sort.Sort;
 
 /**
  * RecordPhotoListController's main purpose is to return a list of
@@ -25,11 +30,6 @@ import java.util.List;
 public class RecordPhotoListController extends IrisController<List<RecordPhoto>> {
 
     private String problemId;
-
-    @Override
-    List<RecordPhoto> getModel(Bundle data) {
-        return new ArrayList<>();
-    }
 
     public RecordPhotoListController(Intent intent) {
         super(intent);
@@ -44,14 +44,26 @@ public class RecordPhotoListController extends IrisController<List<RecordPhoto>>
      * @param cb
      * */
     public void queryRecordPhotos(Callback cb) {
-        new GetRecordPhotosTask(new Callback<List<RecordPhoto>>() {
+        new GetRecordListTask(new Callback<SearchResult>() {
             @Override
-            public void onComplete(List<RecordPhoto> res) {
-                model = res;
-                cb.onComplete(model);
+            public void onComplete(SearchResult res) {
+                List<Record> records = res.getSourceAsObjectList(Record.class, true);
+                new GetRecordPhotosTask(new Callback<List<RecordPhoto>>() {
+                    @Override
+                    public void onComplete(List<RecordPhoto> results) {
+                        model.addAll(results);
+                        cb.onComplete(model);
+                    }
+                }).execute(records);
             }
-        }).execute(problemId);
+        }, new Sort("date", Sort.Sorting.ASC)).execute(problemId);
     }
 
     public List<RecordPhoto> getPhotos() { return model; }
+
+
+    @Override
+    List<RecordPhoto> getModel(Bundle data) {
+        return new ArrayList<>();
+    }
 }

@@ -6,6 +6,7 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.widget.ContentFrameLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
