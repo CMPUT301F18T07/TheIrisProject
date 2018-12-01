@@ -22,6 +22,17 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.prefs.Preferences;
 
+
+/**
+ * Used to display a splash screen to the user. If the app user already has used an account for this
+ * app, it will automatically log-in to that account and redirect them to either PatientList or
+ * ProblemList activity.
+ *
+ * Otherwise, it redirects them to the login page where they can either transfer an account or register.
+ *
+ * @author jtfwong
+ * @author Jmmxp
+ */
 public class SplashActivity extends IrisActivity<Void> {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
@@ -39,8 +50,6 @@ public class SplashActivity extends IrisActivity<Void> {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String username = sharedPref.getString(getString(R.string.shared_pref_username_key), "");
 
-        Log.d(TAG, "username is " + username);
-
         // Redirect to login/register activity because this user isn't valid
         if (username == null || username.isEmpty()) {
             finish();
@@ -53,7 +62,7 @@ public class SplashActivity extends IrisActivity<Void> {
                     // Start ProblemList or PatientList activity if login is successful,
                     // otherwise redirect to login/register activity
                     if (success) {
-                        Toast.makeText(SplashActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
+                        Toast.makeText(SplashActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                         buildUserSession();
                         // Build user session will start the correct User activity
                     } else {

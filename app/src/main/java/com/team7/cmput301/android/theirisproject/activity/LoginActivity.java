@@ -94,7 +94,6 @@ public class LoginActivity extends IrisActivity {
                 new DeleteTransferCodeTask(new Callback<String>() {
                     @Override
                     public void onComplete(String username) {
-                        System.out.println("username is " + username);
                         if (username != null) {
                             IrisProjectApplication.loginCurrentUser(username);
                             controller.loginUser(username, loginCallback);

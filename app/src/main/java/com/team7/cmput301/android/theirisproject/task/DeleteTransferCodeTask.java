@@ -35,7 +35,6 @@ public class DeleteTransferCodeTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         String code = strings[0];
-        System.out.println("DELETE: " + code);
 
         String query = "{\n" +
                 "  \"query\": {\n" +
