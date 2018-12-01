@@ -28,11 +28,9 @@ import java.util.List;
 public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     private String userId;
-    private Context context;
 
-    public BodyPhotoListController(Context context, Intent intent) {
+    public BodyPhotoListController(Intent intent) {
         super(intent);
-        this.context = context;
         model = getModel(intent.getExtras());
         String intentId = intent.getStringExtra(Extras.EXTRA_BODYPHOTO_USER);
         if (intentId == null) userId = IrisProjectApplication.getCurrentUser().getId();
@@ -54,7 +52,7 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
     }
 
     public void addBodyPhoto(BodyPhoto bp) {
-        new CacheBodyPhotoTask(context).execute(bp);
+        new CacheBodyPhotoTask().execute(bp);
         model.add(bp);
     }
 

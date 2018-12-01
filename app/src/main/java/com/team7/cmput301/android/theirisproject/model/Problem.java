@@ -141,7 +141,6 @@ public class Problem {
     /* Advanced setters */
 
     public synchronized void asyncSetComments(List<Comment> comments) {
-        if (this.comments.size() >= comments.size()) return;
         this.comments = comments;
     }
 

@@ -8,11 +8,13 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,6 +33,22 @@ import java.util.List;
  */
 public class LocalStorageHandler {
 
+    public static void writeBodyPhotoFile(Context context, BodyPhoto bp) {
+        FileOutputStream fos;
+        String filename = String.format(BodyPhoto.FILE_FORMAT, bp.getMetaData(), bp.getDate());
+        new File(context.getFilesDir(), filename);
+
+        // write the blob to the file
+        try {
+            fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            fos.write(ImageConverter.convertBitmapToBytes(bp.getPhoto()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            // if an error occurs, delete the file
+            context.deleteFile(filename);
+        }
+    }
+
     /**
      * Takes a list unknown type items, and saves it in JSON format to file.
      *
@@ -39,9 +57,7 @@ public class LocalStorageHandler {
      * @param filename Name of file that will hold serialized objects on device
      */
     public void saveListToBackupFile(Context context, List<?> list, String filename) {
-
         try {
-
             FileOutputStream fos = context.openFileOutput(filename, 0);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             BufferedWriter writer = new BufferedWriter(osw);

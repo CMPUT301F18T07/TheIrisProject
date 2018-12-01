@@ -91,7 +91,7 @@ public class IrisProjectApplication extends Application {
     public static void setApplicationContext(Context context) {
         appContext = context;
     }
-
+    public static Context getAppContext() { return appContext; }
     /**
      * Determines if currently connected to internet.
      * https://stackoverflow.com/a/32771164

@@ -6,15 +6,10 @@ package com.team7.cmput301.android.theirisproject.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.LocalStorageHandler;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * CacheBodyPhotoTask will run in the background to save body photos
@@ -25,28 +20,12 @@ import java.util.List;
  * @author itstc
  * */
 public class CacheBodyPhotoTask extends AsyncTask<BodyPhoto, Void, Void> {
-
-    private Context context;
-    public CacheBodyPhotoTask(Context context) {
-        this.context = context;
-    }
-
+    private Context context = IrisProjectApplication.getAppContext();
     @Override
     protected Void doInBackground(BodyPhoto... params) {
         // make a new file or override the existing file
         BodyPhoto bp = params[0];
-        FileOutputStream fos;
-        String filename = String.format(BodyPhoto.FILE_FORMAT, bp.getMetaData(), bp.getDate());
-        new File(context.getFilesDir(), filename);
-
-        // write the blob to the file
-        try {
-            fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
-            fos.write(ImageConverter.convertBitmapToBytes(bp.getPhoto()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            // if an error occurs, delete the file
-            context.deleteFile(filename); }
+        LocalStorageHandler.writeBodyPhotoFile(IrisProjectApplication.getAppContext(), bp);
         return null;
     }
 }
