@@ -37,11 +37,11 @@ public class LoginController extends IrisController<User> {
      * for existing user and authenticate it will trigger a callback
      * when we receive a response with a result boolean success or not
      *
-     * @param email User email
+     * @param username User's username
      * @param cb Callback method
      * */
-    public void loginUser(String email, Callback cb) {
-        new LoginTask(cb).execute(email);
+    public void loginUser(String username, Callback cb) {
+        new LoginTask(cb).execute(username);
     }
 
     @Override

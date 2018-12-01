@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
-import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -26,7 +25,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 public class LoginActivity extends IrisActivity {
 
     private LoginController controller;
-    private TextView email;
+    private TextView username;
     private Button loginButton;
     private TextView registerTextView;
 
@@ -42,7 +41,7 @@ public class LoginActivity extends IrisActivity {
         // initialize android views from xml
         loginButton = findViewById(R.id.login_button);
         registerTextView = findViewById(R.id.login_register_button);
-        email = findViewById(R.id.login_email_field);
+        username = findViewById(R.id.login_email_field);
 
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +60,13 @@ public class LoginActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // Create login request, and start new activity if id is found
-                controller.loginUser(email.getText().toString(), new Callback<Boolean>() {
+                controller.loginUser(username.getText().toString(), new Callback<Boolean>() {
                     @Override
                     public void onComplete(Boolean success) {
                         // Start activity if login is successful, else stay on login activity
                         if(success) {
                             Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
+                            IrisProjectApplication.loginCurrentUser(username.getText().toString());
                             buildUserSession();
                         }
                         else {

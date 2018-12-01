@@ -1,7 +1,10 @@
 <resources>
 
     <string name="app_name">Iris</string>
-    <string name="shared_preferences_file">preferences.xml</string>
+
+    <!--Shared Preferences strings-->
+    <string name="shared_pref_file">preferences.xml</string>
+    <string name="shared_pref_username_key">username</string>
 
     <!--Terminology strings-->
     <string name="patient">Patient</string>
@@ -9,11 +12,11 @@
 
     <!--Main screen strings-->
     <string name="main_title">Iris</string>
-    <string name="transfer_button">Transfer</string>
+    <string name="login_button">Login</string>
     <string name="register_button">Register</string>
 
     <!--Login screen strings-->
-    <string name="login_transfer_hint">Enter your transfer code</string>
+    <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
     <string name="login_failure">Incorrect login!</string>

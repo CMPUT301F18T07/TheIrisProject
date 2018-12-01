@@ -39,6 +39,7 @@ public class ViewProfileActivity extends IrisActivity {
     private TextView name;
     private TextView email;
     private TextView phone;
+    private Button generateCode;
     private Button editProfile;
 
     private TextView label;
@@ -56,6 +57,7 @@ public class ViewProfileActivity extends IrisActivity {
         name = findViewById(R.id.view_profile_name_text_view);
         email = findViewById(R.id.view_profile_email_text_view);
         phone = findViewById(R.id.view_profile_phone_text_view);
+        generateCode = findViewById(R.id.view_profile_generate_code_button);
         editProfile = findViewById(R.id.view_profile_edit_profile_button);
 
         label = findViewById(R.id.view_profile_users_text_view);
@@ -64,6 +66,13 @@ public class ViewProfileActivity extends IrisActivity {
         name.setText(user.getUsername());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
+
+        generateCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Generate new transfer code
+            }
+        });
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
