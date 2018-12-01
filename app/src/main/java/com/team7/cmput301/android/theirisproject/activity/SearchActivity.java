@@ -40,7 +40,7 @@ import java.util.ArrayList;
  * probs need to extend another model for problems and records
  * in <>
  *
- * @caboteja
+ * @author caboteja
  */
 public class SearchActivity extends IrisActivity {
 
@@ -111,11 +111,28 @@ public class SearchActivity extends IrisActivity {
 
                     records_list = new ArrayList<Record>();
 
-
-
+                    //Turns what user inputs to search into a string
+                    String searchString = "";
                     if (!search_text.equals("")) {
+                        searchString = searchString + search_text.getText().toString();
+                    }
+
+                    //Check to see how user wants to query
+                    //Search by keywords in title
+                    if (search_by_keywords == true) {
 
                     }
+
+                    //Search by geolocation
+                    if (search_by_geolocation == true) {
+
+                    }
+
+                    //Search by body location
+                    if (search_by_bodylocation == true) {
+
+                    }
+
                 }
                 return false;
             }
