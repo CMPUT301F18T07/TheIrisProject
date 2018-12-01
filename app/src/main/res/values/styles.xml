@@ -34,9 +34,5 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
-
-    <style name="CustomTextColor" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
+    
 </resources>
