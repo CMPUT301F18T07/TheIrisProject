@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+  ~
+  ~
+  -->
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -71,16 +76,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/problem_title" />
 
-        <!--<ViewFlipper-->
-        <!--android:id="@+id/viewProblem_viewflipper"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="175dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/viewProblem_geolocation">-->
-        <!--</ViewFlipper>-->
         <TextView
             android:id="@+id/problem_description"
             android:layout_width="match_parent"
@@ -152,10 +147,10 @@
             android:id="@+id/view_all_locations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="64dp"
             android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/record_buttons"
+            app:layout_constraintBottom_toTopOf="@+id/problem_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_menu_mapmode" />
 

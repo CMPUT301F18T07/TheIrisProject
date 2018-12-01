@@ -16,6 +16,7 @@
         android:id="@+id/record_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/title_color"
         android:elevation="4dp"
         android:background="@color/colorPrimary"/>
 
