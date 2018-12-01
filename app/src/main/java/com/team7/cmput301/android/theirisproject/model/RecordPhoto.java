@@ -43,7 +43,7 @@ public class RecordPhoto extends Photo {
     }
 
     /* Basic getters */
-
+    public String getId() { return _id; }
     public Bitmap getPhoto() {
         return photo;
     }

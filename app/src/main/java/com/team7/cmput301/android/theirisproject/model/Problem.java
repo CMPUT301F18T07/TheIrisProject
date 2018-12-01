@@ -34,7 +34,7 @@ public class Problem {
     private String user;
 
     private String title;
-    private Date date;
+    private Date date = new Date();
     private String description;
     transient private RecordList records = new RecordList();
     transient private List<Comment> comments = new ArrayList<>();
@@ -72,6 +72,8 @@ public class Problem {
     public void setId(String _id) {
         this._id = _id;
     }
+
+    public void addRecord(Record record) { this.records.add(record); }
 
     public void setRecords(RecordList records){
         this.records = records;

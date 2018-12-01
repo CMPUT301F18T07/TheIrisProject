@@ -71,8 +71,7 @@
             android:label="@string/submit_record"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ViewRecordActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".activity.ViewRecordActivity" />
         <activity
             android:name=".activity.EditRecordActivity"
             android:label="@string/edit_record"
