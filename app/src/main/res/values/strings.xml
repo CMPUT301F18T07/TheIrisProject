@@ -62,6 +62,8 @@
     <string name="view_problem_description_text">Description</string>
     <string name="view_problem_geolocation_text">Geo Location</string>
     <string name="view_problem_title">View Problem</string>
+    <string name="slideshow_button">Slideshow</string>
+    <string name="title_activity_problem_slideshow">Slideshow</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>
@@ -126,7 +128,14 @@
     <string name="add_bodyphoto_title_text">Add Body Photo</string>
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
 
+    <!-- Map strings -->
     <string name="title_activity_map">Map</string>
+    <string name="selected_location">Location</string>
+    <string name="map_error">Cannot get current location</string>
+
+    <!-- Add Geolocation fragment strings -->
+    <string name="geolocation_frag_title">Add GeoLocation</string>
+    <string name="geolocation_frag_message">Do you want to add this location?</string>
 
     <!-- Permissions strings -->
     <string name="contact_permissions_granted">Contact permissions granted successfully!</string>
