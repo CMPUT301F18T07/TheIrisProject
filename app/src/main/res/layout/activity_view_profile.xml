@@ -11,77 +11,37 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/view_profile_name_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/view_profile_username"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/view_profile_name_text_view"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/view_profile_phone_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/view_profile_phone"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/view_profile_phone_text_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_name_label" />
-
-    <TextView
-        android:id="@+id/view_profile_email_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:text="@string/view_profile_email"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/view_profile_email_text_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_profile_phone_label" />
-
-    <TextView
         android:id="@+id/view_profile_phone_text_view"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="200dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/view_profile_phone"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/view_profile_phone_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view_profile_phone_label" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_name_text_view" />
 
     <TextView
         android:id="@+id/view_profile_name_text_view"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="200dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:text="@string/view_profile_username"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/view_profile_name_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view_profile_name_label" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/view_profile_email_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="200dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/view_profile_email"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/view_profile_email_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view_profile_email_label" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_profile_phone_text_view" />
 
     <TextView
         android:id="@+id/view_profile_users_text_view"
