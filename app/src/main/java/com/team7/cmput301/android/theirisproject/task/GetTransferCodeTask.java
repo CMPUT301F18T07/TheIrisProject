@@ -16,6 +16,13 @@ import io.searchbox.core.Get;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+
+/**
+ * GetTransferCodeTask returns the transfer code for the given user if it already exists,
+ * null otherwise
+ *
+ * @author Jmmxp
+ */
 public class GetTransferCodeTask extends AsyncTask<String, Void, String> {
 
     private Callback<String> callback;

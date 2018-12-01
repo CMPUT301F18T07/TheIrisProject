@@ -14,6 +14,14 @@ import java.io.IOException;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 
+/**
+ * AddTransferCodeTask takes in a code (automatically generated) and makes an entry for it in the
+ * index that has type 'code' within Elasticsearch
+ *
+ * Returns true if adding the code is a success, false otherwise
+ *
+ * @author Jmmxp
+ */
 public class AddTransferCodeTask extends AsyncTask<TransferCode, Void, Boolean> {
     @Override
     protected Boolean doInBackground(TransferCode... transferCodes) {

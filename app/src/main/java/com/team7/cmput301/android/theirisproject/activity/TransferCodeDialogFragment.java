@@ -16,6 +16,13 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddPatientController;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
+
+/**
+ * TransferCodeDialogFragment shows the transfer code for the currently logged in user.
+ * Note that it will be generated in the hosting ViewProfileActivity if one does not exist yet
+ *
+ * @author Jmmxp
+ */
 public class TransferCodeDialogFragment extends DialogFragment {
 
     private static final String ARG_CODE = "code";

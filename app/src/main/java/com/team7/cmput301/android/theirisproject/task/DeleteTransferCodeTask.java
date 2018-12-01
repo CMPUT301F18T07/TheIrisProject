@@ -21,6 +21,8 @@ import io.searchbox.core.SearchResult;
  * DeleteTransferCodeTask first checks if the given code exists in the DB, and if it is,
  * deletes it (the code is now used) and returns the username for the transferring user to
  * successfully log them in
+ *
+ * @author Jmmxp
  */
 public class DeleteTransferCodeTask extends AsyncTask<String, Void, String> {
 
@@ -53,6 +55,7 @@ public class DeleteTransferCodeTask extends AsyncTask<String, Void, String> {
 
 
         try {
+            // Search for the inputted code
             SearchResult searchResult = client.execute(search);
 
             if (!searchResult.isSucceeded()) {
@@ -66,8 +69,7 @@ public class DeleteTransferCodeTask extends AsyncTask<String, Void, String> {
                 return null;
             }
 
-            System.out.println("CODE: " + transferCode.getCode() + " USER: " + transferCode.getUsername());
-
+            // The code exists, we will delete the code and then return the username to log them in as
             Delete delete = new Delete.Builder(transferCode.getId())
                     .index(IrisProjectApplication.INDEX)
                     .type("code")
