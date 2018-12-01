@@ -115,7 +115,8 @@ public class ProblemController extends IrisController<Problem> {
         if (IrisProjectApplication.isConnectedToInternet()) {
 
             User user = IrisProjectApplication.getCurrentUser();
-            Comment newComment = new Comment(problemID, user.getUsername(), body, user.getType());
+            Contact contact = new Contact(user.getUsername(), user.getPhone(), user.getEmail());
+            Comment newComment = new Comment(problemID, contact, body, user.getType());
             model.addComment(newComment);
             cb.onComplete(getComments());
 
