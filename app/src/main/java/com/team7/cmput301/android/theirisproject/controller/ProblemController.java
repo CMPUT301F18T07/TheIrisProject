@@ -14,6 +14,7 @@ import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.model.Comment;
+import com.team7.cmput301.android.theirisproject.model.Contact;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -89,7 +90,8 @@ public class ProblemController extends IrisController<Problem> {
      * */
     public void addComment(String body, Callback cb) {
         User user = IrisProjectApplication.getCurrentUser();
-        Comment newComment = new Comment(problemID, user.getUsername(), body, user.getType());
+        Contact contact = new Contact(user.getUsername(), user.getPhone(), user.getEmail());
+        Comment newComment = new Comment(problemID, contact, body, user.getType());
         model.addComment(newComment);
         cb.onComplete(getComments());
 
