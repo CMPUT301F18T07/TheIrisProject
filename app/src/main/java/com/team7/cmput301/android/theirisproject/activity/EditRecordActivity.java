@@ -58,7 +58,7 @@ public class EditRecordActivity extends IrisActivity<Record>{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_form);
+        setContentView(R.layout.activity_add_edit_record);
 
         // Set page
         initViews();
