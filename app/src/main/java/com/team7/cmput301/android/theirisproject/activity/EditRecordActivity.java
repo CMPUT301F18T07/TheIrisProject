@@ -26,7 +26,6 @@ import com.team7.cmput301.android.theirisproject.model.Record;
 public class EditRecordActivity extends IrisActivity<Record>{
 
     private EditRecordController controller;
-    private View formPage;
     private EditText titleEditText;
     private EditText descEditText;
     private Button submitButton;
@@ -39,10 +38,9 @@ public class EditRecordActivity extends IrisActivity<Record>{
 
         // get Views and Buttons
         // https://stackoverflow.com/a/4787064
-        formPage = findViewById(R.id.record_form_layout);
-        titleEditText = formPage.findViewById(R.id.record_title_edit_text);
-        descEditText = formPage.findViewById(R.id.record_description_edit_text);
-        submitButton = formPage.findViewById(R.id.record_submit_button);
+        titleEditText = findViewById(R.id.record_title_edit_text);
+        descEditText = findViewById(R.id.record_description_edit_text);
+        submitButton = findViewById(R.id.record_submit_button);
 
         // put Record attributes in Views
         controller = createController(getIntent());
