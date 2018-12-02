@@ -59,8 +59,6 @@ public class AddRecordActivity extends IrisActivity<Record> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_form);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         controller = createController(getIntent());
 

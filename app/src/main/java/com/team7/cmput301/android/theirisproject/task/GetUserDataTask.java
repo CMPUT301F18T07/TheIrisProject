@@ -24,6 +24,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 /**
  * Asynchronously gets all of a User's data.
@@ -246,6 +247,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
             Search get = new Search.Builder(query)
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType(type)
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .build();
 
             return IrisProjectApplication.getDB().execute(get);

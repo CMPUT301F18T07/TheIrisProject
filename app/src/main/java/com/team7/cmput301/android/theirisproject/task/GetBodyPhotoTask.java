@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 /**
  * GetBodyPhotoTask will asynchronously retrieve body photos that
@@ -37,6 +38,7 @@ public class GetBodyPhotoTask extends AsyncTask<String, Void, List<BodyPhoto>> {
                     .Builder(String.format(searchQuery, params[0]))
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("bodyphoto")
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .build();
             SearchResult response = IrisProjectApplication.getDB().execute(search);
             List<BodyPhoto> result = response.getSourceAsObjectList(BodyPhoto.class, true);

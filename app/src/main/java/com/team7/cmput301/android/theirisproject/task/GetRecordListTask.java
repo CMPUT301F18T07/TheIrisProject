@@ -16,6 +16,7 @@ import java.io.IOException;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.search.sort.Sort;
+import io.searchbox.params.Parameters;
 
 /**
  * Asynchronously searches ElasticSearch DB to ultimately make a RecordList
@@ -54,6 +55,7 @@ public class GetRecordListTask extends AsyncTask<String, Void, SearchResult> {
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType(type)
                     .addSort(sort)
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .build();
             res = IrisProjectApplication.getDB().execute(search);
         } catch (IOException e) {

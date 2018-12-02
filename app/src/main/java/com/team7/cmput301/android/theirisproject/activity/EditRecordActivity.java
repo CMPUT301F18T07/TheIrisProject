@@ -37,11 +37,6 @@ public class EditRecordActivity extends IrisActivity<Record>{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_form);
 
-        // Set toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // set back button
-
         // get Views and Buttons
         // https://stackoverflow.com/a/4787064
         formPage = findViewById(R.id.record_form_layout);

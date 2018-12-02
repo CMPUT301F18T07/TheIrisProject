@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import io.searchbox.core.Search;
+import io.searchbox.params.Parameters;
 
 /**
  * GetRecordPhotosTask queries the record photos associated to the problem
@@ -43,6 +44,7 @@ public class GetRecordPhotosTask extends AsyncTask<List<Record>, List<RecordPhot
                 Search search = new Search.Builder(String.format(queryString, record.getId()))
                         .addIndex(IrisProjectApplication.INDEX)
                         .addType("recordphoto")
+                        .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                         .build();
                 publishProgress(IrisProjectApplication.getDB().execute(search).getSourceAsObjectList(RecordPhoto.class, true));
             } catch (IOException e) {
