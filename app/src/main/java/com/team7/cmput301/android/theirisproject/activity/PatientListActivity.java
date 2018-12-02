@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,9 +21,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.PatientListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
@@ -46,8 +49,8 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
 
     private static final int PERMISSION_REQUEST_READ_CONTACTS = 0;
 
-    private CareProvider loggedInCareProvider;
     private PatientListController controller;
+    private FloatingActionButton logoutButton;
     private ListView patientsView;
 
     private PatientListAdapter adapter;
@@ -62,11 +65,9 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
 
-        loggedInCareProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
-
         controller = createController(getIntent());
         patientsView = findViewById(R.id.patient_item_list);
-        adapter = new PatientListAdapter(this, R.layout.list_patient_item, loggedInCareProvider.getPatients());
+        adapter = new PatientListAdapter(this, R.layout.list_patient_item, controller.getPatients());
         patientsView.setAdapter(adapter);
         render();
 
@@ -76,7 +77,7 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
                 Patient patient = (Patient) patientsView.getItemAtPosition(i);
 
                 Intent intent = new Intent(PatientListActivity.this, ProblemListActivity.class);
-                intent.putExtra("user", patient.getId());
+                intent.putExtra(Extras.EXTRA_USER_ID, patient.getId());
 
                 startActivity(intent);
             }
@@ -91,6 +92,17 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
                 addPatientDialog.show(getSupportFragmentManager(), AddPatientDialogFragment.class.getSimpleName());
             }
         });
+
+        logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IrisProjectApplication.logoutCurrentUser();
+                finish();
+                startActivity(new Intent(PatientListActivity.this, LoginActivity.class));
+            }
+        });
+
     }
 
     @Override

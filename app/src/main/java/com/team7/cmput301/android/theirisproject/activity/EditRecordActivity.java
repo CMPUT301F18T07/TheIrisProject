@@ -69,16 +69,14 @@ public class EditRecordActivity extends IrisActivity<Record>{
 
                 Toast missingFieldsToast = Toast.makeText(
                         EditRecordActivity.this, R.string.register_incomplete, Toast.LENGTH_SHORT);
-                Toast onlineFailedToast = Toast.makeText(
-                        EditRecordActivity.this, R.string.offline_upload_error, Toast.LENGTH_SHORT);
 
                 // check that all fields filled, then update Record locally and online (if possible)
                 if (title.isEmpty()) {
                     missingFieldsToast.show();
                 } else {
-                    Boolean online = controller.submitRecord(getApplicationContext(), title, desc);
+                    Boolean online = controller.submitRecord(title, desc);
                     if (!online) {
-                        onlineFailedToast.show();
+                        showOfflineUploadToast(EditRecordActivity.this);
                     }
                     finish();
                 }

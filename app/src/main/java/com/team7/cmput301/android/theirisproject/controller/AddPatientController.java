@@ -9,13 +9,10 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.helper.StringHelper;
-import com.team7.cmput301.android.theirisproject.model.CareProvider;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.AddPatientTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
-
-import java.util.List;
 
 /**
  * AddPatientController is responsible for executing AddPatientTask which will update the given
@@ -29,9 +26,14 @@ public class AddPatientController extends IrisController<Patient> {
         super(intent);
     }
 
-    public void addPatient(String patientUsername, Callback<Boolean> callback) {
+    public Boolean addPatient(String patientUsername, Callback<Boolean> callback) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
         AddPatientTask task = new AddPatientTask(callback);
         task.execute(patientUsername, false);
+        return true;
+
     }
 
     @Override

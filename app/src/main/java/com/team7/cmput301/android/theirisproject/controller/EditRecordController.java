@@ -47,19 +47,18 @@ public class EditRecordController extends IrisController<Record> {
      * Updates record locally and attempts to update online.
      * If online fails, return false; true otherwise
      *
-     * @param context Required for internet check
      * @param title Record's new title
      * @param desc Record's new description
      * @return Whether update to online was possible or not
      */
-    public boolean submitRecord(Context context, String title, String desc){
+    public boolean submitRecord(String title, String desc){
 
         Boolean pushedOnline = false;
 
         record.setTitle(title);
         record.setDesc(desc);
 
-        if (IrisProjectApplication.isConnectedToInternet(context)) {
+        if (IrisProjectApplication.isConnectedToInternet()) {
             new EditRecordTask().execute(record);
             pushedOnline = true;
         } else {

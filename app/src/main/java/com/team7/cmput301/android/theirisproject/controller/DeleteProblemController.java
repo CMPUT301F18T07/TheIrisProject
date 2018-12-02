@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 
@@ -20,15 +21,19 @@ import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
  * @see DeleteProblemTask
  * */
 public class DeleteProblemController extends IrisController {
+
     private String problemID;
 
     public DeleteProblemController(Intent intent) {
         super(intent);
-        this.problemID = intent.getExtras().getString(Extras.EXTRA_PROBLEM_ID);
+        model = getModel(intent.getExtras());
     }
 
     @Override
-    Object getModel(Bundle date) {return null;}
+    Object getModel(Bundle data) {
+        problemID = data.getString(Extras.EXTRA_PROBLEM_ID);
+        return IrisProjectApplication.getProblemById(problemID);
+    }
 
     /**
      * deleteProblem is a method to asynchronously deletes the given problem
@@ -36,11 +41,17 @@ public class DeleteProblemController extends IrisController {
      * with a boolean result either successful or not
      * @param cb callback method
      */
-    public void deleteProblem(Callback<Boolean> cb) {
+    public Boolean deleteProblem(Callback<Boolean> cb) {
+
+        if (!IrisProjectApplication.isConnectedToInternet()) return false;
+
         new DeleteProblemTask(new Callback<Boolean>() {
             @Override
             public void onComplete(Boolean res) { cb.onComplete(res); }
             }).execute(problemID);
+
+        return true;
+
         }
 
     }

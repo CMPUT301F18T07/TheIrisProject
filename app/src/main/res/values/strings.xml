@@ -2,6 +2,10 @@
 
     <string name="app_name">Iris</string>
 
+    <!--Shared Preferences strings-->
+    <string name="shared_pref_file">preferences.xml</string>
+    <string name="shared_pref_username_key">username</string>
+
     <!--Terminology strings-->
     <string name="patient">Patient</string>
     <string name="care_provider">Care Provider</string>
@@ -16,6 +20,10 @@
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
     <string name="login_failure">Incorrect login!</string>
+    <string name="login_transfer_hint">Enter your transfer code</string>
+    <string name="login_transfer_button">Transfer</string>
+    <string name="login_transfer_success">Transfer successful!</string>
+    <string name="login_transfer_failure">Incorrect transfer code!</string>
 
     <!-- Register screen strings-->
     <string name="register_title">Register a new profile</string>
@@ -48,6 +56,7 @@
     <string name="enter_body_location">Enter Body Location</string>
     <string name="label_photos">Label Photos</string>
     <string name="submit_record">Submit Record</string>
+    <string name="create_record_error">Error Making Record!</string>
 
     <!-- View Record List screen strings -->
     <string name="title_activity_view_record">ViewRecordActivity</string>
@@ -82,6 +91,7 @@
 
     <!-- View Problem screen strings-->
     <string name="problem_comments_label">Comments</string>
+    <string name="comment_empty_error">Comment Field is Empty!</string>
 
     <!-- Problem list Toolbar strings-->
     <string name="edit_problems">Edit</string>
@@ -91,6 +101,7 @@
     <string name="submit_problem">Submit</string>
     <string name="incorrect_date">Incorrect date format!</string>
     <string name="successful_edit">Problem Edited!</string>
+    <string name="edit_problem_failure">"Uh oh something went wrong"</string>
 
     <!-- Delete Problem strings-->
     <string name="delete_problem_hint">Do you want to delete this problem?</string>
@@ -110,14 +121,20 @@
     <string name="edit_profile_failure">Please fill out all fields!</string>
 
     <!-- View Profile screen strings-->
-    <string name="view_profile_name">Name</string>
+    <string name="view_profile_username">Username</string>
     <string name="view_profile_title">Profile</string>
     <string name="view_profile_email">Email</string>
     <string name="view_profile_phone">Phone</string>
     <string name="view_profile_edit_profile_button">Edit Profile</string>
+    <string name="view_profile_generate_code_button">Generate Transfer Code</string>
+    <string name="view_profile_generate_code_toast">Generating transfer code...</string>
     <string name="view_profile_users">Users:</string>
     <string name="view_profile_patients">Patients:</string>
     <string name="view_profile_care_providers">Care Providers:</string>
+
+    <!-- Transfer Code dialog strings -->
+    <string name="transfer_code_dialog_title">Your transfer code:</string>
+    <string name="transfer_code_dialog_hint">Transfer code</string>
 
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by username</string>
@@ -129,7 +146,14 @@
     <string name="add_bodyphoto_title_text">Add Body Photo</string>
     <string name="add_bodyphoto_note">To add a Body Photo click on the image</string>
 
+    <!-- Map strings -->
     <string name="title_activity_map">Map</string>
+    <string name="selected_location">Location</string>
+    <string name="map_error">Cannot get current location</string>
+
+    <!-- Add Geolocation fragment strings -->
+    <string name="geolocation_frag_title">Add GeoLocation</string>
+    <string name="geolocation_frag_message">Do you want to add this location?</string>
 
     <!-- Permissions strings -->
     <string name="contact_permissions_granted">Contact permissions granted successfully!</string>
@@ -140,8 +164,9 @@
     <string name="add_contact_button">Add</string>
 
     <!-- Database-related strings -->
-    <string name="offline_upload_error">Internet disconnected, couldn\'t upload changes. Changes only saved locally.</string>
-    <string name="offline_fetch_error">Internet disconnected, couldn\'t get latest data. Showing local version.</string>
+    <string name="offline_upload_error">Internet disconnected, will upload changes when restored.</string>
+    <string name="offline_fetch_error">Internet disconnected, showing local data.</string>
+    <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
     <string name="add_body_location_submit">Save Body Location</string>
 

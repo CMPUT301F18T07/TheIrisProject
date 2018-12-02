@@ -31,7 +31,6 @@ import static com.team7.cmput301.android.theirisproject.helper.StringHelper.*;
 
 public class EditProfileActivity extends IrisActivity {
 
-    private User loggedInUser;
     private EditProfileController controller;
 
     private EditText newEmail;
@@ -45,7 +44,6 @@ public class EditProfileActivity extends IrisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        loggedInUser = IrisProjectApplication.getCurrentUser();
         controller = (EditProfileController) createController(getIntent());
 
         newEmail = findViewById(R.id.edit_profile_email_edit_text);
@@ -53,8 +51,8 @@ public class EditProfileActivity extends IrisActivity {
         saveChanges = findViewById(R.id.edit_profile_save_changes_button);
         cancel = findViewById(R.id.edit_profile_cancel_button);
 
-        newEmail.setText(loggedInUser.getEmail());
-        newPhone.setText(loggedInUser.getPhone());
+        newEmail.setText(controller.getEmail());
+        newPhone.setText(controller.getPhone());
 
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,17 +62,26 @@ public class EditProfileActivity extends IrisActivity {
 
                 String[] fields = {newEmailText, newPhoneText};
                 if (hasEmptyString(Arrays.asList(fields))) {
-                    Toast.makeText(EditProfileActivity.this, getString(R.string.edit_profile_failure), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this,
+                            getString(R.string.edit_profile_failure),
+                            Toast.LENGTH_SHORT).show();
                     setResult(Activity.RESULT_CANCELED);
                     return;
                 } else {
-                    loggedInUser.updateProfile(newEmailText, newPhoneText);
 
-                    // Updated user is now sent into controller to update database with corresponding information
-                    controller.updateProfile(loggedInUser);
+                    // Update online database and local data with corresponding information
+                    Boolean success = controller.updateProfile(newEmailText, newPhoneText);
 
-                    Toast.makeText(EditProfileActivity.this, getString(R.string.edit_profile_success), Toast.LENGTH_SHORT).show();
-                    setResult(Activity.RESULT_OK);
+                    if (success) {
+                        Toast.makeText(EditProfileActivity.this,
+                                getString(R.string.edit_profile_success),
+                                Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_OK);
+                    }
+                    else {
+                        showOfflineFatalToast(EditProfileActivity.this);
+                        setResult(Activity.RESULT_CANCELED);
+                    }
                     finish();
                 }
             }

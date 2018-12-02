@@ -4,6 +4,9 @@
 
 package com.team7.cmput301.android.theirisproject;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.team7.cmput301.android.theirisproject.activity.ContactDialogFragment;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.User;
 
@@ -29,7 +33,10 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     private final int COMMENT_ITEM_LAYOUT = R.layout.comment_item;
     private List<Comment> comments;
 
-    public CommentListAdapter(List<Comment> comments) {
+    private Context context;
+
+    public CommentListAdapter(Context context, List<Comment> comments) {
+        this.context = context;
         this.comments = comments;
     }
 
@@ -47,6 +54,15 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         holder.setNameView(current.getAuthor(), current.getRole().toString());
         holder.setDateView(current.getDate());
         holder.setBodyView(current.getBody());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = ((Activity)context).getFragmentManager();
+                ContactDialogFragment dialog = ContactDialogFragment.newInstance(current.getContact());
+                dialog.show(fm, "fragment_contact_card");
+            }
+        });
     }
 
     @Override

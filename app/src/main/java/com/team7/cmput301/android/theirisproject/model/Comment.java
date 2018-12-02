@@ -22,16 +22,16 @@ public class Comment {
     @JestId
     private String _id;
     private String problemId;
-    private String author;
+    private Contact contact;
     private UserType role;
     private Date date;
     private String body;
 
     /* Constructors */
 
-    public Comment(String problemId, String author, String body, UserType role) {
+    public Comment(String problemId, Contact contact, String body, UserType role) {
         this.problemId = problemId;
-        this.author = author;
+        this.contact = contact;
         this.body = body;
         this.role = role;
         this.date = new Date();
@@ -46,9 +46,21 @@ public class Comment {
     public UserType getRole() { return role; }
 
     public String getAuthor() {
-        return author;
+        return contact.getName();
     }
-  
+
+    public String getEmail() {
+        return contact.getEmail();
+    }
+
+    public String getPhone() {
+        return contact.getPhone();
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
     public String getDate() {
         return DateHelper.format(date);
     }

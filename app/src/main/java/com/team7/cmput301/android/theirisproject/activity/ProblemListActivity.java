@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
@@ -40,6 +41,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private ListView problemsView;
     private FloatingActionButton addProblemButton;
     private FloatingActionButton bodyPhotoButton;
+    private FloatingActionButton logoutButton;
 
     private Toolbar toolbar;
 
@@ -51,8 +53,11 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         controller = new ProblemListController(getIntent());
 
         problemsView = findViewById(R.id.problem_item_list);
+
         setAddProblemButton();
         setBodyPhotoButton();
+        setLogoutButton();
+
         toolbar = findViewById(R.id.problem_list_toolbar);
         setSupportActionBar(toolbar);
 
@@ -116,10 +121,10 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         if (requestCode == DELETE_PROBLEM_RESPONSE) {
             // On return from DeleteProblemActivity, check the result of the activity for status of deletion
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_SHORT);
             }
             else if (resultCode == RESULT_OK) {
-                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_SHORT);
                 controller.getUserProblems(new Callback<ProblemList>() {
                     @Override
                     public void onComplete(ProblemList res) {
@@ -128,7 +133,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 });
             }
             else {
-                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_SHORT);
             }
         }
     }
@@ -152,7 +157,20 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProblemListActivity.this, BodyPhotoListActivity.class);
+                intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, controller.getUserId());
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void setLogoutButton() {
+        logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IrisProjectApplication.logoutCurrentUser();
+                finish();
+                startActivity(new Intent(ProblemListActivity.this, LoginActivity.class));
             }
         });
     }
