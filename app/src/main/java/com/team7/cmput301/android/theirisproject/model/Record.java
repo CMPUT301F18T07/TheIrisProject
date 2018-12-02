@@ -31,8 +31,14 @@ public class Record {
     private String title;
     private Date date = new Date();
     private GeoLocation geoLocation;
+    private double[] location = new double[2];
+
     private BodyLocation bodyLocation;
     transient private List<RecordPhoto> recordPhotos = new ArrayList<>();
+
+    public void setLocation(double[] location) {
+        this.location = location;
+    }
 
     /* Constructors */
 
