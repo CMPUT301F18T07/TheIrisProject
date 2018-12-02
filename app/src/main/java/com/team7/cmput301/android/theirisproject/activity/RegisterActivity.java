@@ -72,14 +72,18 @@ public class RegisterActivity extends IrisActivity {
      */
     private void registerUser() {
         String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String phoneNumber = phoneEditText.getText().toString();
 
-        String[] fields = {username, password, email, phoneNumber};
+        String[] fields = {username, email, phoneNumber};
 
         if (StringHelper.hasEmptyString(Arrays.asList(fields))) {
             Toast.makeText(this, getString(R.string.register_incomplete), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (username.length() < 8) {
+            Toast.makeText(this, getString(R.string.register_short_username), Toast.LENGTH_SHORT).show();
             return;
         }
 

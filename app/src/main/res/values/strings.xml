@@ -39,6 +39,7 @@
     <string name="register_success">User successfully registered!</string>
     <string name="register_incomplete">Please fill in all fields!</string>
     <string name="register_failure">Could not register, username already in use!</string>
+    <string name="register_short_username">That username is too short!</string>
 
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
