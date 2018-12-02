@@ -19,17 +19,30 @@ import io.searchbox.core.Index;
  * @author anticobalt
  * @see EditRecordTask
  * */
-public class AddRecordPhotoTask extends AsyncTask<RecordPhoto, Void, Void> {
+public class AddRecordPhotoTask extends AsyncTask<RecordPhoto, Void, Boolean> {
 
-    @Override
-    protected Void doInBackground(RecordPhoto... params) {
-        try {
-            Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("recordphoto").build();
-            IrisProjectApplication.getDB().execute(post);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    Callback<Boolean> cb;
+
+    public AddRecordPhotoTask(Callback<Boolean> cb) {
+        this.cb = cb;
     }
 
+    @Override
+    protected Boolean doInBackground(RecordPhoto... params) {
+        Boolean success;
+        try {
+            Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("recordphoto").build();
+             success = IrisProjectApplication.getDB().execute(post).isSucceeded();
+        } catch (IOException e) {
+            e.printStackTrace();
+            success = false;
+        }
+        return success;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
+        cb.onComplete(aBoolean);
+    }
 }

@@ -25,6 +25,7 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.EditRecordController;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
+import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
  * Activity for editing a single Record. Uses the same form as AddRecordActivity.
@@ -98,6 +99,17 @@ public class EditRecordActivity extends IrisActivity<Record>{
 
     private void setOnClickListeners() {
 
+        Callback contCallback = new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean success) {
+                if (success) {
+                    finish();
+                } else {
+                    Toast.makeText(EditRecordActivity.this, R.string.generic_server_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +124,7 @@ public class EditRecordActivity extends IrisActivity<Record>{
                 if (title.isEmpty()) {
                     missingFieldsToast.show();
                 } else {
-                    Boolean online = controller.submitRecord(title, desc);
+                    Boolean online = controller.submitRecord(contCallback, title, desc);
                     if (!online) {
                         showOfflineUploadToast(EditRecordActivity.this);
                     }

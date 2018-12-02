@@ -15,6 +15,8 @@ import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddRecordPhotoTask;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.DeleteRecordPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.EditRecordTask;
 
 import java.util.ArrayList;
@@ -30,11 +32,14 @@ import java.util.List;
 public class EditRecordController extends IrisController<Record> {
 
     private Record record;
-    private List<RecordPhoto> newRecordPhotos = new ArrayList<>();
+    private List<RecordPhoto> oldPhotoList;
+    private List<RecordPhoto> photoList;
 
     public EditRecordController(Intent intent){
         super(intent);
         record = model;
+        photoList = model.getRecordPhotos();
+        oldPhotoList = new ArrayList<>(photoList);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class EditRecordController extends IrisController<Record> {
     }
 
     public List<RecordPhoto> getRecordPhotos() {
-        return record.getRecordPhotos();
+        return photoList;
     }
 
     public Bitmap getBodyPhotoBitmap() {
@@ -71,7 +76,7 @@ public class EditRecordController extends IrisController<Record> {
      * @param desc Record's new description
      * @return Whether update to online was possible or not
      */
-    public boolean submitRecord(String title, String desc){
+    public boolean submitRecord(Callback<Boolean> cb, String title, String desc){
 
         Boolean pushedOnline = false;
 
@@ -82,13 +87,19 @@ public class EditRecordController extends IrisController<Record> {
 
             new EditRecordTask().execute(record);
 
-            // Add only the new Record Photos.
-            // newRecordPhotos holds ALL photos that were added in activity
-            // (including ones that were added then deleted), while the model
-            // properly removes deleted photos.
-            for (RecordPhoto p : newRecordPhotos) {
-                if (record.getRecordPhotos().contains(p)) {
-                    new AddRecordPhotoTask().execute(p);
+            // Compare old list with new list to find out what
+            // photos were added/deleted, then modify the elasticsearch
+            // database as required.
+            for (RecordPhoto oldPhoto : oldPhotoList) {
+                if (!photoList.contains(oldPhoto)) {
+                    // this photo was deleted
+                    new DeleteRecordPhotoTask(cb).execute(oldPhoto);
+                }
+            }
+            for (RecordPhoto photo : photoList) {
+                if (!oldPhotoList.contains(photo)) {
+                    // this photo was added
+                    new AddRecordPhotoTask(cb).execute(photo);
                 }
             }
 
@@ -104,7 +115,6 @@ public class EditRecordController extends IrisController<Record> {
 
     public void addRecordPhoto(Bitmap imageBitmap) {
         RecordPhoto p = new RecordPhoto(record.getId(), ImageConverter.scaleBitmapPhoto(imageBitmap, 256, 256));
-        newRecordPhotos.add(p);
         record.addRecordPhoto(p);
     }
 
@@ -115,4 +125,5 @@ public class EditRecordController extends IrisController<Record> {
     public void setGeoLocation(double[] location) {
         record.editGeoLocation(location[0], location[1]);
     }
+
 }
