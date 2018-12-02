@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
@@ -108,7 +110,7 @@ public class SplashActivity extends IrisActivity<Void> {
      * */
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(SplashActivity.this, targetActivity);
-        intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
+        intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
 
