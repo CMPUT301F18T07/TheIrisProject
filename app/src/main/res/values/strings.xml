@@ -138,8 +138,8 @@
     <string name="transfer_code_dialog_hint">Transfer code</string>
 
     <!-- Add Patient dialog strings -->
-    <string name="add_patient_dialog_title">Add a patient by username</string>
-    <string name="add_patient_dialog_hint">Patient\'s username</string>
+    <string name="add_patient_dialog_title">Add a patient by their add code</string>
+    <string name="add_patient_dialog_hint">Patient\'s add code</string>
     <string name="record_photos">Photos</string>
 
     <!-- Body Photo strings -->
