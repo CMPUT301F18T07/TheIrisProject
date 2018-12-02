@@ -18,6 +18,12 @@ import com.team7.cmput301.android.theirisproject.task.SearchProblemsByRecordsTas
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SearchController handles the input coming from activity to
+ * search for results
+ *
+ * @author itstc
+ * */
 public class SearchController {
     private String userId;
     private List<Problem> problems;
@@ -48,18 +54,7 @@ public class SearchController {
         problems.clear();
         records.clear();
 
-        searchState.querySearchRecords(userId, keyword, new Callback<List<Record>>() {
-            @Override
-            public void onComplete(List<Record> res) {
-                records.addAll(res);
-                new SearchProblemsByRecordsTask(new Callback<List<Problem>>() {
-                    @Override
-                    public void onComplete(List<Problem> result) {
-                        problems.addAll(result);
-                        cb.onComplete(res);
-                    }
-                }).execute(res);
-            }
-        });
+        searchState.querySearchProblems(userId, keyword, problems, records, cb);
+        searchState.querySearchRecords(userId, keyword, problems, records, cb);
     }
 }

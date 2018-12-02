@@ -17,6 +17,12 @@ import java.util.List;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 
+/**
+ * SearchBodyLocationTask searches the database for problems/records related to a
+ * bodyphoto with a label given
+ *
+ * @author itstc
+ * */
 public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void> {
     private Callback cb;
     private String queryBodyPhotos = "{\n" +

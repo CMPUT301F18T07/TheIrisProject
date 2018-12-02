@@ -110,10 +110,10 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 controller.querySearch(searchField.getText().toString(), new Callback<List<Record>>() {
                     @Override
                     public void onComplete(List<Record> res) {
-                        searchField.setText("");
                         render();
                     }
                 });
+                searchField.setText("");
             }
         });
     }
@@ -138,7 +138,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        // nothing to handle but need it since we extend
     }
 
     private void render() {
