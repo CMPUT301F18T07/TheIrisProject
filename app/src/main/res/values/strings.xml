@@ -19,6 +19,7 @@
     <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
+    <string name="login_failure_no_internet">No internet connection, can\'t login!</string>
     <string name="login_failure">Incorrect login!</string>
     <string name="login_transfer_hint">Enter your transfer code</string>
     <string name="login_transfer_button">Transfer</string>

@@ -44,8 +44,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private FloatingActionButton logoutButton;
     private Boolean doEditProblem = false;
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +56,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         setAddProblemButton();
         setBodyPhotoButton();
         setLogoutButton();
-
-        toolbar = findViewById(R.id.problem_list_toolbar);
-        setSupportActionBar(toolbar);
 
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
