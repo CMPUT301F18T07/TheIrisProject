@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.RegisterController;
 import com.team7.cmput301.android.theirisproject.helper.StringHelper;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
@@ -38,7 +40,6 @@ public class RegisterActivity extends IrisActivity {
     private RegisterController controller;
 
     private EditText usernameEditText;
-    private EditText passwordEditText;
     private EditText emailEditText;
     private EditText phoneEditText;
     private RadioGroup userRadioGroup;
@@ -52,7 +53,6 @@ public class RegisterActivity extends IrisActivity {
         controller = (RegisterController) createController(getIntent());
 
         usernameEditText = findViewById(R.id.name_edit_text);
-        passwordEditText = findViewById(R.id.password_edit_text);
         emailEditText = findViewById(R.id.email_edit_text);
         phoneEditText = findViewById(R.id.phone_edit_text);
         userRadioGroup = findViewById(R.id.user_radio_group);
@@ -72,14 +72,19 @@ public class RegisterActivity extends IrisActivity {
      */
     private void registerUser() {
         String username = usernameEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String phoneNumber = phoneEditText.getText().toString();
 
-        String[] fields = {username, password, email, phoneNumber};
+        String[] fields = {username, email, phoneNumber};
 
         if (StringHelper.hasEmptyString(Arrays.asList(fields))) {
             Toast.makeText(this, getString(R.string.register_incomplete), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // TODO: Change this to <8. Leaving it as a useless check so we can keep testing w/o long usernames
+        if (username.length() < 1) {
+            Toast.makeText(this, getString(R.string.register_short_username), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -105,6 +110,8 @@ public class RegisterActivity extends IrisActivity {
                     IrisProjectApplication.loginCurrentUser(username);
 
                     finish();
+                    startActivity(new Intent(RegisterActivity.this, SplashActivity.class));
+
                 } else {
                     Toast.makeText(RegisterActivity.this, R.string.register_failure, Toast.LENGTH_SHORT).show();
                 }

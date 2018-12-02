@@ -24,6 +24,7 @@ import io.searchbox.client.JestResult;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
+import io.searchbox.params.Parameters;
 
 /**
  * AddPatientTask takes in two parameters, the Patient's e-mail and whether or not we are
@@ -46,7 +47,7 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Object... objects) {
-        String patientUsername = (String) objects[0];
+        String addCode = (String) objects[0];
         boolean isImport = false;
         if (objects[1] != null) {
             isImport = (boolean) objects[1];
@@ -54,11 +55,9 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
 
         CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
 
-        if (patientUsername == null) {
+        if (addCode == null) {
             return false;
         }
-
-        Log.i(TAG, patientUsername + " and " + careProvider.getId());
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
@@ -67,7 +66,7 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
                 "  \"query\": {\n" +
                 "    \"bool\": {\n" +
                 "      \"must\": [\n" +
-                "    \t{ \"term\": { \"username\": \"" + patientUsername + "\" }},\n" +
+                "    \t{ \"term\": { \"addCode\": \"" + addCode + "\" }},\n" +
                 "    \t{ \"term\": { \"type\": \"PATIENT\" }}\n" +
                 "\t  ]\n" +
                 "    }\n" +
@@ -76,6 +75,7 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
         Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
+                .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                 .build();
 
         try {

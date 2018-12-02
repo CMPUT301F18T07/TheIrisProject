@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--   ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta -->
+<?xml version="1.0" encoding="utf-8"?><!-- ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.team7.cmput301.android.theirisproject">
 
@@ -43,15 +43,15 @@
             android:noHistory="true"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.RegisterActivity" />
-
-        <activity android:name=".activity.ContactsActivity"
-            android:theme="@style/AppTheme"
-            android:label="@string/import_contacts_title"/>
+        <activity
+            android:name=".activity.ContactsActivity"
+            android:label="@string/import_contacts_title"
+            android:theme="@style/AppTheme" />
 
         <!-- Problem Activities -->
         <activity
             android:name=".activity.ProblemListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddProblemActivity"
             android:label="@string/create_a_problem"
@@ -68,17 +68,17 @@
         <activity
             android:name=".activity.RecordListActivity"
             android:label="@string/record_list_activity_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/submit_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewRecordActivity" />
         <activity
             android:name=".activity.EditRecordActivity"
             android:label="@string/edit_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
 
         <!-- Profile Activities -->
         <activity android:name=".activity.PatientListActivity" />
@@ -112,7 +112,7 @@
         <activity
             android:name=".activity.MapActivity"
             android:label="@string/title_activity_map" />
-
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

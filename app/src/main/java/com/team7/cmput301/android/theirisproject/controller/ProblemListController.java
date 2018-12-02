@@ -59,6 +59,7 @@ public class ProblemListController extends IrisController<ProblemList> {
                     new GetProblemListTask(new Callback<ProblemList>() {
                         @Override
                         public void onComplete(ProblemList res) {
+                            model = res;
                             cb.onComplete(res);
                         }
                     }).execute(userId);

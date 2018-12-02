@@ -18,6 +18,7 @@ import java.util.Arrays;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 /**
  * GetProblemListTask is a function that asynchronously retrieves data from
@@ -45,13 +46,16 @@ public class GetProblemListTask extends AsyncTask<String, Void, ProblemList> {
     protected ProblemList doInBackground(String... params) {
         try {
             // send GET request to our database endpoint ".../_search?q=_type:problem&q=user:`params[0]`"
-            Search get = new Search.Builder("{"+
-                    "    \"query\" : {\n" +
-                    "        \"term\" : { \"user\" : \"" + params[0] +"\" }\n" +
-                    "    }\n" +
+            Search get = new Search.Builder("{\n" +
+                    "  \"query\": {\n" +
+                    "\t\"term\": {\n" +
+                    "\t\t\"user\": \"" + params[0] + "\"\n" +
+                    "\t}\n" +
+                    "  }\n" +
                     "}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("problem")
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .build();
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);

@@ -137,7 +137,7 @@ public class ContactsFragment extends Fragment {
                 public void onComplete(Boolean res) {
                     // do nothing on complete
                 }
-            }).execute(patient.getUsername(), true);
+            }).execute(patient.getAddCode(), true);
         }
     }
 

@@ -19,6 +19,7 @@
     <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
+    <string name="login_failure_internet_or_not_found">Couldn\'t log in!</string>
     <string name="login_failure">Incorrect login!</string>
     <string name="login_transfer_hint">Enter your transfer code</string>
     <string name="login_transfer_button">Transfer</string>
@@ -38,6 +39,7 @@
     <string name="register_success">User successfully registered!</string>
     <string name="register_incomplete">Please fill in all fields!</string>
     <string name="register_failure">Could not register, username already in use!</string>
+    <string name="register_short_username">That username is too short!</string>
 
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
@@ -74,6 +76,7 @@
     <string name="view_problem_title">View Problem</string>
     <string name="slideshow_button">Slideshow</string>
     <string name="title_activity_problem_slideshow">Slideshow</string>
+    <string name="edit_problem">Edit</string>
 
     <!-- View Record strings -->
     <string name="record_photos">Photos</string>
@@ -135,14 +138,16 @@
     <string name="view_profile_users">Users:</string>
     <string name="view_profile_patients">Patients:</string>
     <string name="view_profile_care_providers">Care Providers:</string>
+    <string name="view_profile_user_add_code">User\'s Add Code</string>
+    <string name="view_profile_add_code">Add Code</string>
 
     <!-- Transfer Code dialog strings -->
     <string name="transfer_code_dialog_title">Your transfer code:</string>
     <string name="transfer_code_dialog_hint">Transfer code</string>
 
     <!-- Add Patient dialog strings -->
-    <string name="add_patient_dialog_title">Add a patient by username</string>
-    <string name="add_patient_dialog_hint">Patient\'s username</string>
+    <string name="add_patient_dialog_title">Add a patient by their add code</string>
+    <string name="add_patient_dialog_hint">Patient\'s add code</string>
 
     <!-- Body Photo strings -->
     <string name="add_bodyphoto_submit">Submit Body Photo</string>
@@ -172,5 +177,20 @@
     <string name="offline_fetch_error">Internet disconnected, showing local data.</string>
     <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
+
+    <string name="search_records_label">Records:</string>
+    <string name="search_problems_label">Problems:</string>
+
+    <string name="search_default">Search by Keywords...</string>
+    <string name="search_geolocation">Search by Geolocation...</string>
+    <string name="search_bodylocation">Search by Body Location...</string>
+    <string name="search_error_message">Nothing to Search!</string>
+
+    <!-- Search Strings -->
+    <string-array name="search_options">
+        <item>Keywords (default)</item>
+        <item>Geolocation</item>
+        <item>BodyLocation</item>
+    </string-array>
 
 </resources>

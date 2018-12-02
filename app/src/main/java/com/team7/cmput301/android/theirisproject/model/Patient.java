@@ -22,6 +22,9 @@ public class Patient extends User {
     private List<String> problemIds = new ArrayList<>();
     private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
+    // Code that the Care Provider uses to add this patient
+    private String addCode;
+
     /* Constructors */
 
     public Patient(String name, String email, String phoneNumber) {
@@ -41,6 +44,10 @@ public class Patient extends User {
 
     public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {
         this.bodyPhotos = bodyPhotos;
+    }
+
+    public void setAddCode(String addCode) {
+        this.addCode = addCode;
     }
 
     /* Basic getters */
@@ -63,6 +70,10 @@ public class Patient extends User {
 
     public List<String> getCareProviderIds() {
         return careProviderIds;
+    }
+
+    public String getAddCode() {
+        return addCode;
     }
 
     /* Basic list operations */

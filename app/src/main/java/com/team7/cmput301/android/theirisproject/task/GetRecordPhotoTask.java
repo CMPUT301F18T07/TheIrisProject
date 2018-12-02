@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.core.Search;
+import io.searchbox.params.Parameters;
 
 /**
  * GetRecordPhotoTask queries the record photos associated to the record
@@ -33,6 +34,7 @@ public class GetRecordPhotoTask extends AsyncTask<String, Void, List<RecordPhoto
         Search search = new Search.Builder(String.format(searchQuery, params[0]))
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("recordphoto")
+                .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                 .build();
         List<RecordPhoto> photosResult = new ArrayList<>();
         try {
