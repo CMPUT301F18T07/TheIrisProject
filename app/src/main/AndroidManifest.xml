@@ -22,6 +22,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
+
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -50,7 +51,7 @@
         <!-- Problem Activities -->
         <activity
             android:name=".activity.ProblemListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddProblemActivity"
             android:label="@string/create_a_problem"
@@ -67,17 +68,17 @@
         <activity
             android:name=".activity.RecordListActivity"
             android:label="@string/record_list_activity_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/submit_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewRecordActivity" />
         <activity
             android:name=".activity.EditRecordActivity"
             android:label="@string/edit_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
 
         <!-- Profile Activities -->
         <activity android:name=".activity.PatientListActivity" />
@@ -87,7 +88,8 @@
         <activity
             android:name=".activity.EditProfileActivity"
             android:label="@string/edit_profile_title_text" />
-        <activity android:name=".activity.BodyPhotoListActivity" />
+        <activity android:name=".activity.BodyPhotoListActivity"
+            android:label="@string/body_location_photos" />/>
         <activity
             android:name=".activity.AddBodyPhotoActivity"
             android:label="@string/add_bodyphoto_title_text" />
