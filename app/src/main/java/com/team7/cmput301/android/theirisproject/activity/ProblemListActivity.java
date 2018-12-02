@@ -44,8 +44,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private FloatingActionButton logoutButton;
     private Boolean doEditProblem = false;
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
