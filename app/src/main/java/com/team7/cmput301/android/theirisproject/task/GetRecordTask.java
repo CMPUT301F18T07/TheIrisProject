@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.searchbox.core.Get;
 import io.searchbox.core.Search;
+import io.searchbox.params.Parameters;
 
 /**
  * GetRecordTask is an async task that fetches a Record model

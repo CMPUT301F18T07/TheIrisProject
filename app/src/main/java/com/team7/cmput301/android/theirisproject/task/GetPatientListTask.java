@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 import io.searchbox.params.SearchType;
 
 /**
@@ -50,6 +51,7 @@ public class GetPatientListTask extends AsyncTask<String, Void, List<Patient>> {
             Search get = new Search.Builder("{\"query\": {\"term\": {\"careProviderIds\": \"" + careProviderId + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .build();
             // populate our Problem model with database values corresponding to _id
             SearchResult res = IrisProjectApplication.getDB().execute(get);
