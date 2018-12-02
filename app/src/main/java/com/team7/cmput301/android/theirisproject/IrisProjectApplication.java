@@ -17,11 +17,13 @@ import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.searchly.jestdroid.JestDroidClient;
 import com.team7.cmput301.android.theirisproject.task.BulkUpdateTask;
@@ -86,7 +88,7 @@ public class IrisProjectApplication extends Application {
         if (db == null) {
             JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(new DroidClientConfig
-                    .Builder("http://cmput301.softwareprocess.es:8080")
+                    .Builder("http://es2.softwareprocess.ca:8080")
                     .multiThreaded(true)
                     .build());
             db = (JestDroidClient) factory.getObject();
@@ -335,6 +337,21 @@ public class IrisProjectApplication extends Application {
 
     public static void bindRecord(Record record) {
         getProblemById(record.getProblemId()).addRecord(record);
+    }
+
+    /**
+     * Completely deletes a body photo and all its references
+     * @param photo The Body Photo to delete
+     */
+    public static void deleteBodyPhoto(BodyPhoto photo) {
+        ((Patient) currentUser).getBodyPhotos().remove(photo);
+        for (Problem p : ((Patient) currentUser).getProblems()) {
+            for (Record r : p.getRecords()) {
+                if (r.getBodyLocation().getBodyPhotoId().equals(photo.getId())) {
+                    r.setBodyLocation(null);
+                }
+            }
+        }
     }
 
     /**
