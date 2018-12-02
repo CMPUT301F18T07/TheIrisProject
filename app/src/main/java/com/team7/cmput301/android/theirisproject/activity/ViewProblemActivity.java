@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.GetAllGeoLocationsController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
@@ -273,6 +274,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
+        intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }

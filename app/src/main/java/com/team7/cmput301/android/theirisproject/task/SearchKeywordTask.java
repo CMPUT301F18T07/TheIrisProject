@@ -32,7 +32,7 @@ public class SearchKeywordTask<M> extends AsyncTask<String, Void, List<M>> {
             "        { \"match\" : { \"desc\" : \"%s\" } }\n" +
             "      ],\n" +
             "    \"boost\" : 1.0,\n" +
-            "    \"minimum_should_match\" : 1\n" +
+            "    \"minimum_should_match\" : -1\n" +
             "    }\n" +
             "  }\n" +
             "}";

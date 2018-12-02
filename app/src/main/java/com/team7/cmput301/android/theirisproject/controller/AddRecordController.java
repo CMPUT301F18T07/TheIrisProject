@@ -28,7 +28,7 @@ import java.util.UUID;
  * @author itstc
  * */
 public class AddRecordController extends IrisController<Record> {
-
+    private String userId;
     private String problemId;
     private BodyLocation bodyLocation;
     private List<RecordPhoto> recordPhotos;
@@ -36,6 +36,7 @@ public class AddRecordController extends IrisController<Record> {
 
     public AddRecordController(Intent intent) {
         super(intent);
+        userId = intent.getStringExtra(Extras.EXTRA_USER_ID);
         problemId = intent.getStringExtra(Extras.EXTRA_PROBLEM_ID);
         recordPhotos = new ArrayList<>();
         geoLocation = new GeoLocation(0.0,0.0);
@@ -43,7 +44,8 @@ public class AddRecordController extends IrisController<Record> {
     }
 
     public String getUserId() {
-        return IrisProjectApplication.getUserIdByProblemId(problemId);
+        // only current user can add a record so return current user id
+        return userId;
     }
 
     public List<RecordPhoto> getRecordPhotos() {return recordPhotos;}
@@ -58,7 +60,7 @@ public class AddRecordController extends IrisController<Record> {
 
     public Boolean submitRecord(String title, String desc, Callback cb) {
 
-        Record submitRecord = new Record(IrisProjectApplication.getCurrentUser().getId(),
+        Record submitRecord = new Record(userId,
                 problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
         IrisProjectApplication.addRecordToCache(submitRecord);
         IrisProjectApplication.bindRecord(submitRecord);
