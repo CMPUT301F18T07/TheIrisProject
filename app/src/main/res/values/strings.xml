@@ -57,6 +57,7 @@
     <string name="label_photos">Label Photos</string>
     <string name="submit_record">Submit Record</string>
     <string name="create_record_error">Error Making Record!</string>
+    <string name="add_body_location_submit">Save Body Location</string>
 
     <!-- View Record List screen strings -->
     <string name="title_activity_view_record">ViewRecordActivity</string>
@@ -73,6 +74,10 @@
     <string name="view_problem_title">View Problem</string>
     <string name="slideshow_button">Slideshow</string>
     <string name="title_activity_problem_slideshow">Slideshow</string>
+
+    <!-- View Record strings -->
+    <string name="record_photos">Photos</string>
+    <string name="record_body_location">Body Location</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>
@@ -138,7 +143,6 @@
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by username</string>
     <string name="add_patient_dialog_hint">Patient\'s username</string>
-    <string name="record_photos">Photos</string>
 
     <!-- Body Photo strings -->
     <string name="add_bodyphoto_submit">Submit Body Photo</string>
@@ -167,6 +171,5 @@
     <string name="offline_fetch_error">Internet disconnected, showing local data.</string>
     <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
-    <string name="add_body_location_submit">Save Body Location</string>
 
 </resources>

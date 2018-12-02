@@ -94,8 +94,8 @@ public class EditRecordActivity extends IrisActivity<Record>{
         controller = createController(getIntent());
         titleEditText.setText(controller.getRecordTitle());
         descEditText.setText(controller.getRecordDesc());
-        Bitmap bodyPhoto = controller.getBodyPhotoBitmap();
-        if (bodyPhoto != null) bodyLocationImage.setImageBitmap(bodyPhoto);
+        Bitmap bodyLocation = controller.getBodyPhotoBitmap();
+        if (bodyLocation != null) bodyLocationImage.setImageBitmap(bodyLocation);
 
         setOnClickListeners();
 
