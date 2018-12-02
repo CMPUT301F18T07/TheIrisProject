@@ -112,6 +112,7 @@ public class IrisProjectApplication extends Application {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(appContext.getString(R.string.shared_pref_username_key), username);
         editor.commit();
+        System.out.println("logging in as " + username);
     }
 
     /**

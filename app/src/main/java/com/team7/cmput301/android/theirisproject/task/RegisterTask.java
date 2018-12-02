@@ -19,6 +19,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 /**
  * RegisterTask is an AsyncTask that asynchronously registers the given user into the
@@ -58,7 +59,7 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
         try {
 
 
-            // Search for user and get the closest match
+            // Search to see if the username already exists
             Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + users[0].getUsername() + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")

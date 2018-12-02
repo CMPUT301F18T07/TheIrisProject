@@ -50,9 +50,10 @@ public class SplashActivity extends IrisActivity<Void> {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String username = sharedPref.getString(getString(R.string.shared_pref_username_key), "");
 
+        System.out.println("username is " + username);
+
         // Redirect to login/register activity because this user isn't valid
         if (username == null || username.isEmpty()) {
-            finish();
             startActivity(new Intent(this, LoginActivity.class));
         } else {
             // Otherwise if username exists in DB, login with that user and wait until we load their data
@@ -62,12 +63,13 @@ public class SplashActivity extends IrisActivity<Void> {
                     // Start ProblemList or PatientList activity if login is successful,
                     // otherwise redirect to login/register activity
                     if (success) {
+                        System.out.println("good log in");
                         Toast.makeText(SplashActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                         buildUserSession();
                         // Build user session will start the correct User activity
                     } else {
+                        System.out.println("failing log in");
                         Toast.makeText(SplashActivity.this, getString(R.string.login_failure_no_internet), Toast.LENGTH_SHORT).show();
-                        finish();
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
                 }
