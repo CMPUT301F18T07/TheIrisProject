@@ -58,7 +58,7 @@ public class AddProblemActivity extends IrisActivity {
                             public void onComplete(String id) {
                                 if (id != null) dispatchViewProblemActivity(id);
                                 else Toast.makeText(AddProblemActivity.this,
-                                        getString(R.string.add_problem_failure),
+                                        getString(R.string.generic_server_error),
                                         Toast.LENGTH_SHORT).show();
                             }
                         });

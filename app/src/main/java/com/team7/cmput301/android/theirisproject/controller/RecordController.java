@@ -5,6 +5,7 @@
 package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
@@ -77,7 +78,11 @@ public class RecordController extends IrisController<Record> {
         return recordId;
     }
 
-    public List<RecordPhoto> getPhotos() { return model.getRecordPhotos(); }
+    public List<RecordPhoto> getRecordPhotos() { return model.getRecordPhotos(); }
+
+    public Bitmap getBodyLocationBitmap() {
+        return model.getBodyPhotoBitmap();
+    }
 
     @Override
     Record getModel(Bundle data) {

@@ -6,6 +6,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 
 import android.view.View;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.Extras;
@@ -29,7 +31,6 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * ViewRecordActivity used to view a record
@@ -48,9 +49,9 @@ public class ViewRecordActivity extends AppCompatActivity {
 
     private RecyclerView recordPhotos;
     private ImageListAdapter<RecordPhoto> recordPhotoAdapter;
+    private ImageView bodyLocationImage;
 
     private RecordController controller;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         title = findViewById(R.id.record_title);
         desc = findViewById(R.id.record_description);
         date = findViewById(R.id.record_date);
+        bodyLocationImage = findViewById(R.id.record_body_location);
 
         viewGeoLocation = findViewById(R.id.view_location);
 
@@ -74,12 +76,11 @@ public class ViewRecordActivity extends AppCompatActivity {
         });
 
         recordPhotos = findViewById(R.id.record_photos);
-        recordPhotoAdapter = new ImageListAdapter(this, new ArrayList(), false);
+        recordPhotoAdapter = new ImageListAdapter<>(this, controller.getRecordPhotos(), false);
         recordPhotos.setAdapter(recordPhotoAdapter);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
 
-        render(controller.getRecordModel());
     }
 
     /**
@@ -114,15 +115,22 @@ public class ViewRecordActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+
         super.onStart();
+
+        Bitmap bodyLocation = controller.getBodyLocationBitmap();
+        if (bodyLocation != null) bodyLocationImage.setImageBitmap(bodyLocation);
+
         controller.getRecordData(new Callback<Record>() {
             @Override
             public void onComplete(Record res) {
                 record = res;
                 render(res);
-
             }
         });
+
+        recordPhotoAdapter.notifyDataSetChanged();
+
     }
 
     private void render(Record newState) {

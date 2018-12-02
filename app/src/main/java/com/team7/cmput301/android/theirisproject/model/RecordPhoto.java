@@ -40,6 +40,14 @@ public class RecordPhoto extends Photo {
         this.recordId = recordId;
         this.photo = ImageConverter.base64DecodeBitmap(blob);
         this.blob = blob;
+        this.date = new Date();
+    }
+
+    public RecordPhoto(String recordId, Bitmap photo) {
+        this.recordId = recordId;
+        this.photo = photo;
+        this.blob = ImageConverter.base64EncodeBitmap(photo);
+        this.date = new Date();
     }
 
     /* Basic getters */
@@ -57,6 +65,5 @@ public class RecordPhoto extends Photo {
     public void convertBlobToBitmap() {
         photo = ImageConverter.base64DecodeBitmap(blob);
     }
-
 
 }
