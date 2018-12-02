@@ -74,6 +74,7 @@
     <string name="view_problem_title">View Problem</string>
     <string name="slideshow_button">Slideshow</string>
     <string name="title_activity_problem_slideshow">Slideshow</string>
+    <string name="edit_problem">Edit</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>
