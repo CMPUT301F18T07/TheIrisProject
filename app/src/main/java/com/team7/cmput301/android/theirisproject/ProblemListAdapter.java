@@ -53,4 +53,9 @@ public class ProblemListAdapter extends ArrayAdapter<Problem> {
         desc.setText(problems.get(position).getDescription());
         return problem;
     }
+
+    public void setItems(List<Problem> problems) {
+        this.problems = problems;
+        notifyDataSetChanged();
+    }
 }

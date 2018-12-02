@@ -154,5 +154,18 @@
     <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
     <string name="add_body_location_submit">Save Body Location</string>
+    <string name="search_records_label">Records:</string>
+    <string name="search_problems_label">Problems:</string>
+
+    <string name="search_default">Search by Keywords...</string>
+    <string name="search_geolocation">Search by Geolocation...</string>
+    <string name="search_bodylocation">Search by Body Location...</string>
+
+    <!-- Search Strings -->
+    <string-array name="search_options">
+        <item>Keywords (default)</item>
+        <item>Geolocation</item>
+        <item>BodyLocation</item>
+    </string-array>
 
 </resources>

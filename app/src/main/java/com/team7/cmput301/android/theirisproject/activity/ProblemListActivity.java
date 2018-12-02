@@ -113,14 +113,12 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 }
                 break;
             case R.id.patient_list_action_view_profile:
-                // View a profile
-                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_SHORT);
-                Intent intent = new Intent(this, ViewProfileActivity.class);
-
-                startActivity(intent);
+                dispatchViewProfileActivity();
                 break;
-            default:
-
+            case R.id.problem_list_action_search:
+                dispatchToSearchActivity();
+                break;
+            default: break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -199,5 +197,16 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 startActivity(intent);
             }
         });
+    }
+
+    private void dispatchToSearchActivity() {
+        Intent intent = new Intent(ProblemListActivity.this, SearchActivity.class);
+        intent.putExtra(Extras.EXTRA_USER_ID, controller.getUserId());
+        startActivity(intent);
+    }
+
+    private void dispatchViewProfileActivity() {
+        Intent intent = new Intent(this, ViewProfileActivity.class);
+        startActivity(intent);
     }
 }
