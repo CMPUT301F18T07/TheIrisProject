@@ -50,7 +50,7 @@
         <!-- Problem Activities -->
         <activity
             android:name=".activity.ProblemListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddProblemActivity"
             android:label="@string/create_a_problem"
@@ -67,17 +67,17 @@
         <activity
             android:name=".activity.RecordListActivity"
             android:label="@string/record_list_activity_title"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddRecordActivity"
             android:label="@string/submit_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewRecordActivity" />
         <activity
             android:name=".activity.EditRecordActivity"
             android:label="@string/edit_record"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
 
         <!-- Profile Activities -->
         <activity android:name=".activity.PatientListActivity" />

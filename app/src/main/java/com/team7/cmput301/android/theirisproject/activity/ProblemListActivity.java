@@ -59,9 +59,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         setBodyPhotoButton();
         setLogoutButton();
 
-        toolbar = findViewById(R.id.problem_list_toolbar);
-        setSupportActionBar(toolbar);
-
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
