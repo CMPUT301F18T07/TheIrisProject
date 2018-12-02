@@ -11,30 +11,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/login_username_hint"
         android:inputType="textEmailAddress"
         android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_text_view" />
-
-    <EditText
-        android:id="@+id/login_password_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="@string/login_password_hint"
-        android:inputType="textPassword"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_email_field" />
 
     <TextView
         android:id="@+id/title_text_view"
@@ -57,14 +44,14 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/login_button"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_field" />
+        app:layout_constraintTop_toBottomOf="@+id/login_email_field" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,4 +76,29 @@
             android:text="@string/login_register_button_text"
             android:textColor="@android:color/holo_blue_dark" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/login_transfer_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/login_transfer_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/login_transfer_code_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="@string/login_transfer_hint"
+        android:inputType="textVisiblePassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login_transfer_button"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
