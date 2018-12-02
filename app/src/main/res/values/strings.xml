@@ -51,7 +51,6 @@
     <string name="login_register_button_text">" Sign Up"</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
     <string name="add_problem_success">New Problem created!</string>
-    <string name="add_problem_failure">"Uh oh something went wrong"</string>
 
     <!-- Create Record screen strings-->
     <string name="create_a_record">Create a Record</string>
@@ -59,6 +58,7 @@
     <string name="label_photos">Label Photos</string>
     <string name="submit_record">Submit Record</string>
     <string name="create_record_error">Error Making Record!</string>
+    <string name="add_body_location_submit">Save Body Location</string>
 
     <!-- View Record List screen strings -->
     <string name="title_activity_view_record">ViewRecordActivity</string>
@@ -76,6 +76,10 @@
     <string name="slideshow_button">Slideshow</string>
     <string name="title_activity_problem_slideshow">Slideshow</string>
     <string name="edit_problem">Edit</string>
+
+    <!-- View Record strings -->
+    <string name="record_photos">Photos</string>
+    <string name="record_body_location">Body Location</string>
 
     <!-- View Problem list screen strings-->
     <string name="problem_list_map_of_all_records">Map of all Records</string>
@@ -143,7 +147,6 @@
     <!-- Add Patient dialog strings -->
     <string name="add_patient_dialog_title">Add a patient by their add code</string>
     <string name="add_patient_dialog_hint">Patient\'s add code</string>
-    <string name="record_photos">Photos</string>
 
     <!-- Body Photo strings -->
     <string name="add_bodyphoto_submit">Submit Body Photo</string>
@@ -169,11 +172,12 @@
     <string name="add_contact_button">Add</string>
 
     <!-- Database-related strings -->
+    <string name="generic_server_error">"Uh oh something went wrong"</string>
     <string name="offline_upload_error">Internet disconnected, will upload changes when restored.</string>
     <string name="offline_fetch_error">Internet disconnected, showing local data.</string>
     <string name="offline_fatal_error">Internet disconnected, unable to complete action.</string>
     <string name="pick_body_location_instruction">Click On The Image To Set a Point</string>
-    <string name="add_body_location_submit">Save Body Location</string>
+
     <string name="search_records_label">Records:</string>
     <string name="search_problems_label">Problems:</string>
 
