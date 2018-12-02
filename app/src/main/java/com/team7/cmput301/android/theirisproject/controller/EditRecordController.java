@@ -77,15 +77,19 @@ public class EditRecordController extends IrisController<Record> {
 
         record.setTitle(title);
         record.setDesc(desc);
-        record.addRecordPhotos(newRecordPhotos);
 
         if (IrisProjectApplication.isConnectedToInternet()) {
 
             new EditRecordTask().execute(record);
 
-            // add only the new photos
+            // Add only the new Record Photos.
+            // newRecordPhotos holds ALL photos that were added in activity
+            // (including ones that were added then deleted), while the model
+            // properly removes deleted photos.
             for (RecordPhoto p : newRecordPhotos) {
-                new AddRecordPhotoTask().execute(p);
+                if (record.getRecordPhotos().contains(p)) {
+                    new AddRecordPhotoTask().execute(p);
+                }
             }
 
             pushedOnline = true;
@@ -99,7 +103,9 @@ public class EditRecordController extends IrisController<Record> {
     }
 
     public void addRecordPhoto(Bitmap imageBitmap) {
-        newRecordPhotos.add(new RecordPhoto(ImageConverter.scaleBitmapPhoto(imageBitmap, 256, 256)));
+        RecordPhoto p = new RecordPhoto(record.getId(), ImageConverter.scaleBitmapPhoto(imageBitmap, 256, 256));
+        newRecordPhotos.add(p);
+        record.addRecordPhoto(p);
     }
 
     public void setBodyLocation(String data_src, float[] data_xies) {

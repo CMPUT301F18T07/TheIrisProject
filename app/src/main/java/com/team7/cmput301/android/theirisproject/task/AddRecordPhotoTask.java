@@ -25,7 +25,7 @@ public class AddRecordPhotoTask extends AsyncTask<RecordPhoto, Void, Void> {
     protected Void doInBackground(RecordPhoto... params) {
         try {
             Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("recordphoto").build();
-            IrisProjectApplication.getDB().execute(post).getId();
+            IrisProjectApplication.getDB().execute(post);
         } catch (IOException e) {
             e.printStackTrace();
         }
