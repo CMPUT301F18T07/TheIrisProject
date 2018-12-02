@@ -104,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 if (searchField.getText().length() == 0) {
-                    Toast.makeText(SearchActivity.this, "Nothing to Search!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, R.string.search_error_message, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 controller.querySearch(searchField.getText().toString(), new Callback<List<Record>>() {
