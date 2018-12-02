@@ -76,6 +76,8 @@ public class PatientListActivity extends IrisActivity<List<Patient>> implements 
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Patient patient = (Patient) patientsView.getItemAtPosition(i);
 
+                System.out.println("CLICKED:" + patient.getUsername());
+
                 Intent intent = new Intent(PatientListActivity.this, ProblemListActivity.class);
                 intent.putExtra(Extras.EXTRA_USER_ID, patient.getId());
 
