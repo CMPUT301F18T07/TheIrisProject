@@ -75,6 +75,7 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
         Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
+                .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                 .build();
 
         try {
