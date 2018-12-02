@@ -57,7 +57,7 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
         Index index = new Index.Builder(user)
                 .index(IrisProjectApplication.INDEX)
                 .type("user")
-                .setParameter(Parameters.REFRESH, true)
+                .setParameter(Parameters.REFRESH, "wait_for")
                 .build();
 
         try {
