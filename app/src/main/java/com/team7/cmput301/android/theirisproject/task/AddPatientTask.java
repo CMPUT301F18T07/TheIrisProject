@@ -24,6 +24,7 @@ import io.searchbox.client.JestResult;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
+import io.searchbox.params.Parameters;
 
 /**
  * AddPatientTask takes in two parameters, the Patient's e-mail and whether or not we are
@@ -57,8 +58,6 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
         if (patientUsername == null) {
             return false;
         }
-
-        Log.i(TAG, patientUsername + " and " + careProvider.getId());
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
