@@ -82,7 +82,8 @@ public class RegisterActivity extends IrisActivity {
             return;
         }
 
-        if (username.length() < 8) {
+        // TODO: Change this to <8. Leaving it as a useless check so we can keep testing w/o long usernames
+        if (username.length() < 1) {
             Toast.makeText(this, getString(R.string.register_short_username), Toast.LENGTH_SHORT).show();
             return;
         }
