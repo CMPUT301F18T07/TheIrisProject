@@ -38,7 +38,6 @@ public class RegisterActivity extends IrisActivity {
     private RegisterController controller;
 
     private EditText usernameEditText;
-    private EditText passwordEditText;
     private EditText emailEditText;
     private EditText phoneEditText;
     private RadioGroup userRadioGroup;
@@ -52,7 +51,6 @@ public class RegisterActivity extends IrisActivity {
         controller = (RegisterController) createController(getIntent());
 
         usernameEditText = findViewById(R.id.name_edit_text);
-        passwordEditText = findViewById(R.id.password_edit_text);
         emailEditText = findViewById(R.id.email_edit_text);
         phoneEditText = findViewById(R.id.phone_edit_text);
         userRadioGroup = findViewById(R.id.user_radio_group);
