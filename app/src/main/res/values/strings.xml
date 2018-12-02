@@ -132,6 +132,8 @@
     <string name="view_profile_users">Users:</string>
     <string name="view_profile_patients">Patients:</string>
     <string name="view_profile_care_providers">Care Providers:</string>
+    <string name="view_profile_user_add_code">User\'s Add Code</string>
+    <string name="view_profile_add_code">Add Code</string>
 
     <!-- Transfer Code dialog strings -->
     <string name="transfer_code_dialog_title">Your transfer code:</string>
