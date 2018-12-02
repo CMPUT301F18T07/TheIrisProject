@@ -4,14 +4,11 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
@@ -20,8 +17,6 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
 import com.team7.cmput301.android.theirisproject.task.Callback;
-
-import java.util.prefs.Preferences;
 
 
 /**
@@ -52,7 +47,6 @@ public class SplashActivity extends IrisActivity<Void> {
 
         // Redirect to login/register activity because this user isn't valid
         if (username == null || username.isEmpty()) {
-            finish();
             startActivity(new Intent(this, LoginActivity.class));
         } else {
             // Otherwise if username exists in DB, login with that user and wait until we load their data
@@ -66,8 +60,7 @@ public class SplashActivity extends IrisActivity<Void> {
                         buildUserSession();
                         // Build user session will start the correct User activity
                     } else {
-                        Toast.makeText(SplashActivity.this, getString(R.string.login_failure_no_internet), Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(SplashActivity.this, getString(R.string.login_failure_internet_or_not_found), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
                 }

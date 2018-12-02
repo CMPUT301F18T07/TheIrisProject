@@ -26,12 +26,12 @@ public class AddPatientController extends IrisController<Patient> {
         super(intent);
     }
 
-    public Boolean addPatient(String patientUsername, Callback<Boolean> callback) {
+    public Boolean addPatient(String patientAddCode, Callback<Boolean> callback) {
 
         if (!IrisProjectApplication.isConnectedToInternet()) return false;
 
         AddPatientTask task = new AddPatientTask(callback);
-        task.execute(patientUsername, false);
+        task.execute(patientAddCode, false);
         return true;
 
     }
