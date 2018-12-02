@@ -46,10 +46,6 @@ public class RecordListActivity extends IrisActivity<RecordList> {
         setContentView(R.layout.activity_record_list);
         controller = createController(getIntent());
 
-        toolbar = findViewById(R.id.record_list_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // set back button
-
         recordListView = findViewById(R.id.record_item_list);
 
         // Depending on current state, clicks on Records will show them or edit them

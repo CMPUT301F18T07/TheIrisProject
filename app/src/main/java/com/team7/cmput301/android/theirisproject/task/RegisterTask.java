@@ -65,13 +65,13 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
                     .build();
             searchResult = IrisProjectApplication.getDB().execute(get);
 
-            // Check if closest match is equal to the inputted user email (i.e. if the email already exists in the database)
+            // Check if closest match is equal to the inputted username (i.e. if the username already exists in the database)
             if (!searchResult.isSucceeded()) {
                 return false;
             }
 
             JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
-            // Stop registration if we already have a hit when searching for the email
+            // Stop registration if we already have a hit when searching for the username
             if (arrayHits.size() >= 1) {
                 return false;
             }

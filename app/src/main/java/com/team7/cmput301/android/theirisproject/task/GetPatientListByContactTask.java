@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 /**
  * Takes in a List of Contacts and returns a List of Patients who either have a phone number or
@@ -70,6 +71,7 @@ public class GetPatientListByContactTask extends AsyncTask<Contact, Void, List<P
         Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
+                .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                 .build();
         try {
             SearchResult res = IrisProjectApplication.getDB().execute(get);

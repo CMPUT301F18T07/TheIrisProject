@@ -219,9 +219,10 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     public void renderComments(List<Comment> state) {
         // update the recyclerviews adapters
-        commentListAdapter.setItems(state);
-        commentListAdapter.notifyDataSetChanged();
-
+        if (state.size() != commentListAdapter.getItemCount()) {
+            commentListAdapter.setItems(state);
+            commentListAdapter.notifyDataSetChanged();
+        }
     }
 
     /**

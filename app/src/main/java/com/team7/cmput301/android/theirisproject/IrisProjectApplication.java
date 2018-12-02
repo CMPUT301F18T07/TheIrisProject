@@ -43,6 +43,9 @@ public class IrisProjectApplication extends Application {
     // use this index for any request to database
     public static final String INDEX = "cmput301f18t07test";
 
+    // database size constant
+    public static final int SIZE = 1000000;
+
     // our database connection
     transient private static JestDroidClient db = null;
     transient private static User currentUser = null;

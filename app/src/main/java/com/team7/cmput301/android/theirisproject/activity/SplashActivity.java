@@ -66,6 +66,7 @@ public class SplashActivity extends IrisActivity<Void> {
                         buildUserSession();
                         // Build user session will start the correct User activity
                     } else {
+                        Toast.makeText(SplashActivity.this, getString(R.string.login_failure_no_internet), Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
