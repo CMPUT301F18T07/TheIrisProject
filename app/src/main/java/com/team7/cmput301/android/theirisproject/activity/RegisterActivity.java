@@ -109,15 +109,8 @@ public class RegisterActivity extends IrisActivity {
                     Toast.makeText(RegisterActivity.this, R.string.register_success, Toast.LENGTH_SHORT).show();
                     IrisProjectApplication.loginCurrentUser(username);
 
-                    // Go back to splash screen after a 250ms delay, so that there is time for the username to be registered into the DB
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finish();
-                            startActivity(new Intent(RegisterActivity.this, SplashActivity.class));
-                        }
-                    }, 350);
+                    finish();
+                    startActivity(new Intent(RegisterActivity.this, SplashActivity.class));
 
                 } else {
                     Toast.makeText(RegisterActivity.this, R.string.register_failure, Toast.LENGTH_SHORT).show();

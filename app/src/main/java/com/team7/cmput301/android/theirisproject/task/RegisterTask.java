@@ -54,7 +54,11 @@ public class RegisterTask extends AsyncTask<User, Void, Boolean> {
         JestDroidClient client = IrisProjectApplication.getDB();
 
         SearchResult searchResult;
-        Index index = new Index.Builder(user).index(IrisProjectApplication.INDEX).type("user").build();
+        Index index = new Index.Builder(user)
+                .index(IrisProjectApplication.INDEX)
+                .type("user")
+                .setParameter(Parameters.REFRESH, true)
+                .build();
 
         try {
 
