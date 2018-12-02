@@ -6,13 +6,16 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,7 +63,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private Button viewRecordsButton;
     private Button createRecordButton;
     private Button viewSlideshowButton;
-    private Button editProblemButton;
     private FloatingActionButton viewAllLocations;
 
     @Override
@@ -86,7 +88,6 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
         viewSlideshowButton = findViewById(R.id.slideshow_button);
-        editProblemButton = findViewById(R.id.edit_problem_button);
         viewAllLocations = findViewById(R.id.view_all_locations);
 
         // Set onclicklistener to view all record locations associated with problem
@@ -104,7 +105,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
                 if (commentBox.getText().length() == 0) setCommentErrorMessage();
                 else {
                     Boolean success = problemController.addComment(commentBox.getText().toString(), commentsCallback());
-                    if (success) commentBox.setText("");
+                    if (success) {
+                        commentBox.setText("");
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
                     else showOfflineFatalToast(ViewProblemActivity.this);
                 }
 
@@ -135,15 +140,12 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             }
         });
 
-        // Set onclick listener to view slideshow button
-        editProblemButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                dispatchEditProblemActivity(problemId);
-            }
-        });
-        render(problemController.getModelProblem());
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_view_problem, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     // finish activity on back arrow clicked in action bar
@@ -153,6 +155,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.view_problem_edit:
+                dispatchEditProblemActivity(problemId);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -223,6 +227,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         LinearLayoutManager commentListLayout = new LinearLayoutManager(ViewProblemActivity.this);
         commentListLayout.setOrientation(LinearLayoutManager.VERTICAL);
         commentList.setLayoutManager(commentListLayout);
+        commentList.setVerticalScrollBarEnabled(true);
         commentListAdapter = new CommentListAdapter(this, new ArrayList<>());
         commentList.setAdapter(commentListAdapter);
     }
