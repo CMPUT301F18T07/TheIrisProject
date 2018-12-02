@@ -33,7 +33,7 @@ public class EditRecordActivity extends IrisActivity<Record>{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_add_edit_record);
 
         // get Views and Buttons
         // https://stackoverflow.com/a/4787064

@@ -98,7 +98,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             case R.id.problem_list_action_search:
                 dispatchToSearchActivity();
                 break;
-            default: 
+            default:
                 break;
         }
         return super.onOptionsItemSelected(item);

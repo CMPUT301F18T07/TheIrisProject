@@ -53,7 +53,7 @@ public class AddRecordActivity extends IrisActivity<Record> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_record);
+        setContentView(R.layout.activity_add_edit_record);
 
         controller = createController(getIntent());
 
