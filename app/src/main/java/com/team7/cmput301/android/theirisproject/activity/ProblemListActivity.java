@@ -83,6 +83,27 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_problem_list, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.patient_list_action_view_profile:
+                dispatchViewProfileActivity();
+                break;
+            case R.id.problem_list_action_search:
+                dispatchToSearchActivity();
+                break;
+            default: break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         controller.getUserProblems(new Callback<ProblemList>() {
@@ -158,6 +179,17 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         });
     }
 
+    private void dispatchToSearchActivity() {
+        Intent intent = new Intent(ProblemListActivity.this, SearchActivity.class);
+        intent.putExtra(Extras.EXTRA_USER_ID, controller.getUserId());
+        startActivity(intent);
+    }
+
+    private void dispatchViewProfileActivity() {
+        Intent intent = new Intent(this, ViewProfileActivity.class);
+        startActivity(intent);
+    }
+
     private void setLogoutButton() {
         logoutButton = findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -169,4 +201,5 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             }
         });
     }
+
 }

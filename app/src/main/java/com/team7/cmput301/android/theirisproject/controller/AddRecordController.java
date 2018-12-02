@@ -59,7 +59,8 @@ public class AddRecordController extends IrisController<Record> {
 
     public Boolean submitRecord(String title, String desc, Callback cb) {
 
-        Record submitRecord = new Record(problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
+        Record submitRecord = new Record(IrisProjectApplication.getCurrentUser().getId(),
+                problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
         IrisProjectApplication.addRecordToCache(submitRecord);
         IrisProjectApplication.bindRecord(submitRecord);
 

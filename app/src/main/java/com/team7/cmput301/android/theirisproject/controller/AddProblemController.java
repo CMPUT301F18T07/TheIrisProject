@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
@@ -43,7 +44,7 @@ public class AddProblemController extends IrisController<Problem> {
 
         Problem submitProblem = new Problem(title, desc, userId);
         IrisProjectApplication.addProblemToCache(submitProblem);
-
+        ((Patient)IrisProjectApplication.getUserById(userId)).addProblem(submitProblem);
         if (IrisProjectApplication.isConnectedToInternet()) {
 
             // add problem to our database

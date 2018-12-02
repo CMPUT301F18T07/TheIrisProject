@@ -22,7 +22,7 @@ public class Record {
     @JestId
     private String _id;
     private String problemId;
-
+    private String user;
     private String desc;
     private String title;
     private Date date = new Date();
@@ -32,44 +32,38 @@ public class Record {
 
     /* Constructors */
 
-    public Record(String problemId, String title, String desc, Date date, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
-        this.problemId = problemId;
-        this.title = title;
-        this.desc = desc;
+    public Record(String user, String problemId, String title, String desc, Date date, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc, geoPt, recordPhotos);
         this.date = date;
-        this.geoLocation = geoPt;
+    }
+
+    public Record(String user, String problemId, String title, String desc, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc);
         this.recordPhotos = recordPhotos;
     }
 
-    public Record(String problemId, String title, String desc, List<RecordPhoto> recordPhotos) {
-        this(problemId, title, desc);
-        this.recordPhotos = recordPhotos;
-    }
 
-
-    public Record(String problemId, String title, String desc, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
-        this(problemId, title, desc);
+    public Record(String user, String problemId, String title, String desc, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc);
         this.bodyLocation = bodyLocation;
         this.recordPhotos = recordPhotos;
     }
   
-    public Record(String problemId, String title, String desc, GeoLocation geoPt, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
-        this(problemId, title, desc, bodyLocation, recordPhotos);
+    public Record(String user, String problemId, String title, String desc, GeoLocation geoPt, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc, bodyLocation, recordPhotos);
         this.geoLocation = geoPt;
     }
 
-    public Record(String problemId, String title, String desc) {
+    public Record(String user, String problemId, String title, String desc) {
+        this.user = user;
         this.problemId = problemId;
         this.title = title;
         this.desc = desc;
         this.date = new Date();
     }
 
-    public Record(String problemId, String title, String desc, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
-        this.problemId = problemId;
-        this.title = title;
-        this.desc = desc;
-        this.date = new Date();
+    public Record(String user, String problemId, String title, String desc, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc);
         this.geoLocation = geoPt;
         this.recordPhotos = recordPhotos;
     }
@@ -98,6 +92,8 @@ public class Record {
     }
 
     /* Basic getters */
+
+    public String getUser() { return user; }
 
     public String getId() {
         return _id;
