@@ -17,6 +17,7 @@ import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;

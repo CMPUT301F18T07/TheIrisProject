@@ -4,6 +4,7 @@
 
 package com.team7.cmput301.android.theirisproject.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.RecordListAdapter;
@@ -76,10 +78,26 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         problemsResult = findViewById(R.id.search_problems);
         recordsResult = findViewById(R.id.search_records);
 
-        problemListAdapter = new ProblemListAdapter(SearchActivity.this, R.layout.list_problem_item, new ArrayList<>());
-        recordListAdapter = new RecordListAdapter(SearchActivity.this, R.layout.list_record_item, new ArrayList<>());
+        problemListAdapter = new ProblemListAdapter(SearchActivity.this, R.layout.list_problem_item, controller.getProblems());
+        recordListAdapter = new RecordListAdapter(SearchActivity.this, R.layout.list_record_item, controller.getRecords());
         problemsResult.setAdapter(problemListAdapter);
         recordsResult.setAdapter(recordListAdapter);
+
+        problemsResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Problem current = (Problem)problemsResult.getItemAtPosition(i);
+                dispatchToProblemActivity(current.getId());
+            }
+        });
+
+        recordsResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Record current = (Record)recordsResult.getItemAtPosition(i);
+                dispatchToRecordActivity(current.getId());
+            }
+        });
 
         submitSearch = findViewById(R.id.search_button);
         submitSearch.setOnClickListener(new View.OnClickListener() {
@@ -126,5 +144,20 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private void render() {
         problemListAdapter.setItems(controller.getProblems());
         recordListAdapter.setItems(controller.getRecords());
+
+        recordListAdapter.notifyDataSetChanged();
+        recordListAdapter.notifyDataSetChanged();
+    }
+
+    private void dispatchToProblemActivity(String id) {
+        Intent intent = new Intent(SearchActivity.this, ViewProblemActivity.class);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
+        startActivity(intent);
+    }
+
+    private void dispatchToRecordActivity(String id) {
+        Intent intent = new Intent(SearchActivity.this, ViewRecordActivity.class);
+        intent.putExtra(Extras.EXTRA_RECORD_ID, id);
+        startActivity(intent);
     }
 }

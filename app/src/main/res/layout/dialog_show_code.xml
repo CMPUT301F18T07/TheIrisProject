@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
-  ~
-  ~
   -->
 
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/contacts_recycler_view"
+    <TextView
+        android:id="@+id/code_text_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="@string/transfer_code_dialog_hint"
+        android:layout_margin="16dp"
+        android:textSize="22sp" />
+</LinearLayout>

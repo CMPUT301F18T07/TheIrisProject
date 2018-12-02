@@ -5,15 +5,16 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     >
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".activity.SearchActivity">
 
     <android.support.v7.widget.Toolbar
@@ -81,17 +82,18 @@
     <ListView
         android:id="@+id/search_records"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_alignParentStart="true"
         android:layout_marginTop="8dp"
-        android:paddingHorizontal="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_weight="1"
+        android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_record_title"
-        app:layout_constraintVertical_bias="0.327"></ListView>
+        app:layout_constraintVertical_bias="1.0"></ListView>
 
     <TextView
         android:id="@+id/search_record_title"

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.team7.cmput301.android.theirisproject.helper.DateHelper;
 import com.team7.cmput301.android.theirisproject.model.Record;
 
 import java.util.List;
@@ -48,13 +49,12 @@ public class RecordListAdapter extends ArrayAdapter<Record> {
 
         // populate with data given from problems
         title.setText(records.get(position).getTitle());
-        id.setText(records.get(position).getId());
+        id.setText(DateHelper.format(records.get(position).getDate()));
         return record;
     }
 
     public void setItems(List<Record> records) {
         this.records = records;
-        notifyDataSetChanged();
     }
 
 }

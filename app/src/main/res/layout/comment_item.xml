@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+  ~
+  ~
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="@string/view_profile_name"
+        android:text="@string/view_profile_username"
         app:layout_constraintStart_toStartOf="@id/comment_item_role"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView

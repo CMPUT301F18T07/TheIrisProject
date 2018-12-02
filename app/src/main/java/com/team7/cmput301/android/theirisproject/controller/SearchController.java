@@ -13,6 +13,7 @@ import com.team7.cmput301.android.theirisproject.SearchState;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.SearchProblemsByRecordsTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +45,20 @@ public class SearchController {
     }
 
     public void querySearch(String keyword, Callback cb) {
+        problems.clear();
+        records.clear();
+
         searchState.querySearchRecords(userId, keyword, new Callback<List<Record>>() {
             @Override
             public void onComplete(List<Record> res) {
                 records.addAll(res);
-                cb.onComplete(res);
+                new SearchProblemsByRecordsTask(new Callback<List<Problem>>() {
+                    @Override
+                    public void onComplete(List<Problem> result) {
+                        problems.addAll(result);
+                        cb.onComplete(res);
+                    }
+                }).execute(res);
             }
         });
     }

@@ -8,9 +8,11 @@ package com.team7.cmput301.android.theirisproject;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
@@ -97,6 +99,27 @@ public class IrisProjectApplication extends Application {
     }
 
     public static Context getAppContext() { return appContext; }
+
+    /**
+     * Method used to add current username to SharedPreferences, that is used for testing purposes
+     * Used this Android reference https://developer.android.com/training/data-storage/shared-preferences#java
+     */
+    public static void loginCurrentUser(String username) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(appContext);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(appContext.getString(R.string.shared_pref_username_key), username);
+        editor.commit();
+    }
+
+    /**
+     * Method used to remove current username from SharedPreferences, that is used for testing purposes
+     */
+    public static void logoutCurrentUser() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(appContext);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(appContext.getString(R.string.shared_pref_username_key));
+        editor.commit();
+    }
 
     /**
      * Determines if currently connected to internet.

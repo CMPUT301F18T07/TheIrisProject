@@ -29,19 +29,23 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
             "\t\t\t\t}\n" +
             "\t\t\t\t]\n" +
             "\t\t}\n" +
-            "\t},\"fields\": [\"user\", \"label\"]\n" +
+            "\t},\"fields\": []\n" +
             "}";
 
     private String queryRecords = "{\n" +
-            "  \"query\": {\n" +
-            "    \"nested\": {\n" +
-            "      \"path\": \"bodyLocation\",\n" +
-            "      \"query\": {\n" +
-            "        \"bool\": {\n" +
-            "          \"must\": [\n" +
-            "            { \"match\": { \"bodyLocation.bodyPhotoId\": \"%s\" }}\n" +
-            "          ]\n" +
-            "        }}}}}";
+            "\t\"query\": {\n" +
+            "\t\t\"nested\":{\n" +
+            "\t\t\t\"path\": \"bodyLocation\",\n" +
+            "\t\t\t\"query\": {\n" +
+            "\t\t\t\t\"bool\": {\n" +
+            "\t\t\t\t\t\"must\":[\n" +
+            "\t\t\t\t\t\t{\"term\": {\"bodyLocation.bodyPhotoId\": \"%s\"}}\n" +
+            "\t\t\t\t\t\t]\n" +
+            "\t\t\t\t}\n" +
+            "\t\t\t}\n" +
+            "\t\t}\n" +
+            "\t}\n" +
+            "}";
 
     public SearchBodyLocationTask(Callback cb) {
         this.cb = cb;
@@ -50,12 +54,13 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
     @Override
     protected Void doInBackground(String... strings) {
         try {
+            // query the body photos associated with the user and keyword
             Search photoSearch = new Search.Builder(String.format(queryBodyPhotos, strings[0], strings[1]))
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("bodyphoto").build();
             List<SearchResult.Hit<BodyPhoto, Void>> photos =  IrisProjectApplication.getDB()
                     .execute(photoSearch).getHits(BodyPhoto.class, true);
-            Log.d("Iris", "size: " + photos.size());
+            // for every body photo retrieve the records associated to it
             for (SearchResult.Hit<BodyPhoto,Void> bp: photos) {
                 Search recordSearch = new Search.Builder(String.format(queryRecords, bp.id))
                         .addIndex(IrisProjectApplication.INDEX).addType("record").build();
