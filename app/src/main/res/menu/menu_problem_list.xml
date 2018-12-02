@@ -20,12 +20,4 @@
         app:showAsAction="ifRoom">
     </item>
 
-    <item
-        android:id="@+id/problem_list_action_map_of_all_records"
-        android:icon="@drawable/ic_map_white_24dp"
-        android:title="@string/problem_list_map_of_all_records"
-        app:showAsAction="ifRoom">
-    </item>
-
-
 </menu>

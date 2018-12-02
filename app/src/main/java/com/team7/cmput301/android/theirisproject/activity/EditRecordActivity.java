@@ -6,7 +6,6 @@ package com.team7.cmput301.android.theirisproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +33,7 @@ public class EditRecordActivity extends IrisActivity<Record>{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_form);
+        setContentView(R.layout.activity_add_record);
 
         // get Views and Buttons
         // https://stackoverflow.com/a/4787064
