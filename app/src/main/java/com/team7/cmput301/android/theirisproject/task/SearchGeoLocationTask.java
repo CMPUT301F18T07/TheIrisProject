@@ -30,16 +30,36 @@ public class SearchGeoLocationTask extends AsyncTask<String, List<Record>, Void>
     @Override
     protected Void doInBackground(String... strings) {
         String userId = strings[0];
-        double lat = Double.valueOf(strings[1]);
-        double lon = Double.valueOf(strings[2]);
 
-        String queryByGeoLocation = "{\n" +
-                "  \"filter\" : {\n" +
-                "    \"geo_distance\" : {\n" +
-                "      \"distance\" : \"500km\",\n" +
-                "      \"location\" : [" + lon + "," + lat + "]\n" +
-                "    }\n" +
-                "  }\n" +
+        double lat;
+        double lon;
+        try {
+            lat = Double.valueOf(strings[1]);
+            lon = Double.valueOf(strings[2]);
+        } catch (NumberFormatException exc) {
+            return null;
+        }
+
+
+        String queryByGeoLocation = "{  \n" +
+                "   \"query\":{  \n" +
+                "      \"filtered\":{  \n" +
+                "         \"query\":{  \n" +
+                "            \"term\":{  \n" +
+                "               \"user\":\"" + userId + "\"\n" +
+                "            }\n" +
+                "         },\n" +
+                "         \"filter\":{  \n" +
+                "            \"geo_distance\":{  \n" +
+                "               \"distance\":\"1951km\",\n" +
+                "               \"location\":[  \n" +
+                "                  " + lon + ",\n" +
+                "                  " + lat + "\n" +
+                "               ]\n" +
+                "            }\n" +
+                "         }\n" +
+                "      }\n" +
+                "   }\n" +
                 "}";
 
         JestDroidClient client = IrisProjectApplication.getDB();

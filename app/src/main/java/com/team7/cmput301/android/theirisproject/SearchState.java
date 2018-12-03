@@ -16,6 +16,7 @@ import com.team7.cmput301.android.theirisproject.task.SearchProblemsByRecordsTas
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * SearchState are the different states that we can search by.
@@ -74,9 +75,17 @@ public class SearchState {
         @Override
         public void querySearchRecords(String id, String keyword, List<Problem> problems, List<Record> records, Callback cb) {
             String trim = keyword.trim();
-            String[] split = trim.split(",");
-            System.out.println(split[0]);
-            System.out.println(split[1]);
+            String[] split;
+
+            try {
+                split = trim.split(",");
+            } catch (PatternSyntaxException exc) {
+                return;
+            }
+
+            if (split.length != 2) {
+                return;
+            }
 
             new SearchGeoLocationTask(new Callback<List<Record>>() {
                 @Override
