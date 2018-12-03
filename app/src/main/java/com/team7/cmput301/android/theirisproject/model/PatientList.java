@@ -26,7 +26,6 @@ public class PatientList {
     /* Basic list operations */
 
     public void addPatient(Patient patient) {
-
     }
 
     public void removePatient(Patient patient) {

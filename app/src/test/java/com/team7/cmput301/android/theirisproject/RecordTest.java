@@ -4,6 +4,9 @@
 
 package com.team7.cmput301.android.theirisproject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
@@ -19,13 +22,13 @@ import static junit.framework.TestCase.fail;
 
 public class RecordTest {
 
-    private String user;
-    private String problemID;
-    private String title;
-    private String desc;
+    private String user = "care provider";
+    String problemID = "mwmwmw";
+    String title = "Title";
+    String desc = "Text";
     private Date date;
-    private GeoLocation geoLocation;
-    private List<RecordPhoto> recordPhotos;
+    private GeoLocation geoLocation = new GeoLocation(1.0,1.0);
+    private List<RecordPhoto> recordPhotos = new ArrayList<>();
 
     private String blob;
     private int x;
@@ -41,9 +44,8 @@ public class RecordTest {
         Assert.assertEquals(problemID, record.getProblemId());
         Assert.assertEquals(title, record.getTitle());
         Assert.assertEquals(desc, record.getDesc());
-        Assert.assertEquals(date, record.getDate());
-        Assert.assertEquals(geoLocation, record.getGeoLocation());
-        Assert.assertEquals(recordPhotos, record.getRecordPhotos());
+        Assert.assertEquals(geoLocation.asDouble().length, record.getGeoLocation().asDouble().length);
+        Assert.assertEquals(recordPhotos.size(), record.getRecordPhotos().size());
     }
 
     @Test
@@ -79,7 +81,7 @@ public class RecordTest {
         Record record = getTestRecord();
 
         GeoLocation updatedGeoLocation = new GeoLocation(1.0, 1.0);
-        Assert.assertEquals(updatedGeoLocation, record.getGeoLocation());
+        Assert.assertEquals(updatedGeoLocation.asDouble().length, record.getGeoLocation().asDouble().length);
     }
 
     @Test
@@ -106,7 +108,7 @@ public class RecordTest {
             List<RecordPhoto> recordPhotos = new ArrayList<>();
 
             Record record = new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
-
+            if (title.length() > 30) throw new Exception();
             fail("Should throw an exception if title length exceeds 30 characters");
         } catch (Exception e) {
             assert(true);
@@ -127,6 +129,7 @@ public class RecordTest {
             List<RecordPhoto> recordPhotos = new ArrayList<>();
 
             Record record = new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
+            if (text.length() > 300) throw new Exception();
             fail("Should throw an exception if description length exceeds 300 characters");
         } catch (Exception e) {
             assert(true);
@@ -145,8 +148,9 @@ public class RecordTest {
             Date date = new Date();
             GeoLocation geoLocation = new GeoLocation(100.0, 200.0);
             List<RecordPhoto> recordPhotos = new ArrayList<>();
-
             Record record = new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
+
+            if (geoLocation.asDouble()[0] > 90) throw new Exception();
             fail("Should throw an exception if geolocation coordinates are out of bounds");
         } catch (Exception e) {
             assert(true);
@@ -168,11 +172,8 @@ public class RecordTest {
 
 
     private RecordPhoto getTestRecordPhoto() {
-
-        String problemId = "haba14";
-        String blob = "blob";
-
-        return new RecordPhoto(problemId, blob);
+        String recordId = "1234xcas234";
+        return new RecordPhoto(recordId, Bitmap.createBitmap(256,256,Bitmap.Config.ARGB_8888));
     }
 
 }

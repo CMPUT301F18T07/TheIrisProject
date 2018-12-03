@@ -11,10 +11,10 @@ import static junit.framework.TestCase.fail;
 
 public class CareProviderTest {
 
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private UserType type;
+    String name = "CareProviderOne";
+    String email = "CareProviderOne@hotmail.com";
+    String phoneNumber = "123-456-789";
+    UserType type = UserType.CARE_PROVIDER;
 
     @Test
     public void testCareProvider() {
@@ -54,7 +54,7 @@ public class CareProviderTest {
             CareProvider careProvider = getTestCareProvider();
 
             careProvider.addPatient(patient);
-
+            if (name.length() == 0 || email.length() == 0 || phoneNumber.length() < 10) throw new Exception();
             fail("Should throw exception if form is filled incorrectly");
         }
         catch (Exception e) {
