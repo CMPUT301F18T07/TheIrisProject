@@ -20,8 +20,8 @@ import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.GetProblemTask;
-import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -136,5 +136,9 @@ public class ProblemController extends IrisController<Problem> {
     }
 
     public List<Comment> getComments() { return model.getComments(); }
+
+    public Date getDate() {
+        return model.getDate();
+    }
 
 }

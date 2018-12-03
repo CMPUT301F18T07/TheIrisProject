@@ -5,17 +5,13 @@
 package com.team7.cmput301.android.theirisproject.model;
 
 
-import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.helper.DateHelper;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import io.searchbox.annotations.JestId;
 
@@ -56,8 +52,13 @@ public class Problem {
         this.date = DateHelper.parse(date);
     }
 
-    public Problem() {
+    public Problem() {}
 
+    public Problem(String title, String description, Date date, String user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
+        this.date = date;
     }
 
     /* Basic setter + adders */
@@ -76,6 +77,10 @@ public class Problem {
 
     public void setDate(String date) throws ParseException {
         this.date = DateHelper.parse(date);
+    }
+
+    public void setDate(Date date){
+        this.date = date;
     }
 
     public void addRecord(Record record) { this.records.add(record); }
@@ -111,9 +116,12 @@ public class Problem {
     }
 
 
-    public String getDate() {
+    public String getDateAsString() {
         return DateHelper.format(this.date);
+    }
 
+    public Date getDate() {
+        return date;
     }
 
     public String getDescription() {
@@ -139,7 +147,7 @@ public class Problem {
         this.title = problem.getTitle();
         this.description = problem.getDescription();
         try {
-            this.date = DateHelper.parse(problem.getDate());
+            this.date = DateHelper.parse(problem.getDateAsString());
         } catch (ParseException e) {
             this.date = new Date();
         }
