@@ -56,7 +56,7 @@ public class Problem {
 
     public Problem(String title, String description, Date date, String user) {
         this.title = title;
-        this.description = description;
+        this.desc = description;
         this.user = user;
         this.date = date;
     }

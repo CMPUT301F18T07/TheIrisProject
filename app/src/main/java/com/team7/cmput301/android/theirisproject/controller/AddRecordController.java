@@ -81,8 +81,8 @@ public class AddRecordController extends IrisController<Record> {
             // Records not initialized with JestID, and isn't generated
             // unless added to elasticsearch, so manually make one
             submitRecord.setId(UUID.randomUUID().toString());
-
             IrisProjectApplication.putInUpdateQueue(submitRecord);
+            cb.onComplete(submitRecord.getId());
             return false;
 
         }

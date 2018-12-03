@@ -62,8 +62,8 @@ public class AddProblemController extends IrisController<Problem> {
             // Problems not initialized with JestID, and isn't generated
             // unless added to elasticsearch, so manually make one
             submitProblem.setId(UUID.randomUUID().toString());
-
             IrisProjectApplication.putInUpdateQueue(submitProblem);
+            cb.onComplete(submitProblem.getId());
             return false;
 
         }
