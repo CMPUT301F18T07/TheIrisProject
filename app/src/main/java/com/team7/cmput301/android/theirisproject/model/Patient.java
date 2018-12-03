@@ -19,7 +19,6 @@ public class Patient extends User {
     transient private List<CareProvider> careProviders;
     transient private ProblemList problems = new ProblemList();
     private List<String> careProviderIds = new ArrayList<>();
-    private List<String> problemIds = new ArrayList<>();
     private List<BodyPhoto> bodyPhotos = new ArrayList<>();
 
     // Code that the Care Provider uses to add this patient

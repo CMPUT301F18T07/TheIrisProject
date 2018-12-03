@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;

@@ -9,6 +9,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Menu;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -24,7 +25,10 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+
+import java.util.List;
 
 /**
  * ProblemListActivity shows the problems of a given user through the intent
@@ -36,6 +40,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     private static final int DELETE_PROBLEM_RESPONSE = 1;
+    public static final String DELETE_PROBLEM_ID = "delete_problem_id";
 
     private ProblemListController controller;
     private ListView problemsView;
@@ -96,7 +101,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 dispatchViewProfileActivity();
                 break;
             case R.id.problem_list_action_search:
-                dispatchToSearchActivity();
+                if (IrisProjectApplication.isConnectedToInternet()) dispatchToSearchActivity();
+                else Toast.makeText(ProblemListActivity.this, R.string.search_offline_message, Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -136,27 +142,25 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DELETE_PROBLEM_RESPONSE) {
+            Log.d("Iris", "DELETE RESPONSE");
             // On return from DeleteProblemActivity, check the result of the activity for status of deletion
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_SHORT);
+                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
             }
             else if (resultCode == RESULT_OK) {
-                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_SHORT);
-                controller.getUserProblems(new Callback<ProblemList>() {
-                    @Override
-                    public void onComplete(ProblemList res) {
-                        render(res);
-                    }
-                });
+                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_SHORT).show();
+                controller.getProblems().remove(controller.getProblems().getProblemById(data.getExtras().getString(DELETE_PROBLEM_ID)));
+                render(controller.getProblems());
             }
             else {
-                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_SHORT);
+                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void setAddProblemButton() {
         addProblemButton = findViewById(R.id.problem_list_add);
+        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) addProblemButton.setVisibility(View.GONE);
         // set click listener to AddProblemFloatingButton
         addProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override
