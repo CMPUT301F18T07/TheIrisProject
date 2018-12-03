@@ -348,7 +348,6 @@ public class IrisProjectApplication extends Application {
         ((Patient) currentUser).getBodyPhotos().remove(photo);
         for (Problem p : ((Patient) currentUser).getProblems()) {
             for (Record r : p.getRecords()) {
-                Log.e("app", r.getBodyLocation() + " is null ?");
                 if (r.getBodyLocation() != null && photo.getId().equals(r.getBodyLocation().getBodyPhotoId())) {
                     r.setBodyLocation(null);
                 }
