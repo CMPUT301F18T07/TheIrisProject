@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +18,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.ImageConverter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddBodyPhotoController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -61,7 +64,11 @@ public class AddBodyPhotoActivity extends IrisActivity<BodyPhoto> {
             public void onClick(View view) {
                 Boolean success = controller.submitBodyPhoto(labelField.getText().toString(), new Callback<BodyPhoto>() {
                     @Override
-                    public void onComplete(BodyPhoto res) { finishWithResult(res); }
+                    public void onComplete(BodyPhoto res) {
+                        Patient user = (Patient)IrisProjectApplication.getCurrentUser();
+                        user.getBodyPhotos().add(res);
+                        finishWithResult(res);
+                    }
                 });
                 if (!success) {
                     showOfflineFatalToast(AddBodyPhotoActivity.this);

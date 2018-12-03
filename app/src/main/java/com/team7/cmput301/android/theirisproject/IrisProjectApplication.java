@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.LruCache;
 
 import com.searchly.jestdroid.DroidClientConfig;
@@ -347,7 +348,8 @@ public class IrisProjectApplication extends Application {
         ((Patient) currentUser).getBodyPhotos().remove(photo);
         for (Problem p : ((Patient) currentUser).getProblems()) {
             for (Record r : p.getRecords()) {
-                if (r.getBodyLocation().getBodyPhotoId().equals(photo.getId())) {
+                Log.e("app", r.getBodyLocation() + " is null ?");
+                if (r.getBodyLocation() != null && photo.getId().equals(r.getBodyLocation().getBodyPhotoId())) {
                     r.setBodyLocation(null);
                 }
             }
