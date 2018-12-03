@@ -8,14 +8,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
-import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.DeleteTransferCodeTask;
 
 /**
  * LoginActivity is our landing page for the user to authenticate
@@ -26,10 +28,14 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 public class LoginActivity extends IrisActivity {
 
     private LoginController controller;
-    private TextView email;
-    private TextView password;
+    private TextView username;
     private Button loginButton;
     private TextView registerTextView;
+
+    private EditText transferField;
+    private Button transferButton;
+
+    private Callback loginCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +44,26 @@ public class LoginActivity extends IrisActivity {
 
         controller = createController(getIntent());
 
+        loginCallback = new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean success) {
+                // Start activity if login is successful, else stay on login activity
+                if (success) {
+                    Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
+                    buildUserSession();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this, getString(R.string.login_failure), Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+
         // initialize android views from xml
         loginButton = findViewById(R.id.login_button);
         registerTextView = findViewById(R.id.login_register_button);
-        email = findViewById(R.id.login_email_field);
-        password = findViewById(R.id.login_password_field);
+        username = findViewById(R.id.login_email_field);
+        transferField = findViewById(R.id.login_transfer_code_field);
+        transferButton = findViewById(R.id.login_transfer_button);
 
         registerTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,31 +82,38 @@ public class LoginActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // Create login request, and start new activity if id is found
-                controller.loginUser(email.getText().toString(), password.getText().toString(), new Callback<Boolean>() {
+                IrisProjectApplication.loginCurrentUser(username.getText().toString());
+                controller.loginUser(username.getText().toString(), loginCallback);
+            }
+        });
+
+        transferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DeleteTransferCodeTask(new Callback<String>() {
                     @Override
-                    public void onComplete(Boolean success) {
-                        // Start activity if login is successful, else stay on login activity
-                        if(success) {
-                            Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_LONG).show();
-                            buildUserSession();
-                        }
-                        else {
-                            Toast.makeText(LoginActivity.this, getString(R.string.login_failure), Toast.LENGTH_LONG).show();
+                    public void onComplete(String username) {
+                        if (username != null) {
+                            IrisProjectApplication.loginCurrentUser(username);
+                            controller.loginUser(username, loginCallback);
+                            Toast.makeText(LoginActivity.this, R.string.login_transfer_success, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LoginActivity.this, R.string.login_transfer_failure, Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
-
+                }).execute(transferField.getText().toString());
             }
         });
 
     }
 
     /**
-     * Get all the logged in User's associated data, then start a specified activity for them
+     * Push the update queue backups to online, get all the logged in User's associated data,
+     * then start a specified activity for them.
      */
     private void buildUserSession() {
 
-        Callback callback = new Callback() {
+        Callback callbackToStart = new Callback() {
             @Override
             public void onComplete(Object res) {
                 Class activity = controller.getStartingActivity();
@@ -93,7 +121,14 @@ public class LoginActivity extends IrisActivity {
             }
         };
 
-        controller.fetchAllUserData(callback);
+        Callback<Boolean> callbackToFetch = new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean res) {
+                controller.fetchAllUserData(callbackToStart);
+            }
+        };
+
+        IrisProjectApplication.flushUpdateQueueBackups(callbackToFetch);
 
     }
 
@@ -106,7 +141,7 @@ public class LoginActivity extends IrisActivity {
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(LoginActivity.this, targetActivity);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
-        intent.putExtra("user", IrisProjectApplication.getCurrentUser().getId());
+        intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
         startActivity(intent);
     }
 

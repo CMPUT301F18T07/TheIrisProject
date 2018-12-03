@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.ProblemListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
@@ -40,9 +41,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     private ListView problemsView;
     private FloatingActionButton addProblemButton;
     private FloatingActionButton bodyPhotoButton;
-    private Boolean doEditProblem = false;
-
-    private Toolbar toolbar;
+    private FloatingActionButton logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,30 +51,22 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         controller = new ProblemListController(getIntent());
 
         problemsView = findViewById(R.id.problem_item_list);
+
         setAddProblemButton();
         setBodyPhotoButton();
-        toolbar = findViewById(R.id.problem_list_toolbar);
-        setSupportActionBar(toolbar);
+        setLogoutButton();
 
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Problem problem = (Problem) problemsView.getItemAtPosition(i);
-                if (doEditProblem) {
-                    // Edit the problem
-                    Intent intent = new Intent(ProblemListActivity.this, EditProblemActivity.class);
-                    intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
-                    startActivity(intent);
-                }
-                else {
-                    // View the problem
-                    Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
-                    intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
-                    startActivity(intent);
-                }
-
+                // View the problem
+                Intent intent = new Intent(ProblemListActivity.this, ViewProblemActivity.class);
+                intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
+                startActivity(intent);
             }
         });
+
         // Set onitemlongclicklistener to listview of problems
         problemsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             // Delete problem being held on
@@ -101,26 +92,14 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
-            case R.id.problem_list_action_edit:
-                // Set flag so that when user taps on problem, will take user to edit page
-                if (doEditProblem){
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_view_problem_hint, Toast.LENGTH_LONG);
-                    doEditProblem = false;
-                }
-                else {
-                    Toast.makeText(ProblemListActivity.this, R.string.problem_list_edit_problem_hint, Toast.LENGTH_LONG);
-                    doEditProblem = true;
-                }
-                break;
             case R.id.patient_list_action_view_profile:
-                // View a profile
-                Toast.makeText(ProblemListActivity.this, "View Profile", Toast.LENGTH_LONG);
-                Intent intent = new Intent(this, ViewProfileActivity.class);
-
-                startActivity(intent);
+                dispatchViewProfileActivity();
+                break;
+            case R.id.problem_list_action_search:
+                dispatchToSearchActivity();
                 break;
             default:
-
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -159,10 +138,10 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
         if (requestCode == DELETE_PROBLEM_RESPONSE) {
             // On return from DeleteProblemActivity, check the result of the activity for status of deletion
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Cancelled", Toast.LENGTH_SHORT);
             }
             else if (resultCode == RESULT_OK) {
-                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Problem has been deleted", Toast.LENGTH_SHORT);
                 controller.getUserProblems(new Callback<ProblemList>() {
                     @Override
                     public void onComplete(ProblemList res) {
@@ -171,7 +150,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 });
             }
             else {
-                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_LONG);
+                Toast.makeText(ProblemListActivity.this, "Can not delete problem", Toast.LENGTH_SHORT);
             }
         }
     }
@@ -195,8 +174,33 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProblemListActivity.this, BodyPhotoListActivity.class);
+                intent.putExtra(Extras.EXTRA_BODYPHOTO_USER, controller.getUserId());
                 startActivity(intent);
             }
         });
     }
+
+    private void dispatchToSearchActivity() {
+        Intent intent = new Intent(ProblemListActivity.this, SearchActivity.class);
+        intent.putExtra(Extras.EXTRA_USER_ID, controller.getUserId());
+        startActivity(intent);
+    }
+
+    private void dispatchViewProfileActivity() {
+        Intent intent = new Intent(this, ViewProfileActivity.class);
+        startActivity(intent);
+    }
+
+    private void setLogoutButton() {
+        logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IrisProjectApplication.logoutCurrentUser();
+                finish();
+                startActivity(new Intent(ProblemListActivity.this, LoginActivity.class));
+            }
+        });
+    }
+
 }

@@ -28,6 +28,8 @@ public class PatientTest {
 
     @Test
     public void testPatient() {
+        // Test create patient
+
         Patient patient = getTestPatient();
 
         Assert.assertEquals(name, patient.getUsername());
@@ -38,6 +40,7 @@ public class PatientTest {
 
     @Test
     public void testAddCareProvider() {
+        // Test adding a care provider
 
         Patient patient = getTestPatient();
         CareProvider careProvider = getTestCareProvider();
@@ -49,6 +52,7 @@ public class PatientTest {
 
     @Test
     public void testAddProblem() {
+        // Test adding a problem
 
         Patient patient = getTestPatient();
         Problem problem = getTestProblem();
@@ -85,8 +89,7 @@ public class PatientTest {
         String description = "I think I'm slowly turning into a zombie.";
         String userid = "0";
         RecordList records = new RecordList();
-        List<BodyPhoto> body_photos = new ArrayList<>();
 
-        return new Problem(title, description, userid, body_photos);
+        return new Problem(title, description, userid);
     }
 }

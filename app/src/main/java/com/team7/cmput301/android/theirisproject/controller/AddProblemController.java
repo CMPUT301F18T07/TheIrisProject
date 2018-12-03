@@ -7,18 +7,15 @@
 package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import com.team7.cmput301.android.theirisproject.ImageConverter;
-import com.team7.cmput301.android.theirisproject.task.AddBodyPhotoTask;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Problem;
-import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.task.AddProblemTask;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * AddProblemController has methods to allow our AddProblemActivity
@@ -43,19 +40,39 @@ public class AddProblemController extends IrisController<Problem> {
      * @param desc Problem description
      * @param cb callback method
      * */
-    public void submitProblem(String title, String desc, Callback<String> cb) {
-        Problem submitProblem = new Problem(title, desc, IrisProjectApplication.getCurrentUser().getId());
-        // add problem to our database
-        new AddProblemTask(new Callback<String>() {
-            @Override
-            public void onComplete(String result) {
-                cb.onComplete(result);
-            }
-        }).execute(submitProblem);
+    public Boolean submitProblem(String title, String desc, Callback<String> cb) {
+
+        Problem submitProblem = new Problem(title, desc, userId);
+        IrisProjectApplication.addProblemToCache(submitProblem);
+        ((Patient)IrisProjectApplication.getUserById(userId)).addProblem(submitProblem);
+        if (IrisProjectApplication.isConnectedToInternet()) {
+
+            // add problem to our database
+            new AddProblemTask(new Callback<String>() {
+                @Override
+                public void onComplete(String result) {
+                    submitProblem.setId(result);
+                    cb.onComplete(result);
+                }
+            }).execute(submitProblem);
+            return true;
+
+        } else {
+
+            // Problems not initialized with JestID, and isn't generated
+            // unless added to elasticsearch, so manually make one
+            submitProblem.setId(UUID.randomUUID().toString());
+
+            IrisProjectApplication.putInUpdateQueue(submitProblem);
+            return false;
+
+        }
+
     }
 
     @Override
     Problem getModel(Bundle data) {
         return null;
     }
+
 }

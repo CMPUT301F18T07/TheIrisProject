@@ -17,9 +17,11 @@ import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
 import java.io.IOException;
+import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 import static com.team7.cmput301.android.theirisproject.model.User.UserType.PATIENT;
 
@@ -40,7 +42,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... params) {
 
         try {
-            // HTTP POST to database with given query /_search?q=email:params[0]
+            // HTTP POST to database with given query /_search?q=username:params[0]
             Search get = new Search.Builder("{\"query\": {\"term\": {\"username\": \"" + params[0] + "\"}}}")
                     .addIndex(IrisProjectApplication.INDEX)
                     .addType("user")
@@ -48,11 +50,13 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
             SearchResult searchResult = IrisProjectApplication.getDB().execute(get);
             if (!searchResult.isSucceeded()) {
+                System.out.println("search failed!");
                 return false;
             }
 
             JsonArray arrayHits = searchResult.getJsonObject().getAsJsonObject("hits").getAsJsonArray("hits");
             if (arrayHits.size() == 0) {
+                System.out.println("no hits!");
                 return false;
             }
 

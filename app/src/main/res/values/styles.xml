@@ -16,16 +16,6 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 
-    <style name="problem_list_task_bar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/title_color</item>
-    </style>
-
-    <style name="record_list_task_bar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/title_color</item>
-    </style>
-
     <style name="RobotoTextView" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">18dp</item>
@@ -44,4 +34,5 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
+    
 </resources>

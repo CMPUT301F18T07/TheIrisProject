@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
@@ -65,9 +66,10 @@ public class AddPatientDialogFragment extends DialogFragment {
                                 listener.onFinishAddPatient(success);
                             }
                         };
-                        controller.addPatient(addPatientEditText.getText().toString(),
-                                (CareProvider) IrisProjectApplication.getCurrentUser(),
-                                callback);
+                        Boolean success = controller.addPatient(addPatientEditText.getText().toString(), callback);
+                        if (!success) {
+                            Toast.makeText(getActivity(), R.string.offline_fatal_error, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

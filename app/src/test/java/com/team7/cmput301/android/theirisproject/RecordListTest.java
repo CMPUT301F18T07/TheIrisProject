@@ -21,6 +21,8 @@ public class RecordListTest {
 
     @Test
     public void testAdd() {
+        // Test adding a record to record list
+
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
@@ -32,6 +34,8 @@ public class RecordListTest {
 
     @Test
     public void testContains() {
+        // Test to see if record list contains record
+
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
@@ -43,6 +47,8 @@ public class RecordListTest {
 
     @Test
     public void testRemove() {
+        // Test to delete record from record list
+
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
@@ -55,6 +61,8 @@ public class RecordListTest {
 
     @Test
     public void testLength() {
+        // Test to return record list length
+
         RecordList recordList = new RecordList();
         Record record = getTestRecord();
 
@@ -65,6 +73,7 @@ public class RecordListTest {
 
     private Record getTestRecord() {
 
+        String user = "care provider";
         String problemID = "mk543";
         String title = "Title";
         String text = "Text";
@@ -72,7 +81,7 @@ public class RecordListTest {
         GeoLocation geoLocation = new GeoLocation(1.0, 1.0);
         List<RecordPhoto> recordPhotos = new ArrayList<>();
 
-        return new Record(problemID, title, text, date, geoLocation, recordPhotos);
+        return new Record(user, problemID, title, text, date, geoLocation, recordPhotos);
 
     }
 

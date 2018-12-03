@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Search;
+import io.searchbox.params.Parameters;
 
 import static com.team7.cmput301.android.theirisproject.IrisProjectApplication.INDEX;
 
@@ -54,7 +55,6 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
             GetCommentTask comments = new GetCommentTask(new Callback<List<Comment>>() {
                 @Override
                 public void onComplete(List<Comment> res) {
-                    Log.d("Iris", "Populating problems comments");
                     problemState.asyncSetComments(res);
                     publishProgress(problemState);
                 }
@@ -66,8 +66,6 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
                     .build();
             JestResult res = IrisProjectApplication.getDB().execute(get);
             problemState.asyncCopyFields(res.getSourceAsObject(Problem.class));
-
-            Log.d("Iris", "Populating problems fields");
             return problemState;
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,7 +92,8 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
      *
      * @author itstc
      * */
-    public class GetCommentTask extends AsyncTask<String, Void, List<Comment>> {
+    public static class GetCommentTask extends AsyncTask<String, Void, List<Comment>> {
+        private String problemIdQuery = "{\"query\": {\"term\": {\"problemId\": \"%s\"}}}";
         private Callback cb;
         public GetCommentTask(Callback cb) {
             this.cb = cb;
@@ -114,6 +113,7 @@ public class GetProblemTask extends AsyncTask<String, Problem, Problem> {
                 Search commentSearch = new Search.Builder(String.format(problemIdQuery, params[0]))
                         .addIndex(IrisProjectApplication.INDEX)
                         .addType("comment")
+                        .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                         .build();
                 commentsResult = IrisProjectApplication
                         .getDB()

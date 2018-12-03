@@ -24,17 +24,18 @@ import io.searchbox.client.JestResult;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
+import io.searchbox.params.Parameters;
 
 /**
- * AddPatientTask takes in two parameters, the Patient's e-mail that the Care Provider inputted
- * and the Care Provider's ID.
+ * AddPatientTask takes in two parameters, the Patient's e-mail and whether or not we are
+ * adding the Patient by importing a Contact or not
  *
  * If the given username is not a registered user, task returns false onCompletion
  * Otherwise, the Patient's ID is added to the Care Provider's list of Patients and vice versa.
  *
  * @author Jmmxp
  */
-public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
+public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
 
     private static final String TAG = AddPatientTask.class.getSimpleName();
 
@@ -45,15 +46,18 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(String... strings) {
-        String patientUsername = strings[0];
+    protected Boolean doInBackground(Object... objects) {
+        String addCode = (String) objects[0];
+        boolean isImport = false;
+        if (objects[1] != null) {
+            isImport = (boolean) objects[1];
+        }
 
         CareProvider careProvider = (CareProvider) IrisProjectApplication.getCurrentUser();
 
-        if (patientUsername == null ) {
+        if (addCode == null) {
             return false;
         }
-        Log.i(TAG, patientUsername + " and " + careProvider.getId());
 
         JestDroidClient client = IrisProjectApplication.getDB();
 
@@ -62,7 +66,7 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
                 "  \"query\": {\n" +
                 "    \"bool\": {\n" +
                 "      \"must\": [\n" +
-                "    \t{ \"term\": { \"username\": \"" + patientUsername + "\" }},\n" +
+                "    \t{ \"term\": { \"addCode\": \"" + addCode + "\" }},\n" +
                 "    \t{ \"term\": { \"type\": \"PATIENT\" }}\n" +
                 "\t  ]\n" +
                 "    }\n" +
@@ -71,11 +75,11 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
         Search get = new Search.Builder(query)
                 .addIndex(IrisProjectApplication.INDEX)
                 .addType("user")
+                .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                 .build();
 
         try {
             SearchResult searchResult = client.execute(get);
-            // TODO: Fix bug of PatientListActivity showing patients out of order (should be in order of being added)
 
             if (!searchResult.isSucceeded()) {
                 return false;
@@ -90,11 +94,13 @@ public class AddPatientTask extends AsyncTask<String, Void, Boolean> {
             Patient patient = searchResult.getSourceAsObject(Patient.class, true);
 
             // If the CP already has this patient, do not add again
-            if (careProvider.getPatients().contains(patient)) {
+            if (careProvider.getPatientIds().contains(patient.getId())) {
                 return false;
             }
 
-            careProvider.addPatient(patient);
+            if (!isImport) {
+                careProvider.addPatient(patient);
+            }
 
             String patientId = patient.getId();
             String careProviderId = careProvider.getId();

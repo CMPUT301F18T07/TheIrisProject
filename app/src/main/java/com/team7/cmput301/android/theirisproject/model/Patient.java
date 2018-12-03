@@ -20,6 +20,10 @@ public class Patient extends User {
     transient private ProblemList problems = new ProblemList();
     private List<String> careProviderIds = new ArrayList<>();
     private List<String> problemIds = new ArrayList<>();
+    private List<BodyPhoto> bodyPhotos = new ArrayList<>();
+
+    // Code that the Care Provider uses to add this patient
+    private String addCode;
 
     /* Constructors */
 
@@ -38,6 +42,14 @@ public class Patient extends User {
         this.problems = new ProblemList(problems);
     }
 
+    public void setBodyPhotos(List<BodyPhoto> bodyPhotos) {
+        this.bodyPhotos = bodyPhotos;
+    }
+
+    public void setAddCode(String addCode) {
+        this.addCode = addCode;
+    }
+
     /* Basic getters */
 
     public List<CareProvider> getCareProviders() {
@@ -48,6 +60,10 @@ public class Patient extends User {
         return problems;
     }
 
+    public List<BodyPhoto> getBodyPhotos() {
+        return bodyPhotos;
+    }
+
     public void addCareProviderId(String careProviderId) {
         careProviderIds.add(careProviderId);
     }
@@ -56,10 +72,18 @@ public class Patient extends User {
         return careProviderIds;
     }
 
+    public String getAddCode() {
+        return addCode;
+    }
+
     /* Basic list operations */
 
     public void addProblem(Problem problem){
         problems.add(problem);
+    }
+
+    public void addBodyPhoto(BodyPhoto bodyPhoto) {
+        bodyPhotos.add(bodyPhoto);
     }
   
     /* Basic setters */

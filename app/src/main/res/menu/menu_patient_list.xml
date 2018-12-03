@@ -13,4 +13,11 @@
         app:showAsAction="ifRoom">
     </item>
 
+    <item
+        android:id="@+id/patient_list_action_import_contacts"
+        android:icon="@drawable/ic_action_import_contacts"
+        android:title="Contacts"
+        app:showAsAction="ifRoom">
+    </item>
+
 </menu>

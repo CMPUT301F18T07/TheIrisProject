@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.UserListAdapter;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
@@ -21,8 +22,14 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.model.CareProvider;
 import com.team7.cmput301.android.theirisproject.model.Patient;
+import com.team7.cmput301.android.theirisproject.model.TransferCode;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
+import com.team7.cmput301.android.theirisproject.task.AddTransferCodeTask;
+import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.GetTransferCodeTask;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * ViewProfileActivity is for allowing the user to view their profile information.
@@ -39,6 +46,9 @@ public class ViewProfileActivity extends IrisActivity {
     private TextView name;
     private TextView email;
     private TextView phone;
+    private TextView addCode;
+    private TextView addCodeLabel;
+    private Button generateCode;
     private Button editProfile;
 
     private TextView label;
@@ -56,6 +66,9 @@ public class ViewProfileActivity extends IrisActivity {
         name = findViewById(R.id.view_profile_name_text_view);
         email = findViewById(R.id.view_profile_email_text_view);
         phone = findViewById(R.id.view_profile_phone_text_view);
+        addCode = findViewById(R.id.view_profile_add_code_text_view);
+        addCodeLabel = findViewById(R.id.view_profile_add_code_label);
+        generateCode = findViewById(R.id.view_profile_generate_code_button);
         editProfile = findViewById(R.id.view_profile_edit_profile_button);
 
         label = findViewById(R.id.view_profile_users_text_view);
@@ -64,6 +77,38 @@ public class ViewProfileActivity extends IrisActivity {
         name.setText(user.getUsername());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
+
+        if (user.getType() == UserType.PATIENT) {
+            addCode.setText(((Patient) user).getAddCode());
+        } else {
+            addCode.setVisibility(View.GONE);
+            addCodeLabel.setVisibility(View.GONE);
+        }
+
+        generateCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if a transfer code already exists for this user
+                Toast.makeText(ViewProfileActivity.this, R.string.view_profile_generate_code_toast, Toast.LENGTH_SHORT).show();
+
+                new GetTransferCodeTask(new Callback<String>() {
+                    @Override
+                    public void onComplete(String code) {
+                        if (code == null) {
+                            // Couldn't find an existing code, generate one and save it to DB
+                            code = RandomStringUtils.random(5, true, true);
+
+                            TransferCode transferCode = new TransferCode(code, user.getUsername());
+                            new AddTransferCodeTask().execute(transferCode);
+                        }
+
+                        TransferCodeDialogFragment dialog = TransferCodeDialogFragment.newInstance(code);
+                        dialog.show(getSupportFragmentManager(), TransferCodeDialogFragment.class.getSimpleName());
+
+                    }
+                }).execute(user.getUsername());
+            }
+        });
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

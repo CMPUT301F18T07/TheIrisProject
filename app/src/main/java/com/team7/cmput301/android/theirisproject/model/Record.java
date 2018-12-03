@@ -4,6 +4,10 @@
 
 package com.team7.cmput301.android.theirisproject.model;
 
+import android.graphics.Bitmap;
+
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,43 +26,58 @@ public class Record {
     @JestId
     private String _id;
     private String problemId;
-
+    private String user;
     private String desc;
     private String title;
-    private Date date;
+    private Date date = new Date();
     private GeoLocation geoLocation;
     private BodyLocation bodyLocation;
-    transient private List<RecordPhoto> recordPhotos;
+    transient private List<RecordPhoto> recordPhotos = new ArrayList<>();
 
     /* Constructors */
 
-    public Record(String problemId, String title, String desc, Date date, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
-        this.problemId = problemId;
-        this.title = title;
-        this.desc = desc;
+    public Record(String user, String problemId, String title, String desc, Date date, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc, geoPt, recordPhotos);
         this.date = date;
+    }
+
+    public Record(String user, String problemId, String title, String desc, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc);
+        this.recordPhotos = recordPhotos;
+    }
+
+
+    public Record(String user, String problemId, String title, String desc, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc);
+        this.bodyLocation = bodyLocation;
+        this.recordPhotos = recordPhotos;
+    }
+  
+    public Record(String user, String problemId, String title, String desc, GeoLocation geoPt, BodyLocation bodyLocation, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc, bodyLocation, recordPhotos);
         this.geoLocation = geoPt;
-        this.recordPhotos = recordPhotos;
     }
 
-    public Record(String problemId, String title, String desc, List<RecordPhoto> recordPhotos) {
-        this(problemId, title, desc);
-        this.recordPhotos = recordPhotos;
-    }
-
-    public Record(String problemId, String title, String desc) {
-        this();
+    public Record(String user, String problemId, String title, String desc) {
+        this.user = user;
         this.problemId = problemId;
         this.title = title;
         this.desc = desc;
         this.date = new Date();
     }
 
+    public Record(String user, String problemId, String title, String desc, GeoLocation geoPt, List<RecordPhoto> recordPhotos) {
+        this(user, problemId, title, desc);
+        this.geoLocation = geoPt;
+        this.recordPhotos = recordPhotos;
+    }
+
     public Record() {
-        this.recordPhotos = new ArrayList<>();
     }
 
     /* Basic setter */
+
+    public void setId(String id) { this._id = id; }
 
     public void setTitle(String title){
         this.title = title;
@@ -72,7 +91,13 @@ public class Record {
         this.recordPhotos = recordPhotos;
     }
 
+    public void setBodyLocation(BodyLocation bodyLocation) {
+        this.bodyLocation = bodyLocation;
+    }
+
     /* Basic getters */
+
+    public String getUser() { return user; }
 
     public String getId() {
         return _id;
@@ -104,18 +129,39 @@ public class Record {
 
     /* Basic list operations */
 
-    public void addPhoto(RecordPhoto img) {
+    public void addRecordPhoto(RecordPhoto img) {
         recordPhotos.add(img);
     }
 
-    public void deletePhoto(RecordPhoto img) {
+    public void addRecordPhotos(List<RecordPhoto> photos) {
+        recordPhotos.addAll(photos);
+    }
+
+    public void deleteRecordPhoto(RecordPhoto img) {
         recordPhotos.remove(img);
+    }
+
+    /* Advanced getters */
+
+    public Bitmap getBodyPhotoBitmap() {
+
+        if (bodyLocation == null) {
+            return null;
+        }
+        else {
+            BodyPhoto b = IrisProjectApplication.getBodyPhotoById(bodyLocation.getBodyPhotoId());
+            if (b != null) {
+                return b.getPhoto();
+            } else {
+                return null;
+            }
+        }
     }
 
     /* Advanced setters */
 
-    public void editGeoLocation(int x, int y) {
-
+    public void editGeoLocation(double x, double y) {
+        geoLocation.setPosition(x, y);
     }
 
     public synchronized void asyncSetFields(Record record) {
@@ -124,6 +170,7 @@ public class Record {
         this.title = record.title;
         this.desc = record.desc;
         this.date = record.date;
+        this.geoLocation = record.getGeoLocation();
     }
 
     public synchronized void asyncSetRecordPhotos(List<RecordPhoto> recordPhotos) {

@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.team7.cmput301.android.theirisproject.model.User.*;
+import static junit.framework.TestCase.fail;
 
 public class CareProviderTest {
 
@@ -29,6 +30,7 @@ public class CareProviderTest {
 
     @Test
     public void testAddPatient() {
+        // Test adding patient
 
         CareProvider careProvider = getTestCareProvider();
         Patient patient = getTestPatient();
@@ -37,10 +39,31 @@ public class CareProviderTest {
         careProvider.addPatient(patient);
         Assert.assertEquals(careProvider.getPatients().size(), 1);
         Assert.assertEquals(careProvider.getPatients().get(0), patient);
+    }
 
+    @Test
+    public void testAddInvalidPatient() {
+        // Test catch invalid patient exception
+
+        try {
+            String name = "";
+            String email = "";
+            String phoneNumber = "9";
+
+            Patient patient = new Patient(name, email, phoneNumber);
+            CareProvider careProvider = getTestCareProvider();
+
+            careProvider.addPatient(patient);
+
+            fail("Should throw exception if form is filled incorrectly");
+        }
+        catch (Exception e) {
+            assert(true);
+        }
     }
 
     private CareProvider getTestCareProvider() {
+        // Test getting care provider
 
         String name = "CareProviderOne";
         String email = "CareProviderOne@hotmail.com";
@@ -48,10 +71,10 @@ public class CareProviderTest {
         UserType type = UserType.CARE_PROVIDER;
 
         return new CareProvider(name, email, phoneNumber);
-
     }
 
     private Patient getTestPatient() {
+        // Test getting patient
 
         String name = "PatientOne";
         String email = "PatientOne@hotmail.com";
@@ -59,7 +82,5 @@ public class CareProviderTest {
         UserType type = UserType.PATIENT;
 
         return new Patient(name, email, phoneNumber);
-
     }
-
 }

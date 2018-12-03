@@ -50,13 +50,21 @@ public class AddProblemActivity extends IrisActivity {
             @Override
             public void onClick(View view) {
                 // send new problem to database, callback has result true if successful, else false
-                controller.submitProblem(name.getText().toString(), desc.getText().toString(), new Callback<String>() {
-                    @Override
-                    public void onComplete(String id) {
-                        if (id != null) dispatchViewProblemActivity(id);
-                        else Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_failure), Toast.LENGTH_LONG).show();
-                    }
-                });
+                Boolean submitted = controller.submitProblem(
+                        name.getText().toString(),
+                        desc.getText().toString(),
+                        new Callback<String>() {
+                            @Override
+                            public void onComplete(String id) {
+                                if (id != null) dispatchViewProblemActivity(id);
+                                else Toast.makeText(AddProblemActivity.this,
+                                        getString(R.string.generic_server_error),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                if (!submitted) {
+                    showOfflineUploadToast(AddProblemActivity.this);
+                }
             }
         });
 
@@ -83,7 +91,7 @@ public class AddProblemActivity extends IrisActivity {
         // end Activity returning to ProblemListActivity
         Intent intent = new Intent(AddProblemActivity.this, ViewProblemActivity.class);
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
-        Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_success), Toast.LENGTH_LONG).show();
+        Toast.makeText(AddProblemActivity.this, getString(R.string.add_problem_success), Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();
     }

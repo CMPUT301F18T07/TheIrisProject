@@ -14,11 +14,13 @@ import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.model.Comment;
+import com.team7.cmput301.android.theirisproject.model.Contact;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.AddCommentTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.task.GetProblemTask;
+import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
 import java.util.List;
 
@@ -41,7 +43,13 @@ public class ProblemController extends IrisController<Problem> {
 
     @Override
     Problem getModel(Bundle data) {
+        Problem cachedModel = IrisProjectApplication.getProblemById(problemID);
+        if (cachedModel != null) return cachedModel;
         return new Problem();
+    }
+
+    public Problem getModelProblem() {
+        return model;
     }
 
     /**
@@ -52,14 +60,45 @@ public class ProblemController extends IrisController<Problem> {
      *
      * @param cb callback from activity
      * */
-    public void getProblem(Callback cb) {
-        new GetProblemTask(new Callback<Problem>() {
-            @Override
-            public void onComplete(Problem res) {
-                model = res;
-                cb.onComplete(res);
-            }
-        }).execute(problemID);
+    public Boolean getProblem(Callback cb) {
+
+        // load local version
+        cb.onComplete(model);
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+            new GetProblemTask(new Callback<Problem>() {
+                @Override
+                public void onComplete(Problem res) {
+                    model = res;
+                    cb.onComplete(res);
+                }
+            }).execute(problemID);
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public Boolean queryComments(Callback cb) {
+
+        // load local version
+        cb.onComplete(model.getComments());
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+            new GetProblemTask.GetCommentTask(new Callback<List<Comment>>() {
+                @Override
+                public void onComplete(List<Comment> res) {
+                    model.asyncSetComments(res);
+                    cb.onComplete(model.getComments());
+                }
+            }).execute(problemID);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -71,14 +110,29 @@ public class ProblemController extends IrisController<Problem> {
      * @param body comment content
      * @param cb final callback from activity
      * */
-    public void addComment(String body, Callback cb) {
-        User user = IrisProjectApplication.getCurrentUser();
-        new AddCommentTask(new Callback<Boolean>() {
-            @Override
-            public void onComplete(Boolean res) {
-                if (res) getProblem(cb);
-            }
-        }).execute(new Comment(problemID, user.getUsername(), body, user.getType()));
+    public Boolean addComment(String body, Callback cb) {
+
+        if (IrisProjectApplication.isConnectedToInternet()) {
+
+            User user = IrisProjectApplication.getCurrentUser();
+            Contact contact = new Contact(user.getUsername(), user.getPhone(), user.getEmail());
+            Comment newComment = new Comment(problemID, contact, body, user.getType());
+            model.addComment(newComment);
+            cb.onComplete(getComments());
+
+            // update database and pull new comments if found
+            new AddCommentTask(new Callback<Boolean>() {
+                @Override
+                public void onComplete(Boolean res) {
+                    if (res) queryComments(cb);
+                }
+            }).execute(newComment);
+
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
     public List<Comment> getComments() { return model.getComments(); }

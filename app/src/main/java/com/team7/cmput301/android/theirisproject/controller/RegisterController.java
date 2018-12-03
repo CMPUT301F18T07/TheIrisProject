@@ -16,6 +16,8 @@ import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.model.User.UserType;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 
 /**
  * Controller for making a new User
@@ -47,6 +49,9 @@ public class RegisterController extends IrisController {
         switch (type) {
             case PATIENT:
                 newUser = new Patient(username, email, phoneNumber);
+
+                String addCode = RandomStringUtils.random(5, true, true);
+                ((Patient) newUser).setAddCode(addCode);
                 break;
             case CARE_PROVIDER:
                 newUser = new CareProvider(username, email, phoneNumber);
