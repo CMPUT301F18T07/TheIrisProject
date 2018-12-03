@@ -50,14 +50,13 @@ public class SplashActivity extends IrisActivity<Void> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_animate_background);
-
         imageView = findViewById(R.id.gif_image);
         drawable = (GifDrawable) imageView.getDrawable();
 
         controller = (LoginController) createController(getIntent());
-
         setUpSplash();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -65,7 +64,7 @@ public class SplashActivity extends IrisActivity<Void> {
 
         // Redirect to login/register activity because this user isn't valid
         if (username == null || username.isEmpty()) {
-            startActivity(new Intent(this, LoginActivity.class));
+            waitForTasks(LoginActivity.class);
         } else {
             // Otherwise if username exists in DB, login with that user and wait until we load their data
             controller.loginUser(username, new Callback<Boolean>() {
@@ -73,14 +72,14 @@ public class SplashActivity extends IrisActivity<Void> {
                 public void onComplete(Boolean success) {
                     // Start ProblemList or PatientList activity if login is successful,
                     // otherwise redirect to login/register activity
-
                     if (success) {
-                        Toast.makeText(SplashActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                         buildUserSession();
                         // Build user session will start the correct User activity
                     } else {
-                        Toast.makeText(SplashActivity.this, getString(R.string.login_failure_internet_or_not_found), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        Toast.makeText(SplashActivity.this,
+                                getString(R.string.login_failure_internet_or_not_found),
+                                Toast.LENGTH_SHORT).show();
+                        waitForTasks(LoginActivity.class);
                     }
                 }
             });
@@ -135,19 +134,28 @@ public class SplashActivity extends IrisActivity<Void> {
     }
 
     /**
-     * Landing site for the two callbacks associated with Tasks that return to activity.
-     * Starts user activity when both Tasks have finished.
+     * Landing site all flow of executions in this activity.
+     * Starts user activity when two tasks (getting user data, and playing splash screen animation)
+     * have completed.
      *
-     * @param activity Denotes User's starting activity, if applicable; null otherwise
+     * @param activity Denotes activity to be redirected to, if applicable; null otherwise
      */
     private synchronized void waitForTasks(Class<?> activity) {
         taskCount++;
-        if (activity != null) {
+        if (activity != null && startActivity == null) {
+            // only allow startActivity to be set once
             startActivity = activity;
         }
-        if (taskCount >= 2 && startActivity != null) {
+        if (startActivity == null) System.out.println(String.valueOf(taskCount));
+        else System.out.println(String.valueOf(taskCount) + " " + startActivity.getSimpleName());
+        if (taskCount >= 2 && startActivity != null) { // greater than two possible if double click on logo occurs
             finish();
-            startUserActivity(startActivity);
+            if (startActivity == LoginActivity.class) {
+                startActivity(new Intent(this, startActivity));
+            } else {
+                startUserActivity(startActivity);
+            }
+            startActivity = null;
         }
     }
 
