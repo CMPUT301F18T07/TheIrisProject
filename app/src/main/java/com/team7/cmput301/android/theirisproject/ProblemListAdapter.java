@@ -49,7 +49,7 @@ public class ProblemListAdapter extends ArrayAdapter<Problem> {
 
         // populate with data given from problems
         title.setText(problems.get(position).getTitle());
-        id.setText(problems.get(position).getDate());
+        id.setText(problems.get(position).getDateAsString());
         desc.setText(problems.get(position).getDescription());
         return problem;
     }
