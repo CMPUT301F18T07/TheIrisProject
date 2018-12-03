@@ -101,12 +101,19 @@ public class AddRecordActivity extends IrisActivity<Record> {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean submitted = controller.submitRecord(
-                                        titleField.getText().toString(),
-                                        descField.getText().toString(),
-                                        submitRecordCallback());
-                if (!submitted) {
-                    showOfflineUploadToast(AddRecordActivity.this);
+
+                if (titleField.getText().toString().isEmpty()) {
+                    Toast.makeText(AddRecordActivity.this,
+                            R.string.register_incomplete,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Boolean submitted = controller.submitRecord(
+                            titleField.getText().toString(),
+                            descField.getText().toString(),
+                            submitRecordCallback());
+                    if (!submitted) {
+                        showOfflineUploadToast(AddRecordActivity.this);
+                    }
                 }
             }
         });
