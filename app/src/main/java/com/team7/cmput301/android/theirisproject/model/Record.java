@@ -127,6 +127,10 @@ public class Record {
         return recordPhotos;
     }
 
+    public BodyLocation getBodyLocation() {
+        return bodyLocation;
+    }
+
     /* Basic list operations */
 
     public void addRecordPhoto(RecordPhoto img) {
