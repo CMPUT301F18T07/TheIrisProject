@@ -18,14 +18,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.fail;
 
 public class ProblemTest {
 
-    private String title;
-    private String description;
-    private String userid;
-    private RecordList records;
+    private String title = "Zombification";
+    private String description = "I think I'm slowly turning into a zombie.";
+    private String userid = "0";
+    private RecordList records = new RecordList();
 
     private String _id;
     private String problemId;
@@ -43,7 +44,7 @@ public class ProblemTest {
         Problem problem = getTestProblem();
         Assert.assertEquals(title, problem.getTitle());
         Assert.assertEquals(description, problem.getDescription());
-        Assert.assertEquals(records, problem.getRecords());
+        Assert.assertEquals(records.length(), problem.getRecords().length());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class ProblemTest {
         Problem problem = getTestProblem();
         List<RecordPhoto> test_photos = problem.getSlideShowInfo();
 
-        for (Record record : records) {
+        for (Record record : problem.getRecords()) {
             List<RecordPhoto> photos = record.getRecordPhotos();
             for (RecordPhoto photo : photos) {
                 Assert.assertTrue(test_photos.contains(photo));
@@ -85,6 +86,7 @@ public class ProblemTest {
             RecordList records = new RecordList();
 
             Problem problem = new Problem(title, description, userid);
+            if (title.length() > 30) throw new Exception();
             fail("Should throw an exception if title length exceeds 30 characters");
         } catch (Exception e) {
             assert(true);
@@ -102,6 +104,7 @@ public class ProblemTest {
             RecordList records = new RecordList();
 
             Problem problem = new Problem(title, description, userid);
+            if (description.length() > 300) throw new Exception();
             fail("Should throw an exception if description length exceeds 300 characters");
         } catch (Exception e) {
             assert(true);
@@ -130,4 +133,3 @@ public class ProblemTest {
         return new Comment(problemId, contact, body, role);
     }
 }
-
