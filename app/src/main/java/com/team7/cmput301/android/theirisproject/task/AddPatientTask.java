@@ -149,6 +149,10 @@ public class AddPatientTask extends AsyncTask<Object, Void, Boolean> {
             }
             patient.addCareProviderId(careProviderId);
 
+            IrisProjectApplication.addUserToCache(patient);
+            GetUserDataTask task = new GetUserDataTask(null);
+            task.getAndBindProblems(patient);
+            task.getAndBindBodyPhotos(patient);
 
             return true;
         } catch (IOException e) {
