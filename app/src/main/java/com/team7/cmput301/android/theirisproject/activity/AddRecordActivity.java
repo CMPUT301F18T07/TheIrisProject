@@ -63,7 +63,8 @@ public class AddRecordActivity extends IrisActivity<Record> {
         bodyLocationImage = findViewById(R.id.record_body_location_image);
 
         recordPhotoListView = findViewById(R.id.record_add_image_list);
-        recordPhotoListView.setAdapter(new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true));
+        recordPhotoImageListAdapter = new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true);
+        recordPhotoListView.setAdapter(recordPhotoImageListAdapter);
         recordPhotoListView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
 
