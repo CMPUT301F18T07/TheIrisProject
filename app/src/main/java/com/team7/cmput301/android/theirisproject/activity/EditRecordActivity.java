@@ -137,10 +137,9 @@ public class EditRecordActivity extends IrisActivity<Record>{
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, REQUEST_CAMERA_IMAGE);
-                }
+                if (controller.getRecordPhotos().size() < 10) dispatchCameraIntent();
+                else setErrorMessage(R.string.max_record_photo_message);
+
             }
         });
 
@@ -197,4 +196,14 @@ public class EditRecordActivity extends IrisActivity<Record>{
         return new EditRecordController(intent);
     }
 
+    private void dispatchCameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_CAMERA_IMAGE);
+        }
+    }
+
+    private void setErrorMessage(int messageResource) {
+        Toast.makeText(EditRecordActivity.this, messageResource, Toast.LENGTH_SHORT).show();
+    }
 }
