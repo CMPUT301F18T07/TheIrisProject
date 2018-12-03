@@ -89,6 +89,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         commentBox = findViewById(R.id.problem_comment_box);
         commentSubmit = findViewById(R.id.problem_comment_submit_button);
 
+        if (!IrisProjectApplication.isConnectedToInternet()) {
+            commentBox.setVisibility(View.GONE);
+            commentSubmit.setVisibility(View.GONE);
+        }
+
         viewRecordsButton = findViewById(R.id.view_record_button);
         createRecordButton = findViewById(R.id.create_record_button);
         viewSlideshowButton = findViewById(R.id.slideshow_button);
