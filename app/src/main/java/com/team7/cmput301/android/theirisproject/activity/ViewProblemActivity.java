@@ -256,7 +256,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public void render(Problem state) {
         // update primitive fields
         problemTitle.setText(state.getTitle());
-        problemDate.setText(state.getDate());
+        problemDate.setText(state.getDateAsString());
         problemDescription.setText(state.getDescription());
 
         renderComments(state.getComments());

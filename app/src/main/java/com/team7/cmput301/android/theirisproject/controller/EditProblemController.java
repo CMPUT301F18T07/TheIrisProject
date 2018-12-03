@@ -20,6 +20,7 @@ import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
 
 import java.text.ParseException;
+import java.util.Date;
 
 
 /**
@@ -54,7 +55,7 @@ public class EditProblemController extends IrisController<Problem> {
      * @param date edited Problem date
      * @param cb callback method
      * */
-    public Boolean submitProblem(String title, String desc, String date, Callback cb) throws ParseException{
+    public Boolean submitProblem(String title, String desc, Date date, Callback cb) throws ParseException{
 
         model.setTitle(title);
         model.setDescription(desc);

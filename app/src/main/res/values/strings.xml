@@ -105,6 +105,7 @@
 
     <!-- Edit Problem strings-->
     <string name="submit_problem">Submit</string>
+    <string name="launch_date_picker">Set Date</string>
     <string name="incorrect_date">Incorrect date format!</string>
     <string name="successful_edit">Problem Edited!</string>
     <string name="edit_problem_failure">"Uh oh something went wrong"</string>
