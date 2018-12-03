@@ -106,7 +106,7 @@ public class UserTest {
     @Test
     public void testIncorrectNameSpecial() {
         // Test catch exception of username containing special characters
-        
+
         try {
             String name = "你好(*&#@!(asf";
             String email = "UserOne@hotmail.com";

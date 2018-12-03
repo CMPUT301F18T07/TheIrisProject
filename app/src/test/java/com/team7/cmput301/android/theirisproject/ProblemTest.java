@@ -133,4 +133,3 @@ public class ProblemTest {
         return new Comment(problemId, contact, body, role);
     }
 }
-
