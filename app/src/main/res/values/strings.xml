@@ -19,12 +19,12 @@
     <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
-    <string name="login_failure_internet_or_not_found">Couldn\'t log in!</string>
+    <string name="login_failure_internet_or_not_found">Couldn\'t log in! Please check internet connection.</string>
     <string name="login_failure">Incorrect login!</string>
     <string name="login_transfer_hint">Enter your transfer code</string>
     <string name="login_transfer_button">Transfer</string>
     <string name="login_transfer_success">Transfer successful!</string>
-    <string name="login_transfer_failure">Incorrect transfer code!</string>
+    <string name="login_transfer_failure">Couldn\'t transfer: wrong code or no internet connection.</string>
 
     <!-- Register screen strings-->
     <string name="register_title">Register a new profile</string>
@@ -40,6 +40,8 @@
     <string name="register_incomplete">Please fill in all fields!</string>
     <string name="register_failure">Could not register, username already in use!</string>
     <string name="register_short_username">That username is too short!</string>
+    <string name="register_invalid_email">Not a valid email address!</string>
+    <string name="register_invalid_phone">Not a valid phone number!</string>
 
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
