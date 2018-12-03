@@ -51,17 +51,24 @@
         <!-- Problem Activities -->
         <activity
             android:name=".activity.ProblemListActivity"
+            android:label="@string/problem_list_title"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddProblemActivity"
             android:label="@string/create_a_problem"
-            android:parentActivityName=".activity.ProblemListActivity" />
+            android:parentActivityName=".activity.ProblemListActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewProblemActivity"
-            android:label="@string/view_problem_title" />
-        <activity android:name=".activity.EditProblemActivity" />
+            android:label="@string/view_problem_title"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.EditProblemActivity"
+            android:label="@string/edit_problem_title"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.DeleteProblemActivity"
+            android:label="@string/delete_problem_title"
             android:theme="@style/AppTheme.PopupTheme" />
 
         <!-- Record Activities -->
@@ -74,28 +81,37 @@
             android:label="@string/submit_record"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.ViewRecordActivity" />
+            android:name=".activity.ViewRecordActivity"
+            android:label="@string/view_record_title"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.EditRecordActivity"
             android:label="@string/edit_record"
             android:theme="@style/AppTheme" />
 
         <!-- Profile Activities -->
-        <activity android:name=".activity.PatientListActivity" />
+        <activity android:name=".activity.PatientListActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewProfileActivity"
-            android:label="@string/view_profile_title" />
+            android:label="@string/view_profile_title"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.EditProfileActivity"
-            android:label="@string/edit_profile_title_text" />
-        <activity android:name=".activity.BodyPhotoListActivity"
-            android:label="@string/body_location_photos" />/>
+            android:label="@string/edit_profile_title_text"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.BodyPhotoListActivity"
+            android:label="@string/body_location_photos"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.AddBodyPhotoActivity"
-            android:label="@string/add_bodyphoto_title_text" />
+            android:label="@string/add_bodyphoto_title_text"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ProblemSlideshowActivity"
-            android:label="@string/title_activity_problem_slideshow" />
+            android:label="@string/title_activity_problem_slideshow"
+            android:theme="@style/AppTheme"/>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -111,8 +127,10 @@
 
         <activity
             android:name=".activity.MapActivity"
-            android:label="@string/title_activity_map" />
-        <activity android:name=".activity.SearchActivity"></activity>
+            android:label="@string/title_activity_map"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.SearchActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
