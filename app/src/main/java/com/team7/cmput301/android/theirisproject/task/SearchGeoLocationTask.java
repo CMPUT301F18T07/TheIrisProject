@@ -19,6 +19,12 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.params.Parameters;
 
+/**
+ * SearchGeoLocationTask searches for Records and their associated Problems with a given
+ * latitude,longitude input
+ *
+ * @author Jmmxp
+ */
 public class SearchGeoLocationTask extends AsyncTask<String, List<Record>, Void> {
 
     private Callback callback;
