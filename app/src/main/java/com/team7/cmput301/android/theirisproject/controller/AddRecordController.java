@@ -65,6 +65,11 @@ public class AddRecordController extends IrisController<Record> {
 
     public int submitRecord(String title, String desc, Callback cb) {
 
+        // Can't queue Record with Record Photos for update if offline, so don't
+        if (recordPhotos.size() != 0 && !IrisProjectApplication.isConnectedToInternet()) {
+            return FAIL;
+        }
+
         Record submitRecord = new Record(userId,
                 problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
         IrisProjectApplication.addRecordToCache(submitRecord);
@@ -83,18 +88,12 @@ public class AddRecordController extends IrisController<Record> {
 
         } else {
 
-            // Can't queue Record with Record Photos for update, so don't
-            if (recordPhotos.size() == 0) {
-                // Records not initialized with JestID, and isn't generated
-                // unless added to elasticsearch, so manually make one
-                submitRecord.setId(UUID.randomUUID().toString());
-                IrisProjectApplication.putInUpdateQueue(submitRecord);
-                cb.onComplete(submitRecord.getId());
-                return PARTIALSUCCESS;
-            }
-            else {
-                return FAIL;
-            }
+            // Records not initialized with JestID, and isn't generated
+            // unless added to elasticsearch, so manually make one
+            submitRecord.setId(UUID.randomUUID().toString());
+            IrisProjectApplication.putInUpdateQueue(submitRecord);
+            cb.onComplete(submitRecord.getId());
+            return PARTIALSUCCESS;
 
         }
 

@@ -41,8 +41,8 @@ public class EditRecordController extends IrisController<Record> {
 
     public EditRecordController(Intent intent){
         super(intent);
-        record = model;
-        photoList = model.getRecordPhotos();
+        record = model;  // aliasing for readability
+        photoList = record.getRecordPhotos();
         oldPhotoList = new ArrayList<>(photoList);
     }
 
@@ -82,12 +82,31 @@ public class EditRecordController extends IrisController<Record> {
      */
     public int submitRecord(Callback<Boolean> cb, String title, String desc){
 
-        int code = FAIL;
+        if (!IrisProjectApplication.isConnectedToInternet()) {
 
-        record.setTitle(title);
-        record.setDesc(desc);
+            // Don't allow save if Record Photos changed, because
+            // this case can't be handled
+            for (RecordPhoto oldPhoto : oldPhotoList) {
+                if (!photoList.contains(oldPhoto)) {
+                    record.setRecordPhotos(oldPhotoList);
+                    return FAIL;
+                }
+            }
+            for (RecordPhoto photo : photoList) {
+                if (!oldPhotoList.contains(photo)) {
+                    record.setRecordPhotos(oldPhotoList);
+                    return FAIL;
+                }
+            }
 
-        if (IrisProjectApplication.isConnectedToInternet()) {
+            // If this is reached, no photos manipulated, so add to queue
+            IrisProjectApplication.putInUpdateQueue(record);
+            return PARTIALSUCCESS;
+
+        } else {
+
+            record.setTitle(title);
+            record.setDesc(desc);
 
             new EditRecordTask().execute(record);
 
@@ -107,29 +126,9 @@ public class EditRecordController extends IrisController<Record> {
                 }
             }
 
-            code = FULLSUCCESS;
-
-        } else {
-
-            // Don't allow save if Record Photos changed, because
-            // this case can't be handled
-            for (RecordPhoto oldPhoto : oldPhotoList) {
-                if (!photoList.contains(oldPhoto)) {
-                    return FAIL;
-                }
-            }
-            for (RecordPhoto photo : photoList) {
-                if (!oldPhotoList.contains(photo)) {
-                    return FAIL;
-                }
-            }
-
-            IrisProjectApplication.putInUpdateQueue(record);
-            code = PARTIALSUCCESS;
+            return FULLSUCCESS;
 
         }
-
-        return code;
 
     }
 
