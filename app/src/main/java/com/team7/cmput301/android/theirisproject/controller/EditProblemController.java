@@ -14,7 +14,9 @@ import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 import com.team7.cmput301.android.theirisproject.task.EditProblemTask;
+import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
 
 
 import java.text.ParseException;

@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.DeleteProblemTask;
 
@@ -35,6 +36,10 @@ public class DeleteProblemController extends IrisController {
         return IrisProjectApplication.getProblemById(problemID);
     }
 
+    public String getProblemID() {
+        return problemID;
+    }
+
     /**
      * deleteProblem is a method to asynchronously deletes the given problem
      * once we receive a response from the database, we return a callback
@@ -49,7 +54,6 @@ public class DeleteProblemController extends IrisController {
             @Override
             public void onComplete(Boolean res) { cb.onComplete(res); }
             }).execute(problemID);
-
         return true;
 
         }

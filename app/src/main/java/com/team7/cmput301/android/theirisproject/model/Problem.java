@@ -35,7 +35,7 @@ public class Problem {
 
     private String title;
     private Date date = new Date();
-    private String description;
+    private String desc;
     transient private RecordList records = new RecordList();
     transient private List<Comment> comments = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class Problem {
 
     public Problem(String title, String description, String user) {
         this.title = title;
-        this.description = description;
+        this.desc = description;
         this.user = user;
         this.date = new Date();
 
@@ -51,7 +51,7 @@ public class Problem {
 
     public Problem(String title, String description, String date, String user) throws ParseException {
         this.title = title;
-        this.description = description;
+        this.desc = description;
         this.user = user;
         this.date = DateHelper.parse(date);
     }
@@ -71,7 +71,7 @@ public class Problem {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.desc = description;
     }
 
     public void setDate(String date) throws ParseException {
@@ -117,7 +117,7 @@ public class Problem {
     }
 
     public String getDescription() {
-        return this.description;
+        return this.desc;
     }
 
     public String getUser() {return user;}
@@ -137,7 +137,7 @@ public class Problem {
     public synchronized void asyncCopyFields(Problem problem) {
         this._id =  problem.getId();
         this.title = problem.getTitle();
-        this.description = problem.getDescription();
+        this.desc = problem.getDescription();
         try {
             this.date = DateHelper.parse(problem.getDate());
         } catch (ParseException e) {

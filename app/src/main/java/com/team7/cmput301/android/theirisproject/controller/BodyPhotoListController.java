@@ -51,6 +51,8 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
 
     }
 
+    public String getUserId() { return userId; }
+
     public List<BodyPhoto> getBodyPhotos() {
         return model;
     }

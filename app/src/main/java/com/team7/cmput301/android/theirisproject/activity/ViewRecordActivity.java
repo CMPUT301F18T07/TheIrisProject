@@ -117,7 +117,6 @@ public class ViewRecordActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-
         Bitmap bodyLocation = controller.getBodyLocationBitmap();
         if (bodyLocation != null) bodyLocationImage.setImageBitmap(bodyLocation);
 

@@ -68,7 +68,7 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
         addBodyPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchAddBodyPhotoActivity(IrisProjectApplication.getCurrentUser().getId());
+                dispatchAddBodyPhotoActivity(controller.getUserId());
             }
         });
 

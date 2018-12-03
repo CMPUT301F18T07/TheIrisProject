@@ -30,10 +30,8 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
             "\t\"query\": {\n" +
             "\t\t\"bool\": {\n" +
             "\t\t\t\"must\": [\n" +
-            "\t\t\t\t{\"term\": {\"user\":\"%s\"}\n" +
-            "\t\t\t\t},\n" +
-            "\t\t\t\t{\"term\": {\"label\": \"%s\"}\n" +
-            "\t\t\t\t}\n" +
+            "\t\t\t\t{\"term\": {\"user\":\"%s\"}},\n" +
+            "\t\t\t\t{\"terms\": {\"label\": %s}}\n" +
             "\t\t\t\t]\n" +
             "\t\t}\n" +
             "\t},\"fields\": []\n" +
@@ -54,6 +52,8 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
             "\t}\n" +
             "}";
 
+    private String keyFormat = "\"%s\"";
+
     public SearchBodyLocationTask(Callback cb) {
         this.cb = cb;
     }
@@ -62,7 +62,7 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
     protected Void doInBackground(String... strings) {
         try {
             // query the body photos associated with the user and keyword
-            Search photoSearch = new Search.Builder(String.format(queryBodyPhotos, strings[0], strings[1]))
+            Search photoSearch = new Search.Builder(String.format(queryBodyPhotos, strings[0], decomposeKeyWords(strings[1])))
                     .addIndex(IrisProjectApplication.INDEX)
                     .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .addType("bodyphoto").build();
@@ -79,6 +79,17 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
             e.printStackTrace();
         }
         return null;
+    }
+
+    private String decomposeKeyWords(String keyword) {
+        String res = "[";
+        String keys[] = keyword.split(",");
+        for (int i = 0; i < keys.length; i++) {
+            res = res.concat(String.format(keyFormat, keys[i]));
+            if (i != keys.length - 1) res = res.concat(",");
+        }
+        res = res.concat("]");
+        return res;
     }
 
     @Override

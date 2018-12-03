@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.AddRecordController;
 import com.team7.cmput301.android.theirisproject.model.Record;
@@ -123,10 +124,12 @@ public class AddRecordActivity extends IrisActivity<Record> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CAMERA_IMAGE && resultCode == RESULT_OK) {
+            // retrieve information on record photo
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             controller.addRecordPhoto(imageBitmap);
         } else if (requestCode == REQUEST_BODY_LOCATION && resultCode == RESULT_OK) {
+            // retrieve information on bodylocation
             Bundle extras = data.getExtras();
             Bitmap bp = ImageConverter.scaleBitmapPhoto((Bitmap) extras.get("data_img"), 512, 512);
             controller.setBodyLocation((String) extras.get("data_src"), (float[]) extras.get("data_xy"));

@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.searchbox.core.Bulk;
 import io.searchbox.core.Index;
+import io.searchbox.params.Parameters;
 
 /**
  * AddRecordTask is an async task that will dispatch
@@ -46,6 +47,7 @@ public class AddRecordTask extends AsyncTask<Record, Void, String> {
             Index add = new Index.Builder(record)
                     .index(IrisProjectApplication.INDEX)
                     .type("record")
+                    .setParameter(Parameters.REFRESH, "wait_for")
                     .build();
             String recordId = IrisProjectApplication.getDB().execute(add).getId();
             Bulk bulkAdd = new Bulk
@@ -53,13 +55,11 @@ public class AddRecordTask extends AsyncTask<Record, Void, String> {
                     .addAction(bulkAddRecordPhotos(record.getRecordPhotos(), recordId))
                     .defaultIndex(IrisProjectApplication.INDEX)
                     .defaultType("recordphoto")
+                    .setParameter(Parameters.REFRESH, "wait_for")
                     .build();
             IrisProjectApplication.getDB().execute(bulkAdd);
-            Thread.sleep(500);
             return recordId;
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
