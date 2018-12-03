@@ -73,8 +73,8 @@ public class SplashActivity extends IrisActivity<Void> {
                     // Start ProblemList or PatientList activity if login is successful,
                     // otherwise redirect to login/register activity
                     if (success) {
-                        buildUserSession();
                         // Build user session will start the correct User activity
+                        buildUserSession();
                     } else {
                         Toast.makeText(SplashActivity.this,
                                 getString(R.string.login_failure_internet_or_not_found),
@@ -142,8 +142,7 @@ public class SplashActivity extends IrisActivity<Void> {
      */
     private synchronized void waitForTasks(Class<?> activity) {
         taskCount++;
-        if (activity != null && startActivity == null) {
-            // only allow startActivity to be set once
+        if (activity != null) {
             startActivity = activity;
         }
         if (startActivity == null) System.out.println(String.valueOf(taskCount));
