@@ -5,6 +5,7 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -56,6 +57,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     private RecyclerView recordPhotos;
     private ImageListAdapter<RecordPhoto> recordPhotoAdapter;
     private ImageView bodyLocationImage;
+    private Bitmap bodyLocationBitmap;
 
     private RecordController controller;
 
@@ -70,10 +72,19 @@ public class ViewRecordActivity extends AppCompatActivity {
         title = findViewById(R.id.record_title);
         desc = findViewById(R.id.record_description);
         date = findViewById(R.id.record_date);
+
         bodyLocationImage = findViewById(R.id.record_body_location);
+        bodyLocationImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                ViewImageFragment imageFialog = ViewImageFragment.newInstance("", bodyLocationBitmap, controller.getRecordModel().getDate());
+                imageFialog.show(fm, "bodylocation_image");
+            }
+        });
+
 
         viewGeoLocation = findViewById(R.id.view_location);
-
         viewGeoLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +97,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         recordPhotos.setAdapter(recordPhotoAdapter);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
+
 
     }
 
@@ -146,6 +158,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         Canvas canvas = new Canvas(result);
         canvas.drawCircle(location.getX(), location.getY(), 5, paint);
         result = ImageConverter.scaleBitmapPhoto(result, 512,512);
+        bodyLocationBitmap = result;
         bodyLocationImage.setImageBitmap(result);
     }
 
