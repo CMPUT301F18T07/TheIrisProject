@@ -46,6 +46,8 @@ public class RecordPhotoListController extends IrisController<List<RecordPhoto>>
      * @param cb
      * */
     public void queryRecordPhotos(Callback cb) {
+        if (!IrisProjectApplication.isConnectedToInternet()) return;
+        model = new ArrayList<>();
         new GetRecordListTask(new Callback<SearchResult>() {
             @Override
             public void onComplete(SearchResult res) {
