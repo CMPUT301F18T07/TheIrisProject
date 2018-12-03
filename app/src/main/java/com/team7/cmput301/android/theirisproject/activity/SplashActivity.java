@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class SplashActivity extends IrisActivity<Void> {
     private static Class startActivity;
 
     private LoginController controller;
+    GifImageView imageView;
     GifDrawable drawable;
 
     @Override
@@ -51,20 +53,12 @@ public class SplashActivity extends IrisActivity<Void> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_animate_background);
 
-        GifImageView image = findViewById(R.id.gif_image);
-        drawable = (GifDrawable) image.getDrawable();
+        imageView = findViewById(R.id.gif_image);
+        drawable = (GifDrawable) imageView.getDrawable();
 
         controller = (LoginController) createController(getIntent());
 
-        // Execute task for the sole purpose of stalling so that the
-        // logo animation can play, since data is loaded too fast
-        Callback<Void> cb = new Callback<Void>() {
-            @Override
-            public void onComplete(Void res) {
-                waitForTasks(null);
-            }
-        };
-        new SleepTask(cb).execute();
+        setUpSplash();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String username = sharedPref.getString(getString(R.string.shared_pref_username_key), "");
@@ -94,6 +88,27 @@ public class SplashActivity extends IrisActivity<Void> {
 
     }
 
+    private void setUpSplash() {
+
+        // Execute task for the sole purpose of stalling so that the
+        // logo animation can play, since data is loaded too fast
+        Callback<Void> cb = new Callback<Void>() {
+            @Override
+            public void onComplete(Void res) {
+                waitForTasks(null);
+            }
+        };
+        new SleepTask(cb).execute();
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                waitForTasks(null);
+            }
+        });
+
+    }
+
     /**
      * Push the update queue backups to online, get all the logged in User's associated data,
      * then start a specified activity for them.
@@ -104,7 +119,6 @@ public class SplashActivity extends IrisActivity<Void> {
             @Override
             public void onComplete(Object res) {
                 Class activity = controller.getStartingActivity();
-                // Put finish here so that the splash screen stays until we're done loading
                 waitForTasks(activity);
             }
         };
@@ -131,7 +145,7 @@ public class SplashActivity extends IrisActivity<Void> {
         if (activity != null) {
             startActivity = activity;
         }
-        if (taskCount == 2) {
+        if (taskCount >= 2 && startActivity != null) {
             finish();
             startUserActivity(startActivity);
         }
@@ -146,6 +160,7 @@ public class SplashActivity extends IrisActivity<Void> {
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(SplashActivity.this, targetActivity);
         intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
         startActivity(intent);
     }
 
