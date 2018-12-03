@@ -91,6 +91,7 @@
 
         <!-- Profile Activities -->
         <activity android:name=".activity.PatientListActivity"
+            android:label="@string/view_patients_title"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewProfileActivity"
