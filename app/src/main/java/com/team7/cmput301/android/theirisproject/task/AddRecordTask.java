@@ -34,15 +34,23 @@ public class AddRecordTask extends AsyncTask<Record, Void, String> {
 
     @Override
     protected String doInBackground(Record... params) {
+        Record record = params[0];
+
+        double lon = record.getGeoLocation().asDouble()[1];
+        double lat = record.getGeoLocation().asDouble()[0];
+
+        double[] location = { lon, lat };
+        record.setLocation(location);
+
         try {
-            Index add = new Index.Builder(params[0])
+            Index add = new Index.Builder(record)
                     .index(IrisProjectApplication.INDEX)
                     .type("record")
                     .build();
             String recordId = IrisProjectApplication.getDB().execute(add).getId();
             Bulk bulkAdd = new Bulk
                     .Builder()
-                    .addAction(bulkAddRecordPhotos(params[0].getRecordPhotos(), recordId))
+                    .addAction(bulkAddRecordPhotos(record.getRecordPhotos(), recordId))
                     .defaultIndex(IrisProjectApplication.INDEX)
                     .defaultType("recordphoto")
                     .build();
