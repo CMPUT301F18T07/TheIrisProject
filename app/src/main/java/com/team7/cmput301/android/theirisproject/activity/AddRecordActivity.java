@@ -68,6 +68,14 @@ public class AddRecordActivity extends IrisActivity<Record> {
         ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
 
         bodyLocationButton = findViewById(R.id.record_body_location_button);
+        cameraButton = findViewById(R.id.record_camera_button);
+        mapButton = findViewById(R.id.record_map_button);
+
+        // if internet is offline, disable bodylocation, camera, map features
+        if (!IrisProjectApplication.isConnectedToInternet()) {
+            cameraButton.setVisibility(View.GONE);
+        }
+
         bodyLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +83,6 @@ public class AddRecordActivity extends IrisActivity<Record> {
             }
         });
 
-        cameraButton = findViewById(R.id.record_camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +90,6 @@ public class AddRecordActivity extends IrisActivity<Record> {
             }
         });
 
-        mapButton = findViewById(R.id.record_map_button);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
