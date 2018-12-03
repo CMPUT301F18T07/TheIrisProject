@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.core.Search;
+import io.searchbox.params.Parameters;
 
 /**
  * SearchProblemsByRecordsTask gets a list of records and will return
@@ -40,7 +41,10 @@ public class SearchProblemsByRecordsTask extends AsyncTask<List<Record>, Void, L
     protected List<Problem> doInBackground(List<Record>... params) {
         try {
             Search search = new Search.Builder(String.format(querySearch, buildIdArgument(params[0])))
-                    .addIndex(IrisProjectApplication.INDEX).addType("problem").build();
+                    .addIndex(IrisProjectApplication.INDEX)
+                    .addType("problem")
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
+                    .build();
             return IrisProjectApplication.getDB().execute(search).getSourceAsObjectList(Problem.class, true);
         } catch (IOException e) {
             e.printStackTrace();

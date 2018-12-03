@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.Record;
+import com.team7.cmput301.android.theirisproject.model.RecordList;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.GetRecordListTask;
@@ -64,6 +66,14 @@ public class RecordPhotoListController extends IrisController<List<RecordPhoto>>
 
     @Override
     List<RecordPhoto> getModel(Bundle data) {
-        return new ArrayList<>();
+        List<RecordPhoto> photos = new ArrayList<>();
+        try {
+            RecordList records = IrisProjectApplication.getProblemById(problemId).getRecords();
+            for(Record record: records) {
+                photos.addAll(record.getRecordPhotos());
+            }
+        }catch(NullPointerException e) {
+        }
+        return photos;
     }
 }

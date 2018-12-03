@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.params.Parameters;
 
 /**
  * SearchBodyLocationTask searches the database for problems/records related to a
@@ -63,6 +64,7 @@ public class SearchBodyLocationTask extends AsyncTask<String, List<Record>, Void
             // query the body photos associated with the user and keyword
             Search photoSearch = new Search.Builder(String.format(queryBodyPhotos, strings[0], decomposeKeyWords(strings[1])))
                     .addIndex(IrisProjectApplication.INDEX)
+                    .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
                     .addType("bodyphoto").build();
             List<SearchResult.Hit<BodyPhoto, Void>> photos =  IrisProjectApplication.getDB()
                     .execute(photoSearch).getHits(BodyPhoto.class, true);

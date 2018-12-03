@@ -156,13 +156,9 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
         return new ImageListAdapter.ImageListListener() {
             @Override
             public void onDeletePhoto(Photo photo) {
-                new DeleteBodyPhotoTask(new Callback<Boolean>() {
-                    @Override
-                    public void onComplete(Boolean res) {
-                        if (res) Log.d("Iris", "Deleted!");
-                    }
-                }).execute(((BodyPhoto)photo));
+                controller.deleteBodyPhoto((BodyPhoto) photo);
             }
         };
     }
+
 }
