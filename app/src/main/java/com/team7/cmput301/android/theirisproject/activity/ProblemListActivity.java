@@ -25,6 +25,7 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.ProblemListController;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.ProblemList;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.util.List;
@@ -77,7 +78,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Problem problem = (Problem) problemsView.getItemAtPosition(position);
-                problemsView.setOnItemClickListener(null);
                 Intent intent = new Intent(ProblemListActivity.this, DeleteProblemActivity.class);
                 intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
                 startActivityForResult(intent, DELETE_PROBLEM_RESPONSE);
@@ -101,7 +101,8 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 dispatchViewProfileActivity();
                 break;
             case R.id.problem_list_action_search:
-                dispatchToSearchActivity();
+                if (IrisProjectApplication.isConnectedToInternet()) dispatchToSearchActivity();
+                else Toast.makeText(ProblemListActivity.this, R.string.search_offline_message, Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -159,6 +160,7 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     private void setAddProblemButton() {
         addProblemButton = findViewById(R.id.problem_list_add);
+        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) addProblemButton.setVisibility(View.GONE);
         // set click listener to AddProblemFloatingButton
         addProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override

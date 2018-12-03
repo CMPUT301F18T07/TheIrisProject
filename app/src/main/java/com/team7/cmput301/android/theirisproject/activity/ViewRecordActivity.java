@@ -7,6 +7,9 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +23,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordController;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
+import com.team7.cmput301.android.theirisproject.model.Photo;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -117,8 +123,8 @@ public class ViewRecordActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-        Bitmap bodyLocation = controller.getBodyLocationBitmap();
-        if (bodyLocation != null) bodyLocationImage.setImageBitmap(bodyLocation);
+        Bitmap bodyPhoto = controller.getBodyLocationBitmap();
+        if (bodyPhoto != null) displayBodyLocationImage(bodyPhoto);
 
         controller.getRecordData(new Callback<Record>() {
             @Override
@@ -130,6 +136,17 @@ public class ViewRecordActivity extends AppCompatActivity {
 
         recordPhotoAdapter.notifyDataSetChanged();
 
+    }
+
+    private void displayBodyLocationImage(Bitmap photo) {
+        BodyLocation location = controller.getRecordModel().getBodyLocation();
+        Bitmap result = photo.copy(Bitmap.Config.ARGB_8888, true);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.RED);
+        Canvas canvas = new Canvas(result);
+        canvas.drawCircle(location.getX(), location.getY(), 5, paint);
+        result = ImageConverter.scaleBitmapPhoto(result, 512,512);
+        bodyLocationImage.setImageBitmap(result);
     }
 
     private void render(Record newState) {

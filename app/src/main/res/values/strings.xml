@@ -185,6 +185,7 @@
     <string name="search_geolocation">Search by Geolocation...</string>
     <string name="search_bodylocation">Search by Body Location...</string>
     <string name="search_error_message">Nothing to Search!</string>
+    <string name="search_offline_message">Currently Offline, Unable To Search!</string>
 
     <!-- Search Strings -->
     <string-array name="search_options">

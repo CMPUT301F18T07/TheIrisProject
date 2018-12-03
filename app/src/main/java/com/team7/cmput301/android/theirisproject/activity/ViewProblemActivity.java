@@ -30,6 +30,7 @@ import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.io.Serializable;
@@ -90,6 +91,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         createRecordButton = findViewById(R.id.create_record_button);
         viewSlideshowButton = findViewById(R.id.slideshow_button);
         viewAllLocations = findViewById(R.id.view_all_locations);
+
+        // Check if user is a care provider, if so disable create/deletion buttons
+        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) {
+            createRecordButton.setVisibility(View.GONE);
+        }
 
         // Set onclicklistener to view all record locations associated with problem
         viewAllLocations.setOnClickListener(new View.OnClickListener() {
