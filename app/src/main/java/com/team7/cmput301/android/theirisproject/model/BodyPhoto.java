@@ -63,6 +63,10 @@ public class BodyPhoto extends Photo implements Parcelable {
         user = id;
     }
 
+    public void setId(String id) {
+        this._id = id;
+    }
+
     /* Basic getters */
 
     public String getId() {
@@ -90,14 +94,14 @@ public class BodyPhoto extends Photo implements Parcelable {
     /* Parceable methods for BodyPhoto */
 
     public BodyPhoto(Parcel in) {
-        String[] data = new String[4];
-        data = in.createStringArray();
-        this.user = data[0];
-        this.blob = data[1];
+        String[] data = in.createStringArray();
+        this._id = data[0];
+        this.user = data[1];
+        this.blob = data[2];
         convertBlobToPhoto();
-        this.label = data[2];
+        this.label = data[3];
         try {
-            this.date = DateHelper.parse(data[3]);
+            this.date = DateHelper.parse(data[4]);
         } catch (ParseException e) {
             e.printStackTrace();
             this.date = new Date();
@@ -112,7 +116,7 @@ public class BodyPhoto extends Photo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeStringArray(new String[]{user, blob, label, DateHelper.format(date)});
+        parcel.writeStringArray(new String[]{_id, user, blob, label, DateHelper.format(date)});
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

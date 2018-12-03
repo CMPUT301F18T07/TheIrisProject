@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.task;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
@@ -32,12 +33,12 @@ public class AddBodyPhotoTask extends AsyncTask<BodyPhoto, Void, BodyPhoto> {
         try {
             Index post = new Index.Builder(params[0]).index(IrisProjectApplication.INDEX).type("bodyphoto").build();
             String res = IrisProjectApplication.getDB().execute(post).getId();
-            params[0].setUser(res);
+            params[0].setId(res);
+            return params[0];
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        return params[0];
     }
 
     @Override

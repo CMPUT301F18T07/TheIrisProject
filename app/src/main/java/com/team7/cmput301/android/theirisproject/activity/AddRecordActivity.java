@@ -63,7 +63,8 @@ public class AddRecordActivity extends IrisActivity<Record> {
         bodyLocationImage = findViewById(R.id.record_body_location_image);
 
         recordPhotoListView = findViewById(R.id.record_add_image_list);
-        recordPhotoListView.setAdapter(new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true));
+        recordPhotoImageListAdapter = new ImageListAdapter<RecordPhoto>(this, controller.getRecordPhotos(), true);
+        recordPhotoListView.setAdapter(recordPhotoImageListAdapter);
         recordPhotoListView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
 
@@ -86,7 +87,8 @@ public class AddRecordActivity extends IrisActivity<Record> {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchCameraIntent();
+                if (controller.getRecordPhotos().size() < 10) dispatchCameraIntent();
+                else setErrorMessage(R.string.max_record_photo_message);
             }
         });
 
@@ -101,12 +103,19 @@ public class AddRecordActivity extends IrisActivity<Record> {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean submitted = controller.submitRecord(
-                                        titleField.getText().toString(),
-                                        descField.getText().toString(),
-                                        submitRecordCallback());
-                if (!submitted) {
-                    showOfflineUploadToast(AddRecordActivity.this);
+
+                if (titleField.getText().toString().isEmpty()) {
+                    Toast.makeText(AddRecordActivity.this,
+                            R.string.register_incomplete,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Boolean submitted = controller.submitRecord(
+                            titleField.getText().toString(),
+                            descField.getText().toString(),
+                            submitRecordCallback());
+                    if (!submitted) {
+                        showOfflineUploadToast(AddRecordActivity.this);
+                    }
                 }
             }
         });
@@ -134,6 +143,7 @@ public class AddRecordActivity extends IrisActivity<Record> {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             controller.addRecordPhoto(imageBitmap);
+            recordPhotoImageListAdapter.notifyDataSetChanged();
         } else if (requestCode == REQUEST_BODY_LOCATION && resultCode == RESULT_OK) {
             // retrieve information on bodylocation
             Bundle extras = data.getExtras();

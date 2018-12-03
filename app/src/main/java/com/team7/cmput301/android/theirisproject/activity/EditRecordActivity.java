@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.EditRecordController;
 import com.team7.cmput301.android.theirisproject.model.Record;
@@ -64,13 +65,23 @@ public class EditRecordActivity extends IrisActivity<Record>{
         initViews();
         initAdapters();
 
+        if (!IrisProjectApplication.isConnectedToInternet()) {
+            cameraButton.setVisibility(View.GONE);
+        }
+
     }
 
     private void initAdapters() {
-        recordPhotoImageListAdapter = new ImageListAdapter<>(this, controller.getRecordPhotos(), true);
+
+        // Depending on internet status, set or don't set delete button
+        recordPhotoImageListAdapter = new ImageListAdapter<>(this,
+                controller.getRecordPhotos(),
+                IrisProjectApplication.isConnectedToInternet());
+
         recordPhotoListView.setAdapter(recordPhotoImageListAdapter);
         recordPhotoListView.setLayoutManager(new LinearLayoutManager(this));
         ((LinearLayoutManager)recordPhotoListView.getLayoutManager()).setOrientation(LinearLayoutManager.HORIZONTAL);
+
     }
 
     private void initViews() {
@@ -137,10 +148,9 @@ public class EditRecordActivity extends IrisActivity<Record>{
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, REQUEST_CAMERA_IMAGE);
-                }
+                if (controller.getRecordPhotos().size() < 10) dispatchCameraIntent();
+                else setErrorMessage(R.string.max_record_photo_message);
+
             }
         });
 
@@ -197,4 +207,14 @@ public class EditRecordActivity extends IrisActivity<Record>{
         return new EditRecordController(intent);
     }
 
+    private void dispatchCameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_CAMERA_IMAGE);
+        }
+    }
+
+    private void setErrorMessage(int messageResource) {
+        Toast.makeText(EditRecordActivity.this, messageResource, Toast.LENGTH_SHORT).show();
+    }
 }

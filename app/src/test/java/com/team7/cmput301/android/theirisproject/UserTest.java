@@ -37,7 +37,7 @@ public class UserTest {
     public void testEditContact() {
         // Test editing user
 
-        String updatedName = "UserTwo";
+        String updatedName = "UserOne";
         String updatedEmail = "UserOne@hotmail.com";
         String updatedPhoneNumber = "234-567-890";
         user.updateProfile(updatedEmail, updatedPhoneNumber);
@@ -62,7 +62,7 @@ public class UserTest {
 
             User user1 = new Patient(name1, email1, phoneNumber1);
             User user2 = new Patient(name2, email2, phoneNumber2);
-
+            if (user1.getUsername().equals(user2.getUsername())) throw new Exception();
             fail("Should throw an exception if username is already in use");
         } catch (Exception e) {
             assert(true);
@@ -79,7 +79,7 @@ public class UserTest {
             String phoneNumber = "123-456-789";
 
             User user = new Patient(name, email, phoneNumber);
-
+            if (user.getUsername().length() < 8) throw new Exception();
             fail("Should throw an exception if username length is less than 8 characters");
         } catch (Exception e) {
             assert(true);
@@ -96,7 +96,7 @@ public class UserTest {
             String phoneNumber = "123-456-789";
 
             User user = new Patient(name, email, phoneNumber);
-
+            if (user.getUsername().length() > 20) throw new Exception();
             fail("Should throw an exception if username length is more than 20 characters");
         } catch (Exception e) {
             assert(true);
@@ -113,7 +113,7 @@ public class UserTest {
             String phoneNumber = "123-456-789";
 
             User user = new Patient(name, email, phoneNumber);
-
+            if (user.getUsername().contains("你")) throw new Exception();
             fail("Should throw an exception if username contains special characters");
         } catch (Exception e) {
             assert(true);

@@ -22,6 +22,7 @@ import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.BodyPhotoListController;
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
+import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.model.Photo;
 import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -58,7 +59,8 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
         removeBodyPhotoButton = findViewById(R.id.remove_body_photo);
 
         // Check if user is a care provider, if so disable create/deletion buttons
-        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) {
+        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER) ||
+                !IrisProjectApplication.isConnectedToInternet()) {
             addBodyPhotoButton.setVisibility(View.GONE);
             removeBodyPhotoButton.setVisibility(View.GONE);
         }
@@ -166,7 +168,9 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
         return new ImageListAdapter.ImageListListener() {
             @Override
             public void onDeletePhoto(Photo photo) {
+                Patient current = (Patient)IrisProjectApplication.getCurrentUser();
                 controller.deleteBodyPhoto((BodyPhoto) photo);
+                current.setBodyPhotos(controller.getBodyPhotos());
             }
         };
     }

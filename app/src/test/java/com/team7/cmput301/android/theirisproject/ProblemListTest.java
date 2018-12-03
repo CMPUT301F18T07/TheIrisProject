@@ -68,9 +68,11 @@ public class ProblemListTest {
         // Test getting length of problem list
 
         ProblemList pList = new ProblemList();
+        pList.add(p1);
+        pList.add(p2);
         List<Problem> testList = new ArrayList<>(Arrays.asList(p1, p2));
 
-        Assert.assertEquals(testList.size(), pList.length());
+        Assert.assertEquals(testList.size(), pList.getProblems().size());
 
     }
 

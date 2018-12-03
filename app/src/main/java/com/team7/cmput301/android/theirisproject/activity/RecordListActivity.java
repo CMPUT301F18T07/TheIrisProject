@@ -18,11 +18,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.RecordListAdapter;
 import com.team7.cmput301.android.theirisproject.controller.RecordListController;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 /**
@@ -35,7 +37,7 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
 public class RecordListActivity extends IrisActivity<RecordList> {
 
     private RecordListController controller;
-    private Toolbar toolbar;
+    private User.UserType userType;
     private ListView recordListView;
     private Boolean doEditRecords = false;
 
@@ -47,6 +49,7 @@ public class RecordListActivity extends IrisActivity<RecordList> {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         controller = createController(getIntent());
+        userType = IrisProjectApplication.getCurrentUser().getType();
         recordListView = findViewById(R.id.record_item_list);
 
         // Depending on current state, clicks on Records will show them or edit them
@@ -97,7 +100,9 @@ public class RecordListActivity extends IrisActivity<RecordList> {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_record_list, menu);
+        if (userType.equals(User.UserType.PATIENT)) {
+            getMenuInflater().inflate(R.menu.menu_record_list, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

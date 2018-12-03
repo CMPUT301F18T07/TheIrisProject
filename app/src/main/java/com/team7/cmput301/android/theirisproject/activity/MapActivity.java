@@ -97,12 +97,22 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
+
                             Location currentLocation = (Location) task.getResult();
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
+                            LatLng latLng;
+
+                            if (currentLocation == null) {
+                                // set to Mountain View
+                                latLng = new LatLng(37.4220, -122.0841);
+                            } else {
+                                latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            }
+                            moveCamera(latLng, DEFAULT_ZOOM);
+
                         } else {
                             Toast.makeText(MapActivity.this, R.string.map_error, Toast.LENGTH_LONG).show();
                         }
+
                     }
                 });
             }

@@ -15,10 +15,10 @@ import java.util.List;
 
 public class PatientTest {
 
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private UserType type;
+    String name = "PatientOne";
+    String email = "PatientOne@hotmail.com";
+    String phoneNumber = "123-456-789";
+    private UserType type = UserType.PATIENT;
 
     private String title;
     private String description;

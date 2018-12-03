@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Team 7, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+  -->
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_image"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo_animate"/>
+
+</android.support.constraint.ConstraintLayout>
