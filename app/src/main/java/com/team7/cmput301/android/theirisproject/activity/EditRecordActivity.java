@@ -73,7 +73,7 @@ public class EditRecordActivity extends IrisActivity<Record>{
 
     private void initAdapters() {
 
-        // Add delete button for photos depending on if internet is online
+        // Add delete button for photos depending on if internet is on
         recordPhotoImageListAdapter = new ImageListAdapter<>(this,
                 controller.getRecordPhotos(),
                 IrisProjectApplication.isConnectedToInternet());
