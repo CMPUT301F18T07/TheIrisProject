@@ -22,6 +22,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2<Rec
     int flag = 0;
 
     private Solo solo;
+    private String user = "user";
     private String title = "My computer is talking to me";
     private String desc = "Only in the mornings tho";
     private String problemId = "mid";
@@ -34,7 +35,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2<Rec
     protected void setUp() {
 
         // make record to ensure at least one item will show in activity
-        Record record = new Record(problemId, title, desc);
+        Record record = new Record(user, problemId, title, desc);
 
         // make a callback that signals task completion
         Callback callback = new Callback(){

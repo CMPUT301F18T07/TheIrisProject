@@ -26,6 +26,7 @@ import java.util.List;
 public class ViewRecordActivityTest extends ActivityInstrumentationTestCase2<ViewRecordActivity> {
 
     private Solo solo;
+    private String user = "user";
     private String problemId = "mwmwmw";
     private String title = "Title";
     private String text = "Text";
@@ -39,9 +40,9 @@ public class ViewRecordActivityTest extends ActivityInstrumentationTestCase2<Vie
 
     @Override
     protected void setUp() {
-        Record record = new Record(problemId, title, text, date, geoLocation, recordPhotos);
+        Record record = new Record(user, problemId, title, text, geoLocation, recordPhotos);
         Intent intent = new Intent();
-        intent.putExtra("record_id", "AWclWyL9f4yBogDtdu_W");
+        intent.putExtra(Extras.EXTRA_RECORD_ID, "AWclWyL9f4yBogDtdu_W");
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
     }
@@ -68,12 +69,11 @@ public class ViewRecordActivityTest extends ActivityInstrumentationTestCase2<Vie
         TextView recordTitle = (TextView) solo.getView(R.id.record_title);
         TextView recordDescription = (TextView) solo.getView(R.id.record_description);
         TextView recordDate = (TextView) solo.getView(R.id.record_date);
-        TextView recordGeoLocation = (TextView) solo.getView(R.id.record_geo_location);
 
         assertTrue(recordTitle.getText().toString().equals(title));
         assertTrue(recordDescription.getText().toString().equals(text));
         assertTrue(recordDate.getText().toString().equals(date.toString()));
-        assertTrue(recordGeoLocation.getText().toString().equals(geoLocation.toString()));
+
     }
 
 }

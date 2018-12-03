@@ -71,7 +71,7 @@ public class EditProblemActivityTest extends ActivityInstrumentationTestCase2<Ed
             }
         }).execute(problem);
         Intent intent = new Intent();
-        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, problem.getId());
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, problem.getId());
         setActivityIntent(intent);
         solo = new Solo(getInstrumentation(), getActivity());
     }

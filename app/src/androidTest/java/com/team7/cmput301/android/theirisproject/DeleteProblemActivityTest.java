@@ -51,7 +51,7 @@ public class DeleteProblemActivityTest extends ActivityInstrumentationTestCase2<
 
         // put patientID in Intent, as required for IrisActivity
         Intent intent = new Intent();
-        intent.putExtra("patientId", patientId);
+        intent.putExtra(Extras.EXTRA_USER_ID, patientId);
         setActivityIntent(intent);
 
         // add problem

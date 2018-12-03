@@ -38,7 +38,6 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
 
     private Solo solo;
 
-    //May need to ensure that user is not in db
     private String userName = "John Doe";
     private String userEmail = "notjohn@gmail.com";
     private String userPhone = "123456789";
@@ -159,26 +158,6 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2<Pr
         assertTrue(problemDescription.getText().toString().equals(probDesc));
     }
 
-    /**
-     * Test if EditProblemActivity starts and displays correct information when
-     * edit problem button is clicked and then a problem is clicked
-     */
-    public void testEditProblem() {
-        solo.clickOnView(solo.getView(R.id.problem_list_action_edit));
-        solo.clickInList(1);
-        solo.waitForActivity(EditProblemActivity.class);
-        String activityName = EditProblemActivity.class.getSimpleName();
-        solo.assertCurrentActivity("Wrong activity!", activityName);
-
-        EditText title = (EditText) solo.getView(R.id.problem_title);
-        EditText desc = (EditText) solo.getView(R.id.problem_description);
-        EditText date = (EditText) solo.getView(R.id.problem_date);
-
-        assertTrue(title.getText().toString().equals(probTitle));
-        assertTrue(desc.getText().toString().equals(probDesc));
-        assertTrue(date.getText().toString().equals(probDate));
-
-    }
 
     /**
      * Test if DeleteProblemActivity starts when problem is held down

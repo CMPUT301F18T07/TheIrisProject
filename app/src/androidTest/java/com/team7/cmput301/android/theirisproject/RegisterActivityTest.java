@@ -77,12 +77,12 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
         Button registerButton = (Button) solo.getView(R.id.register_button);
 
         EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
-        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
+
         EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
         EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
 
         solo.enterText(nameEditText, "John Doe");
-        solo.enterText(passwordEditText, "badpassword");
+
         solo.enterText(emailEditText, "johndoe@gmail.com");
         solo.enterText(phoneEditText, "123-456-7890");
 
@@ -112,14 +112,14 @@ public class RegisterActivityTest extends ActivityInstrumentationTestCase2<Regis
         Button registerButton = (Button) solo.getView(R.id.register_button);
 
         EditText nameEditText = (EditText) solo.getView(R.id.name_edit_text);
-        EditText passwordEditText = (EditText) solo.getView(R.id.password_edit_text);
+
         EditText emailEditText = (EditText) solo.getView(R.id.email_edit_text);
         EditText phoneEditText = (EditText) solo.getView(R.id.phone_edit_text);
 
         String testEmail = "johndoe@gmail.com";
 
         solo.enterText(nameEditText, "John Doe");
-        solo.enterText(passwordEditText, "badpassword");
+
         solo.enterText(emailEditText, testEmail);
         solo.enterText(phoneEditText, "123-456-7890");
 

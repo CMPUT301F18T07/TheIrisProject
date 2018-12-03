@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 import com.team7.cmput301.android.theirisproject.activity.AddRecordActivity;
+import com.team7.cmput301.android.theirisproject.activity.EditProblemActivity;
 import com.team7.cmput301.android.theirisproject.activity.RecordListActivity;
 import com.team7.cmput301.android.theirisproject.activity.ViewProblemActivity;
 import com.team7.cmput301.android.theirisproject.helper.Timer;
@@ -59,12 +60,12 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
 
     @Override
     protected void setUp() {
-        Problem problem = new Problem(title, description, userid, body_photos);
+        Problem problem = new Problem(title, description, userid);
         problem.setRecords(records);
         problem.setId(_id);
 
         Intent intent = new Intent();
-        intent.putExtra(ViewProblemActivity.EXTRA_PROBLEM_ID, _id);
+        intent.putExtra(Extras.EXTRA_PROBLEM_ID, _id);
       
         IrisProjectApplication.setCurrentUser(new Patient("testUser", "email@gmail.com", "1234567890"));
       
@@ -136,4 +137,25 @@ public class ViewProblemActivityTest extends ActivityInstrumentationTestCase2<Vi
 
         solo.clickOnView(problemCommentSubmitButton);
     }
+//
+//    /**
+//     * Test if EditProblemActivity starts and displays correct information when
+//     * edit problem button is clicked and then a problem is clicked
+//     */
+//    public void testEditProblem() {
+//        solo.clickOnView(solo.getView(R.id.problem_list_action_edit));
+//        solo.clickInList(1);
+//        solo.waitForActivity(EditProblemActivity.class);
+//        String activityName = EditProblemActivity.class.getSimpleName();
+//        solo.assertCurrentActivity("Wrong activity!", activityName);
+//
+//        EditText title = (EditText) solo.getView(R.id.problem_title);
+//        EditText desc = (EditText) solo.getView(R.id.problem_description);
+//        EditText date = (EditText) solo.getView(R.id.problem_date);
+//
+//        assertTrue(title.getText().toString().equals(probTitle));
+//        assertTrue(desc.getText().toString().equals(probDesc));
+//        assertTrue(date.getText().toString().equals(probDate));
+//
+//    }
 }
