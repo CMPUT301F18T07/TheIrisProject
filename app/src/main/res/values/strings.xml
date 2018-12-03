@@ -19,12 +19,12 @@
     <string name="login_username_hint">Enter your username</string>
     <string name="login_password_hint">Enter your password</string>
     <string name="login_success">Logging in...</string>
-    <string name="login_failure_internet_or_not_found">Couldn\'t log in!</string>
+    <string name="login_failure_internet_or_not_found">Couldn\'t log in! Please check internet connection.</string>
     <string name="login_failure">Incorrect login!</string>
     <string name="login_transfer_hint">Enter your transfer code</string>
     <string name="login_transfer_button">Transfer</string>
     <string name="login_transfer_success">Transfer successful!</string>
-    <string name="login_transfer_failure">Incorrect transfer code!</string>
+    <string name="login_transfer_failure">Couldn\'t transfer: wrong code or no internet connection.</string>
 
     <!-- Register screen strings-->
     <string name="register_title">Register a new profile</string>
@@ -40,6 +40,8 @@
     <string name="register_incomplete">Please fill in all fields!</string>
     <string name="register_failure">Could not register, username already in use!</string>
     <string name="register_short_username">That username is too short!</string>
+    <string name="register_invalid_email">Not a valid email address!</string>
+    <string name="register_invalid_phone">Not a valid phone number!</string>
 
     <!-- Create Problem screen strings-->
     <string name="create_a_problem">Create a Problem</string>
@@ -72,13 +74,13 @@
     <string name="view_problem_date_text">Date</string>
     <string name="view_problem_description_text">Description</string>
     <string name="view_problem_geolocation_text">Geo Location</string>
-    <string name="view_problem_title">View Problem</string>
+    <string name="view_problem_title">Viewing a Problem</string>
     <string name="slideshow_button">Slideshow</string>
     <string name="title_activity_problem_slideshow">Slideshow</string>
     <string name="edit_problem">Edit</string>
 
     <!-- View Record strings -->
-    <string name="view_record_title">View Record</string>
+    <string name="view_record_title">Viewing a Record</string>
     <string name="record_photos">Photos</string>
     <string name="record_body_location">Body Location</string>
 
@@ -92,6 +94,7 @@
     <string name="problem_list_edit_problem_hint">"Click on Problem to edit"</string>
 
     <!-- View Patient list screen strings-->
+    <string name="view_patients_title">Viewing all Patients</string>
     <string name="add_patient">Add Patient</string>
 
     <!-- View Record list screen strings-->

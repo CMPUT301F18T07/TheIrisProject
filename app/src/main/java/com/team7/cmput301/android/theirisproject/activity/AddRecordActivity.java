@@ -102,12 +102,19 @@ public class AddRecordActivity extends IrisActivity<Record> {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean submitted = controller.submitRecord(
-                                        titleField.getText().toString(),
-                                        descField.getText().toString(),
-                                        submitRecordCallback());
-                if (!submitted) {
-                    showOfflineUploadToast(AddRecordActivity.this);
+
+                if (titleField.getText().toString().isEmpty()) {
+                    Toast.makeText(AddRecordActivity.this,
+                            R.string.register_incomplete,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Boolean submitted = controller.submitRecord(
+                            titleField.getText().toString(),
+                            descField.getText().toString(),
+                            submitRecordCallback());
+                    if (!submitted) {
+                        showOfflineUploadToast(AddRecordActivity.this);
+                    }
                 }
             }
         });
@@ -135,6 +142,7 @@ public class AddRecordActivity extends IrisActivity<Record> {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             controller.addRecordPhoto(imageBitmap);
+            recordPhotoImageListAdapter.notifyDataSetChanged();
         } else if (requestCode == REQUEST_BODY_LOCATION && resultCode == RESULT_OK) {
             // retrieve information on bodylocation
             Bundle extras = data.getExtras();

@@ -81,12 +81,19 @@ public class RegisterActivity extends IrisActivity {
             Toast.makeText(this, getString(R.string.register_incomplete), Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // TODO: Change this to <8. Leaving it as a useless check so we can keep testing w/o long usernames
-        if (username.length() < 1) {
+        if (username.length() < 8) {
             Toast.makeText(this, getString(R.string.register_short_username), Toast.LENGTH_SHORT).show();
             return;
         }
+        if (!email.contains("@")) {
+            Toast.makeText(this, getString(R.string.register_invalid_email), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (phoneNumber.length() < 10) {
+            Toast.makeText(this, getString(R.string.register_invalid_phone), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         int radioButtonId = userRadioGroup.getCheckedRadioButtonId();
         UserType type;

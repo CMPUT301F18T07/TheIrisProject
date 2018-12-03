@@ -50,17 +50,36 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
 
         controller = new ProblemListController(getIntent());
+        User.UserType type = IrisProjectApplication.getCurrentUser().getType();
 
         problemsView = findViewById(R.id.problem_item_list);
+        addProblemButton = findViewById(R.id.problem_list_add);
+        bodyPhotoButton = findViewById(R.id.body_photo_button);
 
-        setAddProblemButton();
-        setBodyPhotoButton();
+        switch (type) {
+            case CARE_PROVIDER:
+                addProblemButton.setVisibility(View.GONE);
+                bodyPhotoButton.setVisibility(View.GONE);
+                break;
+            case PATIENT:
+                setAddProblemButton();
+                setBodyPhotoButton();
+                setProblemLongClick();
+                break;
+            default:
+                break;
+        }
+        setProblemShortClick();
         setLogoutButton();
 
+    }
+
+    private void setProblemShortClick() {
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,7 +90,9 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 startActivity(intent);
             }
         });
+    }
 
+    private void setProblemLongClick() {
         // Set onitemlongclicklistener to listview of problems
         problemsView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             // Delete problem being held on
@@ -84,7 +105,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
                 return true;
             }
         });
-
     }
 
     @Override
@@ -159,8 +179,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     }
 
     private void setAddProblemButton() {
-        addProblemButton = findViewById(R.id.problem_list_add);
-        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) addProblemButton.setVisibility(View.GONE);
         // set click listener to AddProblemFloatingButton
         addProblemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +191,6 @@ public class ProblemListActivity extends IrisActivity<ProblemList> {
     }
 
     private void setBodyPhotoButton() {
-        bodyPhotoButton = findViewById(R.id.body_photo_button);
         bodyPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

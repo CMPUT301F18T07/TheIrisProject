@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
@@ -16,7 +18,13 @@ import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.LoginController;
+import com.team7.cmput301.android.theirisproject.helper.Timer;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.SleepTask;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageButton;
+import pl.droidsonroids.gif.GifImageView;
 
 
 /**
@@ -28,19 +36,29 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  *
  * @author jtfwong
  * @author Jmmxp
+ * @author anticobalt
  */
 public class SplashActivity extends IrisActivity<Void> {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
+    private static int taskCount = 0;
+    private static Class startActivity;
 
     private LoginController controller;
+    GifImageView imageView;
+    GifDrawable drawable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash_animate_background);
+
+        imageView = findViewById(R.id.gif_image);
+        drawable = (GifDrawable) imageView.getDrawable();
 
         controller = (LoginController) createController(getIntent());
-        IrisProjectApplication.initBulkUpdater();
+
+        setUpSplash();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String username = sharedPref.getString(getString(R.string.shared_pref_username_key), "");
@@ -55,6 +73,7 @@ public class SplashActivity extends IrisActivity<Void> {
                 public void onComplete(Boolean success) {
                     // Start ProblemList or PatientList activity if login is successful,
                     // otherwise redirect to login/register activity
+
                     if (success) {
                         Toast.makeText(SplashActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
                         buildUserSession();
@@ -69,6 +88,27 @@ public class SplashActivity extends IrisActivity<Void> {
 
     }
 
+    private void setUpSplash() {
+
+        // Execute task for the sole purpose of stalling so that the
+        // logo animation can play, since data is loaded too fast
+        Callback<Void> cb = new Callback<Void>() {
+            @Override
+            public void onComplete(Void res) {
+                waitForTasks(null);
+            }
+        };
+        new SleepTask(cb).execute();
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                waitForTasks(null);
+            }
+        });
+
+    }
+
     /**
      * Push the update queue backups to online, get all the logged in User's associated data,
      * then start a specified activity for them.
@@ -79,9 +119,7 @@ public class SplashActivity extends IrisActivity<Void> {
             @Override
             public void onComplete(Object res) {
                 Class activity = controller.getStartingActivity();
-                // Put finish here so that the splash screen stays until we're done loading
-                finish();
-                startUserActivity(activity);
+                waitForTasks(activity);
             }
         };
 
@@ -97,6 +135,23 @@ public class SplashActivity extends IrisActivity<Void> {
     }
 
     /**
+     * Landing site for the two callbacks associated with Tasks that return to activity.
+     * Starts user activity when both Tasks have finished.
+     *
+     * @param activity Denotes User's starting activity, if applicable; null otherwise
+     */
+    private synchronized void waitForTasks(Class<?> activity) {
+        taskCount++;
+        if (activity != null) {
+            startActivity = activity;
+        }
+        if (taskCount >= 2 && startActivity != null) {
+            finish();
+            startUserActivity(startActivity);
+        }
+    }
+
+    /**
      * startUserActivity takes in the targetActivity to goto if
      * login is successful.
      *
@@ -105,6 +160,7 @@ public class SplashActivity extends IrisActivity<Void> {
     private void startUserActivity(Class<?> targetActivity) {
         Intent intent = new Intent(SplashActivity.this, targetActivity);
         intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);  // prevents multiple occurrences
         startActivity(intent);
     }
 
