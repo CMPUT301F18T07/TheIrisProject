@@ -141,12 +141,13 @@ public class SplashActivity extends IrisActivity<Void> {
      * @param activity Denotes activity to be redirected to, if applicable; null otherwise
      */
     private synchronized void waitForTasks(Class<?> activity) {
+
         taskCount++;
+
         if (activity != null) {
             startActivity = activity;
         }
-        if (startActivity == null) System.out.println(String.valueOf(taskCount));
-        else System.out.println(String.valueOf(taskCount) + " " + startActivity.getSimpleName());
+
         if (taskCount >= 2 && startActivity != null) { // greater than two possible if double click on logo occurs
             finish();
             if (startActivity == LoginActivity.class) {
@@ -156,6 +157,7 @@ public class SplashActivity extends IrisActivity<Void> {
             }
             startActivity = null;
         }
+
     }
 
     /**
