@@ -15,7 +15,7 @@ public class PatientListTest {
         Patient patient = new Patient("TestPatient", "TestEmail@hotmail.com", "123-456-789");
 
         Assert.assertEquals(patientList.getPatients().size(), 0);
-        patientList.addPatient(patient);
+        patientList.getPatients().add(patient);
 
         Assert.assertEquals(patientList.getPatients().size(), 1);
         Assert.assertEquals(patientList.getPatients().get(0), patient);
@@ -28,11 +28,11 @@ public class PatientListTest {
         PatientList patientList = new PatientList();
         Patient patient = new Patient("TestPatient", "TestEmail@hotmail.com", "123-456-789");
 
-        patientList.addPatient(patient);
+        patientList.getPatients().add(patient);
         Assert.assertEquals(patientList.getPatients().size(), 1);
         Assert.assertEquals(patientList.getPatients().get(0), patient);
 
-        patientList.removePatient(patient);
+        patientList.getPatients().remove(patient);
         Assert.assertEquals(patientList.getPatients().size(), 0);
     }
 }
