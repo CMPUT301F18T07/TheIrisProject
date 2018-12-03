@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.core.Search;
+import io.searchbox.params.Parameters;
 
 /**
  * SearchKeywordTask searches problems and records based on the keywords given
@@ -49,7 +50,10 @@ public class SearchKeywordTask<M> extends AsyncTask<String, Void, List<M>> {
     @Override
     protected List<M> doInBackground(String... strings) {
         Search search = new Search.Builder(String.format(querySearch, strings[0], strings[1], strings[1]))
-                .addIndex(IrisProjectApplication.INDEX).addType(type).build();
+                .addIndex(IrisProjectApplication.INDEX)
+                .addType(type)
+                .setParameter(Parameters.SIZE, IrisProjectApplication.SIZE)
+                .build();
         try {
             return IrisProjectApplication.getDB().execute(search).getSourceAsObjectList(targetClass, true);
         } catch (IOException e) {

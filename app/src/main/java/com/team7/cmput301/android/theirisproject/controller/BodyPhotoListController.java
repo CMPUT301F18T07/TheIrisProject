@@ -6,6 +6,7 @@ package com.team7.cmput301.android.theirisproject.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
@@ -13,6 +14,7 @@ import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Patient;
 import com.team7.cmput301.android.theirisproject.task.CacheBodyPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.Callback;
+import com.team7.cmput301.android.theirisproject.task.DeleteBodyPhotoTask;
 import com.team7.cmput301.android.theirisproject.task.GetBodyPhotoTask;
 
 import java.util.List;
@@ -64,5 +66,21 @@ public class BodyPhotoListController extends IrisController<List<BodyPhoto>> {
     List<BodyPhoto> getModel(Bundle data) {
         userId = data.getString(Extras.EXTRA_BODYPHOTO_USER);
         return ((Patient) IrisProjectApplication.getUserById(userId)).getBodyPhotos();
+    }
+
+    public void deleteBodyPhoto(BodyPhoto photo) {
+
+        // delete from singleton and references in other aggregates
+        IrisProjectApplication.deleteBodyPhoto(photo);
+
+        // delete from elasticsearch and disk
+        new DeleteBodyPhotoTask(new Callback<Boolean>() {
+            @Override
+            public void onComplete(Boolean res) {
+                if (res) Log.d("Iris", "Deleted!");
+            }
+        }).execute(((BodyPhoto)photo));
+
+
     }
 }

@@ -1,10 +1,5 @@
 package com.team7.cmput301.android.theirisproject.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import io.searchbox.annotations.JestId;
-
 /**
  * BodyLocation is a model to store the information of
  * a record's location on a bodyphoto.
