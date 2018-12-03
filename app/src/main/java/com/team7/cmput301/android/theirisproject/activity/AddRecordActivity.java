@@ -86,7 +86,8 @@ public class AddRecordActivity extends IrisActivity<Record> {
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchCameraIntent();
+                if (controller.getRecordPhotos().size() < 10) dispatchCameraIntent();
+                else setErrorMessage(R.string.max_record_photo_message);
             }
         });
 
