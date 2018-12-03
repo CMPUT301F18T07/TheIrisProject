@@ -142,6 +142,7 @@ public class AddRecordActivity extends IrisActivity<Record> {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             controller.addRecordPhoto(imageBitmap);
+            recordPhotoImageListAdapter.notifyDataSetChanged();
         } else if (requestCode == REQUEST_BODY_LOCATION && resultCode == RESULT_OK) {
             // retrieve information on bodylocation
             Bundle extras = data.getExtras();
