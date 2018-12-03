@@ -23,12 +23,14 @@ import android.widget.Toast;
 
 import com.team7.cmput301.android.theirisproject.Extras;
 import com.team7.cmput301.android.theirisproject.CommentListAdapter;
+import com.team7.cmput301.android.theirisproject.IrisProjectApplication;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.GetAllGeoLocationsController;
 import com.team7.cmput301.android.theirisproject.controller.IrisController;
 import com.team7.cmput301.android.theirisproject.controller.ProblemController;
 import com.team7.cmput301.android.theirisproject.model.Comment;
 import com.team7.cmput301.android.theirisproject.model.Problem;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 
 import java.io.Serializable;
@@ -47,6 +49,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private ProblemController problemController;
     private GetAllGeoLocationsController getAllGeoLocationsController;
     private String problemId;
+    private User.UserType userType;
 
     private TextView problemTitle;
     private TextView problemDate;
@@ -72,6 +75,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         problemController = (ProblemController) createController(getIntent());
+        userType = IrisProjectApplication.getCurrentUser().getType();
 
         problemId = getIntent().getStringExtra(Extras.EXTRA_PROBLEM_ID);
 
@@ -89,6 +93,11 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         createRecordButton = findViewById(R.id.create_record_button);
         viewSlideshowButton = findViewById(R.id.slideshow_button);
         viewAllLocations = findViewById(R.id.view_all_locations);
+
+        // Check if user is a care provider, if so disable create buttons
+        if (userType.equals(User.UserType.CARE_PROVIDER)) {
+            createRecordButton.setVisibility(View.GONE);
+        }
 
         // Set onclicklistener to view all record locations associated with problem
         viewAllLocations.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +153,9 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_view_problem, menu);
+        if (userType.equals(User.UserType.PATIENT)) {
+            getMenuInflater().inflate(R.menu.menu_view_problem, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -249,7 +260,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     public void render(Problem state) {
         // update primitive fields
         problemTitle.setText(state.getTitle());
-        problemDate.setText(state.getDate());
+        problemDate.setText(state.getDateAsString());
         problemDescription.setText(state.getDescription());
 
         renderComments(state.getComments());
@@ -273,6 +284,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
      */
     private void dispatchCreateRecordActivity(String id) {
         Intent intent = new Intent(ViewProblemActivity.this, AddRecordActivity.class);
+        intent.putExtra(Extras.EXTRA_USER_ID, IrisProjectApplication.getCurrentUser().getId());
         intent.putExtra(Extras.EXTRA_PROBLEM_ID, id);
         startActivity(intent);
     }

@@ -5,8 +5,12 @@
 package com.team7.cmput301.android.theirisproject.activity;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +24,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.team7.cmput301.android.theirisproject.Extras;
+import com.team7.cmput301.android.theirisproject.ImageConverter;
 import com.team7.cmput301.android.theirisproject.ImageListAdapter;
 import com.team7.cmput301.android.theirisproject.R;
 import com.team7.cmput301.android.theirisproject.controller.RecordController;
+import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.GeoLocation;
+import com.team7.cmput301.android.theirisproject.model.Photo;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordPhoto;
 import com.team7.cmput301.android.theirisproject.task.Callback;
@@ -50,6 +57,7 @@ public class ViewRecordActivity extends AppCompatActivity {
     private RecyclerView recordPhotos;
     private ImageListAdapter<RecordPhoto> recordPhotoAdapter;
     private ImageView bodyLocationImage;
+    private Bitmap bodyLocationBitmap;
 
     private RecordController controller;
 
@@ -64,10 +72,19 @@ public class ViewRecordActivity extends AppCompatActivity {
         title = findViewById(R.id.record_title);
         desc = findViewById(R.id.record_description);
         date = findViewById(R.id.record_date);
+
         bodyLocationImage = findViewById(R.id.record_body_location);
+        bodyLocationImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                ViewImageFragment imageFialog = ViewImageFragment.newInstance("", bodyLocationBitmap, controller.getRecordModel().getDate());
+                imageFialog.show(fm, "bodylocation_image");
+            }
+        });
+
 
         viewGeoLocation = findViewById(R.id.view_location);
-
         viewGeoLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +97,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         recordPhotos.setAdapter(recordPhotoAdapter);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 3);
         recordPhotos.setLayoutManager(gridLayout);
+
 
     }
 
@@ -117,9 +135,8 @@ public class ViewRecordActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
-
-        Bitmap bodyLocation = controller.getBodyLocationBitmap();
-        if (bodyLocation != null) bodyLocationImage.setImageBitmap(bodyLocation);
+        Bitmap bodyPhoto = controller.getBodyLocationBitmap();
+        if (bodyPhoto != null) displayBodyLocationImage(bodyPhoto);
 
         controller.getRecordData(new Callback<Record>() {
             @Override
@@ -131,6 +148,18 @@ public class ViewRecordActivity extends AppCompatActivity {
 
         recordPhotoAdapter.notifyDataSetChanged();
 
+    }
+
+    private void displayBodyLocationImage(Bitmap photo) {
+        BodyLocation location = controller.getRecordModel().getBodyLocation();
+        Bitmap result = photo.copy(Bitmap.Config.ARGB_8888, true);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.RED);
+        Canvas canvas = new Canvas(result);
+        canvas.drawCircle(location.getX(), location.getY(), 5, paint);
+        result = ImageConverter.scaleBitmapPhoto(result, 512,512);
+        bodyLocationBitmap = result;
+        bodyLocationImage.setImageBitmap(result);
     }
 
     private void render(Record newState) {

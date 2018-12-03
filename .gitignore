@@ -5,7 +5,6 @@ reated by https://www.gitignore.io/api/android,androidstudio
 *.apk
 *.ap_
 *.aab
-
 # Files for the ART/Dalvik VM
 *.dex
 

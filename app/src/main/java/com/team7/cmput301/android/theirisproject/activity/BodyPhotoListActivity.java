@@ -23,6 +23,7 @@ import com.team7.cmput301.android.theirisproject.controller.BodyPhotoListControl
 import com.team7.cmput301.android.theirisproject.model.BodyLocation;
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Photo;
+import com.team7.cmput301.android.theirisproject.model.User;
 import com.team7.cmput301.android.theirisproject.task.Callback;
 import com.team7.cmput301.android.theirisproject.task.DeleteBodyPhotoTask;
 
@@ -56,19 +57,29 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
         addBodyPhotoButton = findViewById(R.id.add_body_photo);
         removeBodyPhotoButton = findViewById(R.id.remove_body_photo);
 
+        // Check if user is a care provider, if so disable create/deletion buttons
+        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) {
+            addBodyPhotoButton.setVisibility(View.GONE);
+            removeBodyPhotoButton.setVisibility(View.GONE);
+        }
+
+        // check if form or not, we use the same activity for adding bodylocations and viewing bodyphotos
         if (getIntent().getBooleanExtra(Extras.EXTRA_BODYPHOTO_FORM, false)) {
             removeBodyPhotoButton.setVisibility(View.INVISIBLE);
             bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), ImageListAdapter.TYPE_BODY_LOCATION_FORM);
         } else {
             bodyPhotoListAdapter = new ImageListAdapter(this, controller.getBodyPhotos(), false);
         }
+
+        // set adapter to recyclerview
         bodyPhotoList.setAdapter(bodyPhotoListAdapter);
         bodyPhotoList.setLayoutManager(new GridLayoutManager(this, 3));
 
+        // handle button listeners
         addBodyPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchAddBodyPhotoActivity(IrisProjectApplication.getCurrentUser().getId());
+                dispatchAddBodyPhotoActivity(controller.getUserId());
             }
         });
 
@@ -82,8 +93,7 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
             }
         });
 
-
-
+        // query bodyphotos at the start
         controller.queryBodyPhotos(new Callback<List<BodyPhoto>>() {
             @Override
             public void onComplete(List<BodyPhoto> res) {
@@ -156,13 +166,9 @@ public class BodyPhotoListActivity extends IrisActivity<BodyPhoto> implements Ad
         return new ImageListAdapter.ImageListListener() {
             @Override
             public void onDeletePhoto(Photo photo) {
-                new DeleteBodyPhotoTask(new Callback<Boolean>() {
-                    @Override
-                    public void onComplete(Boolean res) {
-                        if (res) Log.d("Iris", "Deleted!");
-                    }
-                }).execute(((BodyPhoto)photo));
+                controller.deleteBodyPhoto((BodyPhoto) photo);
             }
         };
     }
+
 }

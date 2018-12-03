@@ -16,8 +16,7 @@ import java.util.Locale;
  */
 public class DateHelper {
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.CANADA);
-
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
 
     /**
      * Formats a date object to a string in the specified date format

@@ -132,7 +132,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      *
      * @param patient the bound-to Patient
      */
-    private void getAndBindProblems(Patient patient) {
+    public void getAndBindProblems(Patient patient) {
 
         String query = generateQuery(TERM, "user", patient.getId());
         SearchResult res = search(query, PROBLEM);
@@ -152,7 +152,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
     }
 
-    private void getAndBindRecords(Problem problem) {
+    public void getAndBindRecords(Problem problem) {
 
         String query = generateQuery(TERM, "problemId", problem.getId());
         SearchResult res = search(query, RECORD);
@@ -171,7 +171,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
     }
 
-    private void getAndBindRecordPhotos(Record record) {
+    public void getAndBindRecordPhotos(Record record) {
 
         String query = generateQuery(TERM, "recordId", record.getId());
         SearchResult res = search(query, RECORDPHOTO);
@@ -189,7 +189,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
     }
 
-    private void getAndBindBodyPhotos(Patient patient) {
+    public void getAndBindBodyPhotos(Patient patient) {
 
         String query = generateQuery(TERM, "user", patient.getId());
         SearchResult res = search(query, BODYPHOTO);
@@ -207,7 +207,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
 
     }
 
-    private void getAndBindComments(Problem problem) {
+    public void getAndBindComments(Problem problem) {
 
         String query = generateQuery(TERM, "problemId", problem.getId());
         SearchResult res = search(query, COMMENT);
@@ -229,7 +229,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      * @param value The value actually being looked for
      * @return The properly formatted query
      */
-    private String generateQuery(String type, String key, String value) {
+    public String generateQuery(String type, String key, String value) {
         return String.format("{\"query\": {\"%s\": {\"%s\": \"%s\"}}}", type, key, value);
     }
 
@@ -240,7 +240,7 @@ public class GetUserDataTask extends AsyncTask<User, Void, Void> {
      * @param type The index type the query pertains to
      * @return The raw results
      */
-    private SearchResult search(String query, String type) {
+    public SearchResult search(String query, String type) {
 
         try {
 

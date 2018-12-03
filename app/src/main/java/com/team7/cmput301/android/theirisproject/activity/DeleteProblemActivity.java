@@ -8,6 +8,7 @@ package com.team7.cmput301.android.theirisproject.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -57,23 +58,21 @@ public class DeleteProblemActivity extends IrisActivity {
              */
             @Override
             public void onClick(View v) {
-                Boolean success = controller.deleteProblem(new Callback<Boolean>() {
+                controller.deleteProblem(new Callback<Boolean>() {
                         @Override
                         public void onComplete(Boolean res) {
                             if (res) {
-                                setResult(RESULT_OK);
+                                Intent intent = new Intent();
+                                intent.putExtra(ProblemListActivity.DELETE_PROBLEM_ID, controller.getProblemID());
+                                setResult(RESULT_OK, intent);
                             }
                             else {
                                 setResult(RESULT_FIRST_USER);
+                                showOfflineFatalToast(DeleteProblemActivity.this);
                             }
+                            finish();
                         }
                 });
-
-                if (!success) {
-                    showOfflineFatalToast(DeleteProblemActivity.this);
-                }
-
-                finish();
             }
         });
     }

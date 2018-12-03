@@ -13,12 +13,13 @@ import java.util.List;
 public class ProblemListTest {
 
     private List<Problem> problems = new ArrayList<>();
-    private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", "0", new ArrayList<>());
-    private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", "0", new ArrayList<>());
-    private Problem p3 = new Problem("Noticed new rash", "Gotta keep track", "0", new ArrayList<>());
+    private Problem p1 = new Problem("Major Life Threatening Issue 54", "Pls help me", "0");
+    private Problem p2 = new Problem("Something not that bad", "My head hurts sometimes", "0");
+    private Problem p3 = new Problem("Noticed new rash", "Gotta keep track", "0");
 
     @Test
     public void testContains() {
+        // Test if problem list contains a problem
 
         ProblemList pList = new ProblemList();
         pList.add(p1);
@@ -32,6 +33,7 @@ public class ProblemListTest {
 
     @Test
     public void testAdd() {
+        // Test adding a problem to problem list
 
         ProblemList pList = new ProblemList();
         pList.add(p1);
@@ -44,6 +46,7 @@ public class ProblemListTest {
 
     @Test
     public void testDelete() {
+        // Test deleting a problem from problem list
 
         ProblemList pList = new ProblemList();
         pList.add(p1);
@@ -62,6 +65,7 @@ public class ProblemListTest {
 
     @Test
     public void testLength() {
+        // Test getting length of problem list
 
         ProblemList pList = new ProblemList();
         List<Problem> testList = new ArrayList<>(Arrays.asList(p1, p2));

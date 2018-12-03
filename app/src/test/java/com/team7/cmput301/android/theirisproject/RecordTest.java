@@ -15,8 +15,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static junit.framework.TestCase.fail;
+
 public class RecordTest {
 
+    private String user;
     private String problemID;
     private String title;
     private String desc;
@@ -30,20 +33,22 @@ public class RecordTest {
 
     @Test
     public void testRecord(){
+        // Test the creation of record
 
         Record record = getTestRecord();
 
+        Assert.assertEquals(user, record.getUser());
         Assert.assertEquals(problemID, record.getProblemId());
         Assert.assertEquals(title, record.getTitle());
         Assert.assertEquals(desc, record.getDesc());
         Assert.assertEquals(date, record.getDate());
         Assert.assertEquals(geoLocation, record.getGeoLocation());
         Assert.assertEquals(recordPhotos, record.getRecordPhotos());
-
     }
 
     @Test
     public void testAddPhoto() {
+        // Test adding a photo to record
 
         Record record = getTestRecord();
         RecordPhoto recordPhoto = getTestRecordPhoto();
@@ -55,6 +60,7 @@ public class RecordTest {
 
     @Test
     public void testDeletePhoto() {
+        // Test deleting a record photo
 
         Record record = getTestRecord();
         RecordPhoto recordPhoto = getTestRecordPhoto();
@@ -68,6 +74,7 @@ public class RecordTest {
 
     @Test
     public void testEditGeoLocation() {
+        // Test editing geolocation
 
         Record record = getTestRecord();
 
@@ -77,6 +84,7 @@ public class RecordTest {
 
     @Test
     public void testEditRecordPhotos() {
+        // Test editing record photos
 
         Record record = getTestRecord();
         List<RecordPhoto> recordPhotos = new ArrayList<>();
@@ -84,8 +92,70 @@ public class RecordTest {
         Assert.assertEquals(recordPhotos, record.getRecordPhotos());
     }
 
+    @Test
+    public void testIncorrectTitle() {
+        // Test catching exception of invalid record title
+
+        try {
+            String user = "care provider";
+            String problemId = "mwmwmw";
+            String title = "over30characterslong1234567890over30characterslong1234567890over30characterslong1234567890";
+            String text = "Text";
+            Date date = new Date();
+            GeoLocation geoLocation = new GeoLocation(1.0, 1.0);
+            List<RecordPhoto> recordPhotos = new ArrayList<>();
+
+            Record record = new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
+
+            fail("Should throw an exception if title length exceeds 30 characters");
+        } catch (Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testIncorrectDesc() {
+        // Test catching exception of invalid description
+
+        try {
+            String user = "care provider";
+            String problemId = "mwmwmw";
+            String title = "Title";
+            String text = "over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789over300characterslong123456789";
+            Date date = new Date();
+            GeoLocation geoLocation = new GeoLocation(1.0, 1.0);
+            List<RecordPhoto> recordPhotos = new ArrayList<>();
+
+            Record record = new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
+            fail("Should throw an exception if description length exceeds 300 characters");
+        } catch (Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testIncorrectGeoLocation() {
+        // Test catching exception of invalid geo location
+
+        try {
+            String user = "care provider";
+            String problemId = "mwmwmw";
+            String title = "Title";
+            String text = "Text";
+            Date date = new Date();
+            GeoLocation geoLocation = new GeoLocation(100.0, 200.0);
+            List<RecordPhoto> recordPhotos = new ArrayList<>();
+
+            Record record = new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
+            fail("Should throw an exception if geolocation coordinates are out of bounds");
+        } catch (Exception e) {
+            assert(true);
+        }
+    }
+
     private Record getTestRecord() {
 
+        String user = "care provider";
         String problemId = "mwmwmw";
         String title = "Title";
         String text = "Text";
@@ -93,18 +163,16 @@ public class RecordTest {
         GeoLocation geoLocation = new GeoLocation(1.0, 1.0);
         List<RecordPhoto> recordPhotos = new ArrayList<>();
 
-        return new Record(problemId, title, text, date, geoLocation, recordPhotos);
-
+        return new Record(user, problemId, title, text, date, geoLocation, recordPhotos);
     }
+
 
     private RecordPhoto getTestRecordPhoto() {
 
         String problemId = "haba14";
         String blob = "blob";
-        int x = 1;
-        int y = 1;
 
-        return new RecordPhoto(problemId, blob, x, y);
+        return new RecordPhoto(problemId, blob);
     }
 
 }

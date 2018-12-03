@@ -2,6 +2,7 @@ package com.team7.cmput301.android.theirisproject;
 
 import com.team7.cmput301.android.theirisproject.model.BodyPhoto;
 import com.team7.cmput301.android.theirisproject.model.Comment;
+import com.team7.cmput301.android.theirisproject.model.Contact;
 import com.team7.cmput301.android.theirisproject.model.Problem;
 import com.team7.cmput301.android.theirisproject.model.Record;
 import com.team7.cmput301.android.theirisproject.model.RecordList;
@@ -17,13 +18,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static junit.framework.TestCase.fail;
+
 public class ProblemTest {
 
     private String title;
     private String description;
     private String userid;
     private RecordList records;
-    private List<BodyPhoto> body_photos;
 
     private String _id;
     private String problemId;
@@ -36,15 +38,17 @@ public class ProblemTest {
 
     @Test
     public void testProblem() {
+        // Test creating problem
+
         Problem problem = getTestProblem();
         Assert.assertEquals(title, problem.getTitle());
         Assert.assertEquals(description, problem.getDescription());
-        Assert.assertEquals(body_photos, problem.getBodyPhotos());
         Assert.assertEquals(records, problem.getRecords());
     }
 
     @Test
     public void testGetSlideshowInfo() {
+        // Test getting slideshow information
 
         Problem problem = getTestProblem();
         List<RecordPhoto> test_photos = problem.getSlideShowInfo();
@@ -60,6 +64,7 @@ public class ProblemTest {
 
     @Test
     public void testAddComment() {
+        // Test adding a comment to problem
 
         Problem problem = getTestProblem();
         Comment comment = getTestComment();
@@ -70,14 +75,37 @@ public class ProblemTest {
     }
 
     @Test
-    public void testAddBodyPhoto() {
+    public void testIncorrectTitle() {
+        // Test catch exception of invalid problem title
 
-        Problem problem = getTestProblem();
-        BodyPhoto bodyPhoto = getTestBodyPhoto();
+        try {
+            String title = "longtitlelongtitlelongtitlelongtitle";
+            String description = "I think I'm slowly turning into a zombie.";
+            String userid = "0";
+            RecordList records = new RecordList();
 
-        problem.addBodyPhoto(bodyPhoto);
-        Assert.assertEquals(problem.getBodyPhotos().size(), 1);
-        Assert.assertEquals(problem.getBodyPhotos().get(0), bodyPhoto);
+            Problem problem = new Problem(title, description, userid);
+            fail("Should throw an exception if title length exceeds 30 characters");
+        } catch (Exception e) {
+            assert(true);
+        }
+    }
+
+    @Test
+    public void testIncorrectDescription() {
+        // Test catch exception of invalid description
+
+        try {
+            String title = "Title";
+            String description = "longdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescriptionlongdescription";
+            String userid = "0";
+            RecordList records = new RecordList();
+
+            Problem problem = new Problem(title, description, userid);
+            fail("Should throw an exception if description length exceeds 300 characters");
+        } catch (Exception e) {
+            assert(true);
+        }
     }
 
     private Problem getTestProblem() {
@@ -86,29 +114,20 @@ public class ProblemTest {
         String description = "I think I'm slowly turning into a zombie.";
         String userid = "0";
         RecordList records = new RecordList();
-        List<BodyPhoto> body_photos = new ArrayList<>();
 
-        return new Problem(title, description, userid, body_photos);
+        return new Problem(title, description, userid);
     }
 
     private Comment getTestComment() {
 
         String _id = "mememe";
         String problemId = "mrmrmr";
-        String author = "John";
+        Contact contact = new Contact("UserOne", "UserOne@email.com", "123-123-1234");
         UserType role = UserType.CARE_PROVIDER;
         Date date = new Date();
         String body = "Zombies aren't real";
 
-        return new Comment(problemId, author, body, role);
-    }
-
-    private BodyPhoto getTestBodyPhoto() {
-
-        String problemId = "haba14";
-        String blob = "blob";
-
-        return new BodyPhoto(problemId, blob);
+        return new Comment(problemId, contact, body, role);
     }
 }
 
