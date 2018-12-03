@@ -49,6 +49,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
     private ProblemController problemController;
     private GetAllGeoLocationsController getAllGeoLocationsController;
     private String problemId;
+    private User.UserType userType;
 
     private TextView problemTitle;
     private TextView problemDate;
@@ -74,6 +75,7 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         problemController = (ProblemController) createController(getIntent());
+        userType = IrisProjectApplication.getCurrentUser().getType();
 
         problemId = getIntent().getStringExtra(Extras.EXTRA_PROBLEM_ID);
 
@@ -92,8 +94,8 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
         viewSlideshowButton = findViewById(R.id.slideshow_button);
         viewAllLocations = findViewById(R.id.view_all_locations);
 
-        // Check if user is a care provider, if so disable create/deletion buttons
-        if (IrisProjectApplication.getCurrentUser().getType().equals(User.UserType.CARE_PROVIDER)) {
+        // Check if user is a care provider, if so disable create buttons
+        if (userType.equals(User.UserType.CARE_PROVIDER)) {
             createRecordButton.setVisibility(View.GONE);
         }
 
@@ -151,7 +153,9 @@ public class ViewProblemActivity extends IrisActivity<Problem> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_view_problem, menu);
+        if (userType.equals(User.UserType.PATIENT)) {
+            getMenuInflater().inflate(R.menu.menu_view_problem, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
