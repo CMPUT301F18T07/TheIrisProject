@@ -28,6 +28,11 @@ import java.util.UUID;
  * @author itstc
  * */
 public class AddRecordController extends IrisController<Record> {
+
+    private final int FULLSUCCESS = 1;
+    private final int PARTIALSUCCESS = 2;
+    private final int FAIL = 3;
+
     private String userId;
     private String problemId;
     private BodyLocation bodyLocation;
@@ -58,7 +63,7 @@ public class AddRecordController extends IrisController<Record> {
         bodyLocation = new BodyLocation(src, location[0], location[1]);
     }
 
-    public Boolean submitRecord(String title, String desc, Callback cb) {
+    public int submitRecord(String title, String desc, Callback cb) {
 
         Record submitRecord = new Record(userId,
                 problemId, title, desc, geoLocation, bodyLocation, recordPhotos);
@@ -74,16 +79,22 @@ public class AddRecordController extends IrisController<Record> {
                     cb.onComplete(res);
                 }
             }).execute(submitRecord);
-            return true;
+            return FULLSUCCESS;
 
         } else {
 
-            // Records not initialized with JestID, and isn't generated
-            // unless added to elasticsearch, so manually make one
-            submitRecord.setId(UUID.randomUUID().toString());
-            IrisProjectApplication.putInUpdateQueue(submitRecord);
-            cb.onComplete(submitRecord.getId());
-            return false;
+            // Can't queue Record with Record Photos for update, so don't
+            if (recordPhotos.size() == 0) {
+                // Records not initialized with JestID, and isn't generated
+                // unless added to elasticsearch, so manually make one
+                submitRecord.setId(UUID.randomUUID().toString());
+                IrisProjectApplication.putInUpdateQueue(submitRecord);
+                cb.onComplete(submitRecord.getId());
+                return PARTIALSUCCESS;
+            }
+            else {
+                return FAIL;
+            }
 
         }
 

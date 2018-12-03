@@ -31,6 +31,10 @@ import java.util.List;
  */
 public class EditRecordController extends IrisController<Record> {
 
+    private final int FULLSUCCESS = 1;
+    private final int PARTIALSUCCESS = 2;
+    private final int FAIL = 3;
+
     private Record record;
     private List<RecordPhoto> oldPhotoList;
     private List<RecordPhoto> photoList;
@@ -76,9 +80,9 @@ public class EditRecordController extends IrisController<Record> {
      * @param desc Record's new description
      * @return Whether update to online was possible or not
      */
-    public boolean submitRecord(Callback<Boolean> cb, String title, String desc){
+    public int submitRecord(Callback<Boolean> cb, String title, String desc){
 
-        Boolean pushedOnline = false;
+        int code = FAIL;
 
         record.setTitle(title);
         record.setDesc(desc);
@@ -103,13 +107,29 @@ public class EditRecordController extends IrisController<Record> {
                 }
             }
 
-            pushedOnline = true;
+            code = FULLSUCCESS;
 
         } else {
+
+            // Don't allow save if Record Photos changed, because
+            // this case can't be handled
+            for (RecordPhoto oldPhoto : oldPhotoList) {
+                if (!photoList.contains(oldPhoto)) {
+                    return FAIL;
+                }
+            }
+            for (RecordPhoto photo : photoList) {
+                if (!oldPhotoList.contains(photo)) {
+                    return FAIL;
+                }
+            }
+
             IrisProjectApplication.putInUpdateQueue(record);
+            code = PARTIALSUCCESS;
+
         }
 
-        return pushedOnline;
+        return code;
 
     }
 

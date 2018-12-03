@@ -33,9 +33,14 @@ import com.team7.cmput301.android.theirisproject.task.Callback;
  * @author jtfwong
  * */
 public class AddRecordActivity extends IrisActivity<Record> {
+
     private static final int REQUEST_CAMERA_IMAGE = 1;
     private static final int REQUEST_MAP_LOCATION = 2;
     private static final int REQUEST_BODY_LOCATION = 3;
+
+    private final int FULLSUCCESS = 1;
+    private final int PARTIALSUCCESS = 2;
+    private final int FAIL = 3;
 
     private AddRecordController controller;
     private TextView titleField;
@@ -107,12 +112,14 @@ public class AddRecordActivity extends IrisActivity<Record> {
                             R.string.register_incomplete,
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Boolean submitted = controller.submitRecord(
+                    int successCode = controller.submitRecord(
                             titleField.getText().toString(),
                             descField.getText().toString(),
                             submitRecordCallback());
-                    if (!submitted) {
+                    if (successCode == PARTIALSUCCESS) {
                         showOfflineUploadToast(AddRecordActivity.this);
+                    } else if (successCode == FAIL) {
+                        setErrorMessage(R.string.offline_photo_error);
                     }
                 }
             }

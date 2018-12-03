@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +39,10 @@ public class EditRecordActivity extends IrisActivity<Record>{
     private static final int REQUEST_CAMERA_IMAGE = 1;
     private static final int REQUEST_MAP_LOCATION = 2;
     private static final int REQUEST_BODY_LOCATION = 3;
+
+    private final int FULLSUCCESS = 1;
+    private final int PARTIALSUCCESS = 2;
+    private final int FAIL = 3;
 
     private EditRecordController controller;
     private ImageListAdapter<RecordPhoto> recordPhotoImageListAdapter;
@@ -124,9 +127,12 @@ public class EditRecordActivity extends IrisActivity<Record>{
                 if (title.isEmpty()) {
                     missingFieldsToast.show();
                 } else {
-                    Boolean online = controller.submitRecord(contCallback, title, desc);
-                    if (!online) {
+                    int successCode = controller.submitRecord(contCallback, title, desc);
+                    if (successCode == PARTIALSUCCESS) {
                         showOfflineUploadToast(EditRecordActivity.this);
+                    } else if (successCode == FAIL){
+                        Toast.makeText(EditRecordActivity.this,
+                                R.string.offline_photo_error, Toast.LENGTH_SHORT).show();
                     }
                     finish();
                 }
