@@ -27,6 +27,13 @@ public class EditRecordTask extends AsyncTask<Record, Void, Boolean> {
     protected Boolean doInBackground(Record... records) {
 
         Record record = records[0];
+
+        double lon = record.getGeoLocation().asDouble()[1];
+        double lat = record.getGeoLocation().asDouble()[0];
+
+        double[] location = { lon, lat };
+        record.setLocation(location);
+        
         try {
             Index update = new Index.Builder(record).id(record.getId()).index(IrisProjectApplication.INDEX).type("record").build();
             DocumentResult res = IrisProjectApplication.getDB().execute(update);

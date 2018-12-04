@@ -57,7 +57,7 @@ public class SearchGeoLocationTask extends AsyncTask<String, List<Record>, Void>
                 "         },\n" +
                 "         \"filter\":{  \n" +
                 "            \"geo_distance\":{  \n" +
-                "               \"distance\":\"1951km\",\n" +
+                "               \"distance\":\"25km\",\n" +
                 "               \"location\":[  \n" +
                 "                  " + lon + ",\n" +
                 "                  " + lat + "\n" +
